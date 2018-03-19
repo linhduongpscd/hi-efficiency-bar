@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AlrightSans-Regular-v3.otf">
+            <string>AlrightSans-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HeaderCustomCell" rowHeight="80" id="VeB-kY-xXJ" customClass="HeaderCustomCell" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VeB-kY-xXJ" id="faC-Vd-Kcd">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x0q-xT-LLK" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
+                        <rect key="frame" x="25" y="15" width="270" height="44"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="hOn-Nm-S6D">
+                                <rect key="frame" x="15" y="8" width="28" height="28"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search for anything..." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0Zp-va-prf">
+                                <rect key="frame" x="51" y="12.5" width="211" height="19"/>
+                                <color key="textColor" red="1" green="0.60392156860000001" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
+                                        <color key="value" red="1" green="0.60392156860000001" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="VeB-kY-xXJ" id="R9L-o0-Ztv"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="0GU-wb-HEV"/>
+                            <constraint firstItem="hOn-Nm-S6D" firstAttribute="leading" secondItem="x0q-xT-LLK" secondAttribute="leading" constant="15" id="A2E-Yr-xkn"/>
+                            <constraint firstAttribute="trailing" secondItem="0Zp-va-prf" secondAttribute="trailing" constant="8" id="SJp-Ha-kHT"/>
+                            <constraint firstItem="hOn-Nm-S6D" firstAttribute="centerY" secondItem="x0q-xT-LLK" secondAttribute="centerY" id="ZtM-Xj-ezf"/>
+                            <constraint firstItem="0Zp-va-prf" firstAttribute="centerY" secondItem="x0q-xT-LLK" secondAttribute="centerY" id="gds-Ll-9Y8"/>
+                            <constraint firstItem="0Zp-va-prf" firstAttribute="leading" secondItem="hOn-Nm-S6D" secondAttribute="trailing" constant="8" id="r1u-Up-s5j"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="25"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="x0q-xT-LLK" secondAttribute="trailing" constant="25" id="exh-uh-S42"/>
+                    <constraint firstItem="x0q-xT-LLK" firstAttribute="leading" secondItem="faC-Vd-Kcd" secondAttribute="leading" constant="25" id="fIg-JZ-HUt"/>
+                    <constraint firstItem="x0q-xT-LLK" firstAttribute="top" secondItem="faC-Vd-Kcd" secondAttribute="top" constant="15" id="k7V-om-Vk4"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="txfSearch" destination="0Zp-va-prf" id="UeA-uL-K9B"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_search" width="28" height="28"/>
+    </resources>
+</document>

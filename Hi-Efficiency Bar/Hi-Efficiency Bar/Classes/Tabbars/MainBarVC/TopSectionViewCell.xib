@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AlrightSans-Light-v3.otf">
+            <string>AlrightSans-Light</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TopSectionViewCell" id="0QF-oQ-kEZ" customClass="TopSectionViewCell" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vCY-W5-QFP">
+                    <rect key="frame" x="0.0" y="24.5" width="134" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="KAc-U5-BJx"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Top Cocktails" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1b-71-G1y">
+                    <rect key="frame" x="142" y="17.5" width="91.5" height="15"/>
+                    <fontDescription key="fontDescription" name="AlrightSans-Light" family="Alright Sans" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqY-fD-XKv">
+                    <rect key="frame" x="241.5" y="24.5" width="133.5" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="3Ap-oD-fXV"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="D1b-71-G1y" firstAttribute="leading" secondItem="vCY-W5-QFP" secondAttribute="trailing" constant="8" id="0TO-Ky-9Cb"/>
+                <constraint firstItem="D1b-71-G1y" firstAttribute="centerY" secondItem="wlT-B9-dbl" secondAttribute="centerY" id="FW8-LC-Mcp"/>
+                <constraint firstItem="lqY-fD-XKv" firstAttribute="centerY" secondItem="wlT-B9-dbl" secondAttribute="centerY" id="Njt-x6-olw"/>
+                <constraint firstAttribute="trailing" secondItem="lqY-fD-XKv" secondAttribute="trailing" id="Onz-8b-Yg5"/>
+                <constraint firstItem="vCY-W5-QFP" firstAttribute="leading" secondItem="0QF-oQ-kEZ" secondAttribute="leading" id="PIl-GN-DVT"/>
+                <constraint firstItem="D1b-71-G1y" firstAttribute="centerX" secondItem="wlT-B9-dbl" secondAttribute="centerX" id="aAZ-ze-OGD"/>
+                <constraint firstItem="vCY-W5-QFP" firstAttribute="centerY" secondItem="D1b-71-G1y" secondAttribute="centerY" id="fbS-HM-c47"/>
+                <constraint firstItem="lqY-fD-XKv" firstAttribute="leading" secondItem="D1b-71-G1y" secondAttribute="trailing" constant="8" id="wG2-z0-oup"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="wlT-B9-dbl"/>
+            <connections>
+                <outlet property="lblTitle" destination="D1b-71-G1y" id="n4b-nu-xDH"/>
+            </connections>
+            <point key="canvasLocation" x="29.5" y="-88"/>
+        </collectionReusableView>
+    </objects>
+</document>
