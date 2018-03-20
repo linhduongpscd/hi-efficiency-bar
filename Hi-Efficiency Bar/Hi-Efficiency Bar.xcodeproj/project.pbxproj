@@ -47,6 +47,11 @@
 		3BC39B65205C18E700D2E60B /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC39B63205C18E700D2E60B /* CustomCell.xib */; };
 		3BC39B68205C190800D2E60B /* HeaderCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC39B66205C190800D2E60B /* HeaderCustomCell.swift */; };
 		3BC39B69205C190800D2E60B /* HeaderCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC39B67205C190800D2E60B /* HeaderCustomCell.xib */; };
+		3BC4CE0B206141FB00CECB57 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC4CE06206141FB00CECB57 /* CGRectExtension.swift */; };
+		3BC4CE0C206141FB00CECB57 /* CustomTransitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC4CE07206141FB00CECB57 /* CustomTransitionViewController.swift */; };
+		3BC4CE0D206141FB00CECB57 /* FadeTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC4CE08206141FB00CECB57 /* FadeTransition.swift */; };
+		3BC4CE0E206141FB00CECB57 /* SpinerLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC4CE09206141FB00CECB57 /* SpinerLayer.swift */; };
+		3BC4CE0F206141FB00CECB57 /* TransitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC4CE0A206141FB00CECB57 /* TransitionButton.swift */; };
 		3BC9BA13205C9DBE0060DB98 /* FooterCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9BA11205C9DBE0060DB98 /* FooterCustomCell.swift */; };
 		3BC9BA14205C9DBE0060DB98 /* FooterCustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC9BA12205C9DBE0060DB98 /* FooterCustomCell.xib */; };
 		3BC9BA16205CBB1A0060DB98 /* MyTabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC9BA15205CBB1A0060DB98 /* MyTabCell.swift */; };
@@ -138,6 +143,11 @@
 		3BC39B63205C18E700D2E60B /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		3BC39B66205C190800D2E60B /* HeaderCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCustomCell.swift; sourceTree = "<group>"; };
 		3BC39B67205C190800D2E60B /* HeaderCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCustomCell.xib; sourceTree = "<group>"; };
+		3BC4CE06206141FB00CECB57 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
+		3BC4CE07206141FB00CECB57 /* CustomTransitionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTransitionViewController.swift; sourceTree = "<group>"; };
+		3BC4CE08206141FB00CECB57 /* FadeTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeTransition.swift; sourceTree = "<group>"; };
+		3BC4CE09206141FB00CECB57 /* SpinerLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinerLayer.swift; sourceTree = "<group>"; };
+		3BC4CE0A206141FB00CECB57 /* TransitionButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionButton.swift; sourceTree = "<group>"; };
 		3BC9BA11205C9DBE0060DB98 /* FooterCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCustomCell.swift; sourceTree = "<group>"; };
 		3BC9BA12205C9DBE0060DB98 /* FooterCustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterCustomCell.xib; sourceTree = "<group>"; };
 		3BC9BA15205CBB1A0060DB98 /* MyTabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabCell.swift; sourceTree = "<group>"; };
@@ -266,6 +276,7 @@
 		3B91CB122058C3C90073D54B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				3BC4CE05206141FB00CECB57 /* TransitionButton */,
 				3BD02E60205AC6C60042F890 /* UIButtonX.swift */,
 				3BD02E5F205AC6C60042F890 /* UIImageViewX.swift */,
 				3BFF9C8F205914BF00FFA49C /* Character.swift */,
@@ -370,6 +381,18 @@
 			);
 			name = Cells;
 			path = Tabbars/Cells;
+			sourceTree = "<group>";
+		};
+		3BC4CE05206141FB00CECB57 /* TransitionButton */ = {
+			isa = PBXGroup;
+			children = (
+				3BC4CE06206141FB00CECB57 /* CGRectExtension.swift */,
+				3BC4CE07206141FB00CECB57 /* CustomTransitionViewController.swift */,
+				3BC4CE08206141FB00CECB57 /* FadeTransition.swift */,
+				3BC4CE09206141FB00CECB57 /* SpinerLayer.swift */,
+				3BC4CE0A206141FB00CECB57 /* TransitionButton.swift */,
+			);
+			path = TransitionButton;
 			sourceTree = "<group>";
 		};
 		3BFF9C7C2058FFEA00FFA49C /* Tabbars */ = {
@@ -622,6 +645,7 @@
 				3BB0ED4C205FFA6E00702239 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				3BFF9C932059157200FFA49C /* CarouselCollectionViewCell.swift in Sources */,
 				3B91CB252058C5070073D54B /* BaseNaviController.swift in Sources */,
+				3BC4CE0D206141FB00CECB57 /* FadeTransition.swift in Sources */,
 				3B91CB182058C4960073D54B /* SignInVC.swift in Sources */,
 				3B4FAE46205F7A3A0050331F /* PreOrderVC.swift in Sources */,
 				3BE11FA6205CFC0F0044DCB3 /* DetailCocktailVC.swift in Sources */,
@@ -636,10 +660,12 @@
 				3B91CB312058DB640073D54B /* AnimationManager.m in Sources */,
 				3BDBE40D205FB1D900CDA28E /* DetailHeaderGenereCollect.swift in Sources */,
 				3BFF9C992059204500FFA49C /* MainBarViewCell.swift in Sources */,
+				3BC4CE0C206141FB00CECB57 /* CustomTransitionViewController.swift in Sources */,
 				3B91CB1C2058C4AD0073D54B /* ForgotPasswordVC.swift in Sources */,
 				3B91CB2C2058DA600073D54B /* PickerView.swift in Sources */,
 				3BD02E58205ABE140042F890 /* TagButton.swift in Sources */,
 				3B91CB232058C5070073D54B /* CommonHellper.swift in Sources */,
+				3BC4CE0F206141FB00CECB57 /* TransitionButton.swift in Sources */,
 				3B91CB262058C5070073D54B /* BaseViewController.swift in Sources */,
 				3BD02E5D205AC5890042F890 /* FooterMainBarCollect.swift in Sources */,
 				3B91CB1E2058C4BD0073D54B /* AgeVerificationVC.swift in Sources */,
@@ -663,6 +689,7 @@
 				3BB0ED51206003D100702239 /* ProfileView.swift in Sources */,
 				3BD02E57205ABE140042F890 /* Extensions.swift in Sources */,
 				3BD02E56205ABE140042F890 /* TagsView.swift in Sources */,
+				3BC4CE0B206141FB00CECB57 /* CGRectExtension.swift in Sources */,
 				3B91CB242058C5070073D54B /* Define.swift in Sources */,
 				3BD02E62205AC6C70042F890 /* UIButtonX.swift in Sources */,
 				3BD02E61205AC6C70042F890 /* UIImageViewX.swift in Sources */,
@@ -672,6 +699,7 @@
 				3BDBE40A205FB04F00CDA28E /* DetailSearchGenereVC.swift in Sources */,
 				3BB0ED4E205FFA6E00702239 /* TPKeyboardAvoidingTableView.m in Sources */,
 				3BFF9C942059157200FFA49C /* UPCarouselFlowLayout.swift in Sources */,
+				3BC4CE0E206141FB00CECB57 /* SpinerLayer.swift in Sources */,
 				3BDBE407205FA7B900CDA28E /* SearchGenereCollect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,9 +12,10 @@ class AgeVerificationVC: UIViewController {
 
     @IBOutlet weak var txfBirthday: UITextField!
     var pickerView = PickerView.init(frame: .zero)
+    @IBOutlet weak var btnConfirm: TransitionButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        btnConfirm.spinnerColor = .white
         // Do any additional setup after loading the view.
     }
 
@@ -42,7 +43,32 @@ class AgeVerificationVC: UIViewController {
         APP_DELEGATE.window?.addSubview(pickerView)
         AnimationManager.sharedInstance().doAppearView(fromBottom: pickerView)
     }
-    @IBAction func doConfirm(_ sender: Any) {
+    @IBAction func actionConfirm(_ sender: TransitionButton) {
+        btnConfirm.startAnimation() // 2: Then start the animation when the user tap the button
+        
+        let qualityOfServiceClass = DispatchQoS.QoSClass.background
+        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+        backgroundQueue.async(execute: {
+            
+            sleep(3) // 3: Do your networking task or background work here.
+            
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.btnConfirm.setTitle("", for: .normal)
+                self.btnConfirm.setImage(#imageLiteral(resourceName: "ic_check"), for: .normal)
+                // 4: Stop the animation, here you have three options for the `animationStyle` property:
+                // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
+                // .shake: when you want to reflect to the user that the task did not complete successfly
+                // .normal
+                self.btnConfirm.stopAnimation(animationStyle: .shake, completion: {
+                    
+                    
+                })
+                self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 2.0)
+            })
+        })
+    }
+    @objc func actionTabbar()
+    {
         APP_DELEGATE.initTabbarHome()
     }
 }

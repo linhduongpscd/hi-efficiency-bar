@@ -9,7 +9,8 @@
 import UIKit
 
 class ProfileView: UIView {
-
+    var tapCurrentOrder:(() ->())?
+    var tapPreOrder:(() ->())?
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -18,4 +19,10 @@ class ProfileView: UIView {
     }
     */
 
+    @IBAction func doCurrentOrder(_ sender: Any) {
+        self.tapCurrentOrder?()
+    }
+    @IBAction func doPreOrder(_ sender: Any) {
+        self.tapPreOrder?()
+    }
 }

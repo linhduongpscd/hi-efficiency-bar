@@ -36,6 +36,9 @@
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcq-QA-8P4">
                             <rect key="frame" x="0.0" y="0.0" width="148" height="180"/>
+                            <connections>
+                                <action selector="doCurrentOrder:" destination="iN0-l3-epB" eventType="touchUpInside" id="M3M-TS-zN4"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -83,6 +86,9 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MtQ-FB-Xc5">
                                     <rect key="frame" x="0.0" y="0.0" width="148" height="180"/>
+                                    <connections>
+                                        <action selector="doPreOrder:" destination="iN0-l3-epB" eventType="touchUpInside" id="V5y-na-8fM"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

@@ -20,9 +20,10 @@ class SignUpVC: UIViewController {
     var isTick = Bool()
      var pickerView = PickerView.init(frame: .zero)
       var imagePicker: UIImagePickerController!
+    @IBOutlet weak var btnSignUp: TransitionButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        btnSignUp.spinnerColor = .white
         // Do any additional setup after loading the view.
     }
 
@@ -100,8 +101,35 @@ class SignUpVC: UIViewController {
     @IBAction func doLogin(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    @IBAction func doSignUp(_ sender: Any) {
-         APP_DELEGATE.initTabbarHome()
+   
+    @IBAction func actionSignUp(_ sender: TransitionButton) {
+        btnSignUp.startAnimation() // 2: Then start the animation when the user tap the button
+        
+        let qualityOfServiceClass = DispatchQoS.QoSClass.background
+        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+        backgroundQueue.async(execute: {
+            
+            sleep(3) // 3: Do your networking task or background work here.
+            
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.btnSignUp.setTitle("", for: .normal)
+                self.btnSignUp.setImage(#imageLiteral(resourceName: "ic_check"), for: .normal)
+                // 4: Stop the animation, here you have three options for the `animationStyle` property:
+                // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
+                // .shake: when you want to reflect to the user that the task did not complete successfly
+                // .normal
+                self.btnSignUp.stopAnimation(animationStyle: .shake, completion: {
+                    
+                    
+                })
+                self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 2.0)
+            })
+        })
+    }
+    
+    @objc func actionTabbar()
+    {
+        APP_DELEGATE.initTabbarHome()
     }
 }
 extension SignUpVC: UITextFieldDelegate

@@ -27,27 +27,18 @@ class LoungeVC: UIViewController {
     {
         profileView = Bundle.main.loadNibNamed("ProfileView", owner: self, options: nil)?[0] as! ProfileView
         profileView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 390)
+        profileView.tapPreOrder = { [weak self] in
+            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "PreOrderVC") as! PreOrderVC
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        profileView.tapCurrentOrder = { [weak self] in
+            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CurrentOrderVC") as! CurrentOrderVC
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
         collectionView.parallaxHeader.view = profileView
         collectionView.parallaxHeader.height = 390
         collectionView.parallaxHeader.mode = .fill
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    @IBAction func doCurrentOrder(_ sender: Any) {
-        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CurrentOrderVC") as! CurrentOrderVC
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    @IBAction func doPreOrder(_ sender: Any) {
-        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "PreOrderVC") as! PreOrderVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
 }
