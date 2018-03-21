@@ -64,6 +64,7 @@
 		3BD02E62205AC6C70042F890 /* UIButtonX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD02E60205AC6C60042F890 /* UIButtonX.swift */; };
 		3BD4A28D205D5BDA00B979DC /* SettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD4A28C205D5BDA00B979DC /* SettingVC.swift */; };
 		3BD4A28F205D61B700B979DC /* CurrentOrderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD4A28E205D61B700B979DC /* CurrentOrderVC.swift */; };
+		3BD76FDE2061D037009A15FE /* ViewDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD76FDD2061D037009A15FE /* ViewDetailVC.swift */; };
 		3BDBE3FB205F960500CDA28E /* PreOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDBE3F9205F960500CDA28E /* PreOrderCell.swift */; };
 		3BDBE3FC205F960500CDA28E /* PreOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BDBE3FA205F960500CDA28E /* PreOrderCell.xib */; };
 		3BDBE3FF205F961700CDA28E /* HeaderPreOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDBE3FD205F961700CDA28E /* HeaderPreOrderCell.swift */; };
@@ -77,6 +78,7 @@
 		3BDBE40E205FB1D900CDA28E /* DetailHeaderGenereCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BDBE40C205FB1D900CDA28E /* DetailHeaderGenereCollect.xib */; };
 		3BDBE411205FB1F200CDA28E /* DetailCockTailCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDBE40F205FB1F200CDA28E /* DetailCockTailCollect.swift */; };
 		3BDBE412205FB1F200CDA28E /* DetailCockTailCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BDBE410205FB1F200CDA28E /* DetailCockTailCollect.xib */; };
+		3BDFD6712061F40300938C56 /* CurrentOrderCellNotTimeLine.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BDFD6702061F40200938C56 /* CurrentOrderCellNotTimeLine.xib */; };
 		3BE11FA6205CFC0F0044DCB3 /* DetailCocktailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE11FA5205CFC0F0044DCB3 /* DetailCocktailVC.swift */; };
 		3BFF9C842059000700FFA49C /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFF9C832059000700FFA49C /* TabbarVC.swift */; };
 		3BFF9C862059001300FFA49C /* CustomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFF9C852059001300FFA49C /* CustomVC.swift */; };
@@ -160,6 +162,7 @@
 		3BD02E60205AC6C60042F890 /* UIButtonX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonX.swift; sourceTree = "<group>"; };
 		3BD4A28C205D5BDA00B979DC /* SettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVC.swift; sourceTree = "<group>"; };
 		3BD4A28E205D61B700B979DC /* CurrentOrderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOrderVC.swift; sourceTree = "<group>"; };
+		3BD76FDD2061D037009A15FE /* ViewDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDetailVC.swift; sourceTree = "<group>"; };
 		3BDBE3F9205F960500CDA28E /* PreOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreOrderCell.swift; sourceTree = "<group>"; };
 		3BDBE3FA205F960500CDA28E /* PreOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreOrderCell.xib; sourceTree = "<group>"; };
 		3BDBE3FD205F961700CDA28E /* HeaderPreOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderPreOrderCell.swift; sourceTree = "<group>"; };
@@ -173,6 +176,7 @@
 		3BDBE40C205FB1D900CDA28E /* DetailHeaderGenereCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailHeaderGenereCollect.xib; sourceTree = "<group>"; };
 		3BDBE40F205FB1F200CDA28E /* DetailCockTailCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCockTailCollect.swift; sourceTree = "<group>"; };
 		3BDBE410205FB1F200CDA28E /* DetailCockTailCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailCockTailCollect.xib; sourceTree = "<group>"; };
+		3BDFD6702061F40200938C56 /* CurrentOrderCellNotTimeLine.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CurrentOrderCellNotTimeLine.xib; sourceTree = "<group>"; };
 		3BE11FA5205CFC0F0044DCB3 /* DetailCocktailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCocktailVC.swift; sourceTree = "<group>"; };
 		3BFF9C832059000700FFA49C /* TabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
 		3BFF9C852059001300FFA49C /* CustomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVC.swift; sourceTree = "<group>"; };
@@ -353,6 +357,7 @@
 		3BC39B61205C18D100D2E60B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				3BDFD6702061F40200938C56 /* CurrentOrderCellNotTimeLine.xib */,
 				3BC39B62205C18E700D2E60B /* CustomCell.swift */,
 				3BC39B63205C18E700D2E60B /* CustomCell.xib */,
 				3BC39B66205C190800D2E60B /* HeaderCustomCell.swift */,
@@ -469,6 +474,7 @@
 				3BDBE401205FA15400CDA28E /* ScannerVC.swift */,
 				3BDBE403205FA5B200CDA28E /* SearchGenereVC.swift */,
 				3BDBE409205FB04F00CDA28E /* DetailSearchGenereVC.swift */,
+				3BD76FDD2061D037009A15FE /* ViewDetailVC.swift */,
 			);
 			path = TabbarVC;
 			sourceTree = "<group>";
@@ -570,6 +576,7 @@
 				3BC39B65205C18E700D2E60B /* CustomCell.xib in Resources */,
 				3BDBE3FC205F960500CDA28E /* PreOrderCell.xib in Resources */,
 				3B91CAFD2058C2D50073D54B /* Assets.xcassets in Resources */,
+				3BDFD6712061F40300938C56 /* CurrentOrderCellNotTimeLine.xib in Resources */,
 				3BD02E5E205AC5890042F890 /* FooterMainBarCollect.xib in Resources */,
 				3B91CB0D2058C3160073D54B /* AlrightSans-Bold-v3.otf in Resources */,
 				3B91CAFB2058C2D50073D54B /* Main.storyboard in Resources */,
@@ -701,6 +708,7 @@
 				3BFF9C942059157200FFA49C /* UPCarouselFlowLayout.swift in Sources */,
 				3BC4CE0E206141FB00CECB57 /* SpinerLayer.swift in Sources */,
 				3BDBE407205FA7B900CDA28E /* SearchGenereCollect.swift in Sources */,
+				3BD76FDE2061D037009A15FE /* ViewDetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

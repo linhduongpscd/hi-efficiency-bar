@@ -122,7 +122,7 @@ open class TransitionButton : UIButton, UIViewControllerTransitioningDelegate, C
             // We return to original state after a delay to give opportunity to custom transition
             DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                 self.setOriginalState()
-                self.shakeAnimation()
+               // self.shakeAnimation()
             }
         case .expand:
             self.spiner.stopAnimation() // before animate the expand animation we need to hide the spiner first

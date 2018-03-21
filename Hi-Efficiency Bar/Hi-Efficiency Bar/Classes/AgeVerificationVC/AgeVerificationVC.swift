@@ -50,7 +50,7 @@ class AgeVerificationVC: UIViewController {
         let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
         backgroundQueue.async(execute: {
             
-            sleep(3) // 3: Do your networking task or background work here.
+            sleep(2) // 3: Do your networking task or background work here.
             
             DispatchQueue.main.async(execute: { () -> Void in
                 self.btnConfirm.setTitle("", for: .normal)
@@ -63,7 +63,7 @@ class AgeVerificationVC: UIViewController {
                     
                     
                 })
-                self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 2.0)
+                self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 1.5)
             })
         })
     }

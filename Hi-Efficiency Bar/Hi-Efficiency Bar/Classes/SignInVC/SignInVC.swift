@@ -44,7 +44,7 @@ class SignInVC: UIViewController {
                    
                     
                 })
-                 self.perform(#selector(self.clickAgeVertified), with: nil, afterDelay: 2.0)
+                 self.perform(#selector(self.clickAgeVertified), with: nil, afterDelay: 1.5)
             })
         })
     }

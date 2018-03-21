@@ -30,7 +30,7 @@
                                 <rect key="frame" x="15" y="8" width="28" height="28"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search for anything..." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0Zp-va-prf">
-                                <rect key="frame" x="51" y="12.5" width="211" height="19"/>
+                                <rect key="frame" x="51" y="12" width="211" height="20"/>
                                 <color key="textColor" red="1" green="0.60392156860000001" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="search"/>
