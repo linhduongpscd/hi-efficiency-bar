@@ -11,6 +11,7 @@ import UIKit
 class MainBarViewCell: UICollectionViewCell {
 
     @IBOutlet weak var leaningSubX: NSLayoutConstraint!
+    @IBOutlet weak var imgCell: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

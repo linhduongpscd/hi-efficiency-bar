@@ -4,3 +4,4 @@
 
 #import "AnimationManager.h"
 #import <MXParallaxHeader/MXParallaxHeader.h>
+#import "ASFSharedViewTransition.h"

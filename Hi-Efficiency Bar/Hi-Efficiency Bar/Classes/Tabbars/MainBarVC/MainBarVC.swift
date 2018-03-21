@@ -8,12 +8,12 @@
 
 import UIKit
 
-class MainBarVC: UIViewController {
+class MainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var collectionView: UICollectionView!
-  
+    var mainBarViewCell = MainBarViewCell.init(frame: .zero)
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+          ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         self.navigationItem.title = "Main Bar"
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
     self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
@@ -26,18 +26,15 @@ class MainBarVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
     }
-    */
-
+    
+    func sharedView() -> UIView! {
+        let cell = collectionView.cellForItem(at: (collectionView.indexPathsForSelectedItems?.first)!) as! MainBarViewCell
+        return cell.imgCell
+    }
 }
 
 extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
@@ -87,6 +84,7 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section > 0 {
+            mainBarViewCell = self.collectionView.cellForItem(at: indexPath) as! MainBarViewCell
             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -119,3 +117,4 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         return CGSize(width: UIScreen.main.bounds.size.width, height: 0)
     }
 }
+

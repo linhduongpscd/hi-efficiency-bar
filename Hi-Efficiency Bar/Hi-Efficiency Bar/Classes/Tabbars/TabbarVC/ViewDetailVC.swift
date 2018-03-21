@@ -8,16 +8,19 @@
 
 import UIKit
 
-class ViewDetailVC: UIViewController {
+class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
 
     @IBOutlet weak var tblDetail: UITableView!
+     @IBOutlet weak var imgDetail: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
          self.tblDetail.register(UINib(nibName: "CurrentOrderCellNotTimeLine", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
         // Do any additional setup after loading the view.
     }
-
-    @IBOutlet weak var imgDetail: UIImageView!
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -39,6 +42,9 @@ class ViewDetailVC: UIViewController {
     @IBAction func doAddMyTab(_ sender: Any) {
     }
     
+    func sharedView() -> UIView! {
+        return imgDetail
+    }
 }
 extension ViewDetailVC: UITableViewDelegate, UITableViewDataSource
 {
@@ -60,3 +66,4 @@ extension ViewDetailVC: UITableViewDelegate, UITableViewDataSource
         return cell
     }
 }
+

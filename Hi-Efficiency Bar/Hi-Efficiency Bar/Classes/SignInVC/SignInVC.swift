@@ -41,9 +41,7 @@ class SignInVC: UIViewController {
                 // .shake: when you want to reflect to the user that the task did not complete successfly
                 // .normal
                 self.btnSignIn.stopAnimation(animationStyle: .shake, completion: {
-                   
-                    
-                })
+                 })
                  self.perform(#selector(self.clickAgeVertified), with: nil, afterDelay: 1.5)
             })
         })

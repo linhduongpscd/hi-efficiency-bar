@@ -20,7 +20,7 @@ class SpinerLayer: CAShapeLayer {
     init(frame:CGRect) {
         super.init() 
         let radius:CGFloat = (frame.height / 2) * 0.5
-        self.frame = CGRect(x: 0, y: 0, width: frame.height + 5, height: frame.height + 5)
+        self.frame = CGRect(x: 0, y: 0, width: frame.height, height: frame.height)
         let center = CGPoint(x: frame.height / 2, y: bounds.center.y)
         let startAngle = 0 - Double.pi/2
         let endAngle = Double.pi * 2 - Double.pi/2
