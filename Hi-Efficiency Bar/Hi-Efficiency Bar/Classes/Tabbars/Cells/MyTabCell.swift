@@ -10,6 +10,8 @@ import UIKit
 
 class MyTabCell: UITableViewCell {
 
+    @IBOutlet weak var lblQuanlity: UILabel!
+    var numberQuanlity = 1
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,4 +23,14 @@ class MyTabCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func doTang(_ sender: Any) {
+        numberQuanlity = numberQuanlity + 1
+        lblQuanlity.text = "\(numberQuanlity)"
+    }
+    @IBAction func doGiam(_ sender: Any) {
+        if numberQuanlity > 1 {
+            numberQuanlity = numberQuanlity - 1
+            lblQuanlity.text = "\(numberQuanlity)"
+        }
+    }
 }

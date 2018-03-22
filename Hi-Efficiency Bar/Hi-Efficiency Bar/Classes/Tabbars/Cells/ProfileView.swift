@@ -11,13 +11,16 @@ import UIKit
 class ProfileView: UIView {
     var tapCurrentOrder:(() ->())?
     var tapPreOrder:(() ->())?
-    /*
+    @IBOutlet weak var imgAvatar: UIImageView!
+    
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         // Drawing code
+        //imgAvatar.layer.cornerRadius = imgAvatar.frame.size.width/2
+        //imgAvatar.layer.masksToBounds = true
     }
-    */
+
 
     @IBAction func doCurrentOrder(_ sender: Any) {
         self.tapCurrentOrder?()

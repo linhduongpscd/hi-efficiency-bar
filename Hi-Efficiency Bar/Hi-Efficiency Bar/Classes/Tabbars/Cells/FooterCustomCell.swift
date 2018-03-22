@@ -9,7 +9,7 @@
 import UIKit
 
 class FooterCustomCell: UITableViewCell {
-
+    var tapClickNext: (() ->())?
     override func awakeFromNib() {
         super.awakeFromNib()
          btnNext.spinnerColor = .white
@@ -41,7 +41,13 @@ class FooterCustomCell: UITableViewCell {
                 // .normal
                 self.btnNext.stopAnimation(animationStyle: .shake, completion: {
                 })
+                 self.perform(#selector(self.clickNext), with: nil, afterDelay: 1.5)
             })
         })
+    }
+    
+    @objc func clickNext()
+    {
+        self.tapClickNext?()
     }
 }

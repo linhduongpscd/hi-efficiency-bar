@@ -16,9 +16,14 @@ class MyTabVC: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "My Tab"
         btnMakeMeDrink.spinnerColor = .white
+        self.btnMakeMeDrink.setTitle("Make me a drink!", for: .normal)
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

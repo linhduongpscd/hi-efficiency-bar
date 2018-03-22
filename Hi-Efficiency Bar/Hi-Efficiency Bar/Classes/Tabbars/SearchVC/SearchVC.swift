@@ -11,9 +11,11 @@ import UIKit
 class SearchVC: UIViewController {
 
     @IBOutlet weak var txfSearch: UITextField!
+    @IBOutlet weak var tagViews: TagsView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Search"
+        tagViews.delegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -44,7 +46,25 @@ class SearchVC: UIViewController {
     }
 }
 
-
+extension SearchVC: TagsDelegate{
+    
+    // Tag Touch Action
+    func tagsTouchAction(_ tagsView: TagsView, tagButton: TagButton) {
+        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailTagVC") as! DetailTagVC
+        vc.stringTag = self.tagViews.tagTextArray[tagButton.index]
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // Last Tag Touch Action
+    func tagsLastTagAction(_ tagsView: TagsView, tagButton: TagButton) {
+        
+    }
+    
+    // TagsView Change Height
+    func tagsChangeHeight(_ tagsView: TagsView, height: CGFloat) {
+        
+    }
+}
 extension SearchVC: UITextFieldDelegate
 {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

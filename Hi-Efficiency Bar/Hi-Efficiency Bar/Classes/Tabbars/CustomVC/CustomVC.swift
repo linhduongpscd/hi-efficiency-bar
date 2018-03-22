@@ -135,6 +135,10 @@ extension CustomVC: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let cell = self.tblCustom.dequeueReusableCell(withIdentifier: "FooterCustomCell") as! FooterCustomCell
-        return cell.contentView
+        cell.tapClickNext = { [weak self] in
+            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
+        return cell
     }
 }

@@ -17,6 +17,7 @@ class IngredientVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       self.collectionItem.register(UINib(nibName: "IngreItemCollect", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
+         self.collectionViewMenu.register(UINib(nibName: "IngreCollect", bundle: nil), forCellWithReuseIdentifier: "IngreCollect")
         // Do any additional setup after loading the view.
     }
 
@@ -78,7 +79,7 @@ extension IngredientVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
         if collectionView == collectionItem {
             return CGSize(width: (collectionView.frame.size.width - 4)/2, height: 50)
         }
-        return CGSize(width: (collectionView.frame.size.width)/6, height: 50)
+        return CGSize(width: (collectionView.frame.size.width)/6, height: 40)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == collectionItem {

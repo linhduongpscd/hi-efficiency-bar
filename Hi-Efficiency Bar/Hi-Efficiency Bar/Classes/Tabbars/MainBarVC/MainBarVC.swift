@@ -27,10 +27,11 @@ class MainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.view.backgroundColor = .white
-        super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
     }
     
     func sharedView() -> UIView! {
