@@ -39,6 +39,8 @@ class SearchVC: UIViewController {
     }
     
     @IBAction func doSearchIngredient(_ sender: Any) {
+        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "IngredientVC") as! IngredientVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

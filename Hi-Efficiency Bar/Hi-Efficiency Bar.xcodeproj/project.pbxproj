@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		21F278813AC65E5FDC7A6F87 /* Pods_Hi_Efficiency_Bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F666944C69A254AEB833642 /* Pods_Hi_Efficiency_Bar.framework */; };
 		279D57812062493900E1845C /* ASFSharedViewTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 279D577F2062493900E1845C /* ASFSharedViewTransition.m */; };
+		3B038FBD2062B5010051691E /* IngredientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B038FBC2062B5010051691E /* IngredientVC.swift */; };
+		3B038FBF2062B5D00051691E /* IngreCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B038FBE2062B5D00051691E /* IngreCollect.swift */; };
 		3B4FAE3B205F6E180050331F /* CurrentOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4FAE39205F6E180050331F /* CurrentOrderCell.swift */; };
 		3B4FAE3C205F6E180050331F /* CurrentOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4FAE3A205F6E180050331F /* CurrentOrderCell.xib */; };
 		3B4FAE3F205F71630050331F /* FooterCurrentOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4FAE3D205F71630050331F /* FooterCurrentOrderCell.swift */; };
@@ -44,6 +46,8 @@
 		3BB0ED4F205FFA6E00702239 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0ED4B205FFA6E00702239 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		3BB0ED51206003D100702239 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0ED50206003D100702239 /* ProfileView.swift */; };
 		3BB0ED53206003DD00702239 /* ProfileView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BB0ED52206003DD00702239 /* ProfileView.xib */; };
+		3BC20364206322E4005A2D21 /* IngreItemCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC20362206322E4005A2D21 /* IngreItemCollect.swift */; };
+		3BC20365206322E4005A2D21 /* IngreItemCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC20363206322E4005A2D21 /* IngreItemCollect.xib */; };
 		3BC39B64205C18E700D2E60B /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC39B62205C18E700D2E60B /* CustomCell.swift */; };
 		3BC39B65205C18E700D2E60B /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BC39B63205C18E700D2E60B /* CustomCell.xib */; };
 		3BC39B68205C190800D2E60B /* HeaderCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC39B66205C190800D2E60B /* HeaderCustomCell.swift */; };
@@ -101,6 +105,8 @@
 		279D577F2062493900E1845C /* ASFSharedViewTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFSharedViewTransition.m; sourceTree = "<group>"; };
 		279D57802062493900E1845C /* ASFSharedViewTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFSharedViewTransition.h; sourceTree = "<group>"; };
 		395044B5EE3CB3A9A33B9FBC /* Pods-Hi-Efficiency Bar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hi-Efficiency Bar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hi-Efficiency Bar/Pods-Hi-Efficiency Bar.debug.xcconfig"; sourceTree = "<group>"; };
+		3B038FBC2062B5010051691E /* IngredientVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientVC.swift; sourceTree = "<group>"; };
+		3B038FBE2062B5D00051691E /* IngreCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngreCollect.swift; sourceTree = "<group>"; };
 		3B4FAE39205F6E180050331F /* CurrentOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOrderCell.swift; sourceTree = "<group>"; };
 		3B4FAE3A205F6E180050331F /* CurrentOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrentOrderCell.xib; sourceTree = "<group>"; };
 		3B4FAE3D205F71630050331F /* FooterCurrentOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCurrentOrderCell.swift; sourceTree = "<group>"; };
@@ -144,6 +150,8 @@
 		3BB0ED4B205FFA6E00702239 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		3BB0ED50206003D100702239 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		3BB0ED52206003DD00702239 /* ProfileView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileView.xib; sourceTree = "<group>"; };
+		3BC20362206322E4005A2D21 /* IngreItemCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngreItemCollect.swift; sourceTree = "<group>"; };
+		3BC20363206322E4005A2D21 /* IngreItemCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngreItemCollect.xib; sourceTree = "<group>"; };
 		3BC39B62205C18E700D2E60B /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		3BC39B63205C18E700D2E60B /* CustomCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		3BC39B66205C190800D2E60B /* HeaderCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCustomCell.swift; sourceTree = "<group>"; };
@@ -388,6 +396,9 @@
 				3BDBE410205FB1F200CDA28E /* DetailCockTailCollect.xib */,
 				3BB0ED50206003D100702239 /* ProfileView.swift */,
 				3BB0ED52206003DD00702239 /* ProfileView.xib */,
+				3B038FBE2062B5D00051691E /* IngreCollect.swift */,
+				3BC20362206322E4005A2D21 /* IngreItemCollect.swift */,
+				3BC20363206322E4005A2D21 /* IngreItemCollect.xib */,
 			);
 			name = Cells;
 			path = Tabbars/Cells;
@@ -480,6 +491,7 @@
 				3BDBE403205FA5B200CDA28E /* SearchGenereVC.swift */,
 				3BDBE409205FB04F00CDA28E /* DetailSearchGenereVC.swift */,
 				3BD76FDD2061D037009A15FE /* ViewDetailVC.swift */,
+				3B038FBC2062B5010051691E /* IngredientVC.swift */,
 			);
 			path = TabbarVC;
 			sourceTree = "<group>";
@@ -573,6 +585,7 @@
 				3B91CB0E2058C3160073D54B /* AlrightSans-Light-v3.otf in Resources */,
 				3B91CB102058C3160073D54B /* AlrightSans-Regular-v3.otf in Resources */,
 				3BFF9C9E2059206100FFA49C /* TopSectionViewCell.xib in Resources */,
+				3BC20365206322E4005A2D21 /* IngreItemCollect.xib in Resources */,
 				3BDBE40E205FB1D900CDA28E /* DetailHeaderGenereCollect.xib in Resources */,
 				3B91CB002058C2D50073D54B /* LaunchScreen.storyboard in Resources */,
 				3BC9BA14205C9DBE0060DB98 /* FooterCustomCell.xib in Resources */,
@@ -653,6 +666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC20364206322E4005A2D21 /* IngreItemCollect.swift in Sources */,
 				3BDBE404205FA5B200CDA28E /* SearchGenereVC.swift in Sources */,
 				3BB0ED4C205FFA6E00702239 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				3BFF9C932059157200FFA49C /* CarouselCollectionViewCell.swift in Sources */,
@@ -669,6 +683,7 @@
 				3B91CB282058CC1E0073D54B /* UIViewX.swift in Sources */,
 				3BB0ED4F205FFA6E00702239 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				3BB0ED4D205FFA6E00702239 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				3B038FBD2062B5010051691E /* IngredientVC.swift in Sources */,
 				3B91CB312058DB640073D54B /* AnimationManager.m in Sources */,
 				3BDBE40D205FB1D900CDA28E /* DetailHeaderGenereCollect.swift in Sources */,
 				3BFF9C992059204500FFA49C /* MainBarViewCell.swift in Sources */,
@@ -692,6 +707,7 @@
 				3BFF9C862059001300FFA49C /* CustomVC.swift in Sources */,
 				3BDBE3FF205F961700CDA28E /* HeaderPreOrderCell.swift in Sources */,
 				3BC39B68205C190800D2E60B /* HeaderCustomCell.swift in Sources */,
+				3B038FBF2062B5D00051691E /* IngreCollect.swift in Sources */,
 				3BFF9C8C2059003700FFA49C /* MyTabVC.swift in Sources */,
 				3BDBE402205FA15400CDA28E /* ScannerVC.swift in Sources */,
 				3B4FAE43205F75FD0050331F /* HeaderCurrentOrderCell.swift in Sources */,

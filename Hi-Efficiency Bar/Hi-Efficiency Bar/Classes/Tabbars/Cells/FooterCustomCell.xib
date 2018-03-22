@@ -19,34 +19,35 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCk-6t-NlE" customClass="UIButtonX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
-                        <rect key="frame" x="82.5" y="5" width="155" height="35"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCk-6t-NlE" customClass="TransitionButton" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
+                        <rect key="frame" x="20" y="-2.5" width="280" height="50"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="35" id="7WM-od-GIS"/>
-                            <constraint firstAttribute="width" constant="155" id="ykA-Dn-pCf"/>
+                            <constraint firstAttribute="height" constant="50" id="Tjj-DO-CWe"/>
                         </constraints>
-                        <state key="normal" title="Next">
-                            <color key="titleColor" red="0.5224839448928833" green="0.62759572267532349" blue="0.98898130655288696" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal" title="Next" backgroundImage="btn">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                <color key="value" red="0.52248394490000005" green="0.62759572269999997" blue="0.98898130660000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                <real key="value" value="1"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="20"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="doNext:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IgD-Mx-2Nc"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="QCk-6t-NlE" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="BbY-DL-0l9"/>
-                    <constraint firstItem="QCk-6t-NlE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="R6G-Aj-oBO"/>
+                    <constraint firstAttribute="trailing" secondItem="QCk-6t-NlE" secondAttribute="trailing" constant="20" id="Lc0-wx-AsF"/>
+                    <constraint firstItem="QCk-6t-NlE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="NqG-gZ-fdZ"/>
                 </constraints>
             </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="QCk-6t-NlE" firstAttribute="centerY" secondItem="njF-e1-oar" secondAttribute="centerY" id="GTr-bP-yNy"/>
+                <constraint firstItem="QCk-6t-NlE" firstAttribute="centerX" secondItem="njF-e1-oar" secondAttribute="centerX" id="ho5-43-Ozk"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnNext" destination="QCk-6t-NlE" id="PTv-G6-TWI"/>
+            </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="btn" width="275" height="46"/>
+    </resources>
 </document>

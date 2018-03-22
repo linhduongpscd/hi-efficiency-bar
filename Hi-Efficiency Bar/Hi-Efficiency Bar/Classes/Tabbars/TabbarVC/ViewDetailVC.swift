@@ -12,9 +12,16 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
 
     @IBOutlet weak var tblDetail: UITableView!
      @IBOutlet weak var imgDetail: UIImageView!
+    @IBOutlet weak var btnAddMyCard: TransitionButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          self.tblDetail.register(UINib(nibName: "CurrentOrderCellNotTimeLine", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
+        btnAddMyCard.spinnerColor = .white
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +46,27 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
         // Pass the selected object to the new view controller.
     }
     */
-    @IBAction func doAddMyTab(_ sender: Any) {
+   
+    @IBAction func doAddMyTab(_ sender: TransitionButton) {
+        btnAddMyCard.startAnimation() // 2: Then start the animation when the user tap the button
+        
+        let qualityOfServiceClass = DispatchQoS.QoSClass.background
+        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+        backgroundQueue.async(execute: {
+            
+            sleep(2) // 3: Do your networking task or background work here.
+            
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.btnAddMyCard.setTitle("", for: .normal)
+                self.btnAddMyCard.setImage(#imageLiteral(resourceName: "ic_check"), for: .normal)
+                // 4: Stop the animation, here you have three options for the `animationStyle` property:
+                // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
+                // .shake: when you want to reflect to the user that the task did not complete successfly
+                // .normal
+                self.btnAddMyCard.stopAnimation(animationStyle: .shake, completion: {
+                })
+            })
+        })
     }
     
     func sharedView() -> UIView! {

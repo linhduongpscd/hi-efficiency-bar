@@ -11,9 +11,11 @@ import UIKit
 class MyTabVC: UIViewController {
 
     @IBOutlet weak var tblMyTab: UITableView!
+    @IBOutlet weak var btnMakeMeDrink: TransitionButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "My Tab"
+        btnMakeMeDrink.spinnerColor = .white
         // Do any additional setup after loading the view.
     }
 
@@ -22,7 +24,37 @@ class MyTabVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func doMakeMeADrink(_ sender: Any) {
+        btnMakeMeDrink.startAnimation() // 2: Then start the animation when the user tap the button
+        
+        let qualityOfServiceClass = DispatchQoS.QoSClass.background
+        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+        backgroundQueue.async(execute: {
+            
+            sleep(2) // 3: Do your networking task or background work here.
+            
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.btnMakeMeDrink.setTitle("", for: .normal)
+                self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "ic_check"), for: .normal)
+                // 4: Stop the animation, here you have three options for the `animationStyle` property:
+                // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
+                // .shake: when you want to reflect to the user that the task did not complete successfly
+                // .normal
+                self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
+                    
+                    
+                })
+                self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 1.5)
+            })
+        })
+    }
+    
+    @objc func actionTabbar()
+    {
+        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CurrentOrderVC") as! CurrentOrderVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 
