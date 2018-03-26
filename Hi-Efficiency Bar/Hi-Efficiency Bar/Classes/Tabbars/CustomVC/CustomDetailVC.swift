@@ -40,13 +40,38 @@ class CustomDetailVC: UIViewController {
     @IBOutlet weak var lblNormal: UILabel!
     @IBOutlet weak var lblQuanlity: UILabel!
     var numberQuanlity = 1
+    var hidingNavBarManager: HidingNavigationBarManager?
+    @IBOutlet weak var scrollPage: UIScrollView!
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
         self.setDefault()
+        hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
+       // hidingNavBarManager?.delegate = self
         // Do any additional setup after loading the view.
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hidingNavBarManager?.viewWillAppear(animated)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        hidingNavBarManager?.viewDidLayoutSubviews()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        hidingNavBarManager?.viewWillDisappear(animated)
+    }
+    
+    // MARK: UITableViewDelegate
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        hidingNavBarManager?.shouldScrollToTop()
+        
+        return true
+    }
     func setColorTextNormalOrSelect(lable: UILabel, isSelect: Bool)
     {
         if isSelect {
@@ -76,7 +101,7 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgWine, uimage: #imageLiteral(resourceName: "size_wine1"))
         setImageSeletd(imageView: imgTail, uimage: #imageLiteral(resourceName: "size_tail1"))
         setImageSeletd(imageView: imgMartine, uimage: #imageLiteral(resourceName: "size_martini1"))
-        imgDrink.image = #imageLiteral(resourceName: "size_shot2")
+        imgDrink.image = #imageLiteral(resourceName: "big_shot")
         
         
         self.setColorTextNormalOrSelect(lable: lblShake, isSelect: true)
@@ -107,8 +132,8 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgWine, uimage: #imageLiteral(resourceName: "size_wine1"))
         setImageSeletd(imageView: imgTail, uimage: #imageLiteral(resourceName: "size_tail1"))
         setImageSeletd(imageView: imgMartine, uimage: #imageLiteral(resourceName: "size_martini1"))
-        imgDrink.image = #imageLiteral(resourceName: "size_shot2")
-        
+        imgDrink.image = #imageLiteral(resourceName: "big_shot")
+        CommonHellper.animateView(view: imgShot)
     }
     @IBAction func doShort(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblShot, isSelect: false)
@@ -121,7 +146,8 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgWine, uimage: #imageLiteral(resourceName: "size_wine1"))
         setImageSeletd(imageView: imgTail, uimage: #imageLiteral(resourceName: "size_tail1"))
         setImageSeletd(imageView: imgMartine, uimage: #imageLiteral(resourceName: "size_martini1"))
-        imgDrink.image = #imageLiteral(resourceName: "size_short2")
+        imgDrink.image = #imageLiteral(resourceName: "big_short")
+        CommonHellper.animateView(view: imgShort)
     }
     @IBAction func doWine(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblShot, isSelect: false)
@@ -135,7 +161,8 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgWine, uimage: #imageLiteral(resourceName: "size_wine2"))
         setImageSeletd(imageView: imgTail, uimage: #imageLiteral(resourceName: "size_tail1"))
         setImageSeletd(imageView: imgMartine, uimage: #imageLiteral(resourceName: "size_martini1"))
-        imgDrink.image = #imageLiteral(resourceName: "size_wine2")
+        imgDrink.image = #imageLiteral(resourceName: "big_wine")
+        CommonHellper.animateView(view: imgWine)
     }
     @IBAction func doTail(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblShot, isSelect: false)
@@ -148,7 +175,8 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgWine, uimage: #imageLiteral(resourceName: "size_wine1"))
         setImageSeletd(imageView: imgTail, uimage: #imageLiteral(resourceName: "size_tail2"))
         setImageSeletd(imageView: imgMartine, uimage: #imageLiteral(resourceName: "size_martini1"))
-        imgDrink.image = #imageLiteral(resourceName: "size_tail2")
+        imgDrink.image = #imageLiteral(resourceName: "big_tall")
+        CommonHellper.animateView(view: imgTail)
     }
     @IBAction func doMartini(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblShot, isSelect: false)
@@ -167,7 +195,8 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgWine, uimage: #imageLiteral(resourceName: "size_wine1"))
         setImageSeletd(imageView: imgTail, uimage: #imageLiteral(resourceName: "size_tail1"))
         setImageSeletd(imageView: imgMartine, uimage: #imageLiteral(resourceName: "size_martini2"))
-        imgDrink.image = #imageLiteral(resourceName: "size_martini2")
+        imgDrink.image = #imageLiteral(resourceName: "big_martini")
+        CommonHellper.animateView(view: imgMartine)
     }
     
     override func didReceiveMemoryWarning() {
@@ -182,9 +211,10 @@ class CustomDetailVC: UIViewController {
         self.setColorTextNormalOrSelect(lable: lblStir, isSelect: false)
         self.setColorTextNormalOrSelect(lable: lblMuddle, isSelect: false)
         setImageSeletd(imageView: imgShake, uimage: #imageLiteral(resourceName: "prep_shake1"))
-        setImageSeletd(imageView: imgFilter, uimage: #imageLiteral(resourceName: "prep_filter1"))
+        setImageSeletd(imageView: imgFilter, uimage: #imageLiteral(resourceName: "prep_filter2"))
         setImageSeletd(imageView: imgStir, uimage: #imageLiteral(resourceName: "prep_stir1"))
         setImageSeletd(imageView: imgMuddle, uimage: #imageLiteral(resourceName: "prep_muddle1"))
+        CommonHellper.animateView(view: imgFilter)
     }
     @IBAction func doShake(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblShake, isSelect: true)
@@ -195,6 +225,7 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgFilter, uimage: #imageLiteral(resourceName: "prep_filter1"))
         setImageSeletd(imageView: imgStir, uimage: #imageLiteral(resourceName: "prep_stir1"))
         setImageSeletd(imageView: imgMuddle, uimage: #imageLiteral(resourceName: "prep_muddle1"))
+        CommonHellper.animateView(view: imgShake)
     }
     @IBAction func doStir(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblShake, isSelect: false)
@@ -205,6 +236,7 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgFilter, uimage: #imageLiteral(resourceName: "prep_filter1"))
         setImageSeletd(imageView: imgStir, uimage: #imageLiteral(resourceName: "prep_stir2"))
         setImageSeletd(imageView: imgMuddle, uimage: #imageLiteral(resourceName: "prep_muddle1"))
+        CommonHellper.animateView(view: imgStir)
     }
     @IBAction func doMuddle(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblShake, isSelect: false)
@@ -215,6 +247,7 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgFilter, uimage: #imageLiteral(resourceName: "prep_filter1"))
         setImageSeletd(imageView: imgStir, uimage: #imageLiteral(resourceName: "prep_stir1"))
         setImageSeletd(imageView: imgMuddle, uimage: #imageLiteral(resourceName: "prep_muddle2"))
+        CommonHellper.animateView(view: imgMuddle)
     }
     
     @IBAction func doNone(_ sender: Any) {
@@ -224,6 +257,7 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgNone, uimage: #imageLiteral(resourceName: "ice_none2"))
         setImageSeletd(imageView: imgSome, uimage: #imageLiteral(resourceName: "ice_some1"))
         setImageSeletd(imageView: imgNormal, uimage: #imageLiteral(resourceName: "ice_normal1"))
+        CommonHellper.animateView(view: imgNone)
     }
     @IBAction func doSome(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblNone, isSelect: false)
@@ -232,6 +266,7 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgNone, uimage: #imageLiteral(resourceName: "ice_none1"))
         setImageSeletd(imageView: imgSome, uimage: #imageLiteral(resourceName: "ice_some2"))
         setImageSeletd(imageView: imgNormal, uimage: #imageLiteral(resourceName: "ice_normal1"))
+        CommonHellper.animateView(view: imgSome)
     }
     @IBAction func doNormal(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblNone, isSelect: false)
@@ -241,6 +276,7 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgNone, uimage: #imageLiteral(resourceName: "ice_none1"))
         setImageSeletd(imageView: imgSome, uimage: #imageLiteral(resourceName: "ice_some1"))
         setImageSeletd(imageView: imgNormal, uimage: #imageLiteral(resourceName: "ice_normal2"))
+        CommonHellper.animateView(view: imgNormal)
     }
     
     @IBAction func doGiam(_ sender: Any) {

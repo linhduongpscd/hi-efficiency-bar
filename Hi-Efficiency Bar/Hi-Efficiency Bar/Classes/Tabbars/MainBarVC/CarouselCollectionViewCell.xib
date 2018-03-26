@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CarouselCollectionViewCell" id="I14-bj-WIr" customClass="CarouselCollectionViewCell" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="160"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="200" height="160"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottle" translatesAutoresizingMaskIntoConstraints="NO" id="Sze-dp-qno">
+                        <rect key="frame" x="10" y="30" width="180" height="130"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Sze-dp-qno" firstAttribute="leading" secondItem="I14-bj-WIr" secondAttribute="leading" constant="10" id="0fC-tR-HgG"/>
+                <constraint firstAttribute="bottom" secondItem="Sze-dp-qno" secondAttribute="bottom" id="ONv-gB-N3R"/>
+                <constraint firstItem="Sze-dp-qno" firstAttribute="top" secondItem="I14-bj-WIr" secondAttribute="top" constant="30" id="yzu-sD-zVS"/>
+                <constraint firstAttribute="trailing" secondItem="Sze-dp-qno" secondAttribute="trailing" constant="10" id="zqL-5R-Gmk"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="914-Rk-0b6"/>
+            <connections>
+                <outlet property="image" destination="Sze-dp-qno" id="uBz-0U-StG"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="bottle" width="50" height="190"/>
+    </resources>
+</document>

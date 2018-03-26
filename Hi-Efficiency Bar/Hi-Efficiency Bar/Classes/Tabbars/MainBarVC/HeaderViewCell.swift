@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
+class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var tapHeaderMainBar: (() ->())?
     @IBOutlet weak var collectionView: UICollectionView!
     fileprivate var items = [Character]()
@@ -82,5 +82,11 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
         let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
         let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y
         currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+       return CGSize(width: 200, height: 260)
     }
 }

@@ -7,4 +7,5 @@ target 'Hi-Efficiency Bar' do
   #pod 'TPKeyboardAvoiding'
   # Pods for Hi-Efficiency Bar
  pod 'MXParallaxHeader'
+ pod "Alamofire", :git => 'https://github.com/Alamofire/Alamofire.git'
 end

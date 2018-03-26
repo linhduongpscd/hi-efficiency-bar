@@ -12,9 +12,14 @@ class MainBarViewCell: UICollectionViewCell {
 
     @IBOutlet weak var leaningSubX: NSLayoutConstraint!
     @IBOutlet weak var imgCell: UIImageView!
+    @IBOutlet weak var btnFav: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
+    @IBAction func doFav(_ sender: Any) {
+        CommonHellper.animateButton(view: btnFav)
+    }
+    
 }

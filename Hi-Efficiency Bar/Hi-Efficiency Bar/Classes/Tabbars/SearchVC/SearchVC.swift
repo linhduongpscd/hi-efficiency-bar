@@ -12,6 +12,7 @@ class SearchVC: UIViewController {
 
     @IBOutlet weak var txfSearch: UITextField!
     @IBOutlet weak var tagViews: TagsView!
+    var stringTag = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Search"
@@ -24,7 +25,13 @@ class SearchVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.view.backgroundColor = .white
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
+    }
     /*
     // MARK: - Navigation
 
@@ -50,11 +57,18 @@ extension SearchVC: TagsDelegate{
     
     // Tag Touch Action
     func tagsTouchAction(_ tagsView: TagsView, tagButton: TagButton) {
-        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailTagVC") as! DetailTagVC
-        vc.stringTag = self.tagViews.tagTextArray[tagButton.index]
-        self.navigationController?.pushViewController(vc, animated: true)
+        CommonHellper.animateViewSmall(view: tagButton)
+        stringTag = self.tagViews.tagTextArray[tagButton.index]
+         self.perform(#selector(self.viewDetail), with: nil, afterDelay: 0.8)
     }
     
+    @objc func viewDetail()
+    {
+        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailTagVC") as! DetailTagVC
+        vc.stringTag = stringTag
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
     // Last Tag Touch Action
     func tagsLastTagAction(_ tagsView: TagsView, tagButton: TagButton) {
         

@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		21F278813AC65E5FDC7A6F87 /* Pods_Hi_Efficiency_Bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F666944C69A254AEB833642 /* Pods_Hi_Efficiency_Bar.framework */; };
+		272AD3932064A67400164856 /* HeaderCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AD3922064A67400164856 /* HeaderCustom.swift */; };
+		272AD3952064A67F00164856 /* HeaderCustom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD3942064A67F00164856 /* HeaderCustom.xib */; };
+		272AD3972064AA0900164856 /* CarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD3962064AA0900164856 /* CarouselCollectionViewCell.xib */; };
+		2754189A206899DD00DEED32 /* ManagerWS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27541898206899DD00DEED32 /* ManagerWS.swift */; };
+		2754189B206899DD00DEED32 /* ManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27541899206899DD00DEED32 /* ManagerError.swift */; };
+		2754189F2068DFD000DEED32 /* HidingNavigationBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754189D2068DFD000DEED32 /* HidingNavigationBarManager.swift */; };
+		275418A02068DFD000DEED32 /* HidingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754189E2068DFD000DEED32 /* HidingViewController.swift */; };
+		275418B82068FC0F00DEED32 /* TLYShyNavBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418A32068FC0F00DEED32 /* TLYShyNavBarManager.m */; };
+		275418B92068FC0F00DEED32 /* NSObject+TLYSwizzlingHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418A52068FC0F00DEED32 /* NSObject+TLYSwizzlingHelpers.m */; };
+		275418BA2068FC0F00DEED32 /* UIViewController+BetterLayoutGuides.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418A62068FC0F00DEED32 /* UIViewController+BetterLayoutGuides.m */; };
+		275418BB2068FC0F00DEED32 /* UIScrollView+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418A72068FC0F00DEED32 /* UIScrollView+Helpers.m */; };
+		275418BC2068FC0F00DEED32 /* TLYDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418A82068FC0F00DEED32 /* TLYDelegateProxy.m */; };
+		275418BD2068FC0F00DEED32 /* TLYShyStatusBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B22068FC0F00DEED32 /* TLYShyStatusBarController.m */; };
+		275418BE2068FC0F00DEED32 /* TLYShyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B42068FC0F00DEED32 /* TLYShyViewController.m */; };
+		275418BF2068FC0F00DEED32 /* TLYShyScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B52068FC0F00DEED32 /* TLYShyScrollViewController.m */; };
 		2776C78F20634DA10040F065 /* IngreCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2776C78E20634DA10040F065 /* IngreCollect.xib */; };
 		2776C791206350030040F065 /* CustomDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C790206350030040F065 /* CustomDetailVC.swift */; };
 		2776C7932063595A0040F065 /* CustomDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C7922063595A0040F065 /* CustomDetailCell.swift */; };
@@ -106,6 +121,33 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		272AD3922064A67400164856 /* HeaderCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCustom.swift; sourceTree = "<group>"; };
+		272AD3942064A67F00164856 /* HeaderCustom.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCustom.xib; sourceTree = "<group>"; };
+		272AD3962064AA0900164856 /* CarouselCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCollectionViewCell.xib; sourceTree = "<group>"; };
+		27541898206899DD00DEED32 /* ManagerWS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerWS.swift; sourceTree = "<group>"; };
+		27541899206899DD00DEED32 /* ManagerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerError.swift; sourceTree = "<group>"; };
+		2754189D2068DFD000DEED32 /* HidingNavigationBarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingNavigationBarManager.swift; sourceTree = "<group>"; };
+		2754189E2068DFD000DEED32 /* HidingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingViewController.swift; sourceTree = "<group>"; };
+		275418A22068FC0F00DEED32 /* TLYShyNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBar.h; sourceTree = "<group>"; };
+		275418A32068FC0F00DEED32 /* TLYShyNavBarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLYShyNavBarManager.m; sourceTree = "<group>"; };
+		275418A52068FC0F00DEED32 /* NSObject+TLYSwizzlingHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TLYSwizzlingHelpers.m"; sourceTree = "<group>"; };
+		275418A62068FC0F00DEED32 /* UIViewController+BetterLayoutGuides.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BetterLayoutGuides.m"; sourceTree = "<group>"; };
+		275418A72068FC0F00DEED32 /* UIScrollView+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Helpers.m"; sourceTree = "<group>"; };
+		275418A82068FC0F00DEED32 /* TLYDelegateProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLYDelegateProxy.m; sourceTree = "<group>"; };
+		275418A92068FC0F00DEED32 /* NSObject+TLYSwizzlingHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TLYSwizzlingHelpers.h"; sourceTree = "<group>"; };
+		275418AA2068FC0F00DEED32 /* UIScrollView+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Helpers.h"; sourceTree = "<group>"; };
+		275418AB2068FC0F00DEED32 /* UIViewController+BetterLayoutGuides.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BetterLayoutGuides.h"; sourceTree = "<group>"; };
+		275418AC2068FC0F00DEED32 /* TLYDelegateProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYDelegateProxy.h; sourceTree = "<group>"; };
+		275418AE2068FC0F00DEED32 /* TLYShyStatusBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyStatusBarController.h; sourceTree = "<group>"; };
+		275418AF2068FC0F00DEED32 /* TLYShyParent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyParent.h; sourceTree = "<group>"; };
+		275418B02068FC0F00DEED32 /* TLYShyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyViewController.h; sourceTree = "<group>"; };
+		275418B12068FC0F00DEED32 /* TLYShyScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyScrollViewController.h; sourceTree = "<group>"; };
+		275418B22068FC0F00DEED32 /* TLYShyStatusBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLYShyStatusBarController.m; sourceTree = "<group>"; };
+		275418B32068FC0F00DEED32 /* TLYShyChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyChild.h; sourceTree = "<group>"; };
+		275418B42068FC0F00DEED32 /* TLYShyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLYShyViewController.m; sourceTree = "<group>"; };
+		275418B52068FC0F00DEED32 /* TLYShyScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLYShyScrollViewController.m; sourceTree = "<group>"; };
+		275418B62068FC0F00DEED32 /* TLYShyNavBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBarManager.h; sourceTree = "<group>"; };
+		275418B72068FC0F00DEED32 /* TLYShyNavBarFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBarFade.h; sourceTree = "<group>"; };
 		2776C78E20634DA10040F065 /* IngreCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngreCollect.xib; sourceTree = "<group>"; };
 		2776C790206350030040F065 /* CustomDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailVC.swift; sourceTree = "<group>"; };
 		2776C7922063595A0040F065 /* CustomDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailCell.swift; sourceTree = "<group>"; };
@@ -227,6 +269,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2754189C2068DFD000DEED32 /* HidingNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				2754189D2068DFD000DEED32 /* HidingNavigationBarManager.swift */,
+				2754189E2068DFD000DEED32 /* HidingViewController.swift */,
+			);
+			path = HidingNavigationBar;
+			sourceTree = "<group>";
+		};
+		275418A12068FC0F00DEED32 /* TLYShyNavBar */ = {
+			isa = PBXGroup;
+			children = (
+				275418A22068FC0F00DEED32 /* TLYShyNavBar.h */,
+				275418A32068FC0F00DEED32 /* TLYShyNavBarManager.m */,
+				275418A42068FC0F00DEED32 /* Categories */,
+				275418AD2068FC0F00DEED32 /* ShyControllers */,
+				275418B62068FC0F00DEED32 /* TLYShyNavBarManager.h */,
+				275418B72068FC0F00DEED32 /* TLYShyNavBarFade.h */,
+			);
+			path = TLYShyNavBar;
+			sourceTree = "<group>";
+		};
+		275418A42068FC0F00DEED32 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				275418A52068FC0F00DEED32 /* NSObject+TLYSwizzlingHelpers.m */,
+				275418A62068FC0F00DEED32 /* UIViewController+BetterLayoutGuides.m */,
+				275418A72068FC0F00DEED32 /* UIScrollView+Helpers.m */,
+				275418A82068FC0F00DEED32 /* TLYDelegateProxy.m */,
+				275418A92068FC0F00DEED32 /* NSObject+TLYSwizzlingHelpers.h */,
+				275418AA2068FC0F00DEED32 /* UIScrollView+Helpers.h */,
+				275418AB2068FC0F00DEED32 /* UIViewController+BetterLayoutGuides.h */,
+				275418AC2068FC0F00DEED32 /* TLYDelegateProxy.h */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		275418AD2068FC0F00DEED32 /* ShyControllers */ = {
+			isa = PBXGroup;
+			children = (
+				275418AE2068FC0F00DEED32 /* TLYShyStatusBarController.h */,
+				275418AF2068FC0F00DEED32 /* TLYShyParent.h */,
+				275418B02068FC0F00DEED32 /* TLYShyViewController.h */,
+				275418B12068FC0F00DEED32 /* TLYShyScrollViewController.h */,
+				275418B22068FC0F00DEED32 /* TLYShyStatusBarController.m */,
+				275418B32068FC0F00DEED32 /* TLYShyChild.h */,
+				275418B42068FC0F00DEED32 /* TLYShyViewController.m */,
+				275418B52068FC0F00DEED32 /* TLYShyScrollViewController.m */,
+			);
+			path = ShyControllers;
+			sourceTree = "<group>";
+		};
 		3B91CAE92058C2D50073D54B = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +393,10 @@
 		3B91CB122058C3C90073D54B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				275418A12068FC0F00DEED32 /* TLYShyNavBar */,
+				2754189C2068DFD000DEED32 /* HidingNavigationBar */,
+				27541899206899DD00DEED32 /* ManagerError.swift */,
+				27541898206899DD00DEED32 /* ManagerWS.swift */,
 				3BC4CE05206141FB00CECB57 /* TransitionButton */,
 				3BD02E60205AC6C60042F890 /* UIButtonX.swift */,
 				3BD02E5F205AC6C60042F890 /* UIImageViewX.swift */,
@@ -472,6 +570,9 @@
 				3BD02E5C205AC5890042F890 /* FooterMainBarCollect.xib */,
 				3B656C6F205CD94B00477BEE /* DetailMainBarVC.swift */,
 				3BE11FA5205CFC0F0044DCB3 /* DetailCocktailVC.swift */,
+				272AD3922064A67400164856 /* HeaderCustom.swift */,
+				272AD3942064A67F00164856 /* HeaderCustom.xib */,
+				272AD3962064AA0900164856 /* CarouselCollectionViewCell.xib */,
 			);
 			path = MainBarVC;
 			sourceTree = "<group>";
@@ -589,6 +690,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B656C72205CD96200477BEE /* Tabbar.storyboard in Resources */,
+				272AD3952064A67F00164856 /* HeaderCustom.xib in Resources */,
 				3BC39B69205C190800D2E60B /* HeaderCustomCell.xib in Resources */,
 				3BDBE412205FB1F200CDA28E /* DetailCockTailCollect.xib in Resources */,
 				3B91CB2D2058DA600073D54B /* PickerView.xib in Resources */,
@@ -611,6 +713,7 @@
 				3BD02E5E205AC5890042F890 /* FooterMainBarCollect.xib in Resources */,
 				3B91CB0D2058C3160073D54B /* AlrightSans-Bold-v3.otf in Resources */,
 				3B91CAFB2058C2D50073D54B /* Main.storyboard in Resources */,
+				272AD3972064AA0900164856 /* CarouselCollectionViewCell.xib in Resources */,
 				3BB0ED53206003DD00702239 /* ProfileView.xib in Resources */,
 				3BFF9C9A2059204500FFA49C /* MainBarViewCell.xib in Resources */,
 				3B4FAE44205F75FD0050331F /* HeaderCurrentOrderCell.xib in Resources */,
@@ -643,10 +746,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hi-Efficiency Bar/Pods-Hi-Efficiency Bar-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXParallaxHeader.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -684,6 +789,7 @@
 				3BB0ED4C205FFA6E00702239 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				3BFF9C932059157200FFA49C /* CarouselCollectionViewCell.swift in Sources */,
 				3B91CB252058C5070073D54B /* BaseNaviController.swift in Sources */,
+				275418BA2068FC0F00DEED32 /* UIViewController+BetterLayoutGuides.m in Sources */,
 				3BC4CE0D206141FB00CECB57 /* FadeTransition.swift in Sources */,
 				3B91CB182058C4960073D54B /* SignInVC.swift in Sources */,
 				3B4FAE46205F7A3A0050331F /* PreOrderVC.swift in Sources */,
@@ -691,6 +797,7 @@
 				3BD4A28D205D5BDA00B979DC /* SettingVC.swift in Sources */,
 				3B4FAE3F205F71630050331F /* FooterCurrentOrderCell.swift in Sources */,
 				3B91CB1A2058C4A20073D54B /* SignUpVC.swift in Sources */,
+				275418B82068FC0F00DEED32 /* TLYShyNavBarManager.m in Sources */,
 				3BDBE411205FB1F200CDA28E /* DetailCockTailCollect.swift in Sources */,
 				3BC39B64205C18E700D2E60B /* CustomCell.swift in Sources */,
 				3B91CB282058CC1E0073D54B /* UIViewX.swift in Sources */,
@@ -704,6 +811,7 @@
 				3BC4CE0C206141FB00CECB57 /* CustomTransitionViewController.swift in Sources */,
 				2776C791206350030040F065 /* CustomDetailVC.swift in Sources */,
 				3B91CB1C2058C4AD0073D54B /* ForgotPasswordVC.swift in Sources */,
+				275418B92068FC0F00DEED32 /* NSObject+TLYSwizzlingHelpers.m in Sources */,
 				3B91CB2C2058DA600073D54B /* PickerView.swift in Sources */,
 				3BD02E58205ABE140042F890 /* TagButton.swift in Sources */,
 				3B91CB232058C5070073D54B /* CommonHellper.swift in Sources */,
@@ -713,11 +821,14 @@
 				3B91CB1E2058C4BD0073D54B /* AgeVerificationVC.swift in Sources */,
 				3BFF9C882059001E00FFA49C /* LoungeVC.swift in Sources */,
 				3BC9BA13205C9DBE0060DB98 /* FooterCustomCell.swift in Sources */,
+				275418BB2068FC0F00DEED32 /* UIScrollView+Helpers.m in Sources */,
 				3B91CAF62058C2D50073D54B /* AppDelegate.swift in Sources */,
 				3BFF9C9D2059206100FFA49C /* TopSectionViewCell.swift in Sources */,
+				272AD3932064A67400164856 /* HeaderCustom.swift in Sources */,
 				3BD4A28F205D61B700B979DC /* CurrentOrderVC.swift in Sources */,
 				279D57812062493900E1845C /* ASFSharedViewTransition.m in Sources */,
 				3BFF9C96205918F100FFA49C /* HeaderViewCell.swift in Sources */,
+				275418A02068DFD000DEED32 /* HidingViewController.swift in Sources */,
 				3BFF9C8E2059004400FFA49C /* SearchVC.swift in Sources */,
 				3BFF9C862059001300FFA49C /* CustomVC.swift in Sources */,
 				3BDBE3FF205F961700CDA28E /* HeaderPreOrderCell.swift in Sources */,
@@ -726,6 +837,7 @@
 				3B038FBF2062B5D00051691E /* IngreCollect.swift in Sources */,
 				3BFF9C8C2059003700FFA49C /* MyTabVC.swift in Sources */,
 				3BDBE402205FA15400CDA28E /* ScannerVC.swift in Sources */,
+				275418BC2068FC0F00DEED32 /* TLYDelegateProxy.m in Sources */,
 				3B4FAE43205F75FD0050331F /* HeaderCurrentOrderCell.swift in Sources */,
 				3BFF9C8A2059002B00FFA49C /* MainBarVC.swift in Sources */,
 				3B4FAE3B205F6E180050331F /* CurrentOrderCell.swift in Sources */,
@@ -733,17 +845,23 @@
 				3BDBE3FB205F960500CDA28E /* PreOrderCell.swift in Sources */,
 				3BB0ED51206003D100702239 /* ProfileView.swift in Sources */,
 				3BD02E57205ABE140042F890 /* Extensions.swift in Sources */,
+				275418BE2068FC0F00DEED32 /* TLYShyViewController.m in Sources */,
 				3BD02E56205ABE140042F890 /* TagsView.swift in Sources */,
 				3BC4CE0B206141FB00CECB57 /* CGRectExtension.swift in Sources */,
 				3B91CB242058C5070073D54B /* Define.swift in Sources */,
+				275418BD2068FC0F00DEED32 /* TLYShyStatusBarController.m in Sources */,
+				275418BF2068FC0F00DEED32 /* TLYShyScrollViewController.m in Sources */,
 				3BD02E62205AC6C70042F890 /* UIButtonX.swift in Sources */,
 				3BD02E61205AC6C70042F890 /* UIImageViewX.swift in Sources */,
 				3B656C70205CD94B00477BEE /* DetailMainBarVC.swift in Sources */,
 				3BC9BA16205CBB1A0060DB98 /* MyTabCell.swift in Sources */,
 				3BFF9C90205914C000FFA49C /* Character.swift in Sources */,
+				2754189A206899DD00DEED32 /* ManagerWS.swift in Sources */,
 				3BDBE40A205FB04F00CDA28E /* DetailSearchGenereVC.swift in Sources */,
+				2754189B206899DD00DEED32 /* ManagerError.swift in Sources */,
 				3BB0ED4E205FFA6E00702239 /* TPKeyboardAvoidingTableView.m in Sources */,
 				3BFF9C942059157200FFA49C /* UPCarouselFlowLayout.swift in Sources */,
+				2754189F2068DFD000DEED32 /* HidingNavigationBarManager.swift in Sources */,
 				3BC4CE0E206141FB00CECB57 /* SpinerLayer.swift in Sources */,
 				3BDBE407205FA7B900CDA28E /* SearchGenereCollect.swift in Sources */,
 				3BD76FDE2061D037009A15FE /* ViewDetailVC.swift in Sources */,

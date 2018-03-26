@@ -8,36 +8,43 @@
 
 import UIKit
 
-class CustomVC: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource {
-    @IBOutlet weak var collectionView: UICollectionView!
-    fileprivate var items = [Character]()
-    @IBOutlet weak var lblName: UILabel!
+class CustomVC: UIViewController {
+    
     @IBOutlet weak var tblCustom: UITableView!
+      var hidingNavBarManager: HidingNavigationBarManager?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Custom"
-        self.setupLayout()
-        self.items = self.createItems()
-        self.currentPage = 0
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
         self.registerCell()
+         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tblCustom)
         // Do any additional setup after loading the view.
     }
-    fileprivate var currentPage: Int = 0 {
-        didSet {
-            let character = self.items[self.currentPage]
-            lblName.text = character.name
-        }
+    
+  
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hidingNavBarManager?.viewWillAppear(animated)
     }
     
-    fileprivate var pageSize: CGSize {
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        var pageSize = layout.itemSize
-        if layout.scrollDirection == .horizontal {
-            pageSize.width += layout.minimumLineSpacing
-        } else {
-            pageSize.height += layout.minimumLineSpacing
-        }
-        return pageSize
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        hidingNavBarManager?.viewDidLayoutSubviews()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        hidingNavBarManager?.viewWillDisappear(animated)
+    }
+    
+    // MARK: UITableViewDelegate
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        hidingNavBarManager?.shouldScrollToTop()
+        
+        return true
     }
     
     func registerCell()
@@ -45,52 +52,6 @@ class CustomVC: UIViewController,UICollectionViewDelegate, UICollectionViewDataS
         tblCustom.register( UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
         tblCustom.register( UINib(nibName: "HeaderCustomCell", bundle: nil), forCellReuseIdentifier: "HeaderCustomCell")
         tblCustom.register( UINib(nibName: "FooterCustomCell", bundle: nil), forCellReuseIdentifier: "FooterCustomCell")
-    }
-    fileprivate func setupLayout() {
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.overlap(visibleOffset: 60)
-    }
-    
-    fileprivate func createItems() -> [Character] {
-        let characters = [
-            Character(imageName: "bottle", name: "Wall-E", movie: "Wall-E"),
-            Character(imageName: "bottle", name: "Nemo", movie: "Finding Nemo"),
-            Character(imageName: "bottle", name: "Remy", movie: "Ratatouille"),
-            Character(imageName: "bottle", name: "Buzz Lightyear", movie: "Toy Story"),
-            Character(imageName: "bottle", name: "Mike & Sullivan", movie: "Monsters Inc."),
-            Character(imageName: "bottle", name: "Merida", movie: "Brave")
-        ]
-        return characters
-    }
-
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.identifier, for: indexPath) as! CarouselCollectionViewCell
-        let character = items[(indexPath as NSIndexPath).row]
-        cell.image.image = UIImage(named: character.imageName)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
-    
-    
-    // MARK: - UIScrollViewDelegate
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
-        let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y
-        currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -102,10 +63,13 @@ class CustomVC: UIViewController,UICollectionViewDelegate, UICollectionViewDataS
 extension CustomVC: UITableViewDelegate, UITableViewDataSource
 {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 0
+        }
         return 2
     }
     
@@ -121,19 +85,37 @@ extension CustomVC: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0
+        {
+            return 260
+        }
         return 80
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            let headerView = Bundle.main.loadNibNamed("HeaderCustom", owner: self, options: nil)?[0] as! HeaderCustom
+            headerView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 260)
+            headerView.registerCell()
+            return headerView
+        }
+       
         let cell = self.tblCustom.dequeueReusableCell(withIdentifier: "HeaderCustomCell") as! HeaderCustomCell
         return cell.contentView
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if  section == 0 {
+            return 0
+        }
         return 60
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if  section == 0 {
+            let view = UIView.init(frame: .zero)
+            return view
+        }
         let cell = self.tblCustom.dequeueReusableCell(withIdentifier: "FooterCustomCell") as! FooterCustomCell
         cell.tapClickNext = { [weak self] in
             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
@@ -141,4 +123,6 @@ extension CustomVC: UITableViewDelegate, UITableViewDataSource
         }
         return cell
     }
+    
+   
 }

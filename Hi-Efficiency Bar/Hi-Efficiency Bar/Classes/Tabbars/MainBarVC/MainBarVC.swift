@@ -80,7 +80,7 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
                         sizeForItemAt indexPath: IndexPath) -> CGSize
     {
          if indexPath.section == 0 {
-            return CGSize(width: collectionView.frame.size.width, height: 210)
+            return CGSize(width: collectionView.frame.size.width, height: 260)
         }
         
         return CGSize(width: (collectionView.frame.size.width - 2)/2, height:  (collectionView.frame.size.width - 2)/2 + 50)

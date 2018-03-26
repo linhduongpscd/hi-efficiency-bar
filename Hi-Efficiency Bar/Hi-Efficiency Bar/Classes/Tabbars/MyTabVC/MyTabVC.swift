@@ -12,18 +12,45 @@ class MyTabVC: UIViewController {
 
     @IBOutlet weak var tblMyTab: UITableView!
     @IBOutlet weak var btnMakeMeDrink: TransitionButton!
+    @IBOutlet weak var scrollPage: UIScrollView!
+    //var hidingNavBarManager: HidingNavigationBarManager?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "My Tab"
         btnMakeMeDrink.spinnerColor = .white
-        self.btnMakeMeDrink.setTitle("Make me a drink!", for: .normal)
+        self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
+        //self.shyNavBarManager.scrollView = scrollPage
+       // self.shyNavBarManager.extensionView = nil
+         //hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
+       
         // Do any additional setup after loading the view.
     }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        //hidingNavBarManager?.viewWillAppear(animated)
     }
+    
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        hidingNavBarManager?.viewDidLayoutSubviews()
+//    }
+//    
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        hidingNavBarManager?.viewWillDisappear(animated)
+//    }
+//    
+//    // MARK: UITableViewDelegate
+//    
+//    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+//        //hidingNavBarManager?.shouldScrollToTop()
+//        
+//        return true
+//    }
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

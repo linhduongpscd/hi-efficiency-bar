@@ -14,6 +14,10 @@ class PreOrderVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        tblOrder.register( UINib(nibName: "HeaderPreOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderPreOrderCell")
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.view.backgroundColor = .white
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
         // Do any additional setup after loading the view.
     }
 

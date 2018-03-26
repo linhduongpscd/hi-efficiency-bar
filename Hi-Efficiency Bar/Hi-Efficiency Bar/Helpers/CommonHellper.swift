@@ -34,6 +34,44 @@ class CommonHellper {
         return formatter.string(from: date)
     }
     
+    static func animateButton(view: UIView) {
+        view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        
+        UIView.animate(withDuration: 2.0,
+                       delay: 0,
+                       usingSpringWithDamping: CGFloat(0.2),
+                       initialSpringVelocity: CGFloat(6.0),
+                       options: .allowUserInteraction,
+                       animations: {
+                        view.transform = .identity
+        },
+                       completion: { finished in
+        }
+        )
+    }
+    static func animateView(view: UIView) {
+        UIView.animate(withDuration: 0.25,
+                       animations: {
+                        view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        },
+                       completion: { _ in
+                        UIView.animate(withDuration: 0.25) {
+                            view.transform = CGAffineTransform.identity
+                        }
+        })
+    }
+    
+    static func animateViewSmall(view: UIView) {
+        UIView.animate(withDuration: 0.25,
+                       animations: {
+                        view.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
+        },
+                       completion: { _ in
+                        UIView.animate(withDuration: 0.25) {
+                            view.transform = CGAffineTransform.identity
+                        }
+        })
+    }
 }
 extension UIColor {
     func as1ptImage() -> UIImage {

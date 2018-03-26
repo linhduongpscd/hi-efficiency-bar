@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignUpVC: UIViewController {
+class SignUpVC: BaseViewController {
 
     @IBOutlet weak var txfName: UITextField!
     @IBOutlet weak var txfEmail: UITextField!
@@ -17,9 +17,11 @@ class SignUpVC: UIViewController {
     @IBOutlet weak var txfDateTime: UITextField!
     @IBOutlet weak var btnAvatar: UIButton!
     @IBOutlet weak var btnTick: UIButton!
-    var isTick = Bool()
-     var pickerView = PickerView.init(frame: .zero)
-      var imagePicker: UIImagePickerController!
+    var isTick = false
+    var isSelectAvatar = false
+    var pickerView = PickerView.init(frame: .zero)
+    var imagePicker: UIImagePickerController!
+    var imageAvatar = UIImage.init()
     @IBOutlet weak var btnSignUp: TransitionButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,6 +127,59 @@ class SignUpVC: UIViewController {
                 self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 1.5)
             })
         })
+        /*let name = CommonHellper.trimSpaceString(txtString: txfName.text!)
+        let email = CommonHellper.trimSpaceString(txtString: txfEmail.text!)
+        let password = txfPassword.text!
+        let confirmpassword = txfConfimPassword.text!
+        let date = txfDateTime.text!
+        if name.isEmpty
+        {
+            self.showAlertMessage(message: ERROR_NAME)
+            return
+        }
+        if email.isEmpty
+        {
+            self.showAlertMessage(message: ERROR_EMAIL)
+            return
+        }
+        if !CommonHellper.isValidEmail(testStr: email)
+        {
+            self.showAlertMessage(message: ERROR_EMAIL_INVALID)
+            return
+        }
+        
+        if password.isEmpty
+        {
+            self.showAlertMessage(message: ERROR_PASSWORD)
+            return
+        }
+        
+        if confirmpassword.isEmpty {
+            self.showAlertMessage(message: ERROR_CONFIRM_PASSWORD)
+            return
+        }
+        
+        if  password != confirmpassword {
+            self.showAlertMessage(message: ERROR_PASSWORD_NOTMATCH)
+            return
+        }
+        
+        if date.isEmpty {
+            self.showAlertMessage(message: ERROR_BIRTHDAY)
+            return
+        }
+        
+        if !isSelectAvatar {
+            self.showAlertMessage(message: ERROR_AVATAR)
+            return
+        }
+        
+        if !isTick {
+            self.showAlertMessage(message: ERROR_ACCEPT)
+            return
+        }
+        */
+        
     }
     
     @objc func actionTabbar()
@@ -174,7 +229,8 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage
         {
-            print(image)
+            isSelectAvatar = true
+            imageAvatar = image
             self.btnAvatar.setImage(image, for: .normal)
             self.btnAvatar.layer.cornerRadius = self.btnAvatar.frame.size.width/2
             self.btnAvatar.layer.masksToBounds = true
