@@ -15,7 +15,7 @@ class BaseNaviController: UINavigationController {
         self.navigationBar.isTranslucent = false
         self.navigationBar.tintColor = UIColor.black
        // self.navigationBar.barTintColor = UIColor.init(patternImage: #imageLiteral(resourceName: "color_navi"))
-        self.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: FONT_APP.AlrightSans_Regular, size: 17)!, NSAttributedStringKey.foregroundColor: UIColor.black]
+        self.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: FONT_APP.AlrightSans_Regular, size: 24)!, NSAttributedStringKey.foregroundColor: UIColor.darkGray]
         
         // Do any additional setup after loading the view.
     }

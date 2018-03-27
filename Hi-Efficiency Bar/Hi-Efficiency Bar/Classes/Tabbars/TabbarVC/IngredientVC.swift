@@ -16,7 +16,7 @@ class IngredientVC: UIViewController {
     var indexSelect = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-      self.collectionItem.register(UINib(nibName: "IngreItemCollect", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
+         self.collectionItem.register(UINib(nibName: "IngreItemCollect", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
          self.collectionViewMenu.register(UINib(nibName: "IngreCollect", bundle: nil), forCellWithReuseIdentifier: "IngreCollect")
         // Do any additional setup after loading the view.
     }

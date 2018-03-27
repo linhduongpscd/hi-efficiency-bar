@@ -9,10 +9,13 @@
 import UIKit
 
 class FooterMainBarCollect: UICollectionReusableView {
-
+    var tapShowMore: (() ->())?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
+    @IBAction func doShowMore(_ sender: Any) {
+        self.tapShowMore?()
+    }
 }

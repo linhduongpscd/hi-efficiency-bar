@@ -101,6 +101,10 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         }
         else{
             let commentView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "FooterMainBarCollect", for: indexPath) as! FooterMainBarCollect
+            commentView.tapShowMore = { [weak self] in
+                let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailMainBarVC") as! DetailMainBarVC
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
             return commentView
         }
        
