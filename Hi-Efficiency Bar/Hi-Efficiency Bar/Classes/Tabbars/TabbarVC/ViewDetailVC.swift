@@ -13,7 +13,8 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
     @IBOutlet weak var tblDetail: UITableView!
      @IBOutlet weak var imgDetail: UIImageView!
     @IBOutlet weak var btnAddMyCard: TransitionButton!
-    
+    @IBOutlet weak var lblQuanlity: UILabel!
+    var number = 1
     override func viewDidLoad() {
         super.viewDidLoad()
          self.tblDetail.register(UINib(nibName: "CurrentOrderCellNotTimeLine", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
@@ -46,7 +47,23 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
         // Pass the selected object to the new view controller.
     }
     */
-   
+    @IBAction func doTang(_ sender: Any) {
+        number = number + 1
+        lblQuanlity.text = "\(number)"
+        CommonHellper.animateButton(view: lblQuanlity)
+    }
+    
+    @IBAction func doGiam(_ sender: Any) {
+        if number == 1
+        {
+            
+        }
+        else{
+            number = number - 1
+            lblQuanlity.text = "\(number)"
+            CommonHellper.animateButton(view: lblQuanlity)
+        }
+    }
     @IBAction func doAddMyTab(_ sender: TransitionButton) {
         btnAddMyCard.startAnimation() // 2: Then start the animation when the user tap the button
         
@@ -89,7 +106,13 @@ extension ViewDetailVC: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tblDetail.dequeueReusableCell(withIdentifier: "CurrentOrderCell") as! CurrentOrderCell
-       
+       if indexPath.row == 2
+       {
+            cell.subContent.backgroundColor = UIColor.init(red: 241/255.0, green: 240/255.0, blue: 144/255.0, alpha: 1.0)
+       }
+       else{
+            cell.subContent.backgroundColor = UIColor.white
+        }
         return cell
     }
 }

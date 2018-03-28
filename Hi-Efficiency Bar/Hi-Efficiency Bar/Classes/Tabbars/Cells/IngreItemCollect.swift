@@ -10,6 +10,8 @@ import UIKit
 
 class IngreItemCollect: UICollectionViewCell {
 
+    @IBOutlet weak var subContent: UIViewX!
+    @IBOutlet weak var lbltext: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

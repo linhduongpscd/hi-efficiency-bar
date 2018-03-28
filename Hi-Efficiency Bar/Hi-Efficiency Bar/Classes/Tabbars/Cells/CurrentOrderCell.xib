@@ -54,13 +54,13 @@
                         <rect key="frame" x="44" y="5" width="285" height="44.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 part" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fam-qX-Yke">
-                                <rect key="frame" x="17" y="13" width="42" height="19"/>
+                                <rect key="frame" x="17" y="14.5" width="42" height="16"/>
                                 <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sugar syrup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYo-w9-ryW">
-                                <rect key="frame" x="64" y="12.5" width="84.5" height="19"/>
+                                <rect key="frame" x="64" y="14" width="86" height="16"/>
                                 <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="16"/>
                                 <color key="textColor" red="0.64931827783584595" green="0.64608579874038696" blue="0.51477974653244019" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>

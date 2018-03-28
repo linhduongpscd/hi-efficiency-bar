@@ -69,6 +69,14 @@ extension DetailTagVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         if indexPath.section == 0
         {
              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IngreItemCollect", for: indexPath) as! IngreItemCollect
+            if indexPath.row == 1
+            {
+                cell.subContent.backgroundColor = UIColor.init(red: 241/255.0, green: 240/255.0, blue: 144/255.0, alpha: 1.0)
+            }
+            else{
+                cell.subContent.backgroundColor = UIColor.white
+            }
+            cell.lbltext.textColor = UIColor.black
             return cell
         }
         if indexPath.section == 1 {

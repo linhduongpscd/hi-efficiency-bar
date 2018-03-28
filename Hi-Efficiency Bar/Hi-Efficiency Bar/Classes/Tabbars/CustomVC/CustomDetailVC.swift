@@ -283,11 +283,13 @@ class CustomDetailVC: UIViewController {
         if numberQuanlity > 1 {
             numberQuanlity = numberQuanlity - 1
             lblQuanlity.text = "\(numberQuanlity)"
+            CommonHellper.animateView(view: lblQuanlity)
         }
     }
     @IBAction func doTang(_ sender: Any) {
         numberQuanlity = numberQuanlity + 1
         lblQuanlity.text = "\(numberQuanlity)"
+        CommonHellper.animateView(view: lblQuanlity)
     }
     @IBAction func doback(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)

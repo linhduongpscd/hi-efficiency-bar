@@ -12,6 +12,7 @@ class CurrentOrderCell: UITableViewCell {
 
     @IBOutlet weak var spaceButtom: UIView!
     @IBOutlet weak var spaceTop: UIView!
+    @IBOutlet weak var subContent: UIViewX!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
