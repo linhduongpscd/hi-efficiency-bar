@@ -15,6 +15,7 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
     @IBOutlet weak var btnAddMyCard: TransitionButton!
     @IBOutlet weak var lblQuanlity: UILabel!
     var number = 1
+    @IBOutlet var subNaviRight: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
          self.tblDetail.register(UINib(nibName: "CurrentOrderCellNotTimeLine", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
@@ -22,8 +23,8 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        //self.navigationController?.view.backgroundColor = .clear
-        // Do any additional setup after loading the view.
+        let btnRight = UIBarButtonItem.init(customView: subNaviRight)
+        self.navigationItem.rightBarButtonItem = btnRight
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,7 +35,12 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func doCustomize(_ sender: Any) {
+        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
+        self.navigationController?.pushViewController(vc, animated: true)
+      
+    }
+    
     @IBAction func doBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }

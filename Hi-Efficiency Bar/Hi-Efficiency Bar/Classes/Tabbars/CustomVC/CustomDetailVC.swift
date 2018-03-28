@@ -42,13 +42,16 @@ class CustomDetailVC: UIViewController {
     var numberQuanlity = 1
     var hidingNavBarManager: HidingNavigationBarManager?
     @IBOutlet weak var scrollPage: UIScrollView!
+    @IBOutlet var subNaviRight: UIView!
+    @IBOutlet weak var btnActionRight: UIButton!
+    @IBOutlet weak var imgRorate: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
         self.setDefault()
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
-       // hidingNavBarManager?.delegate = self
-        // Do any additional setup after loading the view.
+        let btnRight = UIBarButtonItem.init(customView: subNaviRight)
+        self.navigationItem.rightBarButtonItem = btnRight
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -67,6 +70,15 @@ class CustomDetailVC: UIViewController {
     
     // MARK: UITableViewDelegate
     
+    @IBAction func doRightNavi(_ sender: Any) {
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.imgRorate.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+        }
+        
+        UIView.animate(withDuration: 0.25, delay: 0.2, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
+            self.imgRorate.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI * 2))
+        }, completion: nil)
+    }
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         hidingNavBarManager?.shouldScrollToTop()
         

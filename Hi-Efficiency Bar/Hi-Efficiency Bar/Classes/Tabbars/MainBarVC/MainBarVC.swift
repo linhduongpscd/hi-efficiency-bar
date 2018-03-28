@@ -30,7 +30,6 @@ class MainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
          super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.view.backgroundColor = .white
-        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
     }
     

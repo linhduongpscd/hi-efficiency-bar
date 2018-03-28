@@ -166,11 +166,6 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                 self?.isSearchGenre = true
                 self?.isSearchIngre = false
             }
-//        self?.collectionView.performBatchUpdates(
-//            {
-//                self?.collectionView?.reloadSections(NSIndexSet(index: 0 as IndexSet))
-//        }, completion: { (finished:Bool) -> Void in
-//        })
          self?.collectionView.reloadData()
         }
         return commentView

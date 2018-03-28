@@ -22,7 +22,7 @@ class CurrentOrderVC: UIViewController  {
     }
     func initpalalax()
     {
-        let headerView = Bundle.main.loadNibNamed("HeaderCustom", owner: self, options: nil)?[0] as! HeaderCustom
+        let headerView = Bundle.main.loadNibNamed("HeaderCustomOrder", owner: self, options: nil)?[0] as! HeaderCustom
         headerView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 195 + (UIScreen.main.bounds.size.width - 320))
         headerView.isListOrder = true
         headerView.registerCell()
@@ -57,7 +57,7 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -72,11 +72,15 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
         else{
             cell.spaceTop.isHidden = false
         }
-        if indexPath.row == 3 {
-            cell.spaceButtom.isHidden = true
+        if indexPath.row == 2 {
+            cell.subContent.backgroundColor =  UIColor.init(red: 241/255.0, green: 240/255.0, blue: 144/255.0, alpha: 1.0)
+            cell.spaceButtom.backgroundColor = UIColor.lightGray
+            cell.doTimeLine.backgroundColor = UIColor.lightGray
         }
         else{
-            cell.spaceButtom.isHidden = false
+            cell.subContent.backgroundColor = UIColor.white
+            cell.spaceButtom.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+            cell.doTimeLine.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
         }
         return cell
     }

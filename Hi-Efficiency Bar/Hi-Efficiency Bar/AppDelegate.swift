@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         sleep(1)
-        self.initTabbarHome()
+        //self.initTabbarHome()
         return true
     }
 
@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         navTab4.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: COLOR_TABBAR.UNSELECT], for: .normal)
         navTab4.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: COLOR_TABBAR.TAB4], for: .selected)
         
-        let tab5 = storyboard.instantiateViewController(withIdentifier: "LoungeVC") as! LoungeVC
+        let tab5 = storyboard.instantiateViewController(withIdentifier: "LoungeTabbarVC") as! LoungeTabbarVC
         let navTab5 = BaseNaviController(rootViewController: tab5)
         navTab5.tabBarItem.image = #imageLiteral(resourceName: "tab_lounge1").withRenderingMode(.alwaysOriginal)
         navTab5.tabBarItem.selectedImage = #imageLiteral(resourceName: "tab_lounge2").withRenderingMode(.alwaysOriginal)

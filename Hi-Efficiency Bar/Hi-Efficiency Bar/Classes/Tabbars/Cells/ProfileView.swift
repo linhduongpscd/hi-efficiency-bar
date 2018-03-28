@@ -9,8 +9,7 @@
 import UIKit
 
 class ProfileView: UIView {
-    var tapCurrentOrder:(() ->())?
-    var tapPreOrder:(() ->())?
+  
     @IBOutlet weak var imgAvatar: UIImageView!
     
     // Only override draw() if you perform custom drawing.
@@ -22,10 +21,5 @@ class ProfileView: UIView {
     }
 
 
-    @IBAction func doCurrentOrder(_ sender: Any) {
-        self.tapCurrentOrder?()
-    }
-    @IBAction func doPreOrder(_ sender: Any) {
-        self.tapPreOrder?()
-    }
+   
 }

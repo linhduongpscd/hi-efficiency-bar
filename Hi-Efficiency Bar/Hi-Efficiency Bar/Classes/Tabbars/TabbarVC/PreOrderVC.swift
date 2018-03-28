@@ -11,9 +11,11 @@ import UIKit
 class PreOrderVC: UIViewController {
 
     @IBOutlet weak var tblOrder: UITableView!
+    var tableViewCells = NSMutableArray()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-       tblOrder.register( UINib(nibName: "HeaderPreOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderPreOrderCell")
+        tblOrder.register( UINib(nibName: "HeaderPreOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderPreOrderCell")
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.view.backgroundColor = .white
         self.navigationController?.isNavigationBarHidden = false
@@ -54,12 +56,27 @@ extension PreOrderVC: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 285
+        if let cell  = tableViewCells.object(at: indexPath.row) as? HeaderPreOrderCell
+        {
+            if cell.isMore
+            {
+                return 455
+            }
+            else{
+                return 315
+            }
+        }
+        return 315
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "HeaderPreOrderCell") as! HeaderPreOrderCell
-      
+        cell.tapShowMoreHeader = { [] in
+            tableView.reloadData()
+        }
+        if !tableViewCells.contains(cell) {
+            tableViewCells.add(cell)
+        }
         return cell
     }
 }

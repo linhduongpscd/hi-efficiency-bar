@@ -1,24 +1,22 @@
 //
-//  CurrentOrderCell.swift
+//  ShowMorePreCell.swift
 //  Hi-Efficiency Bar
 //
-//  Created by Colin Ngo on 3/19/18.
+//  Created by QTS_002 on 28/03/2018.
 //  Copyright © 2018 QTS Coder. All rights reserved.
 //
 
 import UIKit
 
-class CurrentOrderCell: UITableViewCell {
+class ShowMorePreCell: UITableViewCell {
 
-    @IBOutlet weak var spaceButtom: UIView!
-    @IBOutlet weak var spaceTop: UIView!
-    @IBOutlet weak var subContent: UIViewX!
-    @IBOutlet weak var doTimeLine: UIViewX!
+    @IBOutlet weak var imgDownUp: UIImageView!
+    @IBOutlet weak var lblText: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
