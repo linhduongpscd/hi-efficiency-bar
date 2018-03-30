@@ -10,6 +10,7 @@ import UIKit
 
 class QuickSearchCollect: UICollectionViewCell, UITextFieldDelegate, TagsDelegate {
     var taptags: (() ->())?
+    var tapSearchQuickly: (() ->())?
     @IBOutlet weak var txfSearch: UITextField!
     @IBOutlet weak var tags: TagsView!
     var stringTag = ""
@@ -36,5 +37,8 @@ class QuickSearchCollect: UICollectionViewCell, UITextFieldDelegate, TagsDelegat
         
     }
 
+    @IBAction func doSearchtag(_ sender: Any) {
+        self.tapSearchQuickly?()
+    }
 }
 

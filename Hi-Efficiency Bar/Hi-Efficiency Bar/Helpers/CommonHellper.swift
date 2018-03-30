@@ -72,6 +72,8 @@ class CommonHellper {
                         }
         })
     }
+    
+  
 }
 extension UIColor {
     func as1ptImage() -> UIImage {

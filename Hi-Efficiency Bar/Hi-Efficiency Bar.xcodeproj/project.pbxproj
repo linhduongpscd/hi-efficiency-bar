@@ -40,6 +40,7 @@
 		27F60F7A206B453F009FDDC0 /* TopLoungeCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F60F78206B453F009FDDC0 /* TopLoungeCollect.xib */; };
 		27F60F7B206B453F009FDDC0 /* TopLoungeCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F60F79206B453F009FDDC0 /* TopLoungeCollect.swift */; };
 		27F60F7D206B4A63009FDDC0 /* LoungeTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F60F7C206B4A63009FDDC0 /* LoungeTabbarVC.swift */; };
+		27F70D14206E4C2D00077428 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F70D13206E4C2D00077428 /* SearchTagVC.swift */; };
 		3B038FBD2062B5010051691E /* IngredientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B038FBC2062B5010051691E /* IngredientVC.swift */; };
 		3B038FBF2062B5D00051691E /* IngreCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B038FBE2062B5D00051691E /* IngreCollect.swift */; };
 		3B4FAE3B205F6E180050331F /* CurrentOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4FAE39205F6E180050331F /* CurrentOrderCell.swift */; };
@@ -177,6 +178,7 @@
 		27F60F78206B453F009FDDC0 /* TopLoungeCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopLoungeCollect.xib; sourceTree = "<group>"; };
 		27F60F79206B453F009FDDC0 /* TopLoungeCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLoungeCollect.swift; sourceTree = "<group>"; };
 		27F60F7C206B4A63009FDDC0 /* LoungeTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoungeTabbarVC.swift; sourceTree = "<group>"; };
+		27F70D13206E4C2D00077428 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
 		395044B5EE3CB3A9A33B9FBC /* Pods-Hi-Efficiency Bar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hi-Efficiency Bar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hi-Efficiency Bar/Pods-Hi-Efficiency Bar.debug.xcconfig"; sourceTree = "<group>"; };
 		3B038FBC2062B5010051691E /* IngredientVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientVC.swift; sourceTree = "<group>"; };
 		3B038FBE2062B5D00051691E /* IngreCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngreCollect.swift; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 				3B038FBC2062B5010051691E /* IngredientVC.swift */,
 				2776C794206360330040F065 /* DetailTagVC.swift */,
 				27F60F7C206B4A63009FDDC0 /* LoungeTabbarVC.swift */,
+				27F70D13206E4C2D00077428 /* SearchTagVC.swift */,
 			);
 			path = TabbarVC;
 			sourceTree = "<group>";
@@ -827,6 +830,7 @@
 				3BDBE404205FA5B200CDA28E /* SearchGenereVC.swift in Sources */,
 				3BB0ED4C205FFA6E00702239 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				3BFF9C932059157200FFA49C /* CarouselCollectionViewCell.swift in Sources */,
+				27F70D14206E4C2D00077428 /* SearchTagVC.swift in Sources */,
 				3B91CB252058C5070073D54B /* BaseNaviController.swift in Sources */,
 				275418BA2068FC0F00DEED32 /* UIViewController+BetterLayoutGuides.m in Sources */,
 				27C692CB206A3C410057156C /* HeaderSearchReusable.swift in Sources */,

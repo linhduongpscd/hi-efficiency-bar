@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchVC: UIViewController {
+class SearchVC: BaseViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     var stringTag = ""
@@ -16,6 +16,7 @@ class SearchVC: UIViewController {
     var isQuickSearch = true
     var isSearchIngre = false
     var isSearchGenre = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Search"
@@ -24,6 +25,7 @@ class SearchVC: UIViewController {
         self.collectionView.register(UINib(nibName: "IngreItemCollect", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
         self.collectionView.register(UINib(nibName: "MenuSearchCollect", bundle: nil), forCellWithReuseIdentifier: "MenuSearchCollect")
          self.collectionView.register(UINib(nibName: "SearchGenereCollect", bundle: nil), forCellWithReuseIdentifier: "SearchGenereCollect")
+        self.configHideNaviScroll(collectionView)
         // Do any additional setup after loading the view.
     }
 
@@ -34,10 +36,6 @@ class SearchVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.view.backgroundColor = .white
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
     }
     /*
     // MARK: - Navigation
@@ -88,6 +86,10 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                 let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailTagVC") as! DetailTagVC
                 vc.stringTag = cell.stringTag
                 self?.navigationController?.pushViewController(vc, animated: true)
+            }
+             cell.tapSearchQuickly = { [weak self] in
+                 let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "SearchTagVC") as! SearchTagVC
+                self?.present(vc, animated: true, completion: nil)
             }
             return cell
         }

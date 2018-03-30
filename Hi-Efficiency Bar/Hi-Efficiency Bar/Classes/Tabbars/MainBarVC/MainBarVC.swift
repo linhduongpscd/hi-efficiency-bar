@@ -8,36 +8,39 @@
 
 import UIKit
 
-class MainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
+class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
+    @IBOutlet weak var subNavi: UIView!
+    @IBOutlet weak var lblNavi: UILabel!
+    @IBOutlet weak var heightNavi: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
+    
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
           ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
-        self.navigationItem.title = "Main Bar"
+        //self.navigationItem.title = "Main Bar"
+        
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
-    self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
+     self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
           self.collectionView.register(UINib(nibName: "FooterMainBarCollect", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterMainBarCollect")
-        // Do any additional setup after loading the view.
+       self.configHideNaviScroll(collectionView)
     }
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.view.backgroundColor = .white
-        self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
-    }
+  
     
     func sharedView() -> UIView! {
         let cell = collectionView.cellForItem(at: (collectionView.indexPathsForSelectedItems?.first)!) as! MainBarViewCell
         return cell.imgCell
     }
 }
+
+
 
 extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {

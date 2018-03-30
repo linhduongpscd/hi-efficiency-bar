@@ -9,14 +9,36 @@
 import UIKit
 
 class DetailMainBarVC: UIViewController {
-
+    var hidingNavBarManager: HidingNavigationBarManager?
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         // Do any additional setup after loading the view.
+        hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: collectionView)
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        hidingNavBarManager?.viewWillAppear(animated)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        hidingNavBarManager?.viewDidLayoutSubviews()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        hidingNavBarManager?.viewWillDisappear(animated)
+    }
+    
+    // MARK: UITableViewDelegate
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        hidingNavBarManager?.shouldScrollToTop()
+        
+        return true
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

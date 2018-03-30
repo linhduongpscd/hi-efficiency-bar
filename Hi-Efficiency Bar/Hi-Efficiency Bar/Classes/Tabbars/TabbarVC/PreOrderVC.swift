@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PreOrderVC: UIViewController {
+class PreOrderVC: BaseViewController {
 
     @IBOutlet weak var tblOrder: UITableView!
     var tableViewCells = NSMutableArray()
@@ -20,6 +20,7 @@ class PreOrderVC: UIViewController {
         self.navigationController?.view.backgroundColor = .white
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
+        self.configHideNaviTable(tblOrder)
         // Do any additional setup after loading the view.
     }
 

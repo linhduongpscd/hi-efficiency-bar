@@ -1,19 +1,19 @@
 //
-//  SettingVC.swift
+//  SearchTagVC.swift
 //  Hi-Efficiency Bar
 //
-//  Created by Colin Ngo on 3/17/18.
+//  Created by QTS_002 on 30/03/2018.
 //  Copyright © 2018 QTS Coder. All rights reserved.
 //
 
 import UIKit
 
-class SettingVC: UITableViewController {
+class SearchTagVC: UIViewController {
 
+    @IBOutlet weak var txfSearch: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationItem.title = "Settings"
+        txfSearch.becomeFirstResponder()
         // Do any additional setup after loading the view.
     }
 
@@ -22,10 +22,7 @@ class SettingVC: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func doBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
+
     /*
     // MARK: - Navigation
 
@@ -35,8 +32,10 @@ class SettingVC: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableView.deselectRow(at: indexPath, animated: true)
+    
+    @IBAction func doCancel(_ sender: Any) {
+        self.dismiss(animated: true) {
+            
+        }
     }
 }

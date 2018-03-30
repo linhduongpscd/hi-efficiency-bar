@@ -14,20 +14,34 @@ class LoungeTabbarVC: UIViewController {
     var profileView = ProfileView.init(frame: .zero)
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var subNavi: UIView!
+    @IBOutlet weak var heightNavi: NSLayoutConstraint!
+    @IBOutlet weak var lblNavi: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         self.collectionView.register(UINib(nibName: "TopLoungeCollect", bundle: nil), forCellWithReuseIdentifier: "TopLoungeCollect")
         self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
+
         self.initParalax()
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 2436:
+                print("iPhone X")
+                heightNavi.constant = 84
+            default:
+                print("unknown")
+            }
+        }
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.isTranslucent = true
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -49,14 +63,20 @@ class LoungeTabbarVC: UIViewController {
 extension LoungeTabbarVC: MXParallaxHeaderDelegate
 {
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
+        print(parallaxHeader.progress)
+       self.subNavi.alpha = 1 - parallaxHeader.progress
         if parallaxHeader.progress > 0.0
         {
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            self.navigationItem.title = "My Lounge"
+            //self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            //self.navigationItem.title = "My Lounge"
+            self.lblNavi.text = "My Lounge"
+            self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 20.0)
         }
         else{
-            self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "white"), for: .default)
-            self.navigationItem.title = "Ryan Hoover"
+            //self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "white"), for: .default)
+            // self.navigationItem.title = "Ryan Hoover"
+             self.lblNavi.text = "Ryan Hoover"
+             self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Medium, size: 20.0)
         }
     }
 }

@@ -37,29 +37,39 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_search" translatesAutoresizingMaskIntoConstraints="NO" id="eCQ-Fx-cIl">
                                         <rect key="frame" x="15" y="8" width="28" height="28"/>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Quick search" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Rwj-mE-Rl7">
+                                    <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Quick search" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Rwj-mE-Rl7">
                                         <rect key="frame" x="51" y="12.5" width="211" height="19"/>
-                                        <color key="textColor" red="1" green="0.60392156860000001" blue="0.0078431372550000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.98431372549999996" green="0.43529411759999997" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
-                                                <color key="value" red="1" green="0.60392156860000001" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.98431372549019602" green="0.43529411764705883" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="delegate" destination="gTV-IL-0wX" id="nhc-ap-Zhr"/>
                                         </connections>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xem-QK-AHL">
+                                        <rect key="frame" x="0.0" y="0.0" width="270" height="44"/>
+                                        <connections>
+                                            <action selector="doSearchtag:" destination="gTV-IL-0wX" eventType="touchUpInside" id="IQ2-PM-W8T"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Rwj-mE-Rl7" firstAttribute="leading" secondItem="eCQ-Fx-cIl" secondAttribute="trailing" constant="8" id="7FY-dg-dya"/>
+                                    <constraint firstAttribute="bottom" secondItem="xem-QK-AHL" secondAttribute="bottom" id="8HF-rZ-K7X"/>
+                                    <constraint firstItem="xem-QK-AHL" firstAttribute="top" secondItem="SXo-hq-ZzU" secondAttribute="top" id="Cha-bD-6fU"/>
                                     <constraint firstAttribute="trailing" secondItem="Rwj-mE-Rl7" secondAttribute="trailing" constant="8" id="SMw-HJ-DYp"/>
+                                    <constraint firstAttribute="trailing" secondItem="xem-QK-AHL" secondAttribute="trailing" id="SXc-cj-oBR"/>
                                     <constraint firstItem="eCQ-Fx-cIl" firstAttribute="leading" secondItem="SXo-hq-ZzU" secondAttribute="leading" constant="15" id="Tyz-yp-yoe"/>
                                     <constraint firstItem="Rwj-mE-Rl7" firstAttribute="centerY" secondItem="SXo-hq-ZzU" secondAttribute="centerY" id="Uvg-1a-Psh"/>
                                     <constraint firstAttribute="width" secondItem="SXo-hq-ZzU" secondAttribute="height" multiplier="271:44" id="Vbu-4K-chN"/>
                                     <constraint firstItem="eCQ-Fx-cIl" firstAttribute="centerY" secondItem="SXo-hq-ZzU" secondAttribute="centerY" id="bqr-PO-2C9"/>
+                                    <constraint firstItem="xem-QK-AHL" firstAttribute="leading" secondItem="SXo-hq-ZzU" secondAttribute="leading" id="csj-cu-Ga4"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">

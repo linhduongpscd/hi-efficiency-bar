@@ -30,6 +30,7 @@
                             <constraint firstAttribute="height" constant="50" id="Tjj-DO-CWe"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="AlrightSans-Bold" family="Alright Sans" pointSize="17"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" title="Next" backgroundImage="btn">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </state>

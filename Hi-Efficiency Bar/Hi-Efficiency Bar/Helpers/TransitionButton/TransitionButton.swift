@@ -96,6 +96,7 @@ open class TransitionButton : UIButton, UIViewControllerTransitioningDelegate, C
             self.layer.cornerRadius = self.frame.height / 2 // corner radius should be half the height to have a circle corners
         }, completion: { completed -> Void in
             self.shrink()   // reduce the width to be equal to the height in order to have a circle
+            self.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
             self.spiner.animation() // animate spinner
         })
     }
@@ -152,7 +153,7 @@ open class TransitionButton : UIButton, UIViewControllerTransitioningDelegate, C
         self.animateToOriginalWidth()
         self.spiner.stopAnimation()
         //self.setTitle(self.cachedTitle, for: .normal)
-        //self.setImage(self.cachedImage, for: .normal)
+        self.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
         self.isUserInteractionEnabled = true // enable again the user interaction
         self.layer.cornerRadius = self.cornerRadius
     }

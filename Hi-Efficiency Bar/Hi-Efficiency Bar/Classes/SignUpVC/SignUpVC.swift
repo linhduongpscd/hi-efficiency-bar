@@ -111,11 +111,11 @@ class SignUpVC: BaseViewController {
         let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
         backgroundQueue.async(execute: {
             
-            sleep(2) // 3: Do your networking task or background work here.
+            sleep(1) // 3: Do your networking task or background work here.
             
             DispatchQueue.main.async(execute: { () -> Void in
                 self.btnSignUp.setTitle("", for: .normal)
-                self.btnSignUp.setImage(#imageLiteral(resourceName: "ic_check"), for: .normal)
+                self.btnSignUp.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
                 // 4: Stop the animation, here you have three options for the `animationStyle` property:
                 // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
                 // .shake: when you want to reflect to the user that the task did not complete successfly

@@ -317,7 +317,7 @@ class CustomDetailVC: UIViewController {
             
             DispatchQueue.main.async(execute: { () -> Void in
                 self.btnAddCustom.setTitle("", for: .normal)
-                self.btnAddCustom.setImage(#imageLiteral(resourceName: "ic_check"), for: .normal)
+                self.btnAddCustom.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
                 // 4: Stop the animation, here you have three options for the `animationStyle` property:
                 // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
                 // .shake: when you want to reflect to the user that the task did not complete successfly

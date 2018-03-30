@@ -21,13 +21,19 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
     }
 
     @IBAction func doRepeat(_ sender: Any) {
-        UIView.animate(withDuration: 0.25) { () -> Void in
-            self.ic_repeat.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+
+
+         UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
+             self.ic_repeat.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+        }) { (success) in
+             UIView.animate(withDuration: 0.25) { () -> Void in
+
+                    self.ic_repeat.transform = CGAffineTransform.identity
+            }
+
         }
-        
-        UIView.animate(withDuration: 0.25, delay: 0.2, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
-            self.ic_repeat.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI * 2))
-        }, completion: nil)
+      
+     
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

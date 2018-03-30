@@ -16,6 +16,9 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
     @IBOutlet weak var lblQuanlity: UILabel!
     var number = 1
     @IBOutlet var subNaviRight: UIView!
+    @IBOutlet weak var btnFav: UIButton!
+    @IBOutlet weak var constraintBottomFav: NSLayoutConstraint!
+    var isFav = false
     override func viewDidLoad() {
         super.viewDidLoad()
          self.tblDetail.register(UINib(nibName: "CurrentOrderCellNotTimeLine", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
@@ -35,6 +38,29 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func doFav(_ sender: Any) {
+        if !isFav
+        {
+            isFav = true
+            btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+        }
+        else{
+            isFav = false
+            btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
+        }
+        
+        UIView.animate(withDuration: 0.5,
+                       animations: {
+                        self.constraintBottomFav.constant = -52
+                        self.btnFav.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        },
+                       completion: { _ in
+                        UIView.animate(withDuration: 0.25) {
+                            self.constraintBottomFav.constant = -37
+                            self.btnFav.transform = CGAffineTransform.identity
+                        }
+        })
+    }
     @IBAction func doCustomize(_ sender: Any) {
         let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
         self.navigationController?.pushViewController(vc, animated: true)
@@ -77,11 +103,11 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
         let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
         backgroundQueue.async(execute: {
             
-            sleep(2) // 3: Do your networking task or background work here.
+            sleep(1) // 3: Do your networking task or background work here.
             
             DispatchQueue.main.async(execute: { () -> Void in
                 self.btnAddMyCard.setTitle("", for: .normal)
-                self.btnAddMyCard.setImage(#imageLiteral(resourceName: "ic_check"), for: .normal)
+                self.btnAddMyCard.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
                 // 4: Stop the animation, here you have three options for the `animationStyle` property:
                 // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
                 // .shake: when you want to reflect to the user that the task did not complete successfly

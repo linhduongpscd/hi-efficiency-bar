@@ -13,43 +13,39 @@ class MyTabVC: UIViewController {
     @IBOutlet weak var tblMyTab: UITableView!
     @IBOutlet weak var btnMakeMeDrink: TransitionButton!
     @IBOutlet weak var scrollPage: UIScrollView!
-    //var hidingNavBarManager: HidingNavigationBarManager?
+   var hidingNavBarManager: HidingNavigationBarManager?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "My Tab"
         btnMakeMeDrink.spinnerColor = .white
         self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
-        //self.shyNavBarManager.scrollView = scrollPage
-       // self.shyNavBarManager.extensionView = nil
-         //hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
-       
-        // Do any additional setup after loading the view.
+         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        //hidingNavBarManager?.viewWillAppear(animated)
+        hidingNavBarManager?.viewWillAppear(animated)
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        hidingNavBarManager?.viewDidLayoutSubviews()
-//    }
-//    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        hidingNavBarManager?.viewWillDisappear(animated)
-//    }
-//    
-//    // MARK: UITableViewDelegate
-//    
-//    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-//        //hidingNavBarManager?.shouldScrollToTop()
-//        
-//        return true
-//    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        hidingNavBarManager?.viewDidLayoutSubviews()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        hidingNavBarManager?.viewWillDisappear(animated)
+    }
+    
+    // MARK: UITableViewDelegate
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        hidingNavBarManager?.shouldScrollToTop()
+        
+        return true
+    }
   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,11 +59,11 @@ class MyTabVC: UIViewController {
         let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
         backgroundQueue.async(execute: {
             
-            sleep(2) // 3: Do your networking task or background work here.
+            sleep(1) // 3: Do your networking task or background work here.
             
             DispatchQueue.main.async(execute: { () -> Void in
                 self.btnMakeMeDrink.setTitle("", for: .normal)
-                self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "ic_check"), for: .normal)
+                self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
                 // 4: Stop the animation, here you have three options for the `animationStyle` property:
                 // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
                 // .shake: when you want to reflect to the user that the task did not complete successfly

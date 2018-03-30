@@ -22,26 +22,38 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="192"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload profile picture" translatesAutoresizingMaskIntoConstraints="NO" id="75C-Li-n6q">
-                    <rect key="frame" x="108" y="30" width="105" height="105"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itR-uI-2qM">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="192"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload profile picture" translatesAutoresizingMaskIntoConstraints="NO" id="75C-Li-n6q">
+                            <rect key="frame" x="107" y="30" width="105" height="105"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="75C-Li-n6q" secondAttribute="height" multiplier="1:1" id="8Sj-fw-LJo"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ryan Hoover" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBK-HC-JaW">
+                            <rect key="frame" x="93" y="150" width="133" height="22"/>
+                            <fontDescription key="fontDescription" name="AlrightSans-Medium" family="Alright Sans" pointSize="22"/>
+                            <color key="textColor" red="0.092288292940000002" green="0.19512778519999999" blue="0.23933044079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="75C-Li-n6q" secondAttribute="height" multiplier="1:1" id="8Sj-fw-LJo"/>
+                        <constraint firstItem="75C-Li-n6q" firstAttribute="centerX" secondItem="itR-uI-2qM" secondAttribute="centerX" id="3FK-bl-meT"/>
+                        <constraint firstItem="PBK-HC-JaW" firstAttribute="centerX" secondItem="itR-uI-2qM" secondAttribute="centerX" id="4XY-UK-pPA"/>
+                        <constraint firstAttribute="bottom" secondItem="PBK-HC-JaW" secondAttribute="bottom" constant="20" id="AOv-7O-9Rg"/>
+                        <constraint firstAttribute="bottom" secondItem="75C-Li-n6q" secondAttribute="bottom" constant="57" id="VAe-XY-eSl"/>
+                        <constraint firstItem="75C-Li-n6q" firstAttribute="top" secondItem="itR-uI-2qM" secondAttribute="top" constant="30" id="ssF-zd-yPM"/>
                     </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ryan Hoover" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBK-HC-JaW">
-                    <rect key="frame" x="93" y="150" width="133" height="22"/>
-                    <fontDescription key="fontDescription" name="AlrightSans-Medium" family="Alright Sans" pointSize="22"/>
-                    <color key="textColor" red="0.092288292940000002" green="0.19512778519999999" blue="0.23933044079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="PBK-HC-JaW" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="13u-5f-Dt3"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="PBK-HC-JaW" secondAttribute="bottom" constant="20" id="2CB-vm-ejF"/>
-                <constraint firstItem="75C-Li-n6q" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="30" id="Rur-xb-TVr"/>
-                <constraint firstItem="75C-Li-n6q" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="kSE-ic-xHX"/>
-                <constraint firstItem="PBK-HC-JaW" firstAttribute="top" secondItem="75C-Li-n6q" secondAttribute="bottom" constant="15" id="pHy-23-gLZ"/>
+                <constraint firstItem="itR-uI-2qM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="1SW-bT-KW0"/>
+                <constraint firstItem="itR-uI-2qM" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="DAV-Sg-eGM"/>
+                <constraint firstItem="itR-uI-2qM" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="ISg-iL-nfc"/>
+                <constraint firstItem="itR-uI-2qM" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="wnp-IN-0Bd"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
