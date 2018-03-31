@@ -7,44 +7,35 @@
 //
 
 import UIKit
-
-class MyTabVC: UIViewController {
+import MXParallaxHeader
+class MyTabVC: BaseViewController {
 
     @IBOutlet weak var tblMyTab: UITableView!
     @IBOutlet weak var btnMakeMeDrink: TransitionButton!
-    @IBOutlet weak var scrollPage: UIScrollView!
-   var hidingNavBarManager: HidingNavigationBarManager?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "My Tab"
         btnMakeMeDrink.spinnerColor = .white
         self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
-         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
+        initParalax()
+        //self.configHideNaviTable(tblMyTab)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-        hidingNavBarManager?.viewWillAppear(animated)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        hidingNavBarManager?.viewDidLayoutSubviews()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        hidingNavBarManager?.viewWillDisappear(animated)
-    }
-    
-    // MARK: UITableViewDelegate
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        hidingNavBarManager?.shouldScrollToTop()
+    func initParalax()
+    {
+        let profileView = UIView.init()
+        profileView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 30)
+        tblMyTab.parallaxHeader.delegate = self
+        tblMyTab.parallaxHeader.view = profileView
+        tblMyTab.parallaxHeader.height = 30
+        tblMyTab.parallaxHeader.mode = .fill
         
-        return true
     }
   
     override func didReceiveMemoryWarning() {
@@ -94,7 +85,19 @@ class MyTabVC: UIViewController {
     */
 
 }
-
+extension MyTabVC: MXParallaxHeaderDelegate
+{
+    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
+        print(parallaxHeader.progress)
+        if parallaxHeader.progress > 0.0
+        {
+            self.navigationItem.title = "My Tab"
+        }
+        else{
+            self.navigationItem.title = ""
+        }
+    }
+}
 extension MyTabVC: UITableViewDataSource, UITableViewDelegate
 {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -102,16 +105,51 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 7
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0
+        {
+            return 35
+        }
+        if indexPath.row == 6
+        {
+            return 316
+        }
         return 70
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0
+        {
+            let cell = self.tblMyTab.dequeueReusableCell(withIdentifier: "headercell")
+            return cell!
+        }
+        else if indexPath.row == 6
+        {
+            let cell = self.tblMyTab.dequeueReusableCell(withIdentifier: "visacell")
+            return cell!
+        }
         let cell = self.tblMyTab.dequeueReusableCell(withIdentifier: "MyTabCell") as! MyTabCell
+        if indexPath.row == 3
+        {
+            cell.subLine.isHidden = true
+        }
+        else
+        {
+            cell.subLine.isHidden = false
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let vc = UIView.init(frame: .zero)
+        return vc
     }
 }

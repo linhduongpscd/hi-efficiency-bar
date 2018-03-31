@@ -145,6 +145,7 @@ extension ViewDetailVC: UITableViewDelegate, UITableViewDataSource
        else{
             cell.subContent.backgroundColor = UIColor.white
         }
+        cell.backgroundColor = UIColor.clear
         return cell
     }
 }

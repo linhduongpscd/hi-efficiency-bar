@@ -13,7 +13,7 @@ import MXParallaxHeader
 class LoungeTabbarVC: UIViewController {
     var profileView = ProfileView.init(frame: .zero)
     @IBOutlet weak var collectionView: UICollectionView!
-    
+     var imagePicker: UIImagePickerController!
     @IBOutlet weak var subNavi: UIView!
     @IBOutlet weak var heightNavi: NSLayoutConstraint!
     @IBOutlet weak var lblNavi: UILabel!
@@ -51,15 +51,78 @@ class LoungeTabbarVC: UIViewController {
     {
         profileView = Bundle.main.loadNibNamed("ProfileView", owner: self, options: nil)?[0] as! ProfileView
         profileView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 192)
+        profileView.tapChangeAvatar = { [] in
+            let alert = UIAlertController(title: APP_NAME,
+                                          message: nil,
+                                          preferredStyle: UIAlertControllerStyle.actionSheet)
+            
+            let takePhoto = UIAlertAction.init(title: "Take a Photo", style: .default) { (action) in
+                self .showCamera()
+            }
+            
+            alert.addAction(takePhoto)
+            
+            let selectPhoto = UIAlertAction.init(title: "Select a Photo", style: .default) { (action) in
+                self .showLibrary()
+            }
+            
+            alert.addAction(selectPhoto)
+            
+            let cancelAction = UIAlertAction(title: "Cancel",
+                                             style: .cancel, handler: nil)
+            
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+        }
         collectionView.parallaxHeader.delegate = self
         collectionView.parallaxHeader.view = profileView
         collectionView.parallaxHeader.height = 192
         collectionView.parallaxHeader.mode = .fill
         
     }
+    func showCamera()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker =  UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            imagePicker.allowsEditing = true
+            present(imagePicker, animated: true, completion: nil)
+        }
+        
+    }
     
+    func showLibrary()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker =  UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = true
+            present(imagePicker, animated: true, completion: nil)
+        }
+    }
 }
-
+extension LoungeTabbarVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true) {
+            
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage
+        {
+            profileView.imgAvatar.layer.cornerRadius = profileView.imgAvatar.frame.size.width/2
+            profileView.imgAvatar.layer.masksToBounds = true
+           profileView.imgAvatar.image = image
+        }
+        self.dismiss(animated: true) {
+            
+        }
+    }
+}
 extension LoungeTabbarVC: MXParallaxHeaderDelegate
 {
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {

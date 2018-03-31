@@ -43,6 +43,8 @@
 		27F70D14206E4C2D00077428 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F70D13206E4C2D00077428 /* SearchTagVC.swift */; };
 		3B038FBD2062B5010051691E /* IngredientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B038FBC2062B5010051691E /* IngredientVC.swift */; };
 		3B038FBF2062B5D00051691E /* IngreCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B038FBE2062B5D00051691E /* IngreCollect.swift */; };
+		3B149D36206F2FC100CBBCCA /* CurrentOrderCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B149D34206F2FC100CBBCCA /* CurrentOrderCollect.swift */; };
+		3B149D37206F2FC100CBBCCA /* CurrentOrderCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B149D35206F2FC100CBBCCA /* CurrentOrderCollect.xib */; };
 		3B4FAE3B205F6E180050331F /* CurrentOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4FAE39205F6E180050331F /* CurrentOrderCell.swift */; };
 		3B4FAE3C205F6E180050331F /* CurrentOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B4FAE3A205F6E180050331F /* CurrentOrderCell.xib */; };
 		3B4FAE3F205F71630050331F /* FooterCurrentOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4FAE3D205F71630050331F /* FooterCurrentOrderCell.swift */; };
@@ -182,6 +184,8 @@
 		395044B5EE3CB3A9A33B9FBC /* Pods-Hi-Efficiency Bar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hi-Efficiency Bar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hi-Efficiency Bar/Pods-Hi-Efficiency Bar.debug.xcconfig"; sourceTree = "<group>"; };
 		3B038FBC2062B5010051691E /* IngredientVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientVC.swift; sourceTree = "<group>"; };
 		3B038FBE2062B5D00051691E /* IngreCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngreCollect.swift; sourceTree = "<group>"; };
+		3B149D34206F2FC100CBBCCA /* CurrentOrderCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOrderCollect.swift; sourceTree = "<group>"; };
+		3B149D35206F2FC100CBBCCA /* CurrentOrderCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrentOrderCollect.xib; sourceTree = "<group>"; };
 		3B4FAE39205F6E180050331F /* CurrentOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOrderCell.swift; sourceTree = "<group>"; };
 		3B4FAE3A205F6E180050331F /* CurrentOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrentOrderCell.xib; sourceTree = "<group>"; };
 		3B4FAE3D205F71630050331F /* FooterCurrentOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCurrentOrderCell.swift; sourceTree = "<group>"; };
@@ -533,6 +537,8 @@
 				2776C7922063595A0040F065 /* CustomDetailCell.swift */,
 				27F60F72206B31A4009FDDC0 /* ShowMorePreCell.xib */,
 				27F60F73206B31A4009FDDC0 /* ShowMorePreCell.swift */,
+				3B149D34206F2FC100CBBCCA /* CurrentOrderCollect.swift */,
+				3B149D35206F2FC100CBBCCA /* CurrentOrderCollect.xib */,
 			);
 			name = Cells;
 			path = Tabbars/Cells;
@@ -730,6 +736,7 @@
 				3BC39B69205C190800D2E60B /* HeaderCustomCell.xib in Resources */,
 				27F60F74206B31A4009FDDC0 /* ShowMorePreCell.xib in Resources */,
 				3BDBE412205FB1F200CDA28E /* DetailCockTailCollect.xib in Resources */,
+				3B149D37206F2FC100CBBCCA /* CurrentOrderCollect.xib in Resources */,
 				3B91CB2D2058DA600073D54B /* PickerView.xib in Resources */,
 				3B91CB0F2058C3160073D54B /* AlrightSans-Medium-v3.otf in Resources */,
 				3B4FAE3C205F6E180050331F /* CurrentOrderCell.xib in Resources */,
@@ -875,6 +882,7 @@
 				3BFF9C96205918F100FFA49C /* HeaderViewCell.swift in Sources */,
 				275418A02068DFD000DEED32 /* HidingViewController.swift in Sources */,
 				3BFF9C8E2059004400FFA49C /* SearchVC.swift in Sources */,
+				3B149D36206F2FC100CBBCCA /* CurrentOrderCollect.swift in Sources */,
 				3BFF9C862059001300FFA49C /* CustomVC.swift in Sources */,
 				3BDBE3FF205F961700CDA28E /* HeaderPreOrderCell.swift in Sources */,
 				2776C7932063595A0040F065 /* CustomDetailCell.swift in Sources */,

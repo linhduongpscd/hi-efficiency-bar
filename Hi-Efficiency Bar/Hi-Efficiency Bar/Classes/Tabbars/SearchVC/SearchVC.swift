@@ -120,7 +120,7 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         if indexPath.section == 1 {
             if indexPath.row == 0
             {
-                return CGSize(width: collectionView.frame.size.width, height: 50)
+                return CGSize(width: collectionView.frame.size.width, height: 86)
             }
              return CGSize(width: (collectionView.frame.size.width - 4)/2, height: 50)
         }
@@ -128,6 +128,18 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         return CGSize(width:( UIScreen.main.bounds.size.width - 10)/2, height:  170)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+     if indexPath.section == 1 {
+            if indexPath.row > 0
+            {
+                // 72 181 251
+                if let cell = collectionView.cellForItem(at: indexPath) as? IngreItemCollect
+                {
+                    cell.imgCheck.isHidden = false
+                    cell.subContent.borderWidth = 4.0
+                    cell.subContent.borderColor =  UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha:1.0)
+                }
+            }
+        }
        if indexPath.section == 2
        {
             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailCocktailVC") as! DetailCocktailVC

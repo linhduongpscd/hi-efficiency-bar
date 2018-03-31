@@ -1,68 +1,35 @@
 //
-//  CurrentOrderVC.swift
+//  CurrentOrderCollect.swift
 //  Hi-Efficiency Bar
 //
-//  Created by Colin Ngo on 3/17/18.
+//  Created by Colin Ngo on 3/31/18.
 //  Copyright © 2018 QTS Coder. All rights reserved.
 //
 
 import UIKit
 
-class CurrentOrderVC: UIViewController  {
+class CurrentOrderCollect: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var tblCurrent: UITableView!
-    var currentPage = 0
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.tblCurrent.register(UINib(nibName: "CurrentOrderCell", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
-         self.tblCurrent.register(UINib(nibName: "FooterCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "FooterCurrentOrderCell")
-        self.tblCurrent.register(UINib(nibName: "HeaderCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderCurrentOrderCell")
-        
-        self.initpalalax()
-        // Do any additional setup after loading the view.
+    @IBOutlet weak var tblCustom: UITableView!
+    var numberPage = 0
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
     }
-    func initpalalax()
+
+    func registerCell()
     {
-        let headerView = Bundle.main.loadNibNamed("HeaderCustomOrder", owner: self, options: nil)?[0] as! HeaderCustom
-        headerView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 195 + (UIScreen.main.bounds.size.width - 320))
-        headerView.isListOrder = true
-        headerView.registerCell()
-        headerView.tapClick = { [] in
-            self.currentPage = headerView.currentDot
-            self.tblCurrent.reloadData()
-        }
-        tblCurrent.parallaxHeader.view = headerView
-        tblCurrent.parallaxHeader.height = 195 + (UIScreen.main.bounds.size.width - 320)
-        tblCurrent.parallaxHeader.mode = .fill
+        self.tblCustom.register(UINib(nibName: "CurrentOrderCell", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
+          self.tblCustom.register(UINib(nibName: "FooterCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "FooterCurrentOrderCell")
+        self.tblCustom.register(UINib(nibName: "HeaderCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderCurrentOrderCell")
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func doBack(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.view.backgroundColor = .white
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
-    }
-  
-}
-
-extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
-{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.currentPage % 2 == 0 {
+        if numberPage % 2 == 0 {
             return 5
         }
         return 3
@@ -73,14 +40,14 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "CurrentOrderCell") as! CurrentOrderCell
+        let cell = self.tblCustom.dequeueReusableCell(withIdentifier: "CurrentOrderCell") as! CurrentOrderCell
         if indexPath.row == 0 {
             cell.spaceTop.isHidden = true
         }
         else{
             cell.spaceTop.isHidden = false
         }
-        if self.currentPage % 2 == 0 {
+        if numberPage % 2 == 0 {
             if indexPath.row == 4 {
                 cell.subContent.backgroundColor =  UIColor.init(red: 241/255.0, green: 240/255.0, blue: 144/255.0, alpha: 1.0)
                 cell.spaceButtom.backgroundColor = UIColor.lightGray
@@ -113,7 +80,7 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-         let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "FooterCurrentOrderCell") as! FooterCurrentOrderCell
+        let cell = self.tblCustom.dequeueReusableCell(withIdentifier: "FooterCurrentOrderCell") as! FooterCurrentOrderCell
         return cell.contentView
     }
     
@@ -122,7 +89,7 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "HeaderCurrentOrderCell") as! HeaderCurrentOrderCell
+        let cell = self.tblCustom.dequeueReusableCell(withIdentifier: "HeaderCurrentOrderCell") as! HeaderCurrentOrderCell
         return cell.contentView
     }
 }

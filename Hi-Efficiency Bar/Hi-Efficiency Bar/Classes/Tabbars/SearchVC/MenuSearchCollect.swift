@@ -10,10 +10,13 @@ import UIKit
 
 class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var arrmenus = [#imageLiteral(resourceName: "ing_1"), #imageLiteral(resourceName: "ing_2"), #imageLiteral(resourceName: "ing_3"), #imageLiteral(resourceName: "ing_4"), #imageLiteral(resourceName: "ing_5"), #imageLiteral(resourceName: "ing_6")]
+    var arrNames = ["Basics", "Spirits","Liquers","Mixers","Other","Fruits"]
     @IBOutlet weak var collectionView: UICollectionView!
     var indexSelect = 0
+    @IBOutlet weak var lblName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
+        lblName.text = arrNames[indexSelect]
         // Initialization code
     }
 
@@ -55,6 +58,7 @@ class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UIColle
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         indexSelect = indexPath.row
+        lblName.text = arrNames[indexSelect]
         collectionView.reloadData()
     }
 }

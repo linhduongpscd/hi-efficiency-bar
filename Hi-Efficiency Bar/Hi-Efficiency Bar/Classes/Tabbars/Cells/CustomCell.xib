@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -27,20 +27,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rum brand 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3N-MP-Hhr">
-                        <rect key="frame" x="117" y="15" width="86" height="15"/>
+                        <rect key="frame" x="116.5" y="15" width="87.5" height="17.5"/>
                         <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Moj-Ob-7p4">
-                        <rect key="frame" x="227" y="22" width="93" height="1"/>
+                        <rect key="frame" x="228" y="23.5" width="92" height="1"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="K8b-EJ-pRO"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mFr-Da-qVC">
-                        <rect key="frame" x="0.0" y="22" width="93" height="1"/>
+                        <rect key="frame" x="0.0" y="23.5" width="92.5" height="1"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="m8k-md-reZ"/>
@@ -103,7 +103,13 @@
                                 <real key="value" value="16"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="doYock1:" destination="oDV-ov-ria" eventType="touchUpInside" id="wBd-or-hWZ"/>
+                        </connections>
                     </button>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="Dga-U1-vIH">
+                        <rect key="frame" x="25" y="109" width="25" height="25"/>
+                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMW-iF-Vah" customClass="UIButtonX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                         <rect key="frame" x="175" y="104" width="125" height="35"/>
                         <color key="backgroundColor" red="0.55101209878921509" green="0.13334107398986816" blue="0.10493802279233932" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -119,7 +125,13 @@
                                 <real key="value" value="16"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="doYock2:" destination="oDV-ov-ria" eventType="touchUpInside" id="6mq-9b-C7E"/>
+                        </connections>
                     </button>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="oWy-Qg-kyA">
+                        <rect key="frame" x="180" y="109" width="25" height="25"/>
+                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MkI-bl-r0j" customClass="UIButtonX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                         <rect key="frame" x="20" y="149" width="125" height="35"/>
                         <color key="backgroundColor" red="0.94650644063949585" green="0.63686615228652954" blue="0.54685097932815552" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -135,13 +147,19 @@
                                 <real key="value" value="16"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="doYock3:" destination="oDV-ov-ria" eventType="touchUpInside" id="f5W-5O-DJJ"/>
+                        </connections>
                     </button>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="c0c-Tj-Tzd">
+                        <rect key="frame" x="25" y="154" width="25" height="25"/>
+                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ang-nI-CeN" customClass="UIButtonX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                         <rect key="frame" x="175" y="149" width="125" height="35"/>
-                        <color key="backgroundColor" red="0.9999127984046936" green="1" blue="0.99988144636154175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.94604557749999996" green="0.9426416755" blue="0.56316107510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" name="AlrightSans-Light" family="Alright Sans" pointSize="17"/>
                         <state key="normal" title="Rum 4">
-                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -154,17 +172,28 @@
                                 <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="doYock4:" destination="oDV-ov-ria" eventType="touchUpInside" id="hwq-Ni-vOP"/>
+                        </connections>
                     </button>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="SpG-NK-E5K">
+                        <rect key="frame" x="180" y="154" width="25" height="25"/>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="SpG-NK-E5K" firstAttribute="leading" secondItem="ang-nI-CeN" secondAttribute="leading" constant="5" id="2Sj-bq-uGf"/>
+                    <constraint firstItem="oWy-Qg-kyA" firstAttribute="centerY" secondItem="OMW-iF-Vah" secondAttribute="centerY" id="3Iv-91-yp1"/>
                     <constraint firstItem="c3N-MP-Hhr" firstAttribute="leading" secondItem="mFr-Da-qVC" secondAttribute="trailing" constant="24" id="5Hu-Q6-sbd"/>
                     <constraint firstItem="Moj-Ob-7p4" firstAttribute="leading" secondItem="c3N-MP-Hhr" secondAttribute="trailing" constant="24" id="7Dc-Kk-OXp"/>
                     <constraint firstItem="MkI-bl-r0j" firstAttribute="leading" secondItem="wL5-Sx-NQO" secondAttribute="leading" constant="20" id="7jR-Xu-mDs"/>
                     <constraint firstItem="c3N-MP-Hhr" firstAttribute="centerX" secondItem="wL5-Sx-NQO" secondAttribute="centerX" id="9gX-oO-5Lj"/>
                     <constraint firstItem="ewa-Og-6Pl" firstAttribute="leading" secondItem="wL5-Sx-NQO" secondAttribute="leading" constant="20" id="Ayb-fV-c2C"/>
+                    <constraint firstItem="c0c-Tj-Tzd" firstAttribute="centerY" secondItem="MkI-bl-r0j" secondAttribute="centerY" id="B7B-fa-nh7"/>
                     <constraint firstItem="mFr-Da-qVC" firstAttribute="centerY" secondItem="c3N-MP-Hhr" secondAttribute="centerY" id="F1x-gY-21q"/>
                     <constraint firstItem="H5l-6c-Qry" firstAttribute="leading" secondItem="wL5-Sx-NQO" secondAttribute="leading" constant="20" id="F3s-zM-bpn"/>
+                    <constraint firstItem="SpG-NK-E5K" firstAttribute="centerY" secondItem="ang-nI-CeN" secondAttribute="centerY" id="FKL-CO-NU3"/>
                     <constraint firstItem="ang-nI-CeN" firstAttribute="height" secondItem="MkI-bl-r0j" secondAttribute="height" id="IfN-k0-wCv"/>
+                    <constraint firstItem="Dga-U1-vIH" firstAttribute="leading" secondItem="ewa-Og-6Pl" secondAttribute="leading" constant="5" id="MDj-fc-ilk"/>
                     <constraint firstItem="ang-nI-CeN" firstAttribute="width" secondItem="MkI-bl-r0j" secondAttribute="width" id="MYA-vx-8AZ"/>
                     <constraint firstItem="H5l-6c-Qry" firstAttribute="top" secondItem="wL5-Sx-NQO" secondAttribute="top" constant="50" id="OD1-dO-bif"/>
                     <constraint firstItem="OMW-iF-Vah" firstAttribute="leading" secondItem="ewa-Og-6Pl" secondAttribute="trailing" constant="30" id="PEG-mF-Tec"/>
@@ -181,15 +210,23 @@
                     <constraint firstItem="mFr-Da-qVC" firstAttribute="leading" secondItem="wL5-Sx-NQO" secondAttribute="leading" id="f8C-TL-RcI"/>
                     <constraint firstAttribute="trailing" secondItem="OMW-iF-Vah" secondAttribute="trailing" constant="20" id="k7g-cd-1um"/>
                     <constraint firstItem="Moj-Ob-7p4" firstAttribute="centerY" secondItem="c3N-MP-Hhr" secondAttribute="centerY" id="lgb-by-oAG"/>
+                    <constraint firstItem="Dga-U1-vIH" firstAttribute="centerY" secondItem="ewa-Og-6Pl" secondAttribute="centerY" id="okR-qx-7kh"/>
+                    <constraint firstItem="oWy-Qg-kyA" firstAttribute="leading" secondItem="OMW-iF-Vah" secondAttribute="leading" constant="5" id="rQw-Hy-XZy"/>
+                    <constraint firstItem="c0c-Tj-Tzd" firstAttribute="leading" secondItem="MkI-bl-r0j" secondAttribute="leading" constant="5" id="zV2-Ah-khT"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="imgTick1" destination="Dga-U1-vIH" id="Bpp-MA-mms"/>
+                <outlet property="imgTick2" destination="oWy-Qg-kyA" id="K7h-bP-auO"/>
+                <outlet property="imgTick3" destination="c0c-Tj-Tzd" id="Kpb-FT-Feb"/>
+                <outlet property="imgTick4" destination="SpG-NK-E5K" id="mo7-LM-z8K"/>
                 <outlet property="lblTitleCell" destination="c3N-MP-Hhr" id="k3X-ts-NHP"/>
             </connections>
             <point key="canvasLocation" x="25" y="42.5"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ic_check" width="25" height="25"/>
         <image name="ic_dropdown" width="20" height="20"/>
     </resources>
 </document>

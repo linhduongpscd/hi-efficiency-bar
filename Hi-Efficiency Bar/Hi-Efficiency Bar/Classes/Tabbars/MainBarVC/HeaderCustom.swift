@@ -9,7 +9,7 @@
 import UIKit
 
 class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-
+    var tapClick:(() ->())?
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -17,6 +17,7 @@ class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         // Drawing code
     }
     */
+    var currentDot = 0
     func registerCell()
     {
         if isListOrder {
@@ -40,7 +41,9 @@ class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         didSet {
             let character = self.items[self.currentPage]
             lblName.text = character.name
+            currentDot = currentPage
             print("ZO DAY")
+            self.tapClick?()
         }
     }
     //UIStoryboard.init(name: "Main", bundle: nil)

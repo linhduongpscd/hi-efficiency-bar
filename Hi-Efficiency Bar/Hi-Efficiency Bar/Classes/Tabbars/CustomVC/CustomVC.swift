@@ -12,6 +12,8 @@ class CustomVC: UIViewController {
     
     @IBOutlet weak var tblCustom: UITableView!
       var hidingNavBarManager: HidingNavigationBarManager?
+    @IBOutlet var subNavi: UIView!
+    @IBOutlet weak var imgReset: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Custom"
@@ -20,10 +22,37 @@ class CustomVC: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.registerCell()
          hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tblCustom)
+        self.customNavi()
         // Do any additional setup after loading the view.
     }
     
-  
+    func customNavi()
+    {
+        let btn = UIBarButtonItem.init(customView: subNavi)
+        self.navigationItem.rightBarButtonItem = btn
+    }
+    @IBAction func doReset(_ sender: Any) {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveLinear, animations: {
+            self.imgReset.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        }, completion: { finished in
+            UIView.animate(withDuration:  0.5, delay: 0.0, options: .curveLinear, animations: {
+                self.imgReset.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi*2))
+            }, completion: { finished in
+                CATransaction.begin()
+                let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+                rotationAnimation.fromValue = 0.0
+                rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
+                rotationAnimation.duration = 1.0
+                rotationAnimation.repeatCount = 1
+                
+                CATransaction.setCompletionBlock {
+                }
+                self.imgReset.layer.add(rotationAnimation, forKey: nil)
+                CATransaction.commit()
+            })
+        })
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hidingNavBarManager?.viewWillAppear(animated)

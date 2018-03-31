@@ -78,6 +78,10 @@ extension PreOrderVC: UITableViewDataSource, UITableViewDelegate
         if !tableViewCells.contains(cell) {
             tableViewCells.add(cell)
         }
+        cell.tapShowCurrentOrder = { [] in
+            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CurrentOrderVC") as! CurrentOrderVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         return cell
     }
 }

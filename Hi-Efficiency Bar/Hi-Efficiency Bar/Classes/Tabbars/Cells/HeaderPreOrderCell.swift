@@ -10,6 +10,7 @@ import UIKit
 
 class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
     var tapShowMoreHeader:(() ->())?
+    var tapShowCurrentOrder:(() ->())?
     @IBOutlet weak var tblOrder: UITableView!
     @IBOutlet weak var ic_repeat: UIImageView!
     var isMore = false
@@ -21,20 +22,42 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
     }
 
     @IBAction func doRepeat(_ sender: Any) {
-
-
-         UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
-             self.ic_repeat.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-        }) { (success) in
-             UIView.animate(withDuration: 0.25) { () -> Void in
-
-                    self.ic_repeat.transform = CGAffineTransform.identity
-            }
-
-        }
+//        UIView.animate(withDuration: 0.25) { () -> Void in
+//            self.ic_repeat.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+//        }
+//
+//        UIView.animate(withDuration: 0.25, delay: 0.2, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
+//            self.ic_repeat.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI * 2))
+//        }, completion: { (success) in
+//            self.tapShowCurrentOrder?()
+//        })
+//
+       
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveLinear, animations: {
+            self.ic_repeat.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        }, completion: { finished in
+            UIView.animate(withDuration:  0.5, delay: 0.0, options: .curveLinear, animations: {
+                self.ic_repeat.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi*2))
+            }, completion: { finished in
+                CATransaction.begin()
+                let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+                rotationAnimation.fromValue = 0.0
+                rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
+                rotationAnimation.duration = 1.0
+                rotationAnimation.repeatCount = 1
+                
+                CATransaction.setCompletionBlock {
+                    self.tapShowCurrentOrder?()
+                }
+                self.ic_repeat.layer.add(rotationAnimation, forKey: nil)
+                CATransaction.commit()
+            })
+        })
+        
       
      
     }
+  
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

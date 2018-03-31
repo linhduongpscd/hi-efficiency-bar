@@ -12,6 +12,7 @@ class IngreItemCollect: UICollectionViewCell {
 
     @IBOutlet weak var subContent: UIViewX!
     @IBOutlet weak var lbltext: UILabel!
+    @IBOutlet weak var imgCheck: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

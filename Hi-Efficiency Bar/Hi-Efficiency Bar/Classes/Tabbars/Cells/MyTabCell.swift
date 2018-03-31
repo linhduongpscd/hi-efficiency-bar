@@ -13,6 +13,7 @@ class MyTabCell: UITableViewCell {
     @IBOutlet weak var lblQuanlity: UILabel!
     var numberQuanlity = 1
     @IBOutlet weak var lblPrice: UILabel!
+    @IBOutlet weak var subLine: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         navTab3.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: COLOR_TABBAR.UNSELECT], for: .normal)
         navTab3.tabBarItem.setTitleTextAttributes([NSAttributedStringKey.foregroundColor: COLOR_TABBAR.TAB3], for: .selected)
         
-        let tab4 = storyboard.instantiateViewController(withIdentifier: "MyTabVC") as! MyTabVC
+        let tab4 = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "MyTabVC") as! MyTabVC
         let navTab4 = BaseNaviController(rootViewController: tab4)
         navTab4.tabBarItem.image = #imageLiteral(resourceName: "tab_mytab1").withRenderingMode(.alwaysOriginal)
         navTab4.tabBarItem.selectedImage = #imageLiteral(resourceName: "tab_mytab2").withRenderingMode(.alwaysOriginal)

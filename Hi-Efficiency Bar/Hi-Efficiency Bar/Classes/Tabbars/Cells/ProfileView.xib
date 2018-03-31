@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,18 +32,28 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ryan Hoover" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBK-HC-JaW">
-                            <rect key="frame" x="93" y="150" width="133" height="22"/>
+                            <rect key="frame" x="95.5" y="146" width="128" height="26"/>
                             <fontDescription key="fontDescription" name="AlrightSans-Medium" family="Alright Sans" pointSize="22"/>
                             <color key="textColor" red="0.092288292940000002" green="0.19512778519999999" blue="0.23933044079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMv-hD-drz">
+                            <rect key="frame" x="107.5" y="29.5" width="105" height="105"/>
+                            <connections>
+                                <action selector="doChangeAvatar:" destination="iN0-l3-epB" eventType="touchUpInside" id="dOo-rv-4wA"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="75C-Li-n6q" firstAttribute="centerX" secondItem="itR-uI-2qM" secondAttribute="centerX" id="3FK-bl-meT"/>
                         <constraint firstItem="PBK-HC-JaW" firstAttribute="centerX" secondItem="itR-uI-2qM" secondAttribute="centerX" id="4XY-UK-pPA"/>
+                        <constraint firstItem="vMv-hD-drz" firstAttribute="height" secondItem="75C-Li-n6q" secondAttribute="height" id="A8e-DI-sy3"/>
                         <constraint firstAttribute="bottom" secondItem="PBK-HC-JaW" secondAttribute="bottom" constant="20" id="AOv-7O-9Rg"/>
+                        <constraint firstItem="vMv-hD-drz" firstAttribute="centerY" secondItem="75C-Li-n6q" secondAttribute="centerY" id="KrH-E1-ZAa"/>
                         <constraint firstAttribute="bottom" secondItem="75C-Li-n6q" secondAttribute="bottom" constant="57" id="VAe-XY-eSl"/>
+                        <constraint firstItem="vMv-hD-drz" firstAttribute="width" secondItem="75C-Li-n6q" secondAttribute="width" id="kpn-0O-OFt"/>
+                        <constraint firstItem="vMv-hD-drz" firstAttribute="centerX" secondItem="75C-Li-n6q" secondAttribute="centerX" id="nXD-Ft-6cK"/>
                         <constraint firstItem="75C-Li-n6q" firstAttribute="top" secondItem="itR-uI-2qM" secondAttribute="top" constant="30" id="ssF-zd-yPM"/>
                     </constraints>
                 </view>

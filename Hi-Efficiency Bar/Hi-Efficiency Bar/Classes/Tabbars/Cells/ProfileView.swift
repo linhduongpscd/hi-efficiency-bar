@@ -9,7 +9,7 @@
 import UIKit
 
 class ProfileView: UIView {
-  
+   var tapChangeAvatar:(() ->())?
     @IBOutlet weak var imgAvatar: UIImageView!
     
     // Only override draw() if you perform custom drawing.
@@ -20,6 +20,9 @@ class ProfileView: UIView {
         //imgAvatar.layer.masksToBounds = true
     }
 
-
+    @IBAction func doChangeAvatar(_ sender: Any) {
+        self.tapChangeAvatar?()
+    }
+    
    
 }

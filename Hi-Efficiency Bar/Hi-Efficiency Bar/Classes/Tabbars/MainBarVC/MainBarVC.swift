@@ -89,12 +89,17 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section > 0 {
-            mainBarViewCell = self.collectionView.cellForItem(at: indexPath) as! MainBarViewCell
-            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+               mainBarViewCell = self.collectionView.cellForItem(at: indexPath) as! MainBarViewCell
+                CommonHellper.animateViewSmall(view: mainBarViewCell.contentView)
+                self.perform(#selector(self.viewDetail), with: nil, afterDelay: 0.8)
+            }
     }
+    @objc func viewDetail()
+    {
+        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
+        self.navigationController?.pushViewController(vc, animated: true)
     
+    }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionHeader
         {

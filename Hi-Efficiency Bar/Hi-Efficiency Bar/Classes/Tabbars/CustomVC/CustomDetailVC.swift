@@ -45,6 +45,11 @@ class CustomDetailVC: UIViewController {
     @IBOutlet var subNaviRight: UIView!
     @IBOutlet weak var btnActionRight: UIButton!
     @IBOutlet weak var imgRorate: UIImageView!
+    @IBOutlet weak var txfDrinkName: UITextField!
+    @IBOutlet weak var widthTxfDrinkName: NSLayoutConstraint!
+    @IBOutlet weak var btnEditName: UIButton!
+    var isEditName = false
+    @IBOutlet weak var leaningBtnName: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
@@ -52,6 +57,7 @@ class CustomDetailVC: UIViewController {
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
         let btnRight = UIBarButtonItem.init(customView: subNaviRight)
         self.navigationItem.rightBarButtonItem = btnRight
+        txfDrinkName.isEnabled = false
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -70,14 +76,39 @@ class CustomDetailVC: UIViewController {
     
     // MARK: UITableViewDelegate
     
-    @IBAction func doRightNavi(_ sender: Any) {
-        UIView.animate(withDuration: 0.25) { () -> Void in
-            self.imgRorate.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+    @IBAction func doEditName(_ sender: Any) {
+        if !isEditName {
+            txfDrinkName.isEnabled = true
+            isEditName = true
+            
+            UIView.animate(withDuration: 0.25, animations: {
+                self.widthTxfDrinkName.constant = UIScreen.main.bounds.size.width - 180
+                self.leaningBtnName.constant = -(UIScreen.main.bounds.size.width - 180) - 14
+            }, completion: { (success) in
+                self.txfDrinkName.becomeFirstResponder()
+            })
         }
-        
-        UIView.animate(withDuration: 0.25, delay: 0.2, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
-            self.imgRorate.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI * 2))
-        }, completion: nil)
+    }
+    @IBAction func doRightNavi(_ sender: Any) {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveLinear, animations: {
+            self.imgRorate.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        }, completion: { finished in
+            UIView.animate(withDuration:  0.5, delay: 0.0, options: .curveLinear, animations: {
+                self.imgRorate.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi*2))
+            }, completion: { finished in
+                CATransaction.begin()
+                let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+                rotationAnimation.fromValue = 0.0
+                rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
+                rotationAnimation.duration = 1.0
+                rotationAnimation.repeatCount = 1
+                
+                CATransaction.setCompletionBlock {
+                }
+                self.imgRorate.layer.add(rotationAnimation, forKey: nil)
+                CATransaction.commit()
+            })
+        })
     }
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         hidingNavBarManager?.shouldScrollToTop()
@@ -347,6 +378,21 @@ class CustomDetailVC: UIViewController {
 
 }
 
+extension CustomDetailVC: UITextFieldDelegate
+{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        txfDrinkName.isEnabled = false
+        isEditName = false
+        
+        UIView.animate(withDuration: 0.25, animations: {
+            self.widthTxfDrinkName.constant = 140
+            self.leaningBtnName.constant = 7
+        }, completion: { (success) in
+            self.txfDrinkName.resignFirstResponder()
+        })
+        return true
+    }
+}
 extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
 {
     func numberOfSections(in tableView: UITableView) -> Int {
