@@ -17,8 +17,8 @@ class MyTabVC: BaseViewController {
         self.navigationItem.title = "My Tab"
         btnMakeMeDrink.spinnerColor = .white
         self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
-        initParalax()
-        //self.configHideNaviTable(tblMyTab)
+        //initParalax()
+        self.configHideNaviTable(tblMyTab)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

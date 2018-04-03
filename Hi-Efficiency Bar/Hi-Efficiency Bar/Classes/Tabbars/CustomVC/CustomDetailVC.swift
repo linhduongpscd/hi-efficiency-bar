@@ -90,25 +90,28 @@ class CustomDetailVC: UIViewController {
         }
     }
     @IBAction func doRightNavi(_ sender: Any) {
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveLinear, animations: {
-            self.imgRorate.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
-        }, completion: { finished in
-            UIView.animate(withDuration:  0.5, delay: 0.0, options: .curveLinear, animations: {
-                self.imgRorate.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi*2))
-            }, completion: { finished in
-                CATransaction.begin()
-                let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-                rotationAnimation.fromValue = 0.0
-                rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
-                rotationAnimation.duration = 1.0
-                rotationAnimation.repeatCount = 1
-                
-                CATransaction.setCompletionBlock {
-                }
-                self.imgRorate.layer.add(rotationAnimation, forKey: nil)
-                CATransaction.commit()
-            })
-        })
+        CATransaction.begin()
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotationAnimation.fromValue = 0.0
+        rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
+        rotationAnimation.duration = 0.4
+        rotationAnimation.repeatCount = 1
+        
+        CATransaction.setCompletionBlock {
+            CATransaction.begin()
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            rotationAnimation.fromValue = 0.0
+            rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
+            rotationAnimation.duration = 0.4
+            rotationAnimation.repeatCount = 1
+            
+            CATransaction.setCompletionBlock {
+            }
+            self.imgRorate.layer.add(rotationAnimation, forKey: nil)
+            CATransaction.commit()
+        }
+        self.imgRorate.layer.add(rotationAnimation, forKey: nil)
+        CATransaction.commit()
     }
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         hidingNavBarManager?.shouldScrollToTop()

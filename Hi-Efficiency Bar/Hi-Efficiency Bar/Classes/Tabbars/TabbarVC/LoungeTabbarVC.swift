@@ -17,6 +17,7 @@ class LoungeTabbarVC: UIViewController {
     @IBOutlet weak var subNavi: UIView!
     @IBOutlet weak var heightNavi: NSLayoutConstraint!
     @IBOutlet weak var lblNavi: UILabel!
+    var isChangeAvatar = Bool()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
@@ -50,7 +51,7 @@ class LoungeTabbarVC: UIViewController {
     func initParalax()
     {
         profileView = Bundle.main.loadNibNamed("ProfileView", owner: self, options: nil)?[0] as! ProfileView
-        profileView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 192)
+        profileView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 190)
         profileView.tapChangeAvatar = { [] in
             let alert = UIAlertController(title: APP_NAME,
                                           message: nil,
@@ -76,7 +77,7 @@ class LoungeTabbarVC: UIViewController {
         }
         collectionView.parallaxHeader.delegate = self
         collectionView.parallaxHeader.view = profileView
-        collectionView.parallaxHeader.height = 192
+        collectionView.parallaxHeader.height = 190
         collectionView.parallaxHeader.mode = .fill
         
     }
@@ -117,6 +118,7 @@ extension LoungeTabbarVC: UIImagePickerControllerDelegate, UINavigationControlle
             profileView.imgAvatar.layer.cornerRadius = profileView.imgAvatar.frame.size.width/2
             profileView.imgAvatar.layer.masksToBounds = true
            profileView.imgAvatar.image = image
+            isChangeAvatar = true
         }
         self.dismiss(animated: true) {
             
@@ -127,11 +129,10 @@ extension LoungeTabbarVC: MXParallaxHeaderDelegate
 {
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
         print(parallaxHeader.progress)
-       self.subNavi.alpha = 1 - parallaxHeader.progress
+        print(profileView)
+        self.subNavi.alpha = 1 - parallaxHeader.progress
         if parallaxHeader.progress > 0.0
         {
-            //self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            //self.navigationItem.title = "My Lounge"
             self.lblNavi.text = "My Lounge"
             self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 20.0)
         }
@@ -139,9 +140,17 @@ extension LoungeTabbarVC: MXParallaxHeaderDelegate
             //self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "white"), for: .default)
             // self.navigationItem.title = "Ryan Hoover"
              self.lblNavi.text = "Ryan Hoover"
+            //rprofileView.constrantAvatar.constant = parallaxHeader.progress
              self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Medium, size: 20.0)
         }
+        if isChangeAvatar {
+            let value = Float(parallaxHeader.progress)
+            profileView.constaintAvatar.constant = CGFloat(value)
+            profileView.imgAvatar.layer.cornerRadius = profileView.imgAvatar.frame.size.width/2
+            profileView.imgAvatar.layer.masksToBounds = true
+        }
     }
+    
 }
 extension LoungeTabbarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {

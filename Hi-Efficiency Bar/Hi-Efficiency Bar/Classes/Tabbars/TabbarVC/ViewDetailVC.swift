@@ -19,6 +19,7 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
     @IBOutlet weak var btnFav: UIButton!
     @IBOutlet weak var constraintBottomFav: NSLayoutConstraint!
     var isFav = false
+    @IBOutlet weak var iconCustomize: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
          self.tblDetail.register(UINib(nibName: "CurrentOrderCellNotTimeLine", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
@@ -39,31 +40,36 @@ class ViewDetailVC: UIViewController,ASFSharedViewTransitionDataSource {
     }
     
     @IBAction func doFav(_ sender: Any) {
-        if !isFav
-        {
-            isFav = true
-            btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
-        }
-        else{
-            isFav = false
-            btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
-        }
+//        if !isFav
+//        {
+//            isFav = true
+//            btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+//        }
+//        else{
+//            isFav = false
+//            btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
+//        }
         
         UIView.animate(withDuration: 0.5,
                        animations: {
+                        self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
                         self.constraintBottomFav.constant = -52
                         self.btnFav.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         },
                        completion: { _ in
                         UIView.animate(withDuration: 0.25) {
+                            self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
                             self.constraintBottomFav.constant = -37
                             self.btnFav.transform = CGAffineTransform.identity
                         }
         })
     }
     @IBAction func doCustomize(_ sender: Any) {
-        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.iconCustomize.swing {
+            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+       
       
     }
     

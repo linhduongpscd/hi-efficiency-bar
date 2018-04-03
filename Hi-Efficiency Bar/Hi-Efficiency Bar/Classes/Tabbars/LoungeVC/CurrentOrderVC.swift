@@ -63,9 +63,9 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.currentPage % 2 == 0 {
-            return 5
+            return 3
         }
-        return 3
+        return 5
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -75,33 +75,52 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "CurrentOrderCell") as! CurrentOrderCell
         if indexPath.row == 0 {
+            cell.bgTranfer.isHidden = false
             cell.spaceTop.isHidden = true
         }
         else{
+            cell.bgTranfer.isHidden = true
             cell.spaceTop.isHidden = false
         }
-        if self.currentPage % 2 == 0 {
-            if indexPath.row == 4 {
+          if self.currentPage % 2 != 0 {
+             if indexPath.row == 3 {
+                cell.subContent.backgroundColor = UIColor.white
+                cell.spaceButtom.backgroundColor = UIColor.lightGray
+                cell.doTimeLine.backgroundColor = UIColor.lightGray
+                   cell.spaceTop.backgroundColor = UIColor.lightGray
+            }
+            else if indexPath.row == 4 {
                 cell.subContent.backgroundColor =  UIColor.init(red: 241/255.0, green: 240/255.0, blue: 144/255.0, alpha: 1.0)
                 cell.spaceButtom.backgroundColor = UIColor.lightGray
                 cell.doTimeLine.backgroundColor = UIColor.lightGray
+                   cell.spaceTop.backgroundColor = UIColor.lightGray
             }
             else{
                 cell.subContent.backgroundColor = UIColor.white
                 cell.spaceButtom.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
                 cell.doTimeLine.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+                 cell.spaceTop.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
             }
         }
         else{
-            if indexPath.row == 2 {
+            if indexPath.row == 1
+            {
+                cell.subContent.backgroundColor = UIColor.white
+                cell.spaceButtom.backgroundColor = UIColor.lightGray
+                cell.doTimeLine.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+                   cell.spaceTop.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+            }
+            else if indexPath.row == 2 {
                 cell.subContent.backgroundColor =  UIColor.init(red: 241/255.0, green: 240/255.0, blue: 144/255.0, alpha: 1.0)
                 cell.spaceButtom.backgroundColor = UIColor.lightGray
                 cell.doTimeLine.backgroundColor = UIColor.lightGray
+                   cell.spaceTop.backgroundColor = UIColor.lightGray
             }
             else{
                 cell.subContent.backgroundColor = UIColor.white
                 cell.spaceButtom.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
                 cell.doTimeLine.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+                   cell.spaceTop.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
             }
         }
        

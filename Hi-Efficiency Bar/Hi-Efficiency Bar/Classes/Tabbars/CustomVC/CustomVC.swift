@@ -32,25 +32,29 @@ class CustomVC: UIViewController {
         self.navigationItem.rightBarButtonItem = btn
     }
     @IBAction func doReset(_ sender: Any) {
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveLinear, animations: {
-            self.imgReset.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
-        }, completion: { finished in
-            UIView.animate(withDuration:  0.5, delay: 0.0, options: .curveLinear, animations: {
-                self.imgReset.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi*2))
-            }, completion: { finished in
-                CATransaction.begin()
-                let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-                rotationAnimation.fromValue = 0.0
-                rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
-                rotationAnimation.duration = 1.0
-                rotationAnimation.repeatCount = 1
-                
-                CATransaction.setCompletionBlock {
-                }
-                self.imgReset.layer.add(rotationAnimation, forKey: nil)
-                CATransaction.commit()
-            })
-        })
+
+        CATransaction.begin()
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotationAnimation.fromValue = 0.0
+        rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
+        rotationAnimation.duration = 0.4
+        rotationAnimation.repeatCount = 1
+        
+        CATransaction.setCompletionBlock {
+            CATransaction.begin()
+            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+            rotationAnimation.fromValue = 0.0
+            rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
+            rotationAnimation.duration = 0.4
+            rotationAnimation.repeatCount = 1
+            
+            CATransaction.setCompletionBlock {
+            }
+            self.imgReset.layer.add(rotationAnimation, forKey: nil)
+            CATransaction.commit()
+        }
+        self.imgReset.layer.add(rotationAnimation, forKey: nil)
+        CATransaction.commit()
     }
     
     override func viewWillAppear(_ animated: Bool) {

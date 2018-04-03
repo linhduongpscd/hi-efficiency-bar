@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         sleep(1)
-        //self.initTabbarHome()
+        self.initFlash()
         return true
     }
 
@@ -44,6 +44,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
 
 
+    func initFlash()
+    {
+        let storyboard = UIStoryboard.init(name: "Tabbar", bundle: nil)
+        let tab1 = storyboard.instantiateViewController(withIdentifier: "FlashVC") as! FlashVC
+        let navTab1 = BaseNaviController(rootViewController: tab1)
+        navTab1.isNavigationBarHidden = true
+        window?.rootViewController = navTab1
+        window?.makeKeyAndVisible()
+    }
     func initTabbarHome()
     {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)

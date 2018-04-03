@@ -27,7 +27,7 @@
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ing_1" translatesAutoresizingMaskIntoConstraints="NO" id="9VZ-BU-uKE">
-                        <rect key="frame" x="5" y="5" width="110" height="40"/>
+                        <rect key="frame" x="5" y="5" width="113" height="40"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cSR-gJ-F6K">
                         <rect key="frame" x="0.0" y="48" width="120" height="2"/>
@@ -46,7 +46,7 @@
                 <constraint firstItem="3bk-LS-wer" firstAttribute="leading" secondItem="oGK-PK-dvR" secondAttribute="leading" id="STC-VZ-khm"/>
                 <constraint firstItem="cSR-gJ-F6K" firstAttribute="leading" secondItem="oGK-PK-dvR" secondAttribute="leading" id="ebc-U1-dpX"/>
                 <constraint firstItem="3bk-LS-wer" firstAttribute="top" secondItem="oGK-PK-dvR" secondAttribute="top" id="hto-LC-nHr"/>
-                <constraint firstAttribute="trailing" secondItem="9VZ-BU-uKE" secondAttribute="trailing" constant="5" id="kVo-Kd-NtS"/>
+                <constraint firstAttribute="trailing" secondItem="9VZ-BU-uKE" secondAttribute="trailing" constant="2" id="kVo-Kd-NtS"/>
                 <constraint firstAttribute="bottom" secondItem="9VZ-BU-uKE" secondAttribute="bottom" constant="5" id="mtb-Pj-a58"/>
                 <constraint firstItem="9VZ-BU-uKE" firstAttribute="leading" secondItem="oGK-PK-dvR" secondAttribute="leading" constant="5" id="uwY-jQ-VKW"/>
             </constraints>

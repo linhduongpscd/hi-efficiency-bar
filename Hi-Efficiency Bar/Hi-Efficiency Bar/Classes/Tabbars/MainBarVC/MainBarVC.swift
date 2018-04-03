@@ -87,12 +87,32 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         
         return CGSize(width: (collectionView.frame.size.width - 2)/2, height:  (collectionView.frame.size.width - 2)/2 + 50)
     }
+   
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section > 0 {
                mainBarViewCell = self.collectionView.cellForItem(at: indexPath) as! MainBarViewCell
-                CommonHellper.animateViewSmall(view: mainBarViewCell.contentView)
-                self.perform(#selector(self.viewDetail), with: nil, afterDelay: 0.8)
-            }
+               // CommonHellper.animateViewSmall(view: mainBarViewCell)
+                //self.perform(#selector(self.viewDetail), with: nil, afterDelay: 0.8)
+            UIView.animate(withDuration: 0.2,
+                           animations: {
+                            self.mainBarViewCell.frame = CGRect(x:self.mainBarViewCell.frame.origin.x, y: self.mainBarViewCell.frame.origin.y - 15, width: self.mainBarViewCell.frame.size.width, height: self.mainBarViewCell.frame.size.height)
+                                self.mainBarViewCell.dropShadow()
+            },
+                           completion: { _ in
+                            UIView.animate(withDuration: 0.2,
+                                           animations: {
+                                            self.mainBarViewCell.frame = CGRect(x:self.mainBarViewCell.frame.origin.x, y: self.mainBarViewCell.frame.origin.y + 15, width: self.mainBarViewCell.frame.size.width, height: self.mainBarViewCell.frame.size.height)
+                                            
+                            },
+                                           completion: { _ in
+                                            self.mainBarViewCell.removedropShadow()
+                                            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
+                                            self.navigationController?.pushViewController(vc, animated: true)
+                            })
+                            
+            })
+        }
     }
     @objc func viewDetail()
     {

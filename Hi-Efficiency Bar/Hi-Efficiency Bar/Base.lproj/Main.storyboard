@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VzP-a6-HvN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VzP-a6-HvN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -496,7 +496,7 @@
         <!--Sign InVC-->
         <scene sceneID="x4g-UL-p67">
             <objects>
-                <viewController id="Epr-8G-6U0" customClass="SignInVC" customModule="Hi_Efficiency_Bar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInVC" id="Epr-8G-6U0" customClass="SignInVC" customModule="Hi_Efficiency_Bar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NOS-ou-fTd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -651,7 +651,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or sign in with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acZ-Pe-AUv">
-                                                <rect key="frame" x="106" y="398" width="109" height="20"/>
+                                                <rect key="frame" x="106.5" y="398" width="109" height="20"/>
                                                 <fontDescription key="fontDescription" name="AlrightSans-Bold" family="Alright Sans" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -762,7 +762,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="phonePad" keyboardAppearance="alert" returnKeyType="next"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
                                                         <color key="value" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
@@ -992,7 +992,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                                 </imageView>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q8c-EI-sQG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zRE-qa-SuR" customClass="UPCarouselFlowLayout" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                                                         <size key="itemSize" width="200" height="160"/>
@@ -1039,7 +1039,7 @@
                                                     </connections>
                                                 </collectionView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHb-zH-vd2">
-                                                    <rect key="frame" x="167" y="182" width="42" height="20"/>
+                                                    <rect key="frame" x="167" y="185" width="42" height="17"/>
                                                     <fontDescription key="fontDescription" name="AlrightSans-Light" family="Alright Sans" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -1171,7 +1171,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GaX-cO-hcy">
-                            <rect key="frame" x="2" y="14.5" width="35" height="15.5"/>
+                            <rect key="frame" x="2" y="16" width="35" height="13"/>
                             <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="13"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -1637,7 +1637,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Lounge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aiY-SQ-g6E">
-                                        <rect key="frame" x="137.5" y="22.5" width="100.5" height="23.5"/>
+                                        <rect key="frame" x="137" y="26" width="101.5" height="20"/>
                                         <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1680,9 +1680,9 @@
                             <constraint firstAttribute="bottom" secondItem="1OM-sq-6I6" secondAttribute="bottom" id="b0i-R9-rvH"/>
                             <constraint firstItem="1OM-sq-6I6" firstAttribute="trailing" secondItem="Vhs-JC-bk2" secondAttribute="trailing" id="bKs-yo-8vS"/>
                             <constraint firstItem="4Nh-SO-izT" firstAttribute="leading" secondItem="uzA-k4-0Od" secondAttribute="leading" id="d24-ay-PX0"/>
-                            <constraint firstItem="1OM-sq-6I6" firstAttribute="top" secondItem="4Nh-SO-izT" secondAttribute="bottom" id="eIb-Xh-1LI"/>
                             <constraint firstAttribute="trailing" secondItem="4Nh-SO-izT" secondAttribute="trailing" id="jej-zH-7eF"/>
                             <constraint firstItem="4Nh-SO-izT" firstAttribute="top" secondItem="uzA-k4-0Od" secondAttribute="top" id="mn2-58-d6e"/>
+                            <constraint firstItem="1OM-sq-6I6" firstAttribute="top" secondItem="4Nh-SO-izT" secondAttribute="bottom" id="qpZ-5q-XyN"/>
                             <constraint firstItem="2uk-Y6-l8h" firstAttribute="top" secondItem="uzA-k4-0Od" secondAttribute="top" id="xbq-na-dge"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Vhs-JC-bk2"/>
@@ -1713,7 +1713,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PTg-JS-qeK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2665" y="3029"/>
+            <point key="canvasLocation" x="2664.8000000000002" y="3028.3358320839584"/>
         </scene>
     </scenes>
     <resources>

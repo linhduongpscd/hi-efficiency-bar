@@ -10,7 +10,8 @@ import UIKit
 
 class ProfileView: UIView {
    var tapChangeAvatar:(() ->())?
-    @IBOutlet weak var imgAvatar: UIImageView!
+    @IBOutlet weak var imgAvatar: UIImageView!    
+    @IBOutlet weak var constaintAvatar: NSLayoutConstraint!
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -23,6 +24,7 @@ class ProfileView: UIView {
     @IBAction func doChangeAvatar(_ sender: Any) {
         self.tapChangeAvatar?()
     }
+    
     
    
 }

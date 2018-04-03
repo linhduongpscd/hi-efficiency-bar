@@ -8,15 +8,19 @@
 
 import UIKit
 
-class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
     var arrmenus = [#imageLiteral(resourceName: "ing_1"), #imageLiteral(resourceName: "ing_2"), #imageLiteral(resourceName: "ing_3"), #imageLiteral(resourceName: "ing_4"), #imageLiteral(resourceName: "ing_5"), #imageLiteral(resourceName: "ing_6")]
     var arrNames = ["Basics", "Spirits","Liquers","Mixers","Other","Fruits"]
     @IBOutlet weak var collectionView: UICollectionView!
     var indexSelect = 0
     @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var subSearch: UIViewX!
+    @IBOutlet weak var btnSearch: UIButton!
+    @IBOutlet weak var txfSearch: UITextField!
     override func awakeFromNib() {
         super.awakeFromNib()
         lblName.text = arrNames[indexSelect]
+        subSearch.isHidden = true
         // Initialization code
     }
 
@@ -53,12 +57,27 @@ class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UIColle
                         sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         
-        return CGSize(width: (collectionView.frame.size.width)/6, height: 40)
+        return CGSize(width: (collectionView.frame.size.width)/6, height: 50)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         indexSelect = indexPath.row
         lblName.text = arrNames[indexSelect]
         collectionView.reloadData()
+        subSearch.isHidden = true
+        lblName.isHidden = false
+        btnSearch.isHidden = false
+        txfSearch.resignFirstResponder()
+    }
+    @IBAction func doSearch(_ sender: Any) {
+         subSearch.isHidden = false
+        lblName.isHidden = true
+        btnSearch.isHidden = true
+        txfSearch.becomeFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        txfSearch.resignFirstResponder()
+        return true
     }
 }

@@ -85,6 +85,10 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_transfer" translatesAutoresizingMaskIntoConstraints="NO" id="N9J-8Q-0A8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="62y-Ju-arO" firstAttribute="centerX" secondItem="1NC-0r-eZy" secondAttribute="centerX" id="0ot-8a-jpp"/>
@@ -93,15 +97,20 @@
                     <constraint firstItem="62y-Ju-arO" firstAttribute="top" secondItem="MyS-JN-ofF" secondAttribute="top" id="Ex4-pP-Yzg"/>
                     <constraint firstItem="Uq4-Hb-QCB" firstAttribute="centerX" secondItem="1NC-0r-eZy" secondAttribute="centerX" id="I9A-GO-Eiq"/>
                     <constraint firstItem="6is-9A-mk2" firstAttribute="leading" secondItem="1NC-0r-eZy" secondAttribute="trailing" constant="8" id="KvQ-pw-GZr"/>
+                    <constraint firstItem="N9J-8Q-0A8" firstAttribute="leading" secondItem="MyS-JN-ofF" secondAttribute="leading" id="Ojy-ON-hvj"/>
+                    <constraint firstAttribute="bottom" secondItem="N9J-8Q-0A8" secondAttribute="bottom" id="SMb-2G-ARe"/>
                     <constraint firstAttribute="trailing" secondItem="6is-9A-mk2" secondAttribute="trailing" constant="46" id="WZv-pI-099"/>
                     <constraint firstItem="Uq4-Hb-QCB" firstAttribute="top" secondItem="1NC-0r-eZy" secondAttribute="bottom" id="WmX-hv-HQJ"/>
                     <constraint firstAttribute="bottom" secondItem="Uq4-Hb-QCB" secondAttribute="bottom" id="X7i-nT-efo"/>
+                    <constraint firstAttribute="trailing" secondItem="N9J-8Q-0A8" secondAttribute="trailing" id="YSu-mT-Yfk"/>
                     <constraint firstAttribute="bottom" secondItem="6is-9A-mk2" secondAttribute="bottom" constant="5" id="a3g-hw-nwC"/>
+                    <constraint firstItem="N9J-8Q-0A8" firstAttribute="top" secondItem="MyS-JN-ofF" secondAttribute="top" id="qOI-Zx-kgv"/>
                     <constraint firstItem="6is-9A-mk2" firstAttribute="top" secondItem="MyS-JN-ofF" secondAttribute="top" constant="5" id="qR8-S2-tY1"/>
                     <constraint firstItem="1NC-0r-eZy" firstAttribute="leading" secondItem="MyS-JN-ofF" secondAttribute="leading" constant="16" id="waP-Sd-cUS"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="bgTranfer" destination="N9J-8Q-0A8" id="ksc-Kz-Q9Q"/>
                 <outlet property="doTimeLine" destination="1NC-0r-eZy" id="IhA-Nw-gfC"/>
                 <outlet property="spaceButtom" destination="Uq4-Hb-QCB" id="ayx-lB-ddQ"/>
                 <outlet property="spaceTop" destination="62y-Ju-arO" id="5rh-qm-x18"/>
@@ -110,4 +119,7 @@
             <point key="canvasLocation" x="24.5" y="52.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="bg_transfer" width="960" height="197"/>
+    </resources>
 </document>

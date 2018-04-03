@@ -14,6 +14,7 @@ class CurrentOrderCell: UITableViewCell {
     @IBOutlet weak var spaceTop: UIView!
     @IBOutlet weak var subContent: UIViewX!
     @IBOutlet weak var doTimeLine: UIViewX!
+    @IBOutlet weak var bgTranfer: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

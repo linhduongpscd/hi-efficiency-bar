@@ -21,23 +21,26 @@ class MainBarViewCell: UICollectionViewCell {
     }
 
     @IBAction func doFav(_ sender: Any) {
-        if !isFav
-        {
-            isFav = true
-            btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
-        }
-        else{
-            isFav = false
-            btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
-        }
+//        if !isFav
+//        {
+//            isFav = true
+//            //btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+//             btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
+//        }
+//        else{
+//            isFav = false
+//            btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
+//        }
        
         UIView.animate(withDuration: 0.5,
                        animations: {
+                        self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
                         self.constraintBottomBtnFav.constant = 25
                         self.btnFav.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         },
                        completion: { _ in
                         UIView.animate(withDuration: 0.25) {
+                            self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
                             self.constraintBottomBtnFav.constant = 10
                             self.btnFav.transform = CGAffineTransform.identity
                         }

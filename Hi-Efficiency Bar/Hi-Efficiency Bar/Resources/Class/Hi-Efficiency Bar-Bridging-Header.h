@@ -6,3 +6,4 @@
 #import <MXParallaxHeader/MXParallaxHeader.h>
 #import "ASFSharedViewTransition.h"
 #import "TLYShyNavBarManager.h"
+#import "UIView+DCAnimationKit.h"
