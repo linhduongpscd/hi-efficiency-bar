@@ -8,4 +8,5 @@ target 'Hi-Efficiency Bar' do
   # Pods for Hi-Efficiency Bar
  pod 'MXParallaxHeader'
  pod "Alamofire", :git => 'https://github.com/Alamofire/Alamofire.git'
+ pod 'SDWebImage'
 end

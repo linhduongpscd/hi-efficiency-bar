@@ -21,9 +21,16 @@ class FlashVC: UIViewController {
 
     @objc func clickLogin()
     {
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let tab1 = storyboard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-        self.navigationController?.pushViewController(tab1, animated: true)
+        if let token =  UserDefaults.standard.value(forKey: kToken) as? String
+        {
+            APP_DELEGATE.initTabbarHome()
+        }
+        else{
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let tab1 = storyboard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+            self.navigationController?.pushViewController(tab1, animated: true)
+        }
+       
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		21F278813AC65E5FDC7A6F87 /* Pods_Hi_Efficiency_Bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F666944C69A254AEB833642 /* Pods_Hi_Efficiency_Bar.framework */; };
+		272A0C9F20746A9F00ECB485 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272A0C9E20746A9F00ECB485 /* LoadingView.swift */; };
+		272A0CA120746AAE00ECB485 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272A0CA020746AAE00ECB485 /* LoadingView.xib */; };
+		272A0CA62074B96B00ECB485 /* MainBarObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272A0CA52074B96B00ECB485 /* MainBarObj.swift */; };
 		272AD3932064A67400164856 /* HeaderCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AD3922064A67400164856 /* HeaderCustom.swift */; };
 		272AD3952064A67F00164856 /* HeaderCustom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD3942064A67F00164856 /* HeaderCustom.xib */; };
 		272AD3972064AA0900164856 /* CarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD3962064AA0900164856 /* CarouselCollectionViewCell.xib */; };
@@ -139,6 +142,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		272A0C9E20746A9F00ECB485 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		272A0CA020746AAE00ECB485 /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
+		272A0CA52074B96B00ECB485 /* MainBarObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBarObj.swift; sourceTree = "<group>"; };
 		272AD3922064A67400164856 /* HeaderCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCustom.swift; sourceTree = "<group>"; };
 		272AD3942064A67F00164856 /* HeaderCustom.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCustom.xib; sourceTree = "<group>"; };
 		272AD3962064AA0900164856 /* CarouselCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -306,6 +312,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		272A0CA42074B95E00ECB485 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				272A0CA52074B96B00ECB485 /* MainBarObj.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		2754189C2068DFD000DEED32 /* HidingNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,6 +453,7 @@
 		3B91CB122058C3C90073D54B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				272A0CA42074B95E00ECB485 /* Objects */,
 				27E9F50E20739064004801D6 /* iOSDevCenters+GIF.swift */,
 				27E9F50620737351004801D6 /* UIView+DCAnimationKit.h */,
 				27E9F50720737352004801D6 /* UIView+DCAnimationKit.m */,
@@ -560,6 +575,8 @@
 				27F60F73206B31A4009FDDC0 /* ShowMorePreCell.swift */,
 				3B149D34206F2FC100CBBCCA /* CurrentOrderCollect.swift */,
 				3B149D35206F2FC100CBBCCA /* CurrentOrderCollect.xib */,
+				272A0C9E20746A9F00ECB485 /* LoadingView.swift */,
+				272A0CA020746AAE00ECB485 /* LoadingView.xib */,
 			);
 			name = Cells;
 			path = Tabbars/Cells;
@@ -756,6 +773,7 @@
 				3B656C72205CD96200477BEE /* Tabbar.storyboard in Resources */,
 				272AD3952064A67F00164856 /* HeaderCustom.xib in Resources */,
 				3BC39B69205C190800D2E60B /* HeaderCustomCell.xib in Resources */,
+				272A0CA120746AAE00ECB485 /* LoadingView.xib in Resources */,
 				27F60F74206B31A4009FDDC0 /* ShowMorePreCell.xib in Resources */,
 				3BDBE412205FB1F200CDA28E /* DetailCockTailCollect.xib in Resources */,
 				3B149D37206F2FC100CBBCCA /* CurrentOrderCollect.xib in Resources */,
@@ -820,11 +838,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hi-Efficiency Bar/Pods-Hi-Efficiency Bar-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXParallaxHeader.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -897,10 +917,12 @@
 				3B91CB1E2058C4BD0073D54B /* AgeVerificationVC.swift in Sources */,
 				3BC9BA13205C9DBE0060DB98 /* FooterCustomCell.swift in Sources */,
 				275418BB2068FC0F00DEED32 /* UIScrollView+Helpers.m in Sources */,
+				272A0CA62074B96B00ECB485 /* MainBarObj.swift in Sources */,
 				27F60F75206B31A4009FDDC0 /* ShowMorePreCell.swift in Sources */,
 				3B91CAF62058C2D50073D54B /* AppDelegate.swift in Sources */,
 				3BFF9C9D2059206100FFA49C /* TopSectionViewCell.swift in Sources */,
 				272AD3932064A67400164856 /* HeaderCustom.swift in Sources */,
+				272A0C9F20746A9F00ECB485 /* LoadingView.swift in Sources */,
 				3BD4A28F205D61B700B979DC /* CurrentOrderVC.swift in Sources */,
 				279D57812062493900E1845C /* ASFSharedViewTransition.m in Sources */,
 				3BFF9C96205918F100FFA49C /* HeaderViewCell.swift in Sources */,

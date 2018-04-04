@@ -28,6 +28,11 @@ struct COLOR_TABBAR {
     static let UNSELECT  = UIColor.lightGray
 }
 
+struct SERVER_CODE {
+    static let CODE_200  = 200
+    static let CODE_201  = 201
+    static let CODE_400  = 400
+}
 let COLOR_SELECTED   = UIColor.init(red: 72/255.0, green:  181/255.0, blue:  251/255.0, alpha: 1)
 let COLOR_NORMAL   = UIColor.init(red: 89/255.0, green:  109/255.0, blue:  119/255.0, alpha: 1)
 
@@ -44,4 +49,6 @@ let ERROR_ACCEPT  = "Please accept terms or conditions"
 
 // DEFINE URL
 let URL_SERVER  = "http://hiefficiencybar.com/"
+let kID   = "kID"
+let kToken  = "kToken"
 

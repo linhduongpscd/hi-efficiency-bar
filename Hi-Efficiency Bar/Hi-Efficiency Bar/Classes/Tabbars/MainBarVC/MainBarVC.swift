@@ -14,8 +14,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var heightNavi: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
-    
-    
+    var arrSlices = [MainBarObj]()
     override func viewDidLoad() {
           ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         //self.navigationItem.title = "Main Bar"
@@ -24,8 +23,16 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
      self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
           self.collectionView.register(UINib(nibName: "FooterMainBarCollect", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterMainBarCollect")
        self.configHideNaviScroll(collectionView)
+        self.getSliceHeader()
     }
     
+    func getSliceHeader()
+    {
+        ManagerWS.shared.getMainBar { (success, arrs) in
+            self.arrSlices = arrs!
+            self.collectionView.reloadData()
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -60,6 +67,13 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeaderViewCell", for: indexPath) as! HeaderViewCell
             cell.initRegisterCollect()
+            cell.items = self.arrSlices
+            cell.collectionView.reloadData()
+            if self.arrSlices.count > 0
+            {
+                let obj = self.arrSlices[cell.currentPage]
+                cell.lblName.text = obj.name
+            }
             cell.tapHeaderMainBar = { [weak self] in
                 let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailMainBarVC") as! DetailMainBarVC
                 self?.navigationController?.pushViewController(vc, animated: true)

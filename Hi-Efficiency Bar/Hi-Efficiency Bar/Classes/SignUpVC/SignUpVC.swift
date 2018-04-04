@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 class SignUpVC: BaseViewController {
 
     @IBOutlet weak var txfName: UITextField!
@@ -105,29 +105,8 @@ class SignUpVC: BaseViewController {
     }
    
     @IBAction func actionSignUp(_ sender: TransitionButton) {
-        btnSignUp.startAnimation() // 2: Then start the animation when the user tap the button
-        
-        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-        backgroundQueue.async(execute: {
-            
-            sleep(1) // 3: Do your networking task or background work here.
-            
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.btnSignUp.setTitle("", for: .normal)
-                self.btnSignUp.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                // 4: Stop the animation, here you have three options for the `animationStyle` property:
-                // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
-                // .shake: when you want to reflect to the user that the task did not complete successfly
-                // .normal
-                self.btnSignUp.stopAnimation(animationStyle: .shake, completion: {
-                    
-                    
-                })
-                self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 1.5)
-            })
-        })
-        /*let name = CommonHellper.trimSpaceString(txtString: txfName.text!)
+      
+        let name = CommonHellper.trimSpaceString(txtString: txfName.text!)
         let email = CommonHellper.trimSpaceString(txtString: txfEmail.text!)
         let password = txfPassword.text!
         let confirmpassword = txfConfimPassword.text!
@@ -178,9 +157,38 @@ class SignUpVC: BaseViewController {
             self.showAlertMessage(message: ERROR_ACCEPT)
             return
         }
-        */
+        let para = ["first_name":name,"last_name":name, "email":email,"password":password,"birthday":date]
+        self.addLoadingView()
+        btnSignUp.startAnimation() // 2: Then start the animation when the user tap the button
+        
+        let qualityOfServiceClass = DispatchQoS.QoSClass.background
+        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+        backgroundQueue.async(execute: {
+            ManagerWS.shared.register(para, self.imageAvatar, complete: { (success, error) in
+                if success!
+                {
+                     self.removeLoadingView()
+                    self.btnSignUp.setTitle("", for: .normal)
+                    self.btnSignUp.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                    self.btnSignUp.stopAnimation(animationStyle: .shake, completion: {
+                        
+                        
+                    })
+                    self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
+                }
+                else{
+                    self.btnSignUp.setTitle("SIGN UP", for: .normal)
+                    self.btnSignUp.stopAnimation(animationStyle: .shake, completion: {
+                        self.removeLoadingView()
+                    })
+                    self.showAlertMessage(message: (error?.msg!)!)
+                }
+            })
+        })
         
     }
+    
+  
     
     @objc func actionTabbar()
     {

@@ -10,6 +10,7 @@ import UIKit
 
 class BaseViewController: UIViewController {
     var hidingNavBarManager: HidingNavigationBarManager?
+    var loadingView = LoadingView.init(frame: .zero)
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -74,8 +75,17 @@ class BaseViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
    
+    func addLoadingView()
+    {
+        loadingView =  Bundle.main.loadNibNamed("LoadingView", owner: self, options: nil)?[0] as! LoadingView
+        loadingView.frame = UIScreen.main.bounds
+        APP_DELEGATE.window?.addSubview(loadingView)
+    }
     
-  
+    func removeLoadingView()
+    {
+        loadingView.removeFromSuperview()
+    }
 
 }
 

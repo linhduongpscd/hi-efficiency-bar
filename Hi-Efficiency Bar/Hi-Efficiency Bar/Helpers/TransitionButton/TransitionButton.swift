@@ -109,7 +109,7 @@ open class TransitionButton : UIButton, UIViewControllerTransitioningDelegate, C
      - Parameter completion: a callback closure to be called once the animation finished, it may be useful to transit to another view controller, example transit to the home screen from the login screen.
      
      */
-    open func stopAnimation(animationStyle:StopAnimationStyle = .normal, revertAfterDelay delay: TimeInterval = 1.0, completion:(()->Void)? = nil) {
+    open func stopAnimation(animationStyle:StopAnimationStyle = .normal, revertAfterDelay delay: TimeInterval = 0.25, completion:(()->Void)? = nil) {
         
         switch animationStyle {
         case .normal:

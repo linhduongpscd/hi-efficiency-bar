@@ -1,10 +1,14 @@
 PODS:
   - Alamofire (4.7.0)
   - MXParallaxHeader (0.6.1)
+  - SDWebImage (4.3.3):
+    - SDWebImage/Core (= 4.3.3)
+  - SDWebImage/Core (4.3.3)
 
 DEPENDENCIES:
   - Alamofire (from `https://github.com/Alamofire/Alamofire.git`)
   - MXParallaxHeader
+  - SDWebImage
 
 EXTERNAL SOURCES:
   Alamofire:
@@ -18,7 +22,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
+  SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
 
-PODFILE CHECKSUM: 9b992d9d074b65fb3eae2134378ba76bb2072b1a
+PODFILE CHECKSUM: a15528603ed06f11c1aee97dc1fe0a0fa66c5723
 
 COCOAPODS: 1.4.0

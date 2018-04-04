@@ -7,17 +7,20 @@
 //
 
 import UIKit
-
 class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var tapHeaderMainBar: (() ->())?
     @IBOutlet weak var collectionView: UICollectionView!
-    fileprivate var items = [Character]()
+     var items = [MainBarObj]()
     @IBOutlet weak var lblName: UILabel!
-     fileprivate var currentPage: Int = 0 {
+    var currentPage: Int = 0 {
         didSet {
-            let character = self.items[self.currentPage]
-            lblName.text = character.name
-            print("ZO DAY")
+            if self.items.count > 0 {
+                let mainBarObj = self.items[self.currentPage]
+                lblName.text = mainBarObj.name
+            }
+            else{
+                lblName.text  = ""
+            }
         }
     }
     //UIStoryboard.init(name: "Main", bundle: nil)
@@ -35,23 +38,9 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
         let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.overlap(visibleOffset: 60)
     }
-    
-    fileprivate func createItems() -> [Character] {
-        let characters = [
-            Character(imageName: "cocktail", name: "Wall-E", movie: "Wall-E"),
-            Character(imageName: "cocktail", name: "Nemo", movie: "Finding Nemo"),
-            Character(imageName: "cocktail", name: "Remy", movie: "Ratatouille"),
-            Character(imageName: "cocktail", name: "Buzz Lightyear", movie: "Toy Story"),
-            Character(imageName: "cocktail", name: "Mike & Sullivan", movie: "Monsters Inc."),
-            Character(imageName: "cocktail", name: "Merida", movie: "Brave")
-        ]
-        return characters
-    }
     func initRegisterCollect()
     {
         self.setupLayout()
-        self.items = self.createItems()
-        
         self.currentPage = 0
     }
     
@@ -66,7 +55,16 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.identifier, for: indexPath) as! CarouselCollectionViewCell
         let character = items[(indexPath as NSIndexPath).row]
-        cell.image.image = UIImage(named: character.imageName)
+        if character.image != nil
+        {
+             cell.image.backgroundColor = UIColor.clear
+            cell.image.sd_setImage(with: URL.init(string: character.image!), completed: { (image, error, type, url) in
+                
+            })
+        }
+        else{
+            cell.image.backgroundColor = UIColor.groupTableViewBackground
+        }
         return cell
     }
     

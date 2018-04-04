@@ -7,3 +7,4 @@
 #import "ASFSharedViewTransition.h"
 #import "TLYShyNavBarManager.h"
 #import "UIView+DCAnimationKit.h"
+#import <SDWebImage/SDWebImageManager.h>

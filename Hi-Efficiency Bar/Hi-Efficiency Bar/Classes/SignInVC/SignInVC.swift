@@ -7,11 +7,14 @@
 //
 
 import UIKit
-class SignInVC: UIViewController {
+class SignInVC: BaseViewController {
 
     @IBOutlet weak var txfUsername: UITextField!
     @IBOutlet weak var txfPassword: UITextField!
     @IBOutlet weak var btnSignIn: TransitionButton!
+    var userID = Int()
+    var token = String()
+    var birthday = String()
     override func viewDidLoad() {
         super.viewDidLoad()
         btnSignIn.spinnerColor = .white
@@ -25,24 +28,56 @@ class SignInVC: UIViewController {
     
 
     @IBAction func doSignIn(_ sender: TransitionButton) {
-        btnSignIn.startAnimation() // 2: Then start the animation when the user tap the button
        
+        let email = CommonHellper.trimSpaceString(txtString: txfUsername.text!)
+        let password = txfPassword.text!
+      
+        if email.isEmpty
+        {
+            self.showAlertMessage(message: ERROR_EMAIL)
+            return
+        }
+        if !CommonHellper.isValidEmail(testStr: email)
+        {
+            self.showAlertMessage(message: ERROR_EMAIL_INVALID)
+            return
+        }
+        
+        if password.isEmpty
+        {
+            self.showAlertMessage(message: ERROR_PASSWORD)
+            return
+        }
+        let para = ["email":email,"password":password]
+        self.addLoadingView()
+        btnSignIn.startAnimation() // 2: Then start the animation when the user tap the button
+        
         let qualityOfServiceClass = DispatchQoS.QoSClass.background
         let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
         backgroundQueue.async(execute: {
-           
-            sleep(1) // 3: Do your networking task or background work here.
-            
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.btnSignIn.setTitle("", for: .normal)
-                self.btnSignIn.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                // 4: Stop the animation, here you have three options for the `animationStyle` property:
-                // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
-                // .shake: when you want to reflect to the user that the task did not complete successfly
-                // .normal
-                self.btnSignIn.stopAnimation(animationStyle: .shake, completion: {
-                 })
-                 self.perform(#selector(self.clickAgeVertified), with: nil, afterDelay: 1.5)
+            ManagerWS.shared.loginUser(para, complete: { (success, error, token,id,birthday)  in
+                if success!
+                {
+                    self.userID = id!
+                    self.token = token!
+                    self.birthday = birthday!
+                    self.removeLoadingView()
+                    self.btnSignIn.setTitle("", for: .normal)
+                    self.btnSignIn.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                    self.btnSignIn.stopAnimation(animationStyle: .shake, completion: {
+                        
+                        
+                    })
+                    self.perform(#selector(self.clickAgeVertified), with: nil, afterDelay: 0.5)
+                }
+                else{
+                    self.btnSignIn.setTitle("SIGN IN", for: .normal)
+                    self.btnSignIn.stopAnimation(animationStyle: .shake, completion: {
+                        self.removeLoadingView()
+                         self.showAlertMessage(message: (error?.msg!)!)
+                    })
+                   
+                }
             })
         })
     }
@@ -50,6 +85,9 @@ class SignInVC: UIViewController {
     @objc func clickAgeVertified()
     {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "AgeVerificationVC") as! AgeVerificationVC
+        vc.userID = self.userID
+        vc.token = self.token
+        vc.birthday = self.birthday
         self.navigationController?.pushViewController(vc, animated: true)
     }
     /*
