@@ -51,4 +51,5 @@ let ERROR_ACCEPT  = "Please accept terms or conditions"
 let URL_SERVER  = "http://hiefficiencybar.com/"
 let kID   = "kID"
 let kToken  = "kToken"
+let kLimitPage = 20
 

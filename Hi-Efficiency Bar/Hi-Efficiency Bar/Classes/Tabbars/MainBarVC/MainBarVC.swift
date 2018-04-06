@@ -15,6 +15,9 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var collectionView: UICollectionView!
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
     var arrSlices = [MainBarObj]()
+    var offset = 0
+    var isLoadMore = false
+    var arrDrinks = [DrinkObj]()
     override func viewDidLoad() {
           ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         //self.navigationItem.title = "Main Bar"
@@ -24,6 +27,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
           self.collectionView.register(UINib(nibName: "FooterMainBarCollect", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterMainBarCollect")
        self.configHideNaviScroll(collectionView)
         self.getSliceHeader()
+        self.fetchAllDrink()
     }
     
     func getSliceHeader()
@@ -34,6 +38,24 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         }
     }
     
+    
+    func fetchAllDrink()
+    {
+        ManagerWS.shared.getListDrink(offset: offset) { (success, arrs) in
+            if arrs!.count > 0
+            {
+                self.isLoadMore = true
+            }
+            else{
+                self.isLoadMore = false
+            }
+            for drink in arrs!
+            {
+                self.arrDrinks.append(drink)
+            }
+            self.collectionView.reloadData()
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,7 +74,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
 extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 2
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -60,7 +82,7 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
         {
             return 1
         }
-        return 4
+        return arrDrinks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -76,20 +98,31 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             }
             cell.tapHeaderMainBar = { [weak self] in
                 let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailMainBarVC") as! DetailMainBarVC
+                vc.mainBarObj = (self?.arrSlices[cell.currentPage])!
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
             return cell
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainBarViewCell", for: indexPath) as! MainBarViewCell
+        cell.configCell(drinkObj: self.arrDrinks[indexPath.row])
         if indexPath.row % 2 == 0 {
              cell.leaningSubX.constant = 0.0
         }
         else{
             cell.leaningSubX.constant = 5.0
         }
+        
         return cell
      
+    }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if isLoadMore && self.arrDrinks.count/2 == indexPath.row - 1 {
+            print("VAO DAY")
+            isLoadMore = false
+            self.offset = self.offset + kLimitPage
+            self.fetchAllDrink()
+        }
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -141,11 +174,12 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             return commentView
         }
         else{
-            let commentView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "FooterMainBarCollect", for: indexPath) as! FooterMainBarCollect
-            commentView.tapShowMore = { [weak self] in
-                let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailMainBarVC") as! DetailMainBarVC
-                self?.navigationController?.pushViewController(vc, animated: true)
-            }
+//            let commentView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "FooterMainBarCollect", for: indexPath) as! FooterMainBarCollect
+//            commentView.tapShowMore = { [weak self] in
+//                let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailMainBarVC") as! DetailMainBarVC
+//                self?.navigationController?.pushViewController(vc, animated: true)
+//            }
+            let commentView = UICollectionReusableView.init()
             return commentView
         }
        
@@ -160,9 +194,11 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if section == 2 {
-            return CGSize(width: UIScreen.main.bounds.size.width, height: 60)
+            return CGSize(width: UIScreen.main.bounds.size.width, height: 0)
         }
         return CGSize(width: UIScreen.main.bounds.size.width, height: 0)
     }
+    
+    
 }
 

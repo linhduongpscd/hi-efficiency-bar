@@ -11,11 +11,51 @@ import UIKit
 class DetailMainBarVC: UIViewController {
     var hidingNavBarManager: HidingNavigationBarManager?
     @IBOutlet weak var collectionView: UICollectionView!
+    var mainBarObj = MainBarObj.init(dict: NSDictionary.init())
+    var offset = 0
+    var isLoadMore = false
+    var arrDrinks = [DrinkObj]()
+    var refresher:UIRefreshControl!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = mainBarObj.name
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         // Do any additional setup after loading the view.
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: collectionView)
+        //self.configRefresh()
+        self.fetchAllDrinkByCategory()
+    }
+    
+    func configRefresh()
+    {
+        self.refresher = UIRefreshControl()
+        self.collectionView!.alwaysBounceVertical = true
+        refresher.tintColor = UIColor.red
+        self.refresher.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        if #available(iOS 10.0, *) {
+            self.collectionView.refreshControl = refresher
+        } else {
+            self.collectionView!.addSubview(refresher)
+        }
+        
+    }
+    @objc func loadData() {
+        self.isLoadMore = false
+        offset = 0
+        ManagerWS.shared.getListDrinkByCategory(categoryID: mainBarObj.id!, offset: offset) { (success, arrs) in
+            if arrs!.count > 0
+            {
+                self.isLoadMore = true
+            }
+            else{
+                self.isLoadMore = false
+            }
+            for drink in arrs!
+            {
+                self.arrDrinks.append(drink)
+            }
+            self.collectionView.reloadData()
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -30,6 +70,25 @@ class DetailMainBarVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         hidingNavBarManager?.viewWillDisappear(animated)
+    }
+    
+    func fetchAllDrinkByCategory()
+    {
+       // self.refresher.beginRefreshing()
+        ManagerWS.shared.getListDrinkByCategory(categoryID: mainBarObj.id!, offset: offset) { (success, arrs) in
+            if arrs!.count > 0
+            {
+                self.isLoadMore = true
+            }
+            else{
+                self.isLoadMore = false
+            }
+            for drink in arrs!
+            {
+                self.arrDrinks.append(drink)
+            }
+            self.collectionView.reloadData()
+        }
     }
     
     // MARK: UITableViewDelegate
@@ -67,7 +126,7 @@ extension DetailMainBarVC: UICollectionViewDelegate, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 8
+        return arrDrinks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -78,6 +137,7 @@ extension DetailMainBarVC: UICollectionViewDelegate, UICollectionViewDataSource,
         else{
             cell.leaningSubX.constant = 5.0
         }
+        cell.configCell(drinkObj: self.arrDrinks[indexPath.row])
         return cell
         
     }
@@ -91,6 +151,13 @@ extension DetailMainBarVC: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
     }
-    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if isLoadMore && self.arrDrinks.count/2 == indexPath.row - 1 {
+            print("VAO DAY")
+            isLoadMore = false
+            self.offset = self.offset + kLimitPage
+            self.fetchAllDrinkByCategory()
+        }
+    }
     
 }

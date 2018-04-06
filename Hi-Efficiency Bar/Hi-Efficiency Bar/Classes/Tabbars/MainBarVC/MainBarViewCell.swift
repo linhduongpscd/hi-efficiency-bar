@@ -14,6 +14,7 @@ class MainBarViewCell: UICollectionViewCell {
     @IBOutlet weak var imgCell: UIImageView!
     @IBOutlet weak var btnFav: UIButton!
     @IBOutlet weak var constraintBottomBtnFav: NSLayoutConstraint!
+    @IBOutlet weak var lblName: UILabel!
     var isFav = false
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,4 +48,24 @@ class MainBarViewCell: UICollectionViewCell {
         })
     }
     
+    
+    func configCell(drinkObj: DrinkObj)
+    {
+        self.lblName.text = drinkObj.name
+        if drinkObj.image != nil{
+            self.imgCell.sd_setImage(with: URL.init(string: drinkObj.image!), completed: { (image, error, type, url) in
+                
+            })
+        }
+        else{
+            self.imgCell.image = UIImage.init()
+        }
+        if drinkObj.is_favorite!
+        {
+            self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+        }
+        else{
+            self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
+        }
+    }
 }
