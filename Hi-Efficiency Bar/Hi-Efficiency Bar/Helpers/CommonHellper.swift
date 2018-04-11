@@ -7,13 +7,25 @@
 //
 
 import UIKit
+import RappleProgressHUD
 class CommonHellper {
     static func borderSubView(view: UIView)
     {
         view.layer.cornerRadius = 5.0
         view.layer.masksToBounds = true
     }
+    static func showBusy()
+    {
+        var attribute = RappleActivityIndicatorView.attribute(style: .apple, tintColor: .white, screenBG: .lightGray, progressBG: .black, progressBarBG: .orange, progreeBarFill: .red, thickness: 4)
+        attribute[RappleIndicatorStyleKey] = RappleStyleCircle
+        RappleActivityIndicatorView.startAnimatingWithLabel("", attributes: attribute)
+        
+    }
     
+    static func hideBusy()
+    {
+        RappleActivityIndicatorView.stopAnimation()
+    }
     static func isValidEmail(testStr: String) -> Bool {
         
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"

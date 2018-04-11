@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Alamofire
 class CustomDetailVC: UIViewController {
 
     @IBOutlet weak var tblDetail: UITableView!
@@ -50,6 +50,13 @@ class CustomDetailVC: UIViewController {
     @IBOutlet weak var btnEditName: UIButton!
     var isEditName = false
     @IBOutlet weak var leaningBtnName: NSLayoutConstraint!
+    @IBOutlet weak var collectionLy: UICollectionView!
+    var arrLys = [GlassObj]()
+    @IBOutlet weak var lblMaxSize: UILabel!
+    @IBOutlet weak var heightTable: NSLayoutConstraint!
+    var drinkObj = DrinkObj.init(dict: NSDictionary.init())
+    var arringredients = NSMutableArray.init()
+    var prep = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
@@ -58,6 +65,17 @@ class CustomDetailVC: UIViewController {
         let btnRight = UIBarButtonItem.init(customView: subNaviRight)
         self.navigationItem.rightBarButtonItem = btnRight
         txfDrinkName.isEnabled = false
+        self.fectAllGlass()
+        self.initData()
+    }
+    
+    func initData()
+    {
+        print(drinkObj.ingredients)
+         arringredients = drinkObj.ingredients?.mutableCopy() as! NSMutableArray
+        heightTable.constant = CGFloat(arringredients.count * 44)
+        txfDrinkName.text = drinkObj.name
+        tblDetail.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -76,6 +94,27 @@ class CustomDetailVC: UIViewController {
     
     // MARK: UITableViewDelegate
     
+    func fectAllGlass()
+    {
+        ManagerWS.shared.getListAllGlass { (success, arrs) in
+            self.arrLys = arrs!
+            self.collectionLy.reloadData()
+            if self.arrLys.count > 0
+            {
+                let obj = self.arrLys[0]
+                if obj.image != nil{
+                    self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                        self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                        self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                    })
+                }
+                self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+            }
+            else{
+                 self.lblMaxSize.text = ""
+            }
+        }
+    }
     @IBAction func doEditName(_ sender: Any) {
         if !isEditName {
             txfDrinkName.isEnabled = true
@@ -89,6 +128,7 @@ class CustomDetailVC: UIViewController {
             })
         }
     }
+    
     @IBAction func doRightNavi(_ sender: Any) {
         CATransaction.begin()
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
@@ -136,20 +176,7 @@ class CustomDetailVC: UIViewController {
     
     func setDefault()
     {
-        self.setColorTextNormalOrSelect(lable: lblShot, isSelect: true)
-        self.setColorTextNormalOrSelect(lable: lblShort, isSelect: false)
-        self.setColorTextNormalOrSelect(lable: lblWine, isSelect: false)
-        self.setColorTextNormalOrSelect(lable: lblTail, isSelect: false)
-        self.setColorTextNormalOrSelect(lable: lblMartine, isSelect: false)
-        
-        self.setImageSeletd(imageView: imgShot, uimage: #imageLiteral(resourceName: "size_shot2"))
-        self.setImageSeletd(imageView: imgShort, uimage: #imageLiteral(resourceName: "size_short1"))
-        setImageSeletd(imageView: imgWine, uimage: #imageLiteral(resourceName: "size_wine1"))
-        setImageSeletd(imageView: imgTail, uimage: #imageLiteral(resourceName: "size_tail1"))
-        setImageSeletd(imageView: imgMartine, uimage: #imageLiteral(resourceName: "size_martini1"))
-        imgDrink.image = #imageLiteral(resourceName: "big_shot")
-        
-        
+       
         self.setColorTextNormalOrSelect(lable: lblShake, isSelect: true)
         self.setColorTextNormalOrSelect(lable: lblFilter, isSelect: false)
         self.setColorTextNormalOrSelect(lable: lblStir, isSelect: false)
@@ -252,6 +279,7 @@ class CustomDetailVC: UIViewController {
    
     
     @IBAction func doFilter(_ sender: Any) {
+        prep = 10
         self.setColorTextNormalOrSelect(lable: lblShake, isSelect: false)
         self.setColorTextNormalOrSelect(lable: lblFilter, isSelect: true)
         self.setColorTextNormalOrSelect(lable: lblStir, isSelect: false)
@@ -263,6 +291,7 @@ class CustomDetailVC: UIViewController {
         CommonHellper.animateView(view: imgFilter)
     }
     @IBAction func doShake(_ sender: Any) {
+        prep = 0
         self.setColorTextNormalOrSelect(lable: lblShake, isSelect: true)
         self.setColorTextNormalOrSelect(lable: lblFilter, isSelect: false)
         self.setColorTextNormalOrSelect(lable: lblStir, isSelect: false)
@@ -274,6 +303,7 @@ class CustomDetailVC: UIViewController {
         CommonHellper.animateView(view: imgShake)
     }
     @IBAction func doStir(_ sender: Any) {
+        prep = 20
         self.setColorTextNormalOrSelect(lable: lblShake, isSelect: false)
         self.setColorTextNormalOrSelect(lable: lblFilter, isSelect: false)
         self.setColorTextNormalOrSelect(lable: lblStir, isSelect: true)
@@ -285,6 +315,7 @@ class CustomDetailVC: UIViewController {
         CommonHellper.animateView(view: imgStir)
     }
     @IBAction func doMuddle(_ sender: Any) {
+        prep = 30
         self.setColorTextNormalOrSelect(lable: lblShake, isSelect: false)
         self.setColorTextNormalOrSelect(lable: lblFilter, isSelect: false)
         self.setColorTextNormalOrSelect(lable: lblStir, isSelect: false)
@@ -340,27 +371,53 @@ class CustomDetailVC: UIViewController {
     @IBAction func doback(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    @IBAction func doAddCustom(_ sender: TransitionButton) {
-        btnAddCustom.startAnimation() // 2: Then start the animation when the user tap the button
+    
+    func paraStepOne()->Parameters
+    {
+        var parameters: [String: AnyObject] = [:]
+        parameters["name"] = self.txfDrinkName.text! as AnyObject
+        var arrs = [NSDictionary]()
+        for obj in arringredients {
+            let dict = obj as! NSDictionary
+            if let val = dict.object(forKey: "ingredient") as? NSDictionary
+            {
+                if let idIn = val.object(forKey: "id") as? Int
+                {
+                    let para = ["ratio": dict.object(forKey: "ratio") as! Int,"unit":0,"ingredient":idIn]
+                    arrs.append(para as NSDictionary)
+                    //parameters["ingredients"] = para as AnyObject
+                }
+            }
+        }
+        parameters["ingredients"] = arrs as AnyObject
+        parameters["prep"] = prep as AnyObject
+        return parameters
         
-        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-        backgroundQueue.async(execute: {
+    }
+    @IBAction func doAddCustom(_ sender: TransitionButton) {
+        ManagerWS.shared.addDrinkStep1(para: self.paraStepOne()) { (success) in
             
-            sleep(1) // 3: Do your networking task or background work here.
-            
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.btnAddCustom.setTitle("", for: .normal)
-                self.btnAddCustom.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                // 4: Stop the animation, here you have three options for the `animationStyle` property:
-                // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
-                // .shake: when you want to reflect to the user that the task did not complete successfly
-                // .normal
-                self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
-                })
-                self.perform(#selector(self.returnCustom), with: nil, afterDelay: 1.5)
-            })
-        })
+        }
+//        btnAddCustom.startAnimation() // 2: Then start the animation when the user tap the button
+//
+//        let qualityOfServiceClass = DispatchQoS.QoSClass.background
+//        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+//        backgroundQueue.async(execute: {
+//
+//            sleep(1) // 3: Do your networking task or background work here.
+//
+//            DispatchQueue.main.async(execute: { () -> Void in
+//                self.btnAddCustom.setTitle("", for: .normal)
+//                self.btnAddCustom.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+//                // 4: Stop the animation, here you have three options for the `animationStyle` property:
+//                // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
+//                // .shake: when you want to reflect to the user that the task did not complete successfly
+//                // .normal
+//                self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
+//                })
+//                self.perform(#selector(self.returnCustom), with: nil, afterDelay: 1.5)
+//            })
+//        })
     }
     
     @objc func returnCustom()
@@ -403,7 +460,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return arringredients.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -413,6 +470,73 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tblDetail.dequeueReusableCell(withIdentifier: "CustomDetailCell") as! CustomDetailCell
+        self.configCellCustomDetailCell(cell, dict: arringredients[indexPath.row] as! NSDictionary)
+        cell.tapRemove = { [] in
+            self.arringredients.removeObject(at: indexPath.row)
+            self.heightTable.constant = CGFloat(self.arringredients.count * 44)
+            self.tblDetail.reloadData()
+        }
         return cell
     }
+    
+    func configCellCustomDetailCell(_ cell: CustomDetailCell, dict: NSDictionary)
+    {
+        cell.lblValue.text = "\(dict.object(forKey: "ratio") as! Int)"
+        cell.lblUnit.text = dict.object(forKey: "unit") as? String
+        if let val = dict.object(forKey: "ingredient") as? NSDictionary
+        {
+            if let name = val.object(forKey: "name") as? String
+            {
+                cell.lblName.text = name
+            }
+        }
+        
+    }
 }
+
+extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
+{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+       
+        return self.arrLys.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LyTailCell", for: indexPath) as! LyTailCell
+        self.configCell(cell, glassObj: arrLys[indexPath.row])
+        return cell
+        
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+        return CGSize(width: 80, height: 70)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let obj = self.arrLys[indexPath.row]
+        if obj.image != nil{
+            self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+            })
+        }
+         self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+    }
+    
+    func configCell(_ cell: LyTailCell, glassObj: GlassObj)
+    {
+        cell.lblName.text = glassObj.name
+        if glassObj.image != nil
+        {
+            cell.imgCell.sd_setImage(with: URL.init(string: glassObj.image!), completed: { (image, error, type, url) in
+                
+            })
+        }
+    }
+}
+

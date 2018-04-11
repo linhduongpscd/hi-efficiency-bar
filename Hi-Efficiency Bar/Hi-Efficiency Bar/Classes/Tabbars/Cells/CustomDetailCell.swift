@@ -9,7 +9,10 @@
 import UIKit
 
 class CustomDetailCell: UITableViewCell {
-
+    var tapRemove: (() ->())?
+    @IBOutlet weak var lblValue: UILabel!
+    @IBOutlet weak var lblUnit: UILabel!
+    @IBOutlet weak var lblName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,4 +24,7 @@ class CustomDetailCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func doRemove(_ sender: Any) {
+        self.tapRemove?()
+    }
 }

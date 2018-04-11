@@ -11,6 +11,8 @@ import UIKit
 class DetailCockTailCollect: UICollectionViewCell {
 
     @IBOutlet weak var spaceRight: UIView!
+    @IBOutlet weak var imgCell: UIImageView!
+    @IBOutlet weak var lblName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

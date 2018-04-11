@@ -13,11 +13,14 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var lblNavi: UILabel!
     @IBOutlet weak var heightNavi: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
-    var mainBarViewCell = MainBarViewCell.init(frame: .zero)
+    
     var arrSlices = [MainBarObj]()
     var offset = 0
     var isLoadMore = false
     var arrDrinks = [DrinkObj]()
+    var drinkObj = DrinkObj.init(dict: NSDictionary.init())
+    var indexPathCell: IndexPath?
+    var mainBarViewCell = MainBarViewCell.init(frame: .zero)
     override func viewDidLoad() {
           ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         //self.navigationItem.title = "Main Bar"
@@ -30,6 +33,10 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         self.fetchAllDrink()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+      
+    }
     func getSliceHeader()
     {
         ManagerWS.shared.getMainBar { (success, arrs) in
@@ -41,7 +48,9 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     
     func fetchAllDrink()
     {
+        CommonHellper.showBusy()
         ManagerWS.shared.getListDrink(offset: offset) { (success, arrs) in
+            CommonHellper.hideBusy()
             if arrs!.count > 0
             {
                 self.isLoadMore = true
@@ -65,6 +74,13 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     
     func sharedView() -> UIView! {
         let cell = collectionView.cellForItem(at: (collectionView.indexPathsForSelectedItems?.first)!) as! MainBarViewCell
+        if cell.drinkObj.is_favorite!
+        {
+            cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+        }
+        else{
+            cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
+        }
         return cell.imgCell
     }
 }
@@ -139,8 +155,6 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section > 0 {
                mainBarViewCell = self.collectionView.cellForItem(at: indexPath) as! MainBarViewCell
-               // CommonHellper.animateViewSmall(view: mainBarViewCell)
-                //self.perform(#selector(self.viewDetail), with: nil, afterDelay: 0.8)
             UIView.animate(withDuration: 0.2,
                            animations: {
                             self.mainBarViewCell.frame = CGRect(x:self.mainBarViewCell.frame.origin.x, y: self.mainBarViewCell.frame.origin.y - 15, width: self.mainBarViewCell.frame.size.width, height: self.mainBarViewCell.frame.size.height)
@@ -153,8 +167,12 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
                                             
                             },
                                            completion: { _ in
+                                            self.indexPathCell = indexPath
+                                            self.drinkObj = self.arrDrinks[indexPath.row]
                                             self.mainBarViewCell.removedropShadow()
                                             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
+                                            vc.drinkObj = self.arrDrinks[indexPath.row]
+                                          
                                             self.navigationController?.pushViewController(vc, animated: true)
                             })
                             
@@ -174,11 +192,7 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             return commentView
         }
         else{
-//            let commentView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "FooterMainBarCollect", for: indexPath) as! FooterMainBarCollect
-//            commentView.tapShowMore = { [weak self] in
-//                let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailMainBarVC") as! DetailMainBarVC
-//                self?.navigationController?.pushViewController(vc, animated: true)
-//            }
+
             let commentView = UICollectionReusableView.init()
             return commentView
         }

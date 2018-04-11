@@ -57,14 +57,14 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Rym-aR-pec" secondAttribute="bottom" constant="20" id="2uZ-Lk-ojE"/>
+                <constraint firstAttribute="bottom" secondItem="Rym-aR-pec" secondAttribute="bottom" constant="20" id="2uZ-Lk-ojE"/>
                 <constraint firstAttribute="trailing" secondItem="hgb-LZ-aWs" secondAttribute="trailing" id="IQm-Td-kqc"/>
                 <constraint firstItem="hgb-LZ-aWs" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VAm-wa-WZQ"/>
                 <constraint firstItem="Rym-aR-pec" firstAttribute="top" secondItem="hgb-LZ-aWs" secondAttribute="bottom" constant="21" id="aFz-GO-XS5"/>
-                <constraint firstItem="Rym-aR-pec" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="kDT-Pt-EAb"/>
+                <constraint firstItem="Rym-aR-pec" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kDT-Pt-EAb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <viewLayoutGuide key="safeArea" id="ELM-Tp-V4S"/>
             <connections>
                 <outlet property="collectionView" destination="hgb-LZ-aWs" id="JYN-hd-liq"/>
                 <outlet property="lblName" destination="Rym-aR-pec" id="FRQ-lr-U5D"/>

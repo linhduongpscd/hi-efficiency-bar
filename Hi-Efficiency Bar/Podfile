@@ -9,4 +9,7 @@ target 'Hi-Efficiency Bar' do
  pod 'MXParallaxHeader'
  pod "Alamofire", :git => 'https://github.com/Alamofire/Alamofire.git'
  pod 'SDWebImage'
+ pod "FBSDKCoreKit"
+ pod 'FacebookLogin'
+ pod 'RappleProgressHUD', '~> 2.4'
 end

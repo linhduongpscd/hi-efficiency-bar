@@ -178,7 +178,7 @@ struct ManagerWS {
         }
         print(token)
         let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
-        manager.request(URL.init(string: "\(URL_SERVER)api/drink/?offset=\(offset)&rlimit=\(kLimitPage)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+        manager.request(URL.init(string: "\(URL_SERVER)api/drink/?offset=\(offset)&limit=\(kLimitPage)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
             .responseJSON { response in
                 print(response)
                 var arrDatas = [DrinkObj]()
@@ -199,12 +199,106 @@ struct ManagerWS {
                                     }
                                     complete(true, arrDatas)
                                 }
+                                else{
+                                     complete(true, arrDatas)
+                                }
                             }
                            
                         }
                     }
                     break
                     
+                case .failure(_):
+                     complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    
+    func getSearchDrink(txtSearch: String, offset: Int,complete:@escaping (_ success: Bool?, _ arrs: [DrinkObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        let search = txtSearch.replacingOccurrences(of: " ", with: "%20")
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/drink/?offset=\(offset)&limit=\(kLimitPage)&search=\(search)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [DrinkObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let arrs = val.object(forKey: "results") as? NSArray
+                            {
+                                if code == SERVER_CODE.CODE_200
+                                {
+                                    for item in arrs
+                                    {
+                                        let dictItem = item as! NSDictionary
+                                        arrDatas.append(DrinkObj.init(dict: dictItem))
+                                    }
+                                    complete(true, arrDatas)
+                                }
+                                else{
+                                     complete(true, arrDatas)
+                                }
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                     complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    
+    func getSearchIngredient(txtSearch: String, offset: Int,complete:@escaping (_ success: Bool?, _ arrs: [Ingredient]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        var search = txtSearch.replacingOccurrences(of: "#", with: "").lowercased()
+        search = search.replacingOccurrences(of: " ", with: "%20")
+        print(search)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/ingredient/?offset=\(offset)&limit=\(kLimitPage)&search=\(search)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [Ingredient]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let arrs = val.object(forKey: "results") as? NSArray
+                            {
+                                if code == SERVER_CODE.CODE_200
+                                {
+                                    for item in arrs
+                                    {
+                                        let dictItem = item as! NSDictionary
+                                        arrDatas.append(Ingredient.init(dict: dictItem))
+                                    }
+                                    complete(true, arrDatas)
+                                }
+                                else{
+                                     complete(true, arrDatas)
+                                }
+                            }
+                            
+                        }
+                    }
+                    break
+                     complete(true, arrDatas)
                 case .failure(_):
                     break
                 }
@@ -240,6 +334,51 @@ struct ManagerWS {
                                     }
                                     complete(true, arrDatas)
                                 }
+                                else{
+                                     complete(true, arrDatas)
+                                }
+                            }
+                            else{
+                                 complete(true, arrDatas)
+                            }
+                        }
+                        else{
+                             complete(true, arrDatas)
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                     complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    
+    
+    func favUnFavDrink(drinkID: Int,complete:@escaping (_ success: Bool?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/favorite/\(drinkID)/")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let arrs = val.object(forKey: "results") as? NSArray
+                            {
+                                if code == SERVER_CODE.CODE_200
+                                {
+                                   complete(true)
+                                    
+                                }
                             }
                             
                         }
@@ -247,6 +386,331 @@ struct ManagerWS {
                     break
                     
                 case .failure(_):
+                    break
+                }
+        }
+    }
+    
+    func forgotPassword(para: Parameters,complete:@escaping (_ success: Bool?) ->Void)
+    {
+       
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/forget/password/")!, method: .post, parameters: para,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            print(val)
+                            if code == SERVER_CODE.CODE_200
+                            {
+                                complete(true)
+                                
+                            }
+                            else{
+                                complete(false)
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(false)
+                    break
+                }
+        }
+    }
+    
+    func getProfile(complete:@escaping (_ success: Bool?, _ inforUser: NSDictionary) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/me/")!, method: .post, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if code == SERVER_CODE.CODE_200
+                            {
+                                complete(true, val)
+                                
+                            }
+                            else{
+                                complete(false, NSDictionary.init())
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(false, NSDictionary.init())
+                    break
+                }
+        }
+    }
+    
+    func addMyTab(para: Parameters, complete:@escaping (_ success: Bool?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(para)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/add/tab/")!, method: .post, parameters: para,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        print("CODE --\(code)")
+                        if code == SERVER_CODE.CODE_201
+                        {
+                            complete(true)
+                            
+                        }
+                        else{
+                            complete(false)
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(false)
+                    break
+                }
+        }
+    }
+    
+    func getListAllGlass(complete:@escaping (_ success: Bool?, _ arrs: [GlassObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/glass/")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [GlassObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let arrs = response.value as? NSArray
+                        {
+                            if code == SERVER_CODE.CODE_200
+                            {
+                                for item in arrs
+                                {
+                                    let dictItem = item as! NSDictionary
+                                    arrDatas.append(GlassObj.init(dict: dictItem))
+                                }
+                                complete(true, arrDatas)
+                            }
+                            else{
+                                 complete(true, arrDatas)
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                     complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    
+    
+    func addDrinkStep1(para: Parameters, complete:@escaping (_ success: Bool?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(para)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/drink/")!, method: .post, parameters: para,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        print("CODE --\(code)")
+                        if code == SERVER_CODE.CODE_201
+                        {
+                            complete(true)
+                            
+                        }
+                        else{
+                            complete(false)
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(false)
+                    break
+                }
+        }
+    }
+    func loginFacebook(para: Parameters, complete:@escaping (_ success: Bool?, _ errer: ErrorModel?) ->Void)
+    {
+    
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/signup/")!, method: .post, parameters: para,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        print(response)
+                        print("CODE   \(code)")
+                        if let val = response.value as? NSDictionary
+                        {
+                            if code == SERVER_CODE.CODE_201
+                            {
+                                if let id = val["id"] as? Int
+                                {
+                                    UserDefaults.standard.set(id, forKey: kID)
+                                    if let token = val["token"] as? String
+                                    {
+                                        UserDefaults.standard.set(token, forKey: kToken)
+                                        UserDefaults.standard.synchronize()
+                                        complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
+                                    }
+                                    else{
+                                          complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Token invalid."))
+                                    }
+                                    
+                                }
+                                else{
+                                      complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Id invalid."))
+                                }
+                            }
+                            else if code == SERVER_CODE.CODE_400
+                            {
+                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "User with this email address already exists."))
+                            }
+                            else{
+                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(val)"))
+                            }
+                        }
+                        
+                    }
+                    
+                case .failure(_):
+                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "User with this email address already exists."))
+                    break
+                }
+        }
+    }
+    
+    // SEARHC CATEGORY
+    func getSearchDrinkByCategory(txtSearch: String, offset: Int,complete:@escaping (_ success: Bool?, _ arrs: [GenreObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        var search = txtSearch.replacingOccurrences(of: "#", with: "").lowercased()
+         search = search.replacingOccurrences(of: " ", with: "%20")
+        //search = "mood"
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/drink/category/?offset=\(offset)&limit=\(kLimitPage)&search=\(search)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [GenreObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let arrs = response.value as? NSArray
+                        {
+                            if code == SERVER_CODE.CODE_200
+                            {
+                                for item in arrs
+                                {
+                                    let dictItem = item as! NSDictionary
+                                    arrDatas.append(GenreObj.init(dict: dictItem))
+                                }
+                                complete(true, arrDatas)
+                            }
+                            else{
+                                 complete(true, arrDatas)
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                     complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    
+    
+    // SEARCH ingredient
+    
+    func getListDrinkByingredient(ingredientID: Int, offset: Int,complete:@escaping (_ success: Bool?, _ arrs: [DrinkObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print("\(URL_SERVER)api/drink/?ingredient=\(ingredientID)&offset=\(offset)&limit=\(kLimitPage)")
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/drink/?ingredient=\(ingredientID)&offset=\(offset)&limit=\(kLimitPage)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [DrinkObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let arrs = val.object(forKey: "results") as? NSArray
+                            {
+                                if code == SERVER_CODE.CODE_200
+                                {
+                                    for item in arrs
+                                    {
+                                        let dictItem = item as! NSDictionary
+                                        arrDatas.append(DrinkObj.init(dict: dictItem))
+                                    }
+                                    complete(true, arrDatas)
+                                }
+                                else{
+                                    complete(true, arrDatas)
+                                }
+                            }
+                            else{
+                                complete(true, arrDatas)
+                            }
+                        }
+                        else{
+                            complete(true, arrDatas)
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(true, arrDatas)
                     break
                 }
         }

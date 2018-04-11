@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,14 +24,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="168" height="182"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cocktail" translatesAutoresizingMaskIntoConstraints="NO" id="34S-EA-QSU">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="34S-EA-QSU">
                         <rect key="frame" x="30" y="20" width="108" height="106"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="106" id="X0B-Hi-0iH"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sparkling" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1n1-ev-4Bc">
-                        <rect key="frame" x="48.5" y="151" width="71.5" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sparkling" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1n1-ev-4Bc">
+                        <rect key="frame" x="5" y="151" width="157" height="17"/>
                         <fontDescription key="fontDescription" name="AlrightSans-Light" family="Alright Sans" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -58,9 +58,11 @@
                 <constraint firstItem="1n1-ev-4Bc" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="KCW-Fr-mXg"/>
                 <constraint firstItem="34S-EA-QSU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="30" id="OiE-5V-Zko"/>
                 <constraint firstAttribute="trailing" secondItem="34S-EA-QSU" secondAttribute="trailing" constant="30" id="PW1-GJ-Brf"/>
+                <constraint firstItem="i1K-gY-s99" firstAttribute="leading" secondItem="1n1-ev-4Bc" secondAttribute="trailing" constant="5" id="Tj4-ac-tbK"/>
                 <constraint firstItem="1n1-ev-4Bc" firstAttribute="top" secondItem="34S-EA-QSU" secondAttribute="bottom" constant="25" id="Vff-K1-928"/>
                 <constraint firstItem="BcF-eV-0Vs" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="W0Y-5U-ZRS"/>
                 <constraint firstAttribute="trailing" secondItem="BcF-eV-0Vs" secondAttribute="trailing" id="YeT-n5-haQ"/>
+                <constraint firstItem="1n1-ev-4Bc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="bX0-FI-Oef"/>
                 <constraint firstItem="34S-EA-QSU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="dil-SC-hxL"/>
                 <constraint firstAttribute="bottom" secondItem="BcF-eV-0Vs" secondAttribute="bottom" id="rIa-mS-DaT"/>
                 <constraint firstItem="i1K-gY-s99" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="tIp-vH-ZoW"/>
@@ -68,12 +70,11 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="168" height="182"/>
             <connections>
+                <outlet property="imgCell" destination="34S-EA-QSU" id="wYB-T6-Qlr"/>
+                <outlet property="lblName" destination="1n1-ev-4Bc" id="IX1-Mj-yHj"/>
                 <outlet property="spaceRight" destination="i1K-gY-s99" id="jdb-17-DGX"/>
             </connections>
             <point key="canvasLocation" x="84" y="118"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="cocktail" width="105" height="177"/>
-    </resources>
 </document>

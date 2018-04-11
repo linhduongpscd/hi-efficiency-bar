@@ -13,6 +13,7 @@ class ProfileView: UIView {
     @IBOutlet weak var imgAvatar: UIImageView!    
     @IBOutlet weak var constaintAvatar: NSLayoutConstraint!
     
+    @IBOutlet weak var lblName: UILabel!
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {

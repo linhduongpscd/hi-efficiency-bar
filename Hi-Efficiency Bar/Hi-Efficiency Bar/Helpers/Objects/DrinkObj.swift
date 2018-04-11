@@ -20,6 +20,8 @@ class DrinkObj: NSObject {
     var is_have_ice: Bool?
     var key_word: String?
     var name: String?
+    var ingredients: NSArray?
+    var garnishes: NSArray?
     init(dict: NSDictionary) {
         self.category = dict["category"] as? NSDictionary
         self.creation_date = dict["creation_date"] as? String
@@ -32,5 +34,7 @@ class DrinkObj: NSObject {
         self.is_have_ice = dict["is_have_ice"] as? Bool
         self.key_word = dict["key_word"] as? String
         self.name = dict["name"] as? String
+        self.ingredients = dict["ingredients"] as? NSArray
+        self.garnishes = dict["garnishes"] as? NSArray
     }
 }

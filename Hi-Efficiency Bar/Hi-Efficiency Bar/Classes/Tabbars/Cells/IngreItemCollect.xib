@@ -31,7 +31,7 @@
                                 <rect key="frame" x="5" y="7.5" width="25" height="25"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coffee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5en-Gm-FY6">
-                                <rect key="frame" x="35" y="12.5" width="80" height="16"/>
+                                <rect key="frame" x="35" y="11" width="80" height="19"/>
                                 <fontDescription key="fontDescription" name="AlrightSans-Light" family="Alright Sans" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>

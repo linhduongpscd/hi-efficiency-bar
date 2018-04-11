@@ -14,9 +14,11 @@ class SettingVC: UITableViewController {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = "Settings"
+        
         // Do any additional setup after loading the view.
     }
 
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

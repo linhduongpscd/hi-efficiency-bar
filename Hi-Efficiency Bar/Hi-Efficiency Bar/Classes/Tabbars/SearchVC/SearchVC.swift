@@ -115,7 +115,7 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                         sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         if indexPath.section == 0 {
-            return CGSize(width: collectionView.frame.size.width, height: 287)
+            return CGSize(width: collectionView.frame.size.width, height: 400)
         }
         if indexPath.section == 1 {
             if indexPath.row == 0

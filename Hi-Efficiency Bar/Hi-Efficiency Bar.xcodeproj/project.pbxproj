@@ -26,6 +26,7 @@
 		275418BD2068FC0F00DEED32 /* TLYShyStatusBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B22068FC0F00DEED32 /* TLYShyStatusBarController.m */; };
 		275418BE2068FC0F00DEED32 /* TLYShyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B42068FC0F00DEED32 /* TLYShyViewController.m */; };
 		275418BF2068FC0F00DEED32 /* TLYShyScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B52068FC0F00DEED32 /* TLYShyScrollViewController.m */; };
+		277409B7207B69780092C9AC /* GarnishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277409B6207B69780092C9AC /* GarnishCell.swift */; };
 		2776C78F20634DA10040F065 /* IngreCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2776C78E20634DA10040F065 /* IngreCollect.xib */; };
 		2776C791206350030040F065 /* CustomDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C790206350030040F065 /* CustomDetailVC.swift */; };
 		2776C7932063595A0040F065 /* CustomDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C7922063595A0040F065 /* CustomDetailCell.swift */; };
@@ -41,6 +42,12 @@
 		27E9F50A20738EC6004801D6 /* FlashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E9F50920738EC6004801D6 /* FlashVC.swift */; };
 		27E9F50D20738F04004801D6 /* Speed3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 27E9F50C20738F04004801D6 /* Speed3.gif */; };
 		27E9F50F20739064004801D6 /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E9F50E20739064004801D6 /* iOSDevCenters+GIF.swift */; };
+		27EB269C207DEE5E009021A2 /* FooterDetailTag.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EB269A207DEE5E009021A2 /* FooterDetailTag.xib */; };
+		27EB269D207DEE5E009021A2 /* FooterDetailTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB269B207DEE5E009021A2 /* FooterDetailTag.swift */; };
+		27EB269F207DF037009021A2 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB269E207DF037009021A2 /* Ingredient.swift */; };
+		27EB26A1207DFAE8009021A2 /* GenreObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB26A0207DFAE8009021A2 /* GenreObj.swift */; };
+		27EB26A4207E0A12009021A2 /* NoDataCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EB26A2207E0A12009021A2 /* NoDataCollect.xib */; };
+		27EB26A5207E0A12009021A2 /* NoDataCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB26A3207E0A12009021A2 /* NoDataCollect.swift */; };
 		27EEF5FA20776AC7007ED912 /* DrinkObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EEF5F920776AC7007ED912 /* DrinkObj.swift */; };
 		27F60F74206B31A4009FDDC0 /* ShowMorePreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F60F72206B31A4009FDDC0 /* ShowMorePreCell.xib */; };
 		27F60F75206B31A4009FDDC0 /* ShowMorePreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F60F73206B31A4009FDDC0 /* ShowMorePreCell.swift */; };
@@ -49,6 +56,10 @@
 		27F60F7B206B453F009FDDC0 /* TopLoungeCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F60F79206B453F009FDDC0 /* TopLoungeCollect.swift */; };
 		27F60F7D206B4A63009FDDC0 /* LoungeTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F60F7C206B4A63009FDDC0 /* LoungeTabbarVC.swift */; };
 		27F70D14206E4C2D00077428 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F70D13206E4C2D00077428 /* SearchTagVC.swift */; };
+		27FD8E3B207C4CC800F0AAF2 /* garnish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD8E3A207C4CC800F0AAF2 /* garnish.swift */; };
+		27FD8E3F207C52A600F0AAF2 /* HelpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD8E3E207C52A600F0AAF2 /* HelpController.swift */; };
+		27FD8E41207C618A00F0AAF2 /* LyTailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD8E40207C618A00F0AAF2 /* LyTailCell.swift */; };
+		27FD8E43207C628600F0AAF2 /* GlassObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD8E42207C628600F0AAF2 /* GlassObj.swift */; };
 		3B038FBD2062B5010051691E /* IngredientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B038FBC2062B5010051691E /* IngredientVC.swift */; };
 		3B038FBF2062B5D00051691E /* IngreCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B038FBE2062B5D00051691E /* IngreCollect.swift */; };
 		3B149D36206F2FC100CBBCCA /* CurrentOrderCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B149D34206F2FC100CBBCCA /* CurrentOrderCollect.swift */; };
@@ -173,6 +184,7 @@
 		275418B52068FC0F00DEED32 /* TLYShyScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLYShyScrollViewController.m; sourceTree = "<group>"; };
 		275418B62068FC0F00DEED32 /* TLYShyNavBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBarManager.h; sourceTree = "<group>"; };
 		275418B72068FC0F00DEED32 /* TLYShyNavBarFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBarFade.h; sourceTree = "<group>"; };
+		277409B6207B69780092C9AC /* GarnishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarnishCell.swift; sourceTree = "<group>"; };
 		2776C78E20634DA10040F065 /* IngreCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngreCollect.xib; sourceTree = "<group>"; };
 		2776C790206350030040F065 /* CustomDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailVC.swift; sourceTree = "<group>"; };
 		2776C7922063595A0040F065 /* CustomDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailCell.swift; sourceTree = "<group>"; };
@@ -190,6 +202,12 @@
 		27E9F50920738EC6004801D6 /* FlashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashVC.swift; sourceTree = "<group>"; };
 		27E9F50C20738F04004801D6 /* Speed3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Speed3.gif; sourceTree = "<group>"; };
 		27E9F50E20739064004801D6 /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
+		27EB269A207DEE5E009021A2 /* FooterDetailTag.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterDetailTag.xib; sourceTree = "<group>"; };
+		27EB269B207DEE5E009021A2 /* FooterDetailTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterDetailTag.swift; sourceTree = "<group>"; };
+		27EB269E207DF037009021A2 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		27EB26A0207DFAE8009021A2 /* GenreObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreObj.swift; sourceTree = "<group>"; };
+		27EB26A2207E0A12009021A2 /* NoDataCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataCollect.xib; sourceTree = "<group>"; };
+		27EB26A3207E0A12009021A2 /* NoDataCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataCollect.swift; sourceTree = "<group>"; };
 		27EEF5F920776AC7007ED912 /* DrinkObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkObj.swift; sourceTree = "<group>"; };
 		27F60F72206B31A4009FDDC0 /* ShowMorePreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowMorePreCell.xib; sourceTree = "<group>"; };
 		27F60F73206B31A4009FDDC0 /* ShowMorePreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMorePreCell.swift; sourceTree = "<group>"; };
@@ -198,6 +216,10 @@
 		27F60F79206B453F009FDDC0 /* TopLoungeCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLoungeCollect.swift; sourceTree = "<group>"; };
 		27F60F7C206B4A63009FDDC0 /* LoungeTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoungeTabbarVC.swift; sourceTree = "<group>"; };
 		27F70D13206E4C2D00077428 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
+		27FD8E3A207C4CC800F0AAF2 /* garnish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = garnish.swift; sourceTree = "<group>"; };
+		27FD8E3E207C52A600F0AAF2 /* HelpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpController.swift; sourceTree = "<group>"; };
+		27FD8E40207C618A00F0AAF2 /* LyTailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyTailCell.swift; sourceTree = "<group>"; };
+		27FD8E42207C628600F0AAF2 /* GlassObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassObj.swift; sourceTree = "<group>"; };
 		395044B5EE3CB3A9A33B9FBC /* Pods-Hi-Efficiency Bar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hi-Efficiency Bar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hi-Efficiency Bar/Pods-Hi-Efficiency Bar.debug.xcconfig"; sourceTree = "<group>"; };
 		3B038FBC2062B5010051691E /* IngredientVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientVC.swift; sourceTree = "<group>"; };
 		3B038FBE2062B5D00051691E /* IngreCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngreCollect.swift; sourceTree = "<group>"; };
@@ -319,6 +341,10 @@
 			children = (
 				272A0CA52074B96B00ECB485 /* MainBarObj.swift */,
 				27EEF5F920776AC7007ED912 /* DrinkObj.swift */,
+				27FD8E3A207C4CC800F0AAF2 /* garnish.swift */,
+				27FD8E42207C628600F0AAF2 /* GlassObj.swift */,
+				27EB269E207DF037009021A2 /* Ingredient.swift */,
+				27EB26A0207DFAE8009021A2 /* GenreObj.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -474,6 +500,7 @@
 				3B91CB1F2058C5070073D54B /* CommonHellper.swift */,
 				3B91CB202058C5070073D54B /* Define.swift */,
 				3B656C71205CD96200477BEE /* Tabbar.storyboard */,
+				27FD8E3E207C52A600F0AAF2 /* HelpController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -580,6 +607,10 @@
 				3B149D35206F2FC100CBBCCA /* CurrentOrderCollect.xib */,
 				272A0C9E20746A9F00ECB485 /* LoadingView.swift */,
 				272A0CA020746AAE00ECB485 /* LoadingView.xib */,
+				277409B6207B69780092C9AC /* GarnishCell.swift */,
+				27FD8E40207C618A00F0AAF2 /* LyTailCell.swift */,
+				27EB269A207DEE5E009021A2 /* FooterDetailTag.xib */,
+				27EB269B207DEE5E009021A2 /* FooterDetailTag.swift */,
 			);
 			name = Cells;
 			path = Tabbars/Cells;
@@ -648,6 +679,8 @@
 				272AD3922064A67400164856 /* HeaderCustom.swift */,
 				272AD3942064A67F00164856 /* HeaderCustom.xib */,
 				272AD3962064AA0900164856 /* CarouselCollectionViewCell.xib */,
+				27EB26A2207E0A12009021A2 /* NoDataCollect.xib */,
+				27EB26A3207E0A12009021A2 /* NoDataCollect.swift */,
 			);
 			path = MainBarVC;
 			sourceTree = "<group>";
@@ -777,6 +810,7 @@
 				272AD3952064A67F00164856 /* HeaderCustom.xib in Resources */,
 				3BC39B69205C190800D2E60B /* HeaderCustomCell.xib in Resources */,
 				272A0CA120746AAE00ECB485 /* LoadingView.xib in Resources */,
+				27EB269C207DEE5E009021A2 /* FooterDetailTag.xib in Resources */,
 				27F60F74206B31A4009FDDC0 /* ShowMorePreCell.xib in Resources */,
 				3BDBE412205FB1F200CDA28E /* DetailCockTailCollect.xib in Resources */,
 				3B149D37206F2FC100CBBCCA /* CurrentOrderCollect.xib in Resources */,
@@ -803,6 +837,7 @@
 				3B91CAFD2058C2D50073D54B /* Assets.xcassets in Resources */,
 				3BDFD6712061F40300938C56 /* CurrentOrderCellNotTimeLine.xib in Resources */,
 				27C692CE206A41C50057156C /* MenuSearchCollect.xib in Resources */,
+				27EB26A4207E0A12009021A2 /* NoDataCollect.xib in Resources */,
 				3BD02E5E205AC5890042F890 /* FooterMainBarCollect.xib in Resources */,
 				3B91CB0D2058C3160073D54B /* AlrightSans-Bold-v3.otf in Resources */,
 				3B91CAFB2058C2D50073D54B /* Main.storyboard in Resources */,
@@ -840,13 +875,25 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Hi-Efficiency Bar/Pods-Hi-Efficiency Bar-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework",
+				"${BUILT_PRODUCTS_DIR}/RappleProgressHUD/RappleProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXParallaxHeader.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RappleProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -889,6 +936,7 @@
 				27C692CB206A3C410057156C /* HeaderSearchReusable.swift in Sources */,
 				3BC4CE0D206141FB00CECB57 /* FadeTransition.swift in Sources */,
 				3B91CB182058C4960073D54B /* SignInVC.swift in Sources */,
+				27FD8E43207C628600F0AAF2 /* GlassObj.swift in Sources */,
 				3B4FAE46205F7A3A0050331F /* PreOrderVC.swift in Sources */,
 				3BE11FA6205CFC0F0044DCB3 /* DetailCocktailVC.swift in Sources */,
 				3BD4A28D205D5BDA00B979DC /* SettingVC.swift in Sources */,
@@ -899,11 +947,13 @@
 				3BC39B64205C18E700D2E60B /* CustomCell.swift in Sources */,
 				3B91CB282058CC1E0073D54B /* UIViewX.swift in Sources */,
 				3BB0ED4F205FFA6E00702239 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				27FD8E3B207C4CC800F0AAF2 /* garnish.swift in Sources */,
 				2776C795206360330040F065 /* DetailTagVC.swift in Sources */,
 				3BB0ED4D205FFA6E00702239 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				3B038FBD2062B5010051691E /* IngredientVC.swift in Sources */,
 				3B91CB312058DB640073D54B /* AnimationManager.m in Sources */,
 				3BDBE40D205FB1D900CDA28E /* DetailHeaderGenereCollect.swift in Sources */,
+				27EB26A5207E0A12009021A2 /* NoDataCollect.swift in Sources */,
 				3BFF9C992059204500FFA49C /* MainBarViewCell.swift in Sources */,
 				3BC4CE0C206141FB00CECB57 /* CustomTransitionViewController.swift in Sources */,
 				2776C791206350030040F065 /* CustomDetailVC.swift in Sources */,
@@ -922,7 +972,9 @@
 				275418BB2068FC0F00DEED32 /* UIScrollView+Helpers.m in Sources */,
 				272A0CA62074B96B00ECB485 /* MainBarObj.swift in Sources */,
 				27F60F75206B31A4009FDDC0 /* ShowMorePreCell.swift in Sources */,
+				27EB26A1207DFAE8009021A2 /* GenreObj.swift in Sources */,
 				3B91CAF62058C2D50073D54B /* AppDelegate.swift in Sources */,
+				277409B7207B69780092C9AC /* GarnishCell.swift in Sources */,
 				3BFF9C9D2059206100FFA49C /* TopSectionViewCell.swift in Sources */,
 				272AD3932064A67400164856 /* HeaderCustom.swift in Sources */,
 				272A0C9F20746A9F00ECB485 /* LoadingView.swift in Sources */,
@@ -930,10 +982,13 @@
 				279D57812062493900E1845C /* ASFSharedViewTransition.m in Sources */,
 				3BFF9C96205918F100FFA49C /* HeaderViewCell.swift in Sources */,
 				275418A02068DFD000DEED32 /* HidingViewController.swift in Sources */,
+				27FD8E3F207C52A600F0AAF2 /* HelpController.swift in Sources */,
 				3BFF9C8E2059004400FFA49C /* SearchVC.swift in Sources */,
 				27E9F50A20738EC6004801D6 /* FlashVC.swift in Sources */,
+				27EB269F207DF037009021A2 /* Ingredient.swift in Sources */,
 				3B149D36206F2FC100CBBCCA /* CurrentOrderCollect.swift in Sources */,
 				3BFF9C862059001300FFA49C /* CustomVC.swift in Sources */,
+				27FD8E41207C618A00F0AAF2 /* LyTailCell.swift in Sources */,
 				3BDBE3FF205F961700CDA28E /* HeaderPreOrderCell.swift in Sources */,
 				2776C7932063595A0040F065 /* CustomDetailCell.swift in Sources */,
 				3BC39B68205C190800D2E60B /* HeaderCustomCell.swift in Sources */,
@@ -952,6 +1007,7 @@
 				275418BE2068FC0F00DEED32 /* TLYShyViewController.m in Sources */,
 				3BD02E56205ABE140042F890 /* TagsView.swift in Sources */,
 				3BC4CE0B206141FB00CECB57 /* CGRectExtension.swift in Sources */,
+				27EB269D207DEE5E009021A2 /* FooterDetailTag.swift in Sources */,
 				27F60F7B206B453F009FDDC0 /* TopLoungeCollect.swift in Sources */,
 				3B91CB242058C5070073D54B /* Define.swift in Sources */,
 				275418BD2068FC0F00DEED32 /* TLYShyStatusBarController.m in Sources */,
@@ -1046,7 +1102,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1097,7 +1153,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1112,6 +1168,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Le Hoang Thu (APB36VPU7R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = VJL5V5927F;
 				INFOPLIST_FILE = "Hi-Efficiency Bar/Info.plist";
@@ -1120,8 +1177,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.tt.Hi-Efficiency-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cd192289-cc45-4609-b3e6-1777df300eeb";
-				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_Mar19;
+				PROVISIONING_PROFILE = "673b5ad1-3abb-43f2-85eb-62e6254825a3";
+				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_Apr09;
 				SWIFT_OBJC_BRIDGING_HEADER = "Hi-Efficiency Bar/Resources/Class/Hi-Efficiency Bar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1136,6 +1193,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Le Hoang Thu (APB36VPU7R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = VJL5V5927F;
 				INFOPLIST_FILE = "Hi-Efficiency Bar/Info.plist";
@@ -1143,8 +1201,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.tt.Hi-Efficiency-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cd192289-cc45-4609-b3e6-1777df300eeb";
-				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_Mar19;
+				PROVISIONING_PROFILE = "673b5ad1-3abb-43f2-85eb-62e6254825a3";
+				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_Apr09;
 				SWIFT_OBJC_BRIDGING_HEADER = "Hi-Efficiency Bar/Resources/Class/Hi-Efficiency Bar-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

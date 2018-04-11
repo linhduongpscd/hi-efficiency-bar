@@ -34,7 +34,24 @@ class LoungeTabbarVC: UIViewController {
                 print("unknown")
             }
         }
+        self.fetchProfile()
         // Do any additional setup after loading the view.
+    }
+    func fetchProfile()
+    {
+        ManagerWS.shared.getProfile { (success, info) in
+            print(info)
+            if let avatar = info.object(forKey: "avatar_url") as? String
+            {
+                self.profileView.imgAvatar.sd_setImage(with: URL.init(string: avatar), completed: { (image, error, type, url) in
+                    
+                })
+            }
+            if let first_name = info.object(forKey: "first_name") as? String
+            {
+                self.profileView.lblName.text = first_name
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -139,7 +156,7 @@ extension LoungeTabbarVC: MXParallaxHeaderDelegate
         else{
             //self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "white"), for: .default)
             // self.navigationItem.title = "Ryan Hoover"
-             self.lblNavi.text = "Ryan Hoover"
+             self.lblNavi.text = self.profileView.lblName.text
             //rprofileView.constrantAvatar.constant = parallaxHeader.progress
              self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Medium, size: 20.0)
         }

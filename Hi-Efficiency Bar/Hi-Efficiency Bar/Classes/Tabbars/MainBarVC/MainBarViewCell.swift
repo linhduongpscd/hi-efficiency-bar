@@ -16,6 +16,7 @@ class MainBarViewCell: UICollectionViewCell {
     @IBOutlet weak var constraintBottomBtnFav: NSLayoutConstraint!
     @IBOutlet weak var lblName: UILabel!
     var isFav = false
+    var drinkObj = DrinkObj.init(dict: NSDictionary.init())
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,24 +34,49 @@ class MainBarViewCell: UICollectionViewCell {
 //            btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
 //        }
        
-        UIView.animate(withDuration: 0.5,
-                       animations: {
-                        self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
-                        self.constraintBottomBtnFav.constant = 25
-                        self.btnFav.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        },
-                       completion: { _ in
-                        UIView.animate(withDuration: 0.25) {
+        if !drinkObj.is_favorite! {
+            drinkObj.is_favorite = true
+            UIView.animate(withDuration: 0.5,
+                           animations: {
+                            self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+                            self.constraintBottomBtnFav.constant = 25
+                            self.btnFav.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            },
+                           completion: { _ in
+                            UIView.animate(withDuration: 0.25) {
+                                self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+                                self.constraintBottomBtnFav.constant = 10
+                                self.btnFav.transform = CGAffineTransform.identity
+                            }
+            })
+           
+        }
+        else{
+             drinkObj.is_favorite = false
+            UIView.animate(withDuration: 0.5,
+                           animations: {
                             self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
-                            self.constraintBottomBtnFav.constant = 10
-                            self.btnFav.transform = CGAffineTransform.identity
-                        }
+                            self.constraintBottomBtnFav.constant = 25
+                            self.btnFav.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            },
+                           completion: { _ in
+                            UIView.animate(withDuration: 0.25) {
+                                self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
+                                self.constraintBottomBtnFav.constant = 10
+                                self.btnFav.transform = CGAffineTransform.identity
+                            }
+            })
+        }
+        ManagerWS.shared.favUnFavDrink(drinkID: drinkObj.id!, complete: { (success) in
+            
         })
+        
     }
     
     
     func configCell(drinkObj: DrinkObj)
     {
+        self.drinkObj = drinkObj
         self.lblName.text = drinkObj.name
         if drinkObj.image != nil{
             self.imgCell.sd_setImage(with: URL.init(string: drinkObj.image!), completed: { (image, error, type, url) in

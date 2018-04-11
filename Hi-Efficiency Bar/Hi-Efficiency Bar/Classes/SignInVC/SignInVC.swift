@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
+import Alamofire
 class SignInVC: BaseViewController {
 
     @IBOutlet weak var txfUsername: UITextField!
@@ -89,6 +92,29 @@ class SignInVC: BaseViewController {
         vc.token = self.token
         vc.birthday = self.birthday
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @IBAction func doFacebook(_ sender: Any) {
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
+            if (error == nil){
+                let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                if fbloginresult.grantedPermissions != nil {
+                    if(fbloginresult.grantedPermissions.contains("email")) {
+                        if((FBSDKAccessToken.current()) != nil){
+                            FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+                                if (error == nil){
+                                    print(fbloginresult.token.tokenString)
+                                    let para: Parameters = ["fb_token": fbloginresult.token.tokenString]
+                                    ManagerWS.shared.loginFacebook(para: para, complete: { (success, error) in
+                                        
+                                    })
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        }
     }
     /*
     // MARK: - Navigation
