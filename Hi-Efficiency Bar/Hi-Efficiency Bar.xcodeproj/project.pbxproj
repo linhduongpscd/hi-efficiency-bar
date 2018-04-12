@@ -31,6 +31,7 @@
 		2776C791206350030040F065 /* CustomDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C790206350030040F065 /* CustomDetailVC.swift */; };
 		2776C7932063595A0040F065 /* CustomDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C7922063595A0040F065 /* CustomDetailCell.swift */; };
 		2776C795206360330040F065 /* DetailTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C794206360330040F065 /* DetailTagVC.swift */; };
+		2791606B207F161100D91210 /* CategoryObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791606A207F161100D91210 /* CategoryObj.swift */; };
 		279D57812062493900E1845C /* ASFSharedViewTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 279D577F2062493900E1845C /* ASFSharedViewTransition.m */; };
 		27C692C6206A3BCA0057156C /* QuickSearchCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27C692C4206A3BCA0057156C /* QuickSearchCollect.xib */; };
 		27C692C7206A3BCA0057156C /* QuickSearchCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C692C5206A3BCA0057156C /* QuickSearchCollect.swift */; };
@@ -189,6 +190,7 @@
 		2776C790206350030040F065 /* CustomDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailVC.swift; sourceTree = "<group>"; };
 		2776C7922063595A0040F065 /* CustomDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailCell.swift; sourceTree = "<group>"; };
 		2776C794206360330040F065 /* DetailTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTagVC.swift; sourceTree = "<group>"; };
+		2791606A207F161100D91210 /* CategoryObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryObj.swift; sourceTree = "<group>"; };
 		279D577F2062493900E1845C /* ASFSharedViewTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFSharedViewTransition.m; sourceTree = "<group>"; };
 		279D57802062493900E1845C /* ASFSharedViewTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFSharedViewTransition.h; sourceTree = "<group>"; };
 		27C692C4206A3BCA0057156C /* QuickSearchCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuickSearchCollect.xib; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				27FD8E42207C628600F0AAF2 /* GlassObj.swift */,
 				27EB269E207DF037009021A2 /* Ingredient.swift */,
 				27EB26A0207DFAE8009021A2 /* GenreObj.swift */,
+				2791606A207F161100D91210 /* CategoryObj.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -1011,6 +1014,7 @@
 				27F60F7B206B453F009FDDC0 /* TopLoungeCollect.swift in Sources */,
 				3B91CB242058C5070073D54B /* Define.swift in Sources */,
 				275418BD2068FC0F00DEED32 /* TLYShyStatusBarController.m in Sources */,
+				2791606B207F161100D91210 /* CategoryObj.swift in Sources */,
 				275418BF2068FC0F00DEED32 /* TLYShyScrollViewController.m in Sources */,
 				3BD02E62205AC6C70042F890 /* UIButtonX.swift in Sources */,
 				3BD02E61205AC6C70042F890 /* UIImageViewX.swift in Sources */,

@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="AlrightSans-Light-v3.otf">
-            <string>AlrightSans-Light</string>
-        </array>
         <array key="AlrightSans-Regular-v3.otf">
             <string>AlrightSans-Regular</string>
         </array>
@@ -21,31 +18,25 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailHeaderGenereCollect" id="gTV-IL-0wX" customClass="DetailHeaderGenereCollect" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="304"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="253"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="304"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="253"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="section" translatesAutoresizingMaskIntoConstraints="NO" id="5f6-ZD-GKY">
                         <rect key="frame" x="89" y="52" width="142" height="150"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cocktail" translatesAutoresizingMaskIntoConstraints="NO" id="CDQ-OF-lat">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CDQ-OF-lat">
                         <rect key="frame" x="100" y="62" width="120" height="130"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="130" id="Abu-hh-5bZ"/>
                             <constraint firstAttribute="width" constant="120" id="yhR-5w-tRd"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cocktail Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCI-Pk-8uU">
-                        <rect key="frame" x="109.5" y="216" width="102.5" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCI-Pk-8uU">
+                        <rect key="frame" x="161" y="216" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You don't need to take a test to know your personality type. This also applies hen you're deciding your next drink!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSg-9v-Grv">
-                        <rect key="frame" x="25" y="249" width="270" height="42"/>
-                        <fontDescription key="fontDescription" name="AlrightSans-Light" family="Alright Sans" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -57,19 +48,19 @@
                 <constraint firstItem="CDQ-OF-lat" firstAttribute="centerX" secondItem="5f6-ZD-GKY" secondAttribute="centerX" id="HP5-L6-3TB"/>
                 <constraint firstItem="oCI-Pk-8uU" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="Sj7-JC-EzM"/>
                 <constraint firstItem="CDQ-OF-lat" firstAttribute="centerY" secondItem="5f6-ZD-GKY" secondAttribute="centerY" id="W5F-7s-I29"/>
-                <constraint firstItem="mSg-9v-Grv" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="25" id="aSU-nc-CPT"/>
-                <constraint firstItem="mSg-9v-Grv" firstAttribute="top" secondItem="oCI-Pk-8uU" secondAttribute="bottom" constant="13" id="iLa-GL-6Gs"/>
                 <constraint firstItem="oCI-Pk-8uU" firstAttribute="top" secondItem="5f6-ZD-GKY" secondAttribute="bottom" constant="14" id="qNM-PX-Dux"/>
-                <constraint firstAttribute="trailing" secondItem="mSg-9v-Grv" secondAttribute="trailing" constant="25" id="qvn-DE-q5Q"/>
                 <constraint firstItem="5f6-ZD-GKY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="52" id="t15-lr-db9"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <size key="customSize" width="276" height="304"/>
-            <point key="canvasLocation" x="42" y="179"/>
+            <size key="customSize" width="276" height="253"/>
+            <connections>
+                <outlet property="imgCell" destination="CDQ-OF-lat" id="uOA-1c-bpQ"/>
+                <outlet property="lblName" destination="oCI-Pk-8uU" id="I5K-ns-Abg"/>
+            </connections>
+            <point key="canvasLocation" x="42" y="153.5"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="cocktail" width="105" height="177"/>
         <image name="section" width="142" height="150"/>
     </resources>
 </document>

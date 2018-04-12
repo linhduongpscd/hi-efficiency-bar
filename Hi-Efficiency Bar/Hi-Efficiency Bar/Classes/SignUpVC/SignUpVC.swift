@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 class SignUpVC: BaseViewController {
-
+    
     @IBOutlet weak var txfName: UITextField!
     @IBOutlet weak var txfEmail: UITextField!
     @IBOutlet weak var txfPassword: UITextField!

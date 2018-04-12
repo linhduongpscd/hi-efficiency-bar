@@ -9,7 +9,7 @@
 import UIKit
 
 class DrinkObj: NSObject {
-    var category: NSDictionary?
+    var categoryObj: CategoryObj?
     var creation_date: String?
     var creator: String?
     var glass: NSDictionary?
@@ -23,7 +23,7 @@ class DrinkObj: NSObject {
     var ingredients: NSArray?
     var garnishes: NSArray?
     init(dict: NSDictionary) {
-        self.category = dict["category"] as? NSDictionary
+      
         self.creation_date = dict["creation_date"] as? String
         self.creator = dict["creator"] as? String
         self.glass = dict["glass"] as? NSDictionary
@@ -36,5 +36,17 @@ class DrinkObj: NSObject {
         self.name = dict["name"] as? String
         self.ingredients = dict["ingredients"] as? NSArray
         self.garnishes = dict["garnishes"] as? NSArray
+        if let arrs = dict["category"] as? NSArray
+        {
+            for item in arrs
+            {
+                let obj = CategoryObj.init(dict: item as! NSDictionary)
+                if obj.main_level! == 1
+                {
+                    self.categoryObj = obj
+                    break
+                }
+            }
+        }
     }
 }

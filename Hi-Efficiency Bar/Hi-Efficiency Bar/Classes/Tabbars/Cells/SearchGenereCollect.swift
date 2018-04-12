@@ -15,5 +15,6 @@ class SearchGenereCollect: UICollectionViewCell {
         // Initialization code
     }
 
+    @IBOutlet weak var imgCell: UIImageView!
     @IBOutlet weak var lblName: UILabel!
 }

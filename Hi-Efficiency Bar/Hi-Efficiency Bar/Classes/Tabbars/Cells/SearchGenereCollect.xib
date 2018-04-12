@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,7 +27,7 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="section" translatesAutoresizingMaskIntoConstraints="NO" id="V9t-cI-ivy">
                         <rect key="frame" x="22" y="10" width="142" height="150"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cocktail" translatesAutoresizingMaskIntoConstraints="NO" id="eCu-5b-gwe">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eCu-5b-gwe">
                         <rect key="frame" x="50" y="26" width="86" height="89"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="89" id="WQm-GG-2ds"/>
@@ -56,13 +56,13 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="186" height="170"/>
             <connections>
+                <outlet property="imgCell" destination="eCu-5b-gwe" id="Qjj-z4-rvo"/>
                 <outlet property="lblName" destination="LI5-9f-y5r" id="dtc-1z-W5h"/>
             </connections>
             <point key="canvasLocation" x="93" y="112"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="cocktail" width="105" height="177"/>
         <image name="section" width="142" height="150"/>
     </resources>
 </document>

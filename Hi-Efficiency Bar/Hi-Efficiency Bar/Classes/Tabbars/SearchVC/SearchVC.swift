@@ -12,23 +12,35 @@ class SearchVC: BaseViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     var stringTag = ""
-     let arrDatas = ["Cocktail Type", "Base Spirit", "Cocktail Strength", "Cocktail Color", "Around The World", "Moments", "Mood & Style", "Celebrations"]
     var isQuickSearch = true
     var isSearchIngre = false
     var isSearchGenre = false
-    
+    var arrGeneres = [GenreObj]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.initController()
+        self.fectGenereSearch()
+    }
+
+    func initController()
+    {
         self.navigationItem.title = "Search"
         self.collectionView.register(UINib(nibName: "QuickSearchCollect", bundle: nil), forCellWithReuseIdentifier: "QuickSearchCollect")
         self.collectionView.register(UINib(nibName: "HeaderSearchReusable", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "HeaderSearchReusable")
         self.collectionView.register(UINib(nibName: "IngreItemCollect", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
         self.collectionView.register(UINib(nibName: "MenuSearchCollect", bundle: nil), forCellWithReuseIdentifier: "MenuSearchCollect")
-         self.collectionView.register(UINib(nibName: "SearchGenereCollect", bundle: nil), forCellWithReuseIdentifier: "SearchGenereCollect")
+        self.collectionView.register(UINib(nibName: "SearchGenereCollect", bundle: nil), forCellWithReuseIdentifier: "SearchGenereCollect")
         self.configHideNaviScroll(collectionView)
-        // Do any additional setup after loading the view.
     }
-
+    
+    func fectGenereSearch()
+    {
+        ManagerWS.shared.getSearchGenere { (success, arrs) in
+            self.arrGeneres = arrs!
+            self.collectionView.reloadData()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -74,7 +86,7 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         }
         if isSearchGenre
         {
-            return self.arrDatas.count
+            return self.arrGeneres.count
         }
          return 0
     }
@@ -106,7 +118,14 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
             }
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchGenereCollect", for: indexPath) as! SearchGenereCollect
-        cell.lblName.text = self.arrDatas[indexPath.row]
+        let obj = arrGeneres[indexPath.row]
+        cell.lblName.text = obj.name
+        if obj.image != nil
+        {
+            cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                
+            })
+        }
         return cell
         
     }
@@ -143,6 +162,7 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
        if indexPath.section == 2
        {
             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailCocktailVC") as! DetailCocktailVC
+            vc.genereObj = arrGeneres[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

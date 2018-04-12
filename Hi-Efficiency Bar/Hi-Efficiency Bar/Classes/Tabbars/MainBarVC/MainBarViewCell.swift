@@ -9,7 +9,7 @@
 import UIKit
 
 class MainBarViewCell: UICollectionViewCell {
-
+    var tapUnFavDrink: (() ->())?
     @IBOutlet weak var leaningSubX: NSLayoutConstraint!
     @IBOutlet weak var imgCell: UIImageView!
     @IBOutlet weak var btnFav: UIButton!
@@ -17,6 +17,10 @@ class MainBarViewCell: UICollectionViewCell {
     @IBOutlet weak var lblName: UILabel!
     var isFav = false
     var drinkObj = DrinkObj.init(dict: NSDictionary.init())
+    var isMyFav = true
+    var indexPathCell: IndexPath?
+    @IBOutlet weak var lblLevel: UILabel!
+    @IBOutlet weak var iconLevel: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -64,6 +68,10 @@ class MainBarViewCell: UICollectionViewCell {
                                 self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
                                 self.constraintBottomBtnFav.constant = 10
                                 self.btnFav.transform = CGAffineTransform.identity
+                                if self.isMyFav
+                                {
+                                    self.tapUnFavDrink?()
+                                }
                             }
             })
         }
@@ -92,6 +100,26 @@ class MainBarViewCell: UICollectionViewCell {
         }
         else{
             self.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
+        }
+        if drinkObj.categoryObj == nil
+        {
+            lblLevel.isHidden = false
+            iconLevel.isHidden = true
+        }
+        else{
+            lblLevel.isHidden = true
+            iconLevel.isHidden = false
+            if drinkObj.categoryObj?.main_level! == 1
+            {
+               iconLevel.image = #imageLiteral(resourceName: "ic_cup")
+            }
+            else if drinkObj.categoryObj?.main_level! == 1
+            {
+                iconLevel.image = #imageLiteral(resourceName: "ic_cup2")
+            }
+            else{
+                iconLevel.image = #imageLiteral(resourceName: "ic_cup3")
+            }
         }
     }
 }

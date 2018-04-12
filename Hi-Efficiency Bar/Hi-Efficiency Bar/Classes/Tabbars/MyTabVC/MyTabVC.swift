@@ -12,6 +12,7 @@ class MyTabVC: BaseViewController {
 
     @IBOutlet weak var tblMyTab: UITableView!
     @IBOutlet weak var btnMakeMeDrink: TransitionButton!
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "My Tab"
@@ -20,6 +21,7 @@ class MyTabVC: BaseViewController {
         //initParalax()
         self.configHideNaviTable(tblMyTab)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)

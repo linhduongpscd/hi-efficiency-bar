@@ -10,7 +10,7 @@ import UIKit
 
 import UIKit
 import MXParallaxHeader
-class LoungeTabbarVC: UIViewController {
+class LoungeTabbarVC: UIViewController, ASFSharedViewTransitionDataSource {
     var profileView = ProfileView.init(frame: .zero)
     @IBOutlet weak var collectionView: UICollectionView!
      var imagePicker: UIImagePickerController!
@@ -18,8 +18,13 @@ class LoungeTabbarVC: UIViewController {
     @IBOutlet weak var heightNavi: NSLayoutConstraint!
     @IBOutlet weak var lblNavi: UILabel!
     var isChangeAvatar = Bool()
+    var offset = 0
+    var isLoadMore = false
+    var arrDrinks = [DrinkObj]()
+    var mainBarViewCell = MainBarViewCell.init(frame: .zero)
     override func viewDidLoad() {
         super.viewDidLoad()
+            ASFSharedViewTransition.addWith(fromViewControllerClass: LoungeTabbarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         self.collectionView.register(UINib(nibName: "TopLoungeCollect", bundle: nil), forCellWithReuseIdentifier: "TopLoungeCollect")
         self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
@@ -35,7 +40,32 @@ class LoungeTabbarVC: UIViewController {
             }
         }
         self.fetchProfile()
+        
         // Do any additional setup after loading the view.
+    }
+    func fetchAllDrink(isIndicator: Bool)
+    {
+        if isIndicator
+        {
+            self.arrDrinks.removeAll()
+            CommonHellper.showBusy()
+        }
+        
+        ManagerWS.shared.getListFavDrinks(offset: offset) { (success, arrs) in
+            CommonHellper.hideBusy()
+            if arrs!.count > 0
+            {
+                self.isLoadMore = true
+            }
+            else{
+                self.isLoadMore = false
+            }
+            for drink in arrs!
+            {
+                self.arrDrinks.append(drink)
+            }
+            self.collectionView.reloadData()
+        }
     }
     func fetchProfile()
     {
@@ -44,7 +74,9 @@ class LoungeTabbarVC: UIViewController {
             if let avatar = info.object(forKey: "avatar_url") as? String
             {
                 self.profileView.imgAvatar.sd_setImage(with: URL.init(string: avatar), completed: { (image, error, type, url) in
-                    
+                    self.profileView.imgAvatar.layer.cornerRadius =  self.profileView.imgAvatar.frame.size.width/2
+                    self.profileView.imgAvatar.layer.masksToBounds = true
+                    self.isChangeAvatar = true
                 })
             }
             if let first_name = info.object(forKey: "first_name") as? String
@@ -57,6 +89,8 @@ class LoungeTabbarVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
+        offset = 0
+        self.fetchAllDrink(isIndicator: true)
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        self.navigationController?.navigationBar.isTranslucent = true
@@ -120,6 +154,11 @@ class LoungeTabbarVC: UIViewController {
             present(imagePicker, animated: true, completion: nil)
         }
     }
+    func sharedView() -> UIView! {
+        let cell = collectionView.cellForItem(at: (collectionView.indexPathsForSelectedItems?.first)!) as! MainBarViewCell
+       
+        return cell.imgCell
+    }
 }
 extension LoungeTabbarVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
@@ -163,6 +202,7 @@ extension LoungeTabbarVC: MXParallaxHeaderDelegate
         if isChangeAvatar {
             let value = Float(parallaxHeader.progress)
             profileView.constaintAvatar.constant = CGFloat(value)
+            print(profileView.constaintAvatar.constant)
             profileView.imgAvatar.layer.cornerRadius = profileView.imgAvatar.frame.size.width/2
             profileView.imgAvatar.layer.masksToBounds = true
         }
@@ -180,7 +220,7 @@ extension LoungeTabbarVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         {
             return 1
         }
-        return 10
+        return self.arrDrinks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -204,6 +244,14 @@ extension LoungeTabbarVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         else{
             cell.leaningSubX.constant = 5.0
         }
+        cell.isMyFav = true
+        cell.indexPathCell = indexPath
+        cell.configCell(drinkObj: self.arrDrinks[indexPath.row])
+        cell.tapUnFavDrink = {[] in
+             //print(cell.indexPathCell?.row)
+            self.arrDrinks.remove(at: (cell.indexPathCell?.row)!)
+             self.collectionView.reloadData()
+        }
         return cell
         
     }
@@ -218,9 +266,38 @@ extension LoungeTabbarVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         return CGSize(width: (collectionView.frame.size.width - 2)/2, height:  (collectionView.frame.size.width - 2)/2 + 50)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if indexPath.section > 0 {
+            mainBarViewCell = self.collectionView.cellForItem(at: indexPath) as! MainBarViewCell
+            UIView.animate(withDuration: 0.2,
+                           animations: {
+                            self.mainBarViewCell.frame = CGRect(x:self.mainBarViewCell.frame.origin.x, y: self.mainBarViewCell.frame.origin.y - 15, width: self.mainBarViewCell.frame.size.width, height: self.mainBarViewCell.frame.size.height)
+                            self.mainBarViewCell.dropShadow()
+            },
+                           completion: { _ in
+                            UIView.animate(withDuration: 0.2,
+                                           animations: {
+                                            self.mainBarViewCell.frame = CGRect(x:self.mainBarViewCell.frame.origin.x, y: self.mainBarViewCell.frame.origin.y + 15, width: self.mainBarViewCell.frame.size.width, height: self.mainBarViewCell.frame.size.height)
+                                            
+                            },
+                                           completion: { _ in
+                                            self.mainBarViewCell.removedropShadow()
+                                            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
+                                            vc.drinkObj = self.arrDrinks[indexPath.row]
+                                            
+                                            self.navigationController?.pushViewController(vc, animated: true)
+                            })
+                            
+            })
+        }
     }
-    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if isLoadMore && self.arrDrinks.count/2 == indexPath.row - 1 {
+            print("VAO DAY")
+            isLoadMore = false
+            self.offset = self.offset + kLimitPage
+            self.fetchAllDrink(isIndicator: false)
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionHeader
         {

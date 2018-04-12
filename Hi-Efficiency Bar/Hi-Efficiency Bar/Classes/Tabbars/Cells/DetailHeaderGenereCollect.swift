@@ -10,6 +10,8 @@ import UIKit
 
 class DetailHeaderGenereCollect: UICollectionViewCell {
 
+    @IBOutlet weak var imgCell: UIImageView!
+    @IBOutlet weak var lblName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

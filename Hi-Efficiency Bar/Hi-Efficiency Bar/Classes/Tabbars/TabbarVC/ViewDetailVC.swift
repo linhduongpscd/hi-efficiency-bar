@@ -40,6 +40,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     var valueIce = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = false
          self.tblDetail.register(UINib(nibName: "CurrentOrderCellNotTimeLine", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
         btnAddMyCard.spinnerColor = .white
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
