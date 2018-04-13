@@ -13,9 +13,23 @@ class FlashVC: UIViewController {
     @IBOutlet weak var imgFlash: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        let jeremyGif = UIImage.gifImageWithName("Speed3")
-        imgFlash.image = jeremyGif
-        self.perform(#selector(clickLogin), with: nil, afterDelay: 4.6)
+     
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            let jeremyGif = UIImage.gifImageWithName("Speed3")
+            imgFlash.image = jeremyGif
+        // It's an iPhone
+        case .pad: break
+        // It's an iPad
+        case .unspecified:
+            break
+        // Uh, oh! What could it be?
+        case .tv:
+            break
+        case .carPlay:
+            break
+        }
+        self.perform(#selector(clickLogin), with: nil, afterDelay: 5.0)
         // Do any additional setup after loading the view.
     }
 

@@ -23,6 +23,7 @@ PODS:
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
+  - Stripe (12.1.2)
 
 DEPENDENCIES:
   - Alamofire (from `https://github.com/Alamofire/Alamofire.git`)
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - MXParallaxHeader
   - RappleProgressHUD (~> 2.4)
   - SDWebImage
+  - Stripe
 
 EXTERNAL SOURCES:
   Alamofire:
@@ -51,7 +53,8 @@ SPEC CHECKSUMS:
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
   RappleProgressHUD: 1d97178abc04ea9e89e4df74227064ded389ce24
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
+  Stripe: 3230cdf8a8b0c04902e45e86f222fb82a926239c
 
-PODFILE CHECKSUM: a6b6bf33a07cb565bf6f38fedc7b6db11a36f667
+PODFILE CHECKSUM: b2651252ab389a958665c3cb79befa8ada682344
 
 COCOAPODS: 1.4.0

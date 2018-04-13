@@ -48,7 +48,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     
     func fetchAllDrink()
     {
-        CommonHellper.showBusy()
+        //CommonHellper.showBusy()
         ManagerWS.shared.getListDrink(offset: offset) { (success, arrs) in
             CommonHellper.hideBusy()
             if arrs!.count > 0

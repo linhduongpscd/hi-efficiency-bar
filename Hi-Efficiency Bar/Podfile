@@ -12,4 +12,5 @@ target 'Hi-Efficiency Bar' do
  pod "FBSDKCoreKit"
  pod 'FacebookLogin'
  pod 'RappleProgressHUD', '~> 2.4'
+ pod 'Stripe'
 end

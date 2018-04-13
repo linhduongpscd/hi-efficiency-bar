@@ -8,11 +8,15 @@
 
 import UIKit
 import MXParallaxHeader
+import Stripe
 class MyTabVC: BaseViewController {
 
     @IBOutlet weak var tblMyTab: UITableView!
     @IBOutlet weak var btnMakeMeDrink: TransitionButton!
- 
+    var arrMyTabs = [MyTabObj]()
+    var doublePrice = 0.0
+    var customerContext: STPCustomerContext!
+    var paymentContext: STPPaymentContext!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "My Tab"
@@ -20,6 +24,11 @@ class MyTabVC: BaseViewController {
         self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
         //initParalax()
         self.configHideNaviTable(tblMyTab)
+        customerContext = STPCustomerContext.init()
+        paymentContext = STPPaymentContext(customerContext: customerContext)
+        paymentContext.delegate = self
+        paymentContext.hostViewController = self
+        paymentContext.paymentAmount = 200
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,8 +36,34 @@ class MyTabVC: BaseViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
+            self.fetchALlMyTab()
     }
     
+    func fetchALlMyTab()
+    {
+        CommonHellper.showBusy()
+        ManagerWS.shared.getListMyTab { (success, arrs) in
+            self.arrMyTabs.removeAll()
+            CommonHellper.hideBusy()
+            self.arrMyTabs = arrs!
+            self.doublePrice = self.getPriceTotal()
+            self.tblMyTab.reloadData()
+        }
+        
+    }
+    
+    func getPriceTotal()-> Double
+    {
+        var price = 0.0
+        for obj in self.arrMyTabs
+        {
+            if obj.price != nil
+            {
+                price = price + Double((obj.quantity! * obj.price!))
+            }
+        }
+        return price
+    }
     func initParalax()
     {
         let profileView = UIView.init()
@@ -40,6 +75,7 @@ class MyTabVC: BaseViewController {
         
     }
   
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -85,8 +121,54 @@ class MyTabVC: BaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    func presentPaymentMethodsViewController() {
+        guard !STPPaymentConfiguration.shared().publishableKey.isEmpty else {
+            // Present error immediately because publishable key needs to be set
+            let message = "Please assign a value to `publishableKey` before continuing. See `AppDelegate.swift`."
+            print(message)
+            return
+        }
+        
+        
+        // Present the Stripe payment methods view controller to enter payment details
+        paymentContext.presentPaymentMethodsViewController()
+    }
 }
+
+extension MyTabVC: STPPaymentContextDelegate
+{
+    
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
+        print(error)
+    }
+    
+    func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
+        // Reload related components
+        
+    }
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
+        // Create charge using payment result
+        
+    }
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
+        switch status {
+        case .success:
+            // Animate active ride
+            break
+        case .error:
+            // Present error to user
+            break
+            
+        case .userCancellation:
+            break
+        }
+    }
+}
+
+
 extension MyTabVC: MXParallaxHeaderDelegate
 {
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
@@ -107,7 +189,7 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return arrMyTabs.count + 2
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -115,7 +197,7 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
         {
             return 35
         }
-        if indexPath.row == 6
+        if indexPath.row == arrMyTabs.count + 1
         {
             return 316
         }
@@ -129,13 +211,19 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
             let cell = self.tblMyTab.dequeueReusableCell(withIdentifier: "headercell")
             return cell!
         }
-        else if indexPath.row == 6
+        else if indexPath.row == arrMyTabs.count + 1
         {
-            let cell = self.tblMyTab.dequeueReusableCell(withIdentifier: "visacell")
-            return cell!
+            let cell = self.tblMyTab.dequeueReusableCell(withIdentifier: "visacell") as! visacell
+            cell.lblFee.text = "$0"
+            cell.lblPrice.text = "$\(doublePrice)"
+            cell.lblTotalPay.text = "$\(doublePrice)"
+            cell.tapStripeVisa = { [] in
+                //self.presentPaymentMethodsViewController()
+            }
+            return cell
         }
         let cell = self.tblMyTab.dequeueReusableCell(withIdentifier: "MyTabCell") as! MyTabCell
-        if indexPath.row == 3
+        if indexPath.row == arrMyTabs.count
         {
             cell.subLine.isHidden = true
         }
@@ -143,6 +231,7 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
         {
             cell.subLine.isHidden = false
         }
+        self.configCell(cell, obj: arrMyTabs[indexPath.row - 1])
         return cell
     }
     
@@ -153,5 +242,43 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let vc = UIView.init(frame: .zero)
         return vc
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == 0
+        {
+            return false
+        }
+        if indexPath.row == arrMyTabs.count + 1
+        {
+            return false
+        }
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete
+        {
+            
+        }
+    }
+    
+    func configCell(_ cell: MyTabCell, obj: MyTabObj)
+    {
+        cell.lblName.text = obj.name
+        cell.lblQuanlity.text = "\(obj.quantity!)"
+        if obj.image != nil
+        {
+            cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                
+            })
+        }
+        if obj.price == nil
+        {
+            cell.lblPrice.text = "$0"
+        }
+        else{
+            cell.lblPrice.text = "$\(obj.quantity! * obj.price!)"
+        }
     }
 }

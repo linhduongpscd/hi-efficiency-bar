@@ -53,3 +53,6 @@ let kID   = "kID"
 let kToken  = "kToken"
 let kLimitPage = 20
 
+
+let KEY_STRIPE = "pk_test_pWXwK2G4s7sWfWk7MktI6vS8"
+

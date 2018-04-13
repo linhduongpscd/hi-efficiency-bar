@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKCoreKit
+import Stripe
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
@@ -18,11 +19,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         // Override point for customization after application launch.
         sleep(1)
         self.initFlash()
+        STPPaymentConfiguration.shared().publishableKey = KEY_STRIPE
         //self.initTabbarHome()
         return true
     }
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        if url.scheme?.hasPrefix("fb") == true {
+            return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+            
+        }
+        let stripeHandled = Stripe.handleURLCallback(with: url)
+        if (stripeHandled) {
+            return true
+        } else {
+            // This was not a stripe url – do whatever url handling your app
+            // normally does, if any.
+        }
+        return false
     }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -45,7 +58,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+  
+    
+    // This method handles opening universal link URLs (e.g., "https://example.com/stripe_ios_callback")
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+            if let url = userActivity.webpageURL {
+                let stripeHandled = Stripe.handleURLCallback(with: url)
+                if (stripeHandled) {
+                    return true
+                } else {
+                    // This was not a stripe url – do whatever url handling your app
+                    // normally does, if any.
+                }
+            }
+        }
+        return false
+    }
 
     func initFlash()
     {

@@ -570,6 +570,7 @@ struct ManagerWS {
     func loginFacebook(para: Parameters, complete:@escaping (_ success: Bool?, _ errer: ErrorModel?) ->Void)
     {
     
+        print(para)
         manager.request(URL.init(string: "\(URL_SERVER)api/user/signup/")!, method: .post, parameters: para,  encoding: URLEncoding.default, headers: auth_headerLogin)
             .responseJSON { response in
                 print(response)
@@ -841,6 +842,81 @@ struct ManagerWS {
                     
                 case .failure(_):
                     complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    // GET LIST MY TAB
+    func getListMyTab(complete:@escaping (_ success: Bool?, _ arrs: [MyTabObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/me/tab/")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [MyTabObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let arrs = val.object(forKey: "results") as? NSArray
+                            {
+                                if code == SERVER_CODE.CODE_200
+                                {
+                                    for item in arrs
+                                    {
+                                        let dictItem = item as! NSDictionary
+                                        arrDatas.append(MyTabObj.init(dict: dictItem))
+                                    }
+                                    complete(true, arrDatas)
+                                }
+                                else{
+                                    complete(true, arrDatas)
+                                }
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    
+    func deleteMyTab(tabID: Int,complete:@escaping (_ success: Bool?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/me/tab/\(tabID)")!, method: .delete, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if code == SERVER_CODE.CODE_200
+                        {
+                            complete(true)
+                        }
+                        else{
+                            complete(false)
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(false)
                     break
                 }
         }
