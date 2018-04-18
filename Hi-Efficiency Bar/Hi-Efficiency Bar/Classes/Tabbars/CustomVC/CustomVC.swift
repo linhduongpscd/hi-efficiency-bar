@@ -8,24 +8,59 @@
 
 import UIKit
 
-class CustomVC: UIViewController {
+class CustomVC: HelpController {
     
-    @IBOutlet weak var tblCustom: UITableView!
-      var hidingNavBarManager: HidingNavigationBarManager?
     @IBOutlet var subNavi: UIView!
     @IBOutlet weak var imgReset: UIImageView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    var arrTypes = [MainBarObj]()
+    var arrDatas = [MainBarObj]()
+    var isLoad = false
+    var arrSelected = [Int]()
+    @IBOutlet weak var lblNoData: UILabel!
+    @IBAction func btnNext(_ sender: Any) {
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Custom"
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
+        
         self.registerCell()
-         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tblCustom)
         self.customNavi()
+        self.fecthingredientType()
+        lblNoData.isHidden = true
         // Do any additional setup after loading the view.
     }
     
+    func fecthingredientType()
+    {
+        ManagerWS.shared.fetchIngredientType { (success, arrs) in
+            self.arrTypes = arrs!
+            self.initpalalax()
+            if self.arrTypes.count > 0
+            {
+                let obj = self.arrTypes[0]
+                self.fechByTypeID(id: obj.id!)
+            }
+        }
+    }
+    
+    func fechByTypeID(id: Int)
+    {
+        CommonHellper.showBusy()
+        ManagerWS.shared.fetchIngredientbyTypeID(id) { (success, arrs) in
+            CommonHellper.hideBusy()
+            self.arrDatas = arrs!
+            if self.arrDatas.count == 0
+            {
+                self.lblNoData.isHidden = false
+            }
+            else{
+                self.lblNoData.isHidden = true
+            }
+            self.collectionView.reloadData()
+            
+        }
+    }
     func customNavi()
     {
         let btn = UIBarButtonItem.init(customView: subNavi)
@@ -56,35 +91,49 @@ class CustomVC: UIViewController {
         self.imgReset.layer.add(rotationAnimation, forKey: nil)
         CATransaction.commit()
     }
-    
+    func initpalalax()
+    {
+        let headerView = Bundle.main.loadNibNamed("HeaderCustom", owner: self, options: nil)?[0] as! HeaderCustom
+        headerView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 195 + (UIScreen.main.bounds.size.width - 320))
+        headerView.registerCell()
+        headerView.arrSlices = arrTypes
+        headerView.collectionView.reloadData()
+        headerView.tapClick = { [] in
+            let obj = self.arrTypes[headerView.currentDot]
+            self.fechByTypeID(id: obj.id!)
+        }
+        if self.arrTypes.count > 0
+        {
+            let obj = self.arrTypes[headerView.currentDot]
+            headerView.lblName.text = obj.name
+        }
+        collectionView.parallaxHeader.view = headerView
+        collectionView.parallaxHeader.height = 195 + (UIScreen.main.bounds.size.width - 320)
+        collectionView.parallaxHeader.mode = .fill
+    }
     override func viewWillAppear(_ animated: Bool) {
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.isTranslucent = true
         super.viewWillAppear(animated)
-        hidingNavBarManager?.viewWillAppear(animated)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        hidingNavBarManager?.viewDidLayoutSubviews()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        hidingNavBarManager?.viewWillDisappear(animated)
     }
     
     // MARK: UITableViewDelegate
     
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        hidingNavBarManager?.shouldScrollToTop()
-        
-        return true
-    }
+   
     
     func registerCell()
     {
-        tblCustom.register( UINib(nibName: "CustomCell", bundle: nil), forCellReuseIdentifier: "CustomCell")
-        tblCustom.register( UINib(nibName: "HeaderCustomCell", bundle: nil), forCellReuseIdentifier: "HeaderCustomCell")
-        tblCustom.register( UINib(nibName: "FooterCustomCell", bundle: nil), forCellReuseIdentifier: "FooterCustomCell")
+         self.collectionView.register(UINib(nibName: "IngreItemCusCollect", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
+        self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -93,69 +142,95 @@ class CustomVC: UIViewController {
     
 }
 
-extension CustomVC: UITableViewDelegate, UITableViewDataSource
+extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.arrDatas.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 0
-        }
-        return 2
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+       let mainObj = arrDatas[section]
+
+        return mainObj.arrIngredients.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tblCustom.dequeueReusableCell(withIdentifier: "CustomCell") as! CustomCell
-        cell.lblTitleCell.text = "Rum brand \(indexPath.row + 1) "
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0
-        {
-            return 260
-        }
-        return 80
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            let headerView = Bundle.main.loadNibNamed("HeaderCustom", owner: self, options: nil)?[0] as! HeaderCustom
-            headerView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 260)
-            headerView.registerCell()
-            return headerView
-        }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let mainObj = arrDatas[indexPath.section]
+        let item = mainObj.arrIngredients[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IngreItemCollect", for: indexPath) as! IngreItemCollect
        
-        let cell = self.tblCustom.dequeueReusableCell(withIdentifier: "HeaderCustomCell") as! HeaderCustomCell
-        return cell.contentView
+        cell.lbltext.text = item.name
+        if arrSelected.contains(item.id!)
+        {
+            cell.lbltext.font = UIFont.init(name: FONT_APP.AlrightSans_Bold, size: cell.lbltext.font.pointSize)
+            cell.subContent.borderWidth = 2.0
+            cell.subContent.borderColor =  UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha:1.0)
+        }
+        else{
+            cell.lbltext.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: cell.lbltext.font.pointSize)
+            cell.subContent.borderWidth = 0.0
+            cell.subContent.borderColor =  UIColor.clear
+            
+        }
+       return cell
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+       
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+      
+        return CGSize(width: (collectionView.frame.size.width - 4)/2, height: 50)
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if  section == 0 {
-            return 0
-        }
-        return 60
-    }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if  section == 0 {
-            let view = UIView.init(frame: .zero)
-            return view
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let mainObj = arrDatas[indexPath.section]
+        let item = mainObj.arrIngredients[indexPath.row]
+        if arrSelected.contains(item.id!)
+        {
+            for var i in 0..<arrSelected.count
+            {
+                if arrSelected[i] == item.id!
+                {
+                    self.arrSelected.remove(at: i)
+                }
+            }
         }
-        let cell = self.tblCustom.dequeueReusableCell(withIdentifier: "FooterCustomCell") as! FooterCustomCell
-        cell.tapClickNext = { [weak self] in
-            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
-            self?.navigationController?.pushViewController(vc, animated: true)
+        else{
+            arrSelected.append(item.id!)
         }
-        return cell
+        collectionView.reloadData()
     }
-    
    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionElementKindSectionHeader
+        {
+            let commentView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TopSectionViewCell", for: indexPath) as! TopSectionViewCell
+            let obj = self.arrDatas[indexPath.section]
+            commentView.lblTitle.text = obj.name
+            return commentView
+        }
+        else{
+            
+            let commentView = UICollectionReusableView.init()
+            return commentView
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+      
+        return CGSize(width: UIScreen.main.bounds.size.width, height: 60)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+      
+        return CGSize(width: UIScreen.main.bounds.size.width, height: 0)
+    }
+    
+    
 }

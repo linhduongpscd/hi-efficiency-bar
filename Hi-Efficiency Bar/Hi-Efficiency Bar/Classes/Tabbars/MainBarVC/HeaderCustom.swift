@@ -10,6 +10,7 @@ import UIKit
 
 class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var tapClick:(() ->())?
+    var arrSlices = [MainBarObj]()
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -39,11 +40,26 @@ class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     @IBOutlet weak var lblName: UILabel!
     fileprivate var currentPage: Int = 0 {
         didSet {
-            let character = self.items[self.currentPage]
-            lblName.text = character.name
-            currentDot = currentPage
-            print("ZO DAY")
-            self.tapClick?()
+            if isListOrder
+            {
+                let character = self.items[self.currentPage]
+                lblName.text = character.name
+                currentDot = currentPage
+                print("ZO DAY")
+                self.tapClick?()
+            }
+            else{
+                if arrSlices.count > 0
+                {
+                    let character = self.arrSlices[self.currentPage]
+                    lblName.text = character.name
+                    currentDot = currentPage
+                    print("ZO DAY")
+                    self.tapClick?()
+                }
+               
+            }
+            
         }
     }
     //UIStoryboard.init(name: "Main", bundle: nil)
@@ -86,7 +102,13 @@ class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
+         if isListOrder {
+            return items.count
+        }
+         else{
+            return arrSlices.count
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -96,6 +118,7 @@ class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
         else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCollectionViewCell.identifier, for: indexPath) as! CarouselCollectionViewCell
+            
             return cell
         }
         

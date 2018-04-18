@@ -10,7 +10,7 @@ import UIKit
 
 import UIKit
 import MXParallaxHeader
-class LoungeTabbarVC: UIViewController, ASFSharedViewTransitionDataSource {
+class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var profileView = ProfileView.init(frame: .zero)
     @IBOutlet weak var collectionView: UICollectionView!
      var imagePicker: UIImagePickerController!

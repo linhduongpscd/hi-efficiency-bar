@@ -13,10 +13,18 @@ class MainBarObj: NSObject {
     var name: String?
     var image: String?
     var slug: String?
+    var arrIngredients = [Ingredient]()
     init(dict: NSDictionary) {
         self.id = dict["id"] as? Int
         self.name = dict["name"] as? String
         self.image = dict["image"] as? String
         self.slug = dict["slug"] as? String
+        if let arrs = dict["ingredient_brands"] as? NSArray
+        {
+            for item in arrs
+            {
+                self.arrIngredients.append(Ingredient.init(dict: item as! NSDictionary))
+            }
+        }
     }
 }

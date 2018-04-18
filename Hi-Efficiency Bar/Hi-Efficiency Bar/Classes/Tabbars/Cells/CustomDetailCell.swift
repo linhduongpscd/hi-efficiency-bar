@@ -10,9 +10,9 @@ import UIKit
 
 class CustomDetailCell: UITableViewCell {
     var tapRemove: (() ->())?
-    @IBOutlet weak var lblValue: UILabel!
     @IBOutlet weak var lblUnit: UILabel!
     @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var txfValue: UITextField!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

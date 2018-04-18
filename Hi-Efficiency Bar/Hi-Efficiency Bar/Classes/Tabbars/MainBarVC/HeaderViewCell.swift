@@ -11,12 +11,17 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
     var tapHeaderMainBar: (() ->())?
     @IBOutlet weak var collectionView: UICollectionView!
      var items = [MainBarObj]()
+    var isCustom = false
     @IBOutlet weak var lblName: UILabel!
     var currentPage: Int = 0 {
         didSet {
             if self.items.count > 0 {
                 let mainBarObj = self.items[self.currentPage]
                 lblName.text = mainBarObj.name
+                if isCustom
+                {
+                    self.tapHeaderMainBar?()
+                }
             }
             else{
                 lblName.text  = ""

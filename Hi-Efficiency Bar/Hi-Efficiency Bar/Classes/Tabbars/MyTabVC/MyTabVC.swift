@@ -15,20 +15,16 @@ class MyTabVC: BaseViewController {
     @IBOutlet weak var btnMakeMeDrink: TransitionButton!
     var arrMyTabs = [MyTabObj]()
     var doublePrice = 0.0
-    var customerContext: STPCustomerContext!
-    var paymentContext: STPPaymentContext!
+    var tokenStriper = ""
+    var isReload = false
+    var stpToke: STPToken?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "My Tab"
         btnMakeMeDrink.spinnerColor = .white
         self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
-        //initParalax()
         self.configHideNaviTable(tblMyTab)
-        customerContext = STPCustomerContext.init()
-        paymentContext = STPPaymentContext(customerContext: customerContext)
-        paymentContext.delegate = self
-        paymentContext.hostViewController = self
-        paymentContext.paymentAmount = 200
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,7 +32,14 @@ class MyTabVC: BaseViewController {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
-            self.fetchALlMyTab()
+        if !isReload
+        {
+             self.fetchALlMyTab()
+        }
+        else{
+            isReload = false
+        }
+        
     }
     
     func fetchALlMyTab()
@@ -59,11 +62,25 @@ class MyTabVC: BaseViewController {
         {
             if obj.price != nil
             {
-                price = price + Double((obj.quantity! * obj.price!))
+                price = price + Double((Double(obj.quantity!) * Double(obj.price!)))
             }
         }
         return price
     }
+    
+    func getQuanlity()-> Int
+    {
+        var price = 0
+        for obj in self.arrMyTabs
+        {
+            if obj.quantity != nil
+            {
+                price = price + obj.quantity!
+            }
+        }
+        return price
+    }
+    
     func initParalax()
     {
         let profileView = UIView.init()
@@ -82,91 +99,62 @@ class MyTabVC: BaseViewController {
     }
     
     @IBAction func doMakeMeADrink(_ sender: Any) {
+        if self.arrMyTabs.count == 0
+        {
+            self.showAlertMessage(message: "You have no drinks in your tab")
+            return
+        }
+        if self.getQuanlity() > 5
+        {
+            self.showAlertMessage(message: "Your order has more than 5 quantities")
+            return
+        }
+        if tokenStriper.isEmpty
+        {
+            self.showAlertMessage(message: "Please add card")
+            return
+        }
+        self.addLoadingView()
         btnMakeMeDrink.startAnimation() // 2: Then start the animation when the user tap the button
         
         let qualityOfServiceClass = DispatchQoS.QoSClass.background
         let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
         backgroundQueue.async(execute: {
-            
-            sleep(1) // 3: Do your networking task or background work here.
-            
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.btnMakeMeDrink.setTitle("", for: .normal)
-                self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                // 4: Stop the animation, here you have three options for the `animationStyle` property:
-                // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
-                // .shake: when you want to reflect to the user that the task did not complete successfly
-                // .normal
-                self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
-                    
-                    
-                })
-                self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 1.5)
+            ManagerWS.shared.addMyTabCard(token: self.tokenStriper, complete: { (success, error) in
+              
+                if success!
+                {
+                    self.removeLoadingView()
+                    self.btnMakeMeDrink.setTitle("", for: .normal)
+                    self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                    self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
+                        
+                        
+                    })
+                    self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
+                }
+                else{
+                    self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
+                    self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
+                        self.removeLoadingView()
+                    })
+                    self.showAlertMessage(message:(error?.msg!)!)
+                }
             })
         })
+        
     }
     
     @objc func actionTabbar()
     {
+        
         let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CurrentOrderVC") as! CurrentOrderVC
         self.navigationController?.pushViewController(vc, animated: true)
+        self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    func presentPaymentMethodsViewController() {
-        guard !STPPaymentConfiguration.shared().publishableKey.isEmpty else {
-            // Present error immediately because publishable key needs to be set
-            let message = "Please assign a value to `publishableKey` before continuing. See `AppDelegate.swift`."
-            print(message)
-            return
-        }
-        
-        
-        // Present the Stripe payment methods view controller to enter payment details
-        paymentContext.presentPaymentMethodsViewController()
-    }
+  
 }
 
-extension MyTabVC: STPPaymentContextDelegate
-{
-    
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
-        print(error)
-    }
-    
-    func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
-        // Reload related components
-        
-    }
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
-        // Create charge using payment result
-        
-    }
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
-        switch status {
-        case .success:
-            // Animate active ride
-            break
-        case .error:
-            // Present error to user
-            break
-            
-        case .userCancellation:
-            break
-        }
-    }
-}
 
 
 extension MyTabVC: MXParallaxHeaderDelegate
@@ -218,7 +206,28 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
             cell.lblPrice.text = "$\(doublePrice)"
             cell.lblTotalPay.text = "$\(doublePrice)"
             cell.tapStripeVisa = { [] in
-                //self.presentPaymentMethodsViewController()
+                self.isReload = true
+                let addCardViewController = STPAddCardViewController()
+                addCardViewController.delegate = self
+                addCardViewController.managedAccountCurrency = "usd"
+                let navigationController = UINavigationController(rootViewController: addCardViewController)
+                self.present(navigationController, animated: true)
+            }
+            if stpToke != nil
+            {
+                cell.lblNumberHide.text = "****"
+                cell.lblLastCard.text = stpToke?.card?.last4
+                if stpToke?.card?.brand == .visa
+                {
+                    cell.imgCard.image = #imageLiteral(resourceName: "visa")
+                }
+                else if stpToke?.card?.brand == .masterCard
+                {
+                    cell.imgCard.image = #imageLiteral(resourceName: "mastercard")
+                }
+                else{
+                    cell.imgCard.image = #imageLiteral(resourceName: "card")
+                }
             }
             return cell
         }
@@ -232,6 +241,32 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
             cell.subLine.isHidden = false
         }
         self.configCell(cell, obj: arrMyTabs[indexPath.row - 1])
+        cell.myTabObj = arrMyTabs[indexPath.row - 1]
+        cell.tapDeleteMyTab = { [] in
+            let alert = UIAlertController(title: APP_NAME,
+                                          message: ALERT_DELETE,
+                                          preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction.init(title: "Delete", style: .destructive, handler: { (action) in
+                let obj = self.arrMyTabs[indexPath.row - 1]
+                ManagerWS.shared.deleteMyTab(tabID: obj.id!, complete: { (success) in
+                    self.arrMyTabs.remove(at: indexPath.row - 1)
+                    self.doublePrice = self.getPriceTotal()
+                    self.tblMyTab.reloadData()
+                })
+                
+                
+            })
+            alert.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "Cancel",
+                                             style: .cancel, handler: nil)
+            
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        cell.changePrice = { [] in
+            self.doublePrice = self.getPriceTotal()
+            self.tblMyTab.reloadData()
+        }
         return cell
     }
     
@@ -259,7 +294,25 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete
         {
+            let alert = UIAlertController(title: APP_NAME,
+                                          message: ALERT_DELETE,
+                                          preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction.init(title: "Delete", style: .destructive, handler: { (action) in
+                let obj = self.arrMyTabs[indexPath.row - 1]
+                ManagerWS.shared.deleteMyTab(tabID: obj.id!, complete: { (success) in
+                    self.arrMyTabs.remove(at: indexPath.row - 1)
+                   self.doublePrice = self.getPriceTotal()
+                    self.tblMyTab.reloadData()
+                })
+                
+                
+            })
+             alert.addAction(okAction)
+            let cancelAction = UIAlertAction(title: "Cancel",
+                                             style: .cancel, handler: nil)
             
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -278,7 +331,22 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
             cell.lblPrice.text = "$0"
         }
         else{
-            cell.lblPrice.text = "$\(obj.quantity! * obj.price!)"
+            cell.lblPrice.text = "$\(Double((Double(obj.quantity!) * Double(obj.price!))))"
         }
+    }
+}
+
+extension MyTabVC: STPAddCardViewControllerDelegate
+{
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        dismiss(animated: true)
+    }
+    
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
+        
+        tokenStriper = token.tokenId
+        stpToke = token
+        self.tblMyTab.reloadData()
+        dismiss(animated: true)
     }
 }

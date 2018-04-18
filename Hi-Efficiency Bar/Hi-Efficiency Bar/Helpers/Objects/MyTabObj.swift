@@ -12,7 +12,7 @@ class MyTabObj: NSObject {
     var id: Int?
     var name: String?
     var image: String?
-    var price: Int?
+    var price: Double?
     var ingredients: NSArray?
     var quantity: Int?
     init(dict: NSDictionary) {
@@ -20,7 +20,7 @@ class MyTabObj: NSObject {
         {
             self.name  = val["name"] as? String
             self.image  = val["image"] as? String
-            self.price  = val["price"] as? Int
+            self.price  = val["price"] as? Double
             self.ingredients  = val["ingredients"] as? NSArray   
         }
         self.id  = dict["id"] as? Int

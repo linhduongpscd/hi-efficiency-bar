@@ -11,8 +11,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="AlrightSans-Light-v3.otf">
-            <string>AlrightSans-Light</string>
+        <array key="AlrightSans-Regular-v3.otf">
+            <string>AlrightSans-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -48,9 +48,9 @@
                         <outlet property="delegate" destination="iN0-l3-epB" id="cy2-Lu-bUa"/>
                     </connections>
                 </collectionView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rym-aR-pec">
-                    <rect key="frame" x="140.5" y="181" width="40" height="16"/>
-                    <fontDescription key="fontDescription" name="AlrightSans-Light" family="Alright Sans" pointSize="16"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rym-aR-pec">
+                    <rect key="frame" x="20" y="181" width="280" height="16"/>
+                    <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="16"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -59,9 +59,11 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="Rym-aR-pec" secondAttribute="bottom" constant="20" id="2uZ-Lk-ojE"/>
                 <constraint firstAttribute="trailing" secondItem="hgb-LZ-aWs" secondAttribute="trailing" id="IQm-Td-kqc"/>
+                <constraint firstItem="Rym-aR-pec" firstAttribute="leading" secondItem="ELM-Tp-V4S" secondAttribute="leading" constant="20" id="NYd-Tg-Tcp"/>
                 <constraint firstItem="hgb-LZ-aWs" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VAm-wa-WZQ"/>
                 <constraint firstItem="Rym-aR-pec" firstAttribute="top" secondItem="hgb-LZ-aWs" secondAttribute="bottom" constant="21" id="aFz-GO-XS5"/>
                 <constraint firstItem="Rym-aR-pec" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="kDT-Pt-EAb"/>
+                <constraint firstItem="ELM-Tp-V4S" firstAttribute="trailing" secondItem="Rym-aR-pec" secondAttribute="trailing" constant="20" id="yJH-iK-TQx"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="ELM-Tp-V4S"/>

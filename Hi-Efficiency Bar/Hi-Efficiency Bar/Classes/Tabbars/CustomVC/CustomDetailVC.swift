@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-class CustomDetailVC: UIViewController {
+class CustomDetailVC: HelpController {
 
     @IBOutlet weak var tblDetail: UITableView!
     @IBOutlet weak var btnAddCustom: TransitionButton!
@@ -55,8 +55,11 @@ class CustomDetailVC: UIViewController {
     @IBOutlet weak var lblMaxSize: UILabel!
     @IBOutlet weak var heightTable: NSLayoutConstraint!
     var drinkObj = DrinkObj.init(dict: NSDictionary.init())
-    var arringredients = NSMutableArray.init()
+    var arringredients = [IngredientCusObj]()
     var prep = 0
+    var glassObj: GlassObj?
+    var glassID: Int?
+    var valueIce = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
@@ -65,17 +68,48 @@ class CustomDetailVC: UIViewController {
         let btnRight = UIBarButtonItem.init(customView: subNaviRight)
         self.navigationItem.rightBarButtonItem = btnRight
         txfDrinkName.isEnabled = false
+        glassObj = GlassObj.init(dict: drinkObj.glass!)
         self.fectAllGlass()
-        self.initData()
+        
     }
     
     func initData()
     {
-        print(drinkObj.ingredients)
-         arringredients = drinkObj.ingredients?.mutableCopy() as! NSMutableArray
+        for recod in drinkObj.ingredients!
+        {
+            let dict = recod as! NSDictionary
+            arringredients.append(IngredientCusObj.init(dict: dict))
+        }
+        self.changeRationUnitPart()
         heightTable.constant = CGFloat(arringredients.count * 44)
         txfDrinkName.text = drinkObj.name
-        tblDetail.reloadData()
+    }
+    
+    
+    func getTotalIngenUnitPart() -> Int
+    {
+        var number = 0
+        for obj in self.arringredients
+        {
+            if obj.unit?.lowercased() == "part"
+            {
+                number = number + obj.ratio!
+            }
+        }
+        return number
+    }
+    
+    func changeRationUnitPart()
+    {
+        let number = self.getTotalIngenUnitPart()
+        for obj in self.arringredients
+        {
+            if obj.unit?.lowercased() == "part"
+            {
+                obj.value = (self.glassObj?.size)!/number * obj.ratio!
+            }
+        }
+         tblDetail.reloadData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -101,18 +135,28 @@ class CustomDetailVC: UIViewController {
             self.collectionLy.reloadData()
             if self.arrLys.count > 0
             {
-                let obj = self.arrLys[0]
-                if obj.image != nil{
-                    self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                        self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                        self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
-                    })
+                for obj in self.arrLys
+                {
+                    if obj.id == self.glassObj?.id
+                    {
+                        self.glassObj = obj
+                        self.glassID = obj.id
+                        if obj.image != nil{
+                            self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                                self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                            })
+                        }
+                        self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                        break
+                    }
                 }
-                self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+              
             }
             else{
                  self.lblMaxSize.text = ""
             }
+            self.initData()
         }
     }
     @IBAction func doEditName(_ sender: Any) {
@@ -335,6 +379,7 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgSome, uimage: #imageLiteral(resourceName: "ice_some1"))
         setImageSeletd(imageView: imgNormal, uimage: #imageLiteral(resourceName: "ice_normal1"))
         CommonHellper.animateView(view: imgNone)
+        valueIce = 0
     }
     @IBAction func doSome(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblNone, isSelect: false)
@@ -344,6 +389,7 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgSome, uimage: #imageLiteral(resourceName: "ice_some2"))
         setImageSeletd(imageView: imgNormal, uimage: #imageLiteral(resourceName: "ice_normal1"))
         CommonHellper.animateView(view: imgSome)
+        valueIce = 10
     }
     @IBAction func doNormal(_ sender: Any) {
         self.setColorTextNormalOrSelect(lable: lblNone, isSelect: false)
@@ -354,6 +400,7 @@ class CustomDetailVC: UIViewController {
         setImageSeletd(imageView: imgSome, uimage: #imageLiteral(resourceName: "ice_some1"))
         setImageSeletd(imageView: imgNormal, uimage: #imageLiteral(resourceName: "ice_normal2"))
         CommonHellper.animateView(view: imgNormal)
+        valueIce = 20
     }
     
     @IBAction func doGiam(_ sender: Any) {
@@ -372,58 +419,94 @@ class CustomDetailVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    func paraStepOne()->Parameters
+    
+    func convertParamToWS()->NSDictionary
     {
-        var parameters: [String: AnyObject] = [:]
-        parameters["name"] = self.txfDrinkName.text! as AnyObject
         var arrs = [NSDictionary]()
         for obj in arringredients {
-            let dict = obj as! NSDictionary
-            if let val = dict.object(forKey: "ingredient") as? NSDictionary
-            {
-                if let idIn = val.object(forKey: "id") as? Int
-                {
-                    let para = ["ratio": dict.object(forKey: "ratio") as! Int,"unit":0,"ingredient":idIn]
-                    arrs.append(para as NSDictionary)
-                    //parameters["ingredients"] = para as AnyObject
-                }
-            }
+            let para = ["ratio":"\(obj.value!)","ingredient":"\(obj.id!)","unit":"10"] as [String : Any]
+            arrs.append(para as NSDictionary)
         }
-        parameters["ingredients"] = arrs as AnyObject
-        parameters["prep"] = prep as AnyObject
-        return parameters
-        
+        let value = ["name": self.txfDrinkName.text!,
+                     "glass": "\(self.glassID!)",
+                    "prep":"\(prep)",
+                "ingredients":self.convertArrayToStringIngredient()
+            ] as [String : Any] as [String : Any]
+        return value as NSDictionary
+    }
+    
+    func convertArrayToStringIngredient()-> String
+    {
+        var strIngredient = ""
+        for obj in arringredients {
+            strIngredient = "\(strIngredient){\"unit\":10,\"ratio\":\(obj.value!),\"ingredient\":\(obj.id!)},"
+        }
+        if !strIngredient.isEmpty
+        {
+            strIngredient = strIngredient.substring(from: 0, to: strIngredient.count - 1)
+        }
+        strIngredient  =  "[\(strIngredient)]"
+        return strIngredient
+    }
+    func addTomyTabParam(drinkID: Int)->Parameters
+    {
+        let para = ["ice": valueIce, "quantity": lblQuanlity.text!, "drink": drinkID] as [String : Any]
+        return para
     }
     @IBAction func doAddCustom(_ sender: TransitionButton) {
-        ManagerWS.shared.addDrinkStep1(para: self.paraStepOne()) { (success) in
-            
+        if self.getTotolRatioUnit() > Double((glassObj?.size)!)
+        {
+            self.showAlertMessage(message: "Your total custom mL is greater than the max size of drink")
+            return
         }
-//        btnAddCustom.startAnimation() // 2: Then start the animation when the user tap the button
-//
-//        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-//        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-//        backgroundQueue.async(execute: {
-//
-//            sleep(1) // 3: Do your networking task or background work here.
-//
-//            DispatchQueue.main.async(execute: { () -> Void in
-//                self.btnAddCustom.setTitle("", for: .normal)
-//                self.btnAddCustom.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-//                // 4: Stop the animation, here you have three options for the `animationStyle` property:
-//                // .expand: useful when the task has been compeletd successfully and you want to expand the button and transit to another view controller in the completion callback
-//                // .shake: when you want to reflect to the user that the task did not complete successfly
-//                // .normal
-//                self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
-//                })
-//                self.perform(#selector(self.returnCustom), with: nil, afterDelay: 1.5)
-//            })
-//        })
+        self.view.endEditing(true)
+        self.addLoadingView()
+        btnAddCustom.startAnimation() // 2: Then start the animation when the user tap the button
+        
+        let qualityOfServiceClass = DispatchQoS.QoSClass.background
+        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+        backgroundQueue.async(execute: {
+            ManagerWS.shared.addDrinkStep1(para: self.convertParamToWS() as! Parameters) { (success, error, drinkID) in
+                print(success!)
+                if success!
+                {
+                    ManagerWS.shared.addMyTab(para: self.addTomyTabParam(drinkID: drinkID!), complete: { (ok) in
+                        if ok!
+                        {
+                            self.removeLoadingView()
+                            self.btnAddCustom.setTitle("", for: .normal)
+                            self.btnAddCustom.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                            self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
+                                
+                                
+                            })
+                            self.perform(#selector(self.returnCustom), with: nil, afterDelay: 0.5)
+                        }
+                        else{
+                            self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
+                                self.btnAddCustom.setTitle("ADD TO MY TAB", for: .normal)
+                                self.removeLoadingView()
+                                self.showAlertMessage(message: (error?.msg)!)
+                            })
+                        }
+                    })
+                    
+                }
+                else{
+                    self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
+                        self.btnAddCustom.setTitle("ADD TO MY TAB", for: .normal)
+                        self.removeLoadingView()
+                        self.showAlertMessage(message: (error?.msg)!)
+                    })
+                }
+            }
+        })
     }
     
     @objc func returnCustom()
     {
        self.navigationController?.popToRootViewController(animated: true)
-        self.tabBarController?.selectedIndex = 3
+       APP_DELEGATE.isRedirectMyTab = true
     }
     
     /*
@@ -470,27 +553,46 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tblDetail.dequeueReusableCell(withIdentifier: "CustomDetailCell") as! CustomDetailCell
-        self.configCellCustomDetailCell(cell, dict: arringredients[indexPath.row] as! NSDictionary)
+        self.configCellCustomDetailCell(cell, obj: arringredients[indexPath.row])
         cell.tapRemove = { [] in
-            self.arringredients.removeObject(at: indexPath.row)
+            self.arringredients.remove(at: indexPath.row)
             self.heightTable.constant = CGFloat(self.arringredients.count * 44)
             self.tblDetail.reloadData()
         }
         return cell
     }
     
-    func configCellCustomDetailCell(_ cell: CustomDetailCell, dict: NSDictionary)
+    func configCellCustomDetailCell(_ cell: CustomDetailCell, obj: IngredientCusObj)
     {
-        cell.lblValue.text = "\(dict.object(forKey: "ratio") as! Int)"
-        cell.lblUnit.text = dict.object(forKey: "unit") as? String
-        if let val = dict.object(forKey: "ingredient") as? NSDictionary
+        if obj.value != nil{
+             cell.txfValue.text = "\(obj.value!)"
+        }
+        else{
+             cell.txfValue.text = "0"
+        }
+       
+        cell.lblUnit.text = "ml"
+        cell.lblName.text = obj.name
+        
+    }
+    
+    func getTotolRatioUnit()-> Double
+    {
+        var value = 0.0
+        for var i in 0..<arringredients.count
         {
-            if let name = val.object(forKey: "name") as? String
+            let indexPath = IndexPath(row: i, section: 0)
+            if let cell = self.tblDetail.cellForRow(at: indexPath) as? CustomDetailCell
             {
-                cell.lblName.text = name
+                let obj = arringredients[i]
+                if !CommonHellper.trimSpaceString(txtString: cell.txfValue.text!).isEmpty
+                {
+                    value = value + Double(cell.txfValue.text!)!
+                    obj.value = Int(cell.txfValue.text!)!
+                }
             }
         }
-        
+        return value
     }
 }
 
@@ -519,13 +621,16 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let obj = self.arrLys[indexPath.row]
+        // self.glassObj = obj
         if obj.image != nil{
             self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
                 self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
                 self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
             })
         }
-         self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+        self.glassID = obj.id
+         //self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+        //self.changeRationUnitPart()
     }
     
     func configCell(_ cell: LyTailCell, glassObj: GlassObj)

@@ -9,13 +9,16 @@
 import UIKit
 
 class MyTabCell: UITableViewCell {
-
+    var tapDeleteMyTab: (() ->())?
+    var changePrice: (() ->())?
     @IBOutlet weak var lblQuanlity: UILabel!
     var numberQuanlity = 1
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var subLine: UIView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var imgCell: UIImageView!
+    var indexPathCell: IndexPath?
+    var myTabObj: MyTabObj?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,17 +31,47 @@ class MyTabCell: UITableViewCell {
     }
 
     @IBAction func doTang(_ sender: Any) {
-        numberQuanlity = numberQuanlity + 1
+        numberQuanlity = (myTabObj?.quantity!)! + 1
         lblQuanlity.text = "\(numberQuanlity)"
         CommonHellper.animateViewSmall(view: lblQuanlity)
-        lblPrice.text = "$\(numberQuanlity*35).00"
+        if myTabObj?.price == nil
+        {
+            lblPrice.text = "$0"
+        }
+        else{
+            let value = Double((Double(numberQuanlity) * (myTabObj?.price!)!))
+            print(value)
+              lblPrice.text = "$\(value)"
+           
+        }
+        ManagerWS.shared.updateMyTab(tabID: (myTabObj?.id!)!, quantity: numberQuanlity, complete: { (success) in
+            self.myTabObj?.quantity = (self.myTabObj?.quantity)! + 1
+             self.changePrice?()
+        })
     }
     @IBAction func doGiam(_ sender: Any) {
-        if numberQuanlity > 1 {
-            numberQuanlity = numberQuanlity - 1
+        numberQuanlity = (myTabObj?.quantity!)!
+        if numberQuanlity == 1
+        {
+            self.tapDeleteMyTab?()
+        }
+        else{
+            numberQuanlity = (myTabObj?.quantity!)! - 1
             lblQuanlity.text = "\(numberQuanlity)"
-       CommonHellper.animateViewSmall(view: lblQuanlity)
-             lblPrice.text = "$\(numberQuanlity*35).00"
+            CommonHellper.animateViewSmall(view: lblQuanlity)
+            if myTabObj?.price == nil
+            {
+                lblPrice.text = "$0"
+            }
+            else{
+                 let value = Double((Double(numberQuanlity) * (myTabObj?.price!)!))
+                lblPrice.text = "$\(value)"
+               
+            }
+            ManagerWS.shared.updateMyTab(tabID: (myTabObj?.id!)!, quantity: numberQuanlity, complete: { (success) in
+                self.myTabObj?.quantity = (self.myTabObj?.quantity)! - 1
+                 self.changePrice?()
+            })
         }
     }
 }

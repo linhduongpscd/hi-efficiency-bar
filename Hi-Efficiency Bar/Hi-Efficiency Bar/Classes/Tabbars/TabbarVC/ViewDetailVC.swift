@@ -202,7 +202,8 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
                     self.btnAddMyCard.setTitle("", for: .normal)
                     self.btnAddMyCard.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
                     self.btnAddMyCard.stopAnimation(animationStyle: .shake, completion: {
-                        
+                        self.btnAddMyCard.setImage(UIImage.init(), for: .normal)
+                         self.btnAddMyCard.setTitle("ADD TO MY TAB", for: .normal)
                         
                     })
                     self.perform(#selector(self.addmyTabSuccess), with: nil, afterDelay: 0.5)
@@ -221,7 +222,9 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     
     @objc func addmyTabSuccess()
     {
+        APP_DELEGATE.isRedirectMyTab = true
         self.navigationController?.popViewController(animated: true)
+        
     }
     func checkValueGarnish()->Bool
     {
@@ -237,18 +240,25 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         return isCheck
     }
     
-     func arrayparaGarnish()->[Int]
-     {
-        var arrs = [Int]()
+    
+    func arrayparaGarnish()-> String
+    {
+        var strIngredient = ""
         for recod in arrGarnish {
             let obj = recod as! garnish
             if obj.isSwitch!
             {
-                arrs.append(obj.id!)
+                strIngredient = "\(strIngredient)\(obj.id!),"
             }
         }
-        return arrs
+        if !strIngredient.isEmpty
+        {
+            strIngredient = strIngredient.substring(from: 0, to: strIngredient.count - 1)
+        }
+        strIngredient  =  "[\(strIngredient)]"
+        return strIngredient
     }
+    
     func paramAddMyTab()->Parameters
     {
         if self.checkValueGarnish() {

@@ -46,6 +46,7 @@ let ERROR_BIRTHDAY   =  "Birthday is required"
 let ERROR_AVATAR   =  "Please select avatar"
 let ERROR_ACCEPT  = "Please accept terms or conditions"
 
+let ALERT_DELETE  = "Do you want to delete?"
 
 // DEFINE URL
 let URL_SERVER  = "http://hiefficiencybar.com/"
@@ -54,5 +55,13 @@ let kToken  = "kToken"
 let kLimitPage = 20
 
 
-let KEY_STRIPE = "pk_test_pWXwK2G4s7sWfWk7MktI6vS8"
+let KEY_STRIPE = "pk_test_KSMESnZKrSyuNxek4u6JmQPb"
+
+let CONST_SEARCH_BASICS = 0
+let CONST_SEARCH_SPIRITS = 10
+let CONST_SEARCH_LIQUERS = 20
+let CONST_SEARCH_MIXERS = 30
+let CONST_SEARCH_OTHER = 40
+let CONST_SEARCH_FRUITS = 50
+
 

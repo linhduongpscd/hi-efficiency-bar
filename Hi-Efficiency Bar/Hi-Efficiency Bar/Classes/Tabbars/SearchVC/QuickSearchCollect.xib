@@ -38,7 +38,7 @@
                                         <rect key="frame" x="15" y="8" width="28" height="28"/>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Quick search" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Rwj-mE-Rl7">
-                                        <rect key="frame" x="51" y="12" width="211" height="20"/>
+                                        <rect key="frame" x="51" y="12.5" width="211" height="19"/>
                                         <color key="textColor" red="0.98431372549999996" green="0.43529411759999997" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="search"/>
@@ -84,13 +84,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular searches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXv-X8-bRl">
-                                <rect key="frame" x="94.5" y="94" width="132" height="20"/>
+                                <rect key="frame" x="94.5" y="94" width="132" height="17"/>
                                 <fontDescription key="fontDescription" name="AlrightSans-Light" family="Alright Sans" pointSize="17"/>
                                 <color key="textColor" red="0.53720599410000003" green="0.53728628160000003" blue="0.53718835119999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZrP-e0-7wY" customClass="TagsView" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
-                                <rect key="frame" x="20" y="128" width="280" height="150"/>
+                                <rect key="frame" x="20" y="125" width="280" height="150"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="dc0-sa-fKT"/>

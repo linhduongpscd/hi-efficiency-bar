@@ -13,6 +13,9 @@ class visacell: UITableViewCell {
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var lblFee: UILabel!
     @IBOutlet weak var lblTotalPay: UILabel!
+    @IBOutlet weak var imgCard: UIImageView!
+    @IBOutlet weak var lblNumberHide: UILabel!
+    @IBOutlet weak var lblLastCard: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

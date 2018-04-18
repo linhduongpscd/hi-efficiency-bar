@@ -9,6 +9,7 @@
 import UIKit
 
 class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+    
     var arrmenus = [#imageLiteral(resourceName: "ing_1"), #imageLiteral(resourceName: "ing_2"), #imageLiteral(resourceName: "ing_3"), #imageLiteral(resourceName: "ing_4"), #imageLiteral(resourceName: "ing_5"), #imageLiteral(resourceName: "ing_6")]
     var arrNames = ["Basics", "Spirits","Liquers","Mixers","Other","Fruits"]
     @IBOutlet weak var collectionView: UICollectionView!
@@ -17,6 +18,13 @@ class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UIColle
     @IBOutlet weak var subSearch: UIViewX!
     @IBOutlet weak var btnSearch: UIButton!
     @IBOutlet weak var txfSearch: UITextField!
+    var badgeBasics = 0
+     var badgeSpirits = 0
+     var badgeLiquers = 0
+     var badgeMixers = 0
+     var badgeOther = 0
+     var badgeFruits = 0
+     var tapSelectMenu: (() ->())?
     override func awakeFromNib() {
         super.awakeFromNib()
         lblName.text = arrNames[indexSelect]
@@ -49,6 +57,71 @@ class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UIColle
             cell.spaceTop.isHidden = true
             cell.spaceBottom.isHidden = true
         }
+        switch indexPath.row {
+        case 0:
+            if badgeBasics == 0
+            {
+                cell.lblBadge.isHidden = true
+            }
+            else{
+                cell.lblBadge.isHidden = false
+                cell.lblBadge.text = "\(badgeBasics)"
+            }
+            break
+        case 1:
+            if badgeSpirits == 0
+            {
+                cell.lblBadge.isHidden = true
+            }
+            else{
+                cell.lblBadge.isHidden = false
+                cell.lblBadge.text = "\(badgeSpirits)"
+            }
+            break
+        case 2:
+            if badgeLiquers == 0
+            {
+                cell.lblBadge.isHidden = true
+            }
+            else{
+                cell.lblBadge.isHidden = false
+                cell.lblBadge.text = "\(badgeLiquers)"
+            }
+            break
+        case 3:
+            if badgeMixers == 0
+            {
+                cell.lblBadge.isHidden = true
+            }
+            else{
+                cell.lblBadge.isHidden = false
+                cell.lblBadge.text = "\(badgeMixers)"
+            }
+            break
+        case 4:
+            if badgeOther == 0
+            {
+                cell.lblBadge.isHidden = true
+            }
+            else{
+                cell.lblBadge.isHidden = false
+                cell.lblBadge.text = "\(badgeOther)"
+            }
+            break
+        case 5:
+            if badgeFruits == 0
+            {
+                cell.lblBadge.isHidden = true
+            }
+            else{
+                cell.lblBadge.isHidden = false
+                cell.lblBadge.text = "\(badgeFruits)"
+            }
+            break
+        default:
+            cell.lblBadge.isHidden = true
+            break
+        }
         return cell
         
     }
@@ -68,6 +141,7 @@ class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UIColle
         lblName.isHidden = false
         btnSearch.isHidden = false
         txfSearch.resignFirstResponder()
+        self.tapSelectMenu?()
     }
     @IBAction func doSearch(_ sender: Any) {
          subSearch.isHidden = false

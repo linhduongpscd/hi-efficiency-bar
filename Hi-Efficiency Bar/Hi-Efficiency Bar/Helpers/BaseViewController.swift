@@ -36,6 +36,10 @@ class BaseViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.view.backgroundColor = .white
         self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
+        if APP_DELEGATE.isRedirectMyTab {
+            self.tabBarController?.selectedIndex = 3
+            APP_DELEGATE.isRedirectMyTab = false
+        }
     }
     
     override func viewDidLayoutSubviews() {

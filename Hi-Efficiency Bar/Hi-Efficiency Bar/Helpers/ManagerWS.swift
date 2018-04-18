@@ -475,19 +475,19 @@ struct ManagerWS {
                     if let code = response.response?.statusCode
                     {
                         print("CODE --\(code)")
-                        if code == SERVER_CODE.CODE_201
+                        if code == SERVER_CODE.CODE_201 || code == SERVER_CODE.CODE_200
                         {
                             complete(true)
                             
                         }
                         else{
-                            complete(false)
+                            complete(true)
                         }
                     }
                     break
                     
                 case .failure(_):
-                    complete(false)
+                    complete(true)
                     break
                 }
         }
@@ -535,12 +535,13 @@ struct ManagerWS {
     }
     
     
-    func addDrinkStep1(para: Parameters, complete:@escaping (_ success: Bool?) ->Void)
+    func addDrinkStep1(para: Parameters, complete:@escaping (_ success: Bool?, _ errer: ErrorModel?,_ drinkID: Int?) ->Void)
     {
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
         }
         print(para)
+        
         let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
         manager.request(URL.init(string: "\(URL_SERVER)api/drink/")!, method: .post, parameters: para,  encoding: URLEncoding.default, headers: auth_headerLogin)
             .responseJSON { response in
@@ -552,17 +553,28 @@ struct ManagerWS {
                         print("CODE --\(code)")
                         if code == SERVER_CODE.CODE_201
                         {
-                            complete(true)
+                            if let val = response.value as? NSDictionary
+                            {
+                                if let id = val["id"] as? Int
+                                {
+                                    complete(true, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"), id)
+                                }
+                            }
+                            else{
+                                 complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0)
+                            }
+                            
                             
                         }
                         else{
-                            complete(false)
+                            complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0)
                         }
                     }
                     break
                     
                 case .failure(_):
-                    complete(false)
+                    //complete(true, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
+                     complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0)
                     break
                 }
         }
@@ -896,9 +908,9 @@ struct ManagerWS {
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
         }
-        print(token)
+        print("\(URL_SERVER)api/user/me/tab/\(tabID)")
         let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
-        manager.request(URL.init(string: "\(URL_SERVER)api/user/me/tab/\(tabID)")!, method: .delete, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/me/tab/\(tabID)/")!, method: .delete, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
             .responseJSON { response in
                 print(response)
                 switch(response.result) {
@@ -921,4 +933,193 @@ struct ManagerWS {
                 }
         }
     }
+    
+    func updateMyTab(tabID: Int, quantity: Int,complete:@escaping (_ success: Bool?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        let param = ["quantity":quantity]
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/me/tab/\(tabID)/")!, method: .patch, parameters: param,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if code == SERVER_CODE.CODE_200
+                        {
+                            complete(true)
+                        }
+                        else{
+                            complete(false)
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(false)
+                    break
+                }
+        }
+    }
+    
+    func addMyTabCard(token: String,complete:@escaping (_ success: Bool?, _ errer: ErrorModel?) ->Void)
+    {
+        guard let tokenLogin = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        let param = ["stripe_token":token]
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(tokenLogin)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/order/")!, method: .post, parameters: param,  encoding: URLEncoding.methodDependent, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                         print(code)
+                        if code == SERVER_CODE.CODE_200 || code == SERVER_CODE.CODE_201
+                        {
+                            complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
+                        }
+                        else{
+                            complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(response.result.value as? NSDictionary)"))
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(response.result as? NSDictionary)"))
+                    break
+                }
+        }
+    }
+    
+    func fetchListSearchIngredient(id: Int, offset: Int,complete:@escaping (_ success: Bool?, _ arrs: [IngredientSearchObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/drink/?ingredient_by=\(id)&offset=\(offset)&limit=\(kLimitPage)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [IngredientSearchObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let arrs = val.object(forKey: "results") as? NSArray
+                            {
+                                if code == SERVER_CODE.CODE_200
+                                {
+                                    for item in arrs
+                                    {
+                                        let dictItem = item as! NSDictionary
+                                        arrDatas.append(IngredientSearchObj.init(dict: dictItem))
+                                    }
+                                    complete(true, arrDatas)
+                                }
+                                else{
+                                    complete(true, arrDatas)
+                                }
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    
+    func fetchIngredientType(complete:@escaping (_ success: Bool?, _ arrs: [MainBarObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/ingredient/type/")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [MainBarObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let arrs = response.value as? NSArray
+                        {
+                            if code == SERVER_CODE.CODE_200
+                            {
+                                for item in arrs
+                                {
+                                    let dictItem = item as! NSDictionary
+                                    arrDatas.append(MainBarObj.init(dict: dictItem))
+                                }
+                                complete(true, arrDatas)
+                            }
+                            else{
+                                complete(true, arrDatas)
+                            }
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+   
+    
+    func fetchIngredientbyTypeID(_ id: Int, complete:@escaping (_ success: Bool?, _ arrs: [MainBarObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/ingredient/brand/type/?type=\(id)&ingredients=true")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [MainBarObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let arrs = response.value as? NSArray
+                        {
+                            if code == SERVER_CODE.CODE_200
+                            {
+                                for item in arrs
+                                {
+                                    let dictItem = item as! NSDictionary
+                                    arrDatas.append(MainBarObj.init(dict: dictItem))
+                                }
+                                complete(true, arrDatas)
+                            }
+                            else{
+                                complete(true, arrDatas)
+                            }
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    
 }
