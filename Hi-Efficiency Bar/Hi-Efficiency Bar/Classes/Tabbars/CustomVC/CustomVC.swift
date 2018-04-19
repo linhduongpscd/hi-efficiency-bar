@@ -17,9 +17,9 @@ class CustomVC: HelpController {
     var arrDatas = [MainBarObj]()
     var isLoad = false
     var arrSelected = [Int]()
+    var arrIngredientSelected = [Ingredient]()
     @IBOutlet weak var lblNoData: UILabel!
-    @IBAction func btnNext(_ sender: Any) {
-    }
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Custom"
@@ -137,9 +137,19 @@ class CustomVC: HelpController {
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // Dispose of any resources that can be recreated.ingredient_by
     }
-    
+    @IBAction func btnNext(_ sender: Any) {
+        if self.arrIngredientSelected.count == 0
+        {
+            self.showAlertMessage(message: "Please select ingredient")
+            return
+        }
+        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
+        vc.isRedirectCus = true
+        vc.arrCusIngredients = self.arrIngredientSelected
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
@@ -190,17 +200,20 @@ extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let mainObj = arrDatas[indexPath.section]
         let item = mainObj.arrIngredients[indexPath.row]
+        let arrSelectSearch = self.arrSelected
         if arrSelected.contains(item.id!)
         {
-            for var i in 0..<arrSelected.count
+            for var i in 0..<arrSelectSearch.count
             {
-                if arrSelected[i] == item.id!
+                if arrSelectSearch[i] == item.id!
                 {
                     self.arrSelected.remove(at: i)
+                    self.arrIngredientSelected.remove(at: i)
                 }
             }
         }
         else{
+            self.arrIngredientSelected.append(item)
             arrSelected.append(item.id!)
         }
         collectionView.reloadData()

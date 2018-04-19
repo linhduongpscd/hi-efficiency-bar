@@ -25,6 +25,9 @@ class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UIColle
      var badgeOther = 0
      var badgeFruits = 0
      var tapSelectMenu: (() ->())?
+    var tapBeginSearch: (() ->())?
+    var tapDoneSearch: (() ->())?
+    var tapReturnSearch: (() ->())?
     override func awakeFromNib() {
         super.awakeFromNib()
         lblName.text = arrNames[indexSelect]
@@ -144,14 +147,29 @@ class MenuSearchCollect: UICollectionViewCell, UICollectionViewDelegate, UIColle
         self.tapSelectMenu?()
     }
     @IBAction func doSearch(_ sender: Any) {
+        txfSearch.text = ""
          subSearch.isHidden = false
         lblName.isHidden = true
         btnSearch.isHidden = true
+        self.tapBeginSearch?()
         txfSearch.becomeFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+       self.tapReturnSearch?()
         txfSearch.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    @IBAction func doDoneSearch(_ sender: Any) {
+        subSearch.isHidden = true
+        lblName.isHidden = false
+        btnSearch.isHidden = false
+        txfSearch.resignFirstResponder()
+        self.tapDoneSearch?()
+    }
+    
 }

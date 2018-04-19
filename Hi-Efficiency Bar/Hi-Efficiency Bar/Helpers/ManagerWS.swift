@@ -995,8 +995,7 @@ struct ManagerWS {
                     break
                 }
         }
-    }
-    
+    }    
     func fetchListSearchIngredient(id: Int, offset: Int,complete:@escaping (_ success: Bool?, _ arrs: [IngredientSearchObj]?) ->Void)
     {
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
@@ -1004,7 +1003,7 @@ struct ManagerWS {
         }
         print(token)
         let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
-        manager.request(URL.init(string: "\(URL_SERVER)api/drink/?ingredient_by=\(id)&offset=\(offset)&limit=\(kLimitPage)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+        manager.request(URL.init(string: "\(URL_SERVER)api/ingredient/?ingredient_by=\(id)&offset=\(offset)&limit=\(kLimitPage)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
             .responseJSON { response in
                 print(response)
                 var arrDatas = [IngredientSearchObj]()
@@ -1122,4 +1121,94 @@ struct ManagerWS {
         }
     }
     
+    func createDrinkByUser(_ id: String, complete:@escaping (_ success: Bool?, _ arrs: [DrinkObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print("id ------------\(id)")
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/drink/?ingredient_by=\(id)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [DrinkObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let dict = response.value as? NSDictionary
+                        {
+                            if let arrs = dict["results"] as? NSArray
+                            {
+                                if code == SERVER_CODE.CODE_200
+                                {
+                                    for item in arrs
+                                    {
+                                        let dictItem = item as! NSDictionary
+                                        arrDatas.append(DrinkObj.init(dict: dictItem))
+                                    }
+                                    complete(true, arrDatas)
+                                }
+                                else{
+                                    complete(true, arrDatas)
+                                }
+                            }
+                            else{
+                                complete(true, arrDatas)
+                            }
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    
+    func SearchIngredient(value: String, complete:@escaping (_ success: Bool?, _ arrs: [IngredientSearchObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let search = value.replacingOccurrences(of: " ", with: "%20")
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/ingredient/?search=\(search)&limit=20")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [IngredientSearchObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let arrs = val.object(forKey: "results") as? NSArray
+                            {
+                                if code == SERVER_CODE.CODE_200
+                                {
+                                    for item in arrs
+                                    {
+                                        let dictItem = item as! NSDictionary
+                                        arrDatas.append(IngredientSearchObj.init(dict: dictItem))
+                                    }
+                                    complete(true, arrDatas)
+                                }
+                                else{
+                                    complete(true, arrDatas)
+                                }
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(true, arrDatas)
+                    break
+                }
+        }
+    }
 }

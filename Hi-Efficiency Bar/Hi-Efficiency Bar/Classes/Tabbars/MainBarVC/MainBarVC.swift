@@ -73,18 +73,25 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
   
     
     func sharedView() -> UIView! {
-        if let cell = collectionView.cellForItem(at: (collectionView.indexPathsForSelectedItems?.first)!) as? MainBarViewCell
+        if ((collectionView.indexPathsForSelectedItems?.first) != nil)
         {
-            if cell.drinkObj.is_favorite!
+            if let cell = collectionView.cellForItem(at: (collectionView.indexPathsForSelectedItems?.first)!) as? MainBarViewCell
             {
-                cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+                if cell.drinkObj.is_favorite!
+                {
+                    cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+                }
+                else{
+                    cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
+                }
+                return cell.imgCell
             }
-            else{
-                cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
-            }
-            return cell.imgCell
+            return UIView.init()
         }
-       return UIView.init()
+        else{
+            return UIView.init()
+        }
+       
     }
 }
 

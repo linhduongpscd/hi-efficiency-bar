@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="AlrightSans-Medium-v3.otf">
+            <string>AlrightSans-Medium</string>
+        </array>
         <array key="AlrightSans-Regular-v3.otf">
             <string>AlrightSans-Regular</string>
         </array>
@@ -59,13 +62,16 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="znz-kM-IQU">
-                                <rect key="frame" x="258" y="0.0" width="32" height="40"/>
+                                <rect key="frame" x="245" y="0.0" width="45" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="32" id="ONT-IE-36e"/>
+                                    <constraint firstAttribute="width" constant="45" id="ONT-IE-36e"/>
                                 </constraints>
-                                <state key="normal" image="ic_search"/>
+                                <fontDescription key="fontDescription" name="AlrightSans-Medium" family="Alright Sans" pointSize="15"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="0.98431372549999996" green="0.43529411759999997" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
-                                    <action selector="doSearch:" destination="gTV-IL-0wX" eventType="touchUpInside" id="yhi-1l-9zt"/>
+                                    <action selector="doDoneSearch:" destination="gTV-IL-0wX" eventType="touchUpInside" id="rrs-YV-8hb"/>
                                 </connections>
                             </button>
                         </subviews>

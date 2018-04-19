@@ -60,6 +60,8 @@ class CustomDetailVC: HelpController {
     var glassObj: GlassObj?
     var glassID: Int?
     var valueIce = 0
+    var isRedirectCus = false
+    var arrCusIngredients = [Ingredient]()
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
@@ -68,21 +70,45 @@ class CustomDetailVC: HelpController {
         let btnRight = UIBarButtonItem.init(customView: subNaviRight)
         self.navigationItem.rightBarButtonItem = btnRight
         txfDrinkName.isEnabled = false
-        glassObj = GlassObj.init(dict: drinkObj.glass!)
-        self.fectAllGlass()
+        if !isRedirectCus
+        {
+             glassObj = GlassObj.init(dict: drinkObj.glass!)
+        }
+       self.fectAllGlass()
         
     }
     
     func initData()
     {
-        for recod in drinkObj.ingredients!
+       
+        if !isRedirectCus
         {
-            let dict = recod as! NSDictionary
-            arringredients.append(IngredientCusObj.init(dict: dict))
+            for recod in drinkObj.ingredients!
+            {
+                let dict = recod as! NSDictionary
+                arringredients.append(IngredientCusObj.init(dict: dict))
+            }
+            self.changeRationUnitPart()
+            heightTable.constant = CGFloat(arringredients.count * 44)
+             txfDrinkName.text = drinkObj.name
         }
-        self.changeRationUnitPart()
-        heightTable.constant = CGFloat(arringredients.count * 44)
-        txfDrinkName.text = drinkObj.name
+        else{
+            for recod in arrCusIngredients
+            {
+                let obj = IngredientCusObj.init(dict: NSDictionary.init())
+                obj.id = recod.id
+                obj.unit = "ml"
+                obj.ratio = 0
+                obj.value = 0
+                obj.name = recod.name
+                arringredients.append(obj)
+            }
+            self.changeRationUnitPart()
+            heightTable.constant = CGFloat(arringredients.count * 44)
+            txfDrinkName.placeholder = "Name drink"
+            txfDrinkName.text = ""
+        }
+       
     }
     
     
@@ -135,22 +161,38 @@ class CustomDetailVC: HelpController {
             self.collectionLy.reloadData()
             if self.arrLys.count > 0
             {
-                for obj in self.arrLys
+                if !self.isRedirectCus
                 {
-                    if obj.id == self.glassObj?.id
+                    for obj in self.arrLys
                     {
-                        self.glassObj = obj
-                        self.glassID = obj.id
-                        if obj.image != nil{
-                            self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                                self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                                self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
-                            })
+                        if obj.id == self.glassObj?.id
+                        {
+                            self.glassObj = obj
+                            self.glassID = obj.id
+                            if obj.image != nil{
+                                self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                                    self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                    self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                })
+                            }
+                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                            break
                         }
-                        self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
-                        break
                     }
                 }
+                else{
+                    let obj = self.arrLys[0]
+                    self.glassObj = obj
+                    self.glassID = obj.id
+                    if obj.image != nil{
+                        self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                            self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                            self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                        })
+                    }
+                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                }
+               
               
             }
             else{
@@ -454,6 +496,11 @@ class CustomDetailVC: HelpController {
         return para
     }
     @IBAction func doAddCustom(_ sender: TransitionButton) {
+        if CommonHellper.trimSpaceString(txtString: txfDrinkName.text!).isEmpty
+        {
+            self.showAlertMessage(message: "Name drink is required")
+            return
+        }
         if self.getTotolRatioUnit() > Double((glassObj?.size)!)
         {
             self.showAlertMessage(message: "Your total custom mL is greater than the max size of drink")

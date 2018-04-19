@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchVC: BaseViewController {
+class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
     //var arrNames = ["Basics", "Spirits","Liquers","Mixers","Other","Fruits"]
     @IBOutlet weak var collectionView: UICollectionView!
     var stringTag = ""
@@ -36,6 +36,14 @@ class SearchVC: BaseViewController {
     var offsetMixers = 0
     var offsetOher = 0
     var indexMenu = 0
+    @IBOutlet weak var viewDrink: UIView!
+    @IBOutlet weak var imgDrink: UIImageView!
+    var arrDrinkCreate = [DrinkObj]()
+    var listDrinkCreateView = ListDrinkCreateView.init(frame: .zero)
+    var arrIngredientSearch = [IngredientSearchObj]()
+    var arrIngredientSelectedSearch = [Int]()
+    @IBOutlet weak var subSearchTag: UIView!
+    @IBOutlet weak var collectionSearch: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initController()
@@ -46,8 +54,21 @@ class SearchVC: BaseViewController {
         self.fetchCallWSByTypeSearch(index: 3)
         self.fetchCallWSByTypeSearch(index: 4)
         self.fetchCallWSByTypeSearch(index: 5)
+        viewDrink.isHidden = true
+        subSearchTag.isHidden = true
+        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        self.viewDrink.addGestureRecognizer(gestureRecognizer)
+         ASFSharedViewTransition.addWith(fromViewControllerClass: SearchVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
     }
-
+    @IBAction func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+            
+            let translation = gestureRecognizer.translation(in: self.view)
+            // note: 'view' is optional and need to be unwrapped
+            gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x + translation.x, y: gestureRecognizer.view!.center.y + translation.y)
+            gestureRecognizer.setTranslation(CGPoint.zero, in: self.view)
+        }
+    }
     func initController()
     {
         self.navigationItem.title = "Search"
@@ -57,6 +78,7 @@ class SearchVC: BaseViewController {
         self.collectionView.register(UINib(nibName: "MenuSearchCollect", bundle: nil), forCellWithReuseIdentifier: "MenuSearchCollect")
         self.collectionView.register(UINib(nibName: "SearchGenereCollect", bundle: nil), forCellWithReuseIdentifier: "SearchGenereCollect")
            self.collectionView.register(UINib(nibName: "FooterDetailTag", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterDetailTag")
+        self.collectionSearch.register(UINib(nibName: "IngreItemCollect", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
         self.configHideNaviScroll(collectionView)
     }
     
@@ -75,6 +97,10 @@ class SearchVC: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    func sharedView() -> UIView! {
+        return listDrinkCreateView.createDrinkCollect.imgCell
     }
     /*
     // MARK: - Navigation
@@ -238,6 +264,32 @@ class SearchVC: BaseViewController {
         }
     }
     
+    func convertToParamSearchDrinkByUser()->String
+    {
+        var value = ""
+        var arrAlls = [IngredientSearchObj]()
+        arrAlls.append(contentsOf: self.arrBasics)
+        arrAlls.append(contentsOf: self.arrSpirits)
+        arrAlls.append(contentsOf: self.arrLiquers)
+        arrAlls.append(contentsOf: self.arrMixers)
+        arrAlls.append(contentsOf: self.arrOther)
+        arrAlls.append(contentsOf: self.arrFruits)
+        for obj in arrAlls
+        {
+            if obj.isSeleled!
+            {
+                value = "\(value)\(obj.id!),"
+            }
+        }
+        if value.isEmpty
+        {
+            return "0"
+        }
+        else{
+            return  value.substring(from: 0, to: value.count - 1)
+        }
+        
+    }
     func numberBagdeByCategory(index: Int) -> Int
     {
         var number = 0
@@ -300,86 +352,280 @@ class SearchVC: BaseViewController {
             return 0
         }
     }
+    @IBAction func doDrink(_ sender: Any) {
+        listDrinkCreateView = Bundle.main.loadNibNamed("ListDrinkCreateView", owner: self, options: nil)?[0] as! ListDrinkCreateView
+        listDrinkCreateView.frame = UIScreen.main.bounds
+        listDrinkCreateView.arrDrinks = self.arrDrinkCreate
+        listDrinkCreateView.registerCell()
+        listDrinkCreateView.tapCloseList = { [] in
+            self.listDrinkCreateView.removeFromSuperview()
+        }
+        listDrinkCreateView.tapDetailDrink = { [] in
+            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
+            vc.drinkObj = self.arrDrinkCreate[(self.listDrinkCreateView.indexPathCell?.row)!]
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        view.addSubview(listDrinkCreateView)
+        
+    }
+    
+    func makeReadSearch()
+    {
+        for recod in arrIngredientSearch {
+            if recod.isSeleled!
+            {
+//                if !self.arrIngredientSelectedSearch.contains(recod.id!)
+//                {
+//                    self.arrIngredientSelectedSearch.append(recod.id!)
+//
+//                }
+                if recod.type_search == CONST_SEARCH_BASICS
+                {
+                    var arrID = [Int]()
+                    for item in self.arrBasics
+                    {
+                        if item.id == recod.id
+                        {
+                            item.isSeleled = true
+                        }
+                        arrID.append(item.id!)
+                    }
+                    if !arrID.contains(recod.id!)
+                    {
+                        self.arrBasics.append(recod)
+                    }
+                    
+                }
+                else if recod.type_search == CONST_SEARCH_SPIRITS
+                {
+                    var arrID = [Int]()
+                    for item in self.arrSpirits
+                    {
+                        if item.id == recod.id
+                        {
+                            item.isSeleled = true
+                        }
+                        arrID.append(item.id!)
+                    }
+                    if !arrID.contains(recod.id!)
+                    {
+                        self.arrSpirits.append(recod)
+                    }
+                }
+                else if recod.type_search == CONST_SEARCH_LIQUERS
+                {
+                    var arrID = [Int]()
+                    for item in self.arrLiquers
+                    {
+                        if item.id == recod.id
+                        {
+                            item.isSeleled = true
+                        }
+                        arrID.append(item.id!)
+                    }
+                    if !arrID.contains(recod.id!)
+                    {
+                        self.arrLiquers.append(recod)
+                    }
+                }
+                else if recod.type_search == CONST_SEARCH_MIXERS
+                {
+                    var arrID = [Int]()
+                    for item in self.arrMixers
+                    {
+                        if item.id == recod.id
+                        {
+                            item.isSeleled = true
+                        }
+                        arrID.append(item.id!)
+                    }
+                    if !arrID.contains(recod.id!)
+                    {
+                        self.arrMixers.append(recod)
+                    }
+                }
+                else if recod.type_search == CONST_SEARCH_OTHER
+                {
+                    var arrID = [Int]()
+                    for item in self.arrOther
+                    {
+                        if item.id == recod.id
+                        {
+                            item.isSeleled = true
+                        }
+                        arrID.append(item.id!)
+                    }
+                    if !arrID.contains(recod.id!)
+                    {
+                        self.arrOther.append(recod)
+                    }
+                }
+                else{
+                    var arrID = [Int]()
+                    for item in self.arrFruits
+                    {
+                        if item.id == recod.id
+                        {
+                            item.isSeleled = true
+                        }
+                        arrID.append(item.id!)
+                    }
+                    if !arrID.contains(recod.id!)
+                    {
+                        self.arrFruits.append(recod)
+                    }
+                }
+                
+            }
+        }
+        collectionView.reloadData()
+        CommonHellper.showBusy()
+        ManagerWS.shared.createDrinkByUser(self.convertToParamSearchDrinkByUser(), complete: { (success, arrs) in
+            CommonHellper.hideBusy()
+            self.arrDrinkCreate = arrs!
+            if arrs?.count == 0
+            {
+                self.viewDrink.isHidden = true
+            }
+            else{
+                self.viewDrink.isHidden = false
+                let obj = arrs!.last
+                if obj?.image != nil
+                {
+                    self.imgDrink.sd_setImage(with: URL.init(string: (obj?.image!)!), completed: { (image, error, type, url) in
+                        
+                    })
+                }
+            }
+            
+        })
+    }
 }
 
 extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        if collectionView == collectionSearch
+        {
+            return 1
+        }
+        else{
+             return 3
+        }
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 0
+        if collectionView == collectionSearch
         {
-            if isQuickSearch
+            return arrIngredientSearch.count
+        }
+        else{
+            if section == 0
             {
-                return 1
+                if isQuickSearch
+                {
+                    return 1
+                }
+                return 0
+            }
+            if section == 1 {
+                if isSearchIngre
+                {
+                    
+                    return self.returnNumberRow()
+                }
+                return 0
+            }
+            if isSearchGenre
+            {
+                return self.arrGeneres.count
             }
             return 0
         }
-        if section == 1 {
-            if isSearchIngre
-            {
-               
-                return self.returnNumberRow()
-            }
-            return 0
-        }
-        if isSearchGenre
-        {
-            return self.arrGeneres.count
-        }
-         return 0
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuickSearchCollect", for: indexPath) as! QuickSearchCollect
-            cell.taptags = { [weak self] in
-                let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailTagVC") as! DetailTagVC
-                vc.stringTag = cell.stringTag
-                self?.navigationController?.pushViewController(vc, animated: true)
+        if collectionView == collectionSearch
+        {
+            let cell = collectionSearch.dequeueReusableCell(withReuseIdentifier: "IngreItemCollect", for: indexPath) as! IngreItemCollect
+            self.configCell(cell, self.arrIngredientSearch[indexPath.row])
+            return cell
+        }
+        else{
+            if indexPath.section == 0 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuickSearchCollect", for: indexPath) as! QuickSearchCollect
+                cell.taptags = { [weak self] in
+                    let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailTagVC") as! DetailTagVC
+                    vc.stringTag = cell.stringTag
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+                cell.tapSearchQuickly = { [weak self] in
+                    let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "SearchTagVC") as! SearchTagVC
+                    self?.present(vc, animated: true, completion: nil)
+                }
+                return cell
             }
-             cell.tapSearchQuickly = { [weak self] in
-                 let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "SearchTagVC") as! SearchTagVC
-                self?.present(vc, animated: true, completion: nil)
+            else if indexPath.section == 1 {
+                if indexPath.row == 0
+                {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MenuSearchCollect", for: indexPath) as! MenuSearchCollect
+                    cell.registerCell()
+                    cell.tapSelectMenu = { [] in
+                        self.indexMenu = cell.indexSelect
+                        self.collectionView.reloadData()
+                    }
+                    cell.tapBeginSearch = { [] in
+                        self.arrIngredientSearch.removeAll()
+                        self.collectionSearch.reloadData()
+                        self.collectionSearch.backgroundColor = UIColor.clear
+                        self.subSearchTag.isHidden = false
+                    }
+                    cell.tapDoneSearch = { [] in
+                        self.makeReadSearch()
+                        self.subSearchTag.isHidden = true
+                    }
+                    cell.tapReturnSearch = { [] in
+                        if !CommonHellper.trimSpaceString(txtString: cell.txfSearch.text!).isEmpty
+                        {
+                            ManagerWS.shared.SearchIngredient(value: CommonHellper.trimSpaceString(txtString: cell.txfSearch.text!), complete: { (success, arrs) in
+                                self.arrIngredientSearch.removeAll()
+                                self.arrIngredientSearch = arrs!
+                                self.collectionSearch.backgroundColor = UIColor.white
+                                self.collectionSearch.reloadData()
+                            })
+                        }
+                       
+                    }
+                    cell.badgeBasics = self.numberBagdeByCategory(index: 0)
+                    cell.badgeSpirits = self.numberBagdeByCategory(index: 1)
+                    cell.badgeLiquers = self.numberBagdeByCategory(index: 2)
+                    cell.badgeMixers = self.numberBagdeByCategory(index: 3)
+                    cell.badgeOther = self.numberBagdeByCategory(index: 4)
+                    cell.badgeFruits = self.numberBagdeByCategory(index: 5)
+                    cell.collectionView.reloadData()
+                    return cell
+                }
+                else{
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IngreItemCollect", for: indexPath) as! IngreItemCollect
+                    self.configCell(cell, self.arrayDatas()[indexPath.row - 1])
+                    return cell
+                }
+            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchGenereCollect", for: indexPath) as! SearchGenereCollect
+            let obj = arrGeneres[indexPath.row]
+            cell.lblName.text = obj.name
+            if obj.image != nil
+            {
+                cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                    
+                })
             }
             return cell
         }
-        else if indexPath.section == 1 {
-            if indexPath.row == 0
-            {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MenuSearchCollect", for: indexPath) as! MenuSearchCollect
-                cell.registerCell()
-                cell.tapSelectMenu = { [] in
-                    self.indexMenu = cell.indexSelect
-                    self.collectionView.reloadData()
-                }
-                cell.badgeBasics = self.numberBagdeByCategory(index: 0)
-                cell.badgeSpirits = self.numberBagdeByCategory(index: 1)
-                cell.badgeLiquers = self.numberBagdeByCategory(index: 2)
-                cell.badgeMixers = self.numberBagdeByCategory(index: 3)
-                cell.badgeOther = self.numberBagdeByCategory(index: 4)
-                cell.badgeFruits = self.numberBagdeByCategory(index: 5)
-                cell.collectionView.reloadData()
-                return cell
-            }
-            else{
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IngreItemCollect", for: indexPath) as! IngreItemCollect
-                self.configCell(cell, self.arrayDatas()[indexPath.row - 1])
-                return cell
-            }
-        }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchGenereCollect", for: indexPath) as! SearchGenereCollect
-        let obj = arrGeneres[indexPath.row]
-        cell.lblName.text = obj.name
-        if obj.image != nil
-        {
-            cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                
-            })
-        }
-        return cell
+        
         
     }
     
@@ -402,21 +648,64 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        if indexPath.section == 0 {
-            return CGSize(width: collectionView.frame.size.width, height: 400)
+        if collectionView == collectionSearch
+        {
+              return CGSize(width: (collectionView.frame.size.width - 4)/2, height: 50)
         }
-        if indexPath.section == 1 {
-            if indexPath.row == 0
-            {
-                return CGSize(width: collectionView.frame.size.width, height: 120)
+        else
+        {
+            if indexPath.section == 0 {
+                return CGSize(width: collectionView.frame.size.width, height: 400)
             }
-             return CGSize(width: (collectionView.frame.size.width - 4)/2, height: 50)
+            if indexPath.section == 1 {
+                if indexPath.row == 0
+                {
+                    return CGSize(width: collectionView.frame.size.width, height: 120)
+                }
+                return CGSize(width: (collectionView.frame.size.width - 4)/2, height: 50)
+            }
+            
+            return CGSize(width:( UIScreen.main.bounds.size.width - 10)/2, height:  170)
         }
         
-        return CGSize(width:( UIScreen.main.bounds.size.width - 10)/2, height:  170)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == collectionSearch
+        {
+            let cellWidth : CGFloat = (collectionView.frame.size.width - 4)/2
+            
+            let numberOfCells = floor(self.view.frame.size.width / cellWidth)
+            let edgeInsets = (self.view.frame.size.width - (numberOfCells * cellWidth)) / (numberOfCells + 1)
+            
+            return UIEdgeInsetsMake(0, edgeInsets, 0, edgeInsets)
+        }
+        else{
+            if section == 1
+            {
+                let cellWidth : CGFloat = (collectionView.frame.size.width - 4)/2
+                
+                let numberOfCells = floor(self.view.frame.size.width / cellWidth)
+                let edgeInsets = (self.view.frame.size.width - (numberOfCells * cellWidth)) / (numberOfCells + 1)
+                
+                return UIEdgeInsetsMake(15, edgeInsets, 0, edgeInsets)
+            }
+            else{
+                
+                return UIEdgeInsetsMake(0, 0, 0, 0)
+            }
+        }
+        
+       
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-     if indexPath.section == 1 {
+    if collectionView == collectionSearch
+    {
+         let obj = arrIngredientSearch[indexPath.row]
+         obj.isSeleled = !obj.isSeleled!
+        self.collectionSearch.reloadData()
+     }
+    else{
+        if indexPath.section == 1 {
             if indexPath.row > 0
             {
                 // 72 181 251
@@ -439,18 +728,46 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                     obj = arrBasics[indexPath.row - 1]
                 }
                 obj.isSeleled = !obj.isSeleled!
-                 self.collectionView.reloadData()
+                self.collectionView.reloadData()
+                CommonHellper.showBusy()
+                ManagerWS.shared.createDrinkByUser(self.convertToParamSearchDrinkByUser(), complete: { (success, arrs) in
+                    CommonHellper.hideBusy()
+                    self.arrDrinkCreate = arrs!
+                    if arrs?.count == 0
+                    {
+                        self.viewDrink.isHidden = true
+                    }
+                    else{
+                        self.viewDrink.isHidden = false
+                        let obj = arrs!.last
+                        if obj?.image != nil
+                        {
+                            self.imgDrink.sd_setImage(with: URL.init(string: (obj?.image!)!), completed: { (image, error, type, url) in
+                                
+                            })
+                        }
+                    }
+                    
+                })
             }
         }
-       if indexPath.section == 2
-       {
+        if indexPath.section == 2
+        {
             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailCocktailVC") as! DetailCocktailVC
             vc.genereObj = arrGeneres[indexPath.row]
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
+     
+    }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if collectionView == collectionSearch
+        {
+            return UICollectionReusableView.init()
+        }
+        
+        
         if kind == UICollectionElementKindSectionHeader
         {
             let commentView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderSearchReusable", for: indexPath) as! HeaderSearchReusable
@@ -471,6 +788,8 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                     self?.isQuickSearch = !(self?.isQuickSearch)!
                     self?.isSearchGenre = false
                     self?.isSearchIngre = false
+                    self?.subSearchTag.isHidden = true
+                    self?.viewDrink.isHidden = true
                     
                 }
                 else if indexPath.section == 1
@@ -478,11 +797,20 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                     self?.isQuickSearch = false
                     self?.isSearchGenre = false
                     self?.isSearchIngre = true
+                    if self?.arrDrinkCreate.count == 0
+                    {
+                        self?.viewDrink.isHidden = true
+                    }
+                    else{
+                        self?.viewDrink.isHidden = false
+                    }
                 }
                 else{
+                    self?.subSearchTag.isHidden = true
                     self?.isQuickSearch = false
                     self?.isSearchGenre = true
                     self?.isSearchIngre = false
+                    self?.viewDrink.isHidden = true
                 }
                 self?.collectionView.reloadData()
             }
@@ -523,6 +851,10 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if collectionView == collectionSearch
+        {
+             return CGSize(width: UIScreen.main.bounds.size.width, height: 0)
+        }
         if section == 0 {
             if isQuickSearch
             {
@@ -533,6 +865,10 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         return CGSize(width: UIScreen.main.bounds.size.width, height: 44)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        if collectionView == collectionSearch
+        {
+            return CGSize(width: UIScreen.main.bounds.size.width, height: 0)
+        }
         if section == 0
         {
             return CGSize(width: UIScreen.main.bounds.size.width, height: 0)

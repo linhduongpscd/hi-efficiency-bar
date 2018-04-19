@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		21F278813AC65E5FDC7A6F87 /* Pods_Hi_Efficiency_Bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F666944C69A254AEB833642 /* Pods_Hi_Efficiency_Bar.framework */; };
+		2724F878208879EC003305F9 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F86C208879EC003305F9 /* Animation.swift */; };
+		2724F879208879EC003305F9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 2724F86D208879EC003305F9 /* .gitkeep */; };
+		2724F87A208879EC003305F9 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F86F208879EC003305F9 /* Utilities.swift */; };
+		2724F87B208879EC003305F9 /* ViewAnimatorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F870208879EC003305F9 /* ViewAnimatorConfig.swift */; };
+		2724F87C208879EC003305F9 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F872208879EC003305F9 /* Direction.swift */; };
+		2724F87D208879EC003305F9 /* AnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F873208879EC003305F9 /* AnimationType.swift */; };
+		2724F87E208879ED003305F9 /* UITableView + ViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F875208879EC003305F9 /* UITableView + ViewAnimator.swift */; };
+		2724F87F208879ED003305F9 /* UICollectionView + ViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F876208879EC003305F9 /* UICollectionView + ViewAnimator.swift */; };
+		2724F880208879ED003305F9 /* ViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F877208879EC003305F9 /* ViewAnimator.swift */; };
 		272A0C9F20746A9F00ECB485 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272A0C9E20746A9F00ECB485 /* LoadingView.swift */; };
 		272A0CA120746AAE00ECB485 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272A0CA020746AAE00ECB485 /* LoadingView.xib */; };
 		272A0CA62074B96B00ECB485 /* MainBarObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272A0CA52074B96B00ECB485 /* MainBarObj.swift */; };
@@ -60,6 +69,10 @@
 		27F60F7B206B453F009FDDC0 /* TopLoungeCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F60F79206B453F009FDDC0 /* TopLoungeCollect.swift */; };
 		27F60F7D206B4A63009FDDC0 /* LoungeTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F60F7C206B4A63009FDDC0 /* LoungeTabbarVC.swift */; };
 		27F70D14206E4C2D00077428 /* SearchTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F70D13206E4C2D00077428 /* SearchTagVC.swift */; };
+		27F77F3B20884FC00019A592 /* CreateDrinkCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F77F3920884FC00019A592 /* CreateDrinkCollect.xib */; };
+		27F77F3C20884FC00019A592 /* CreateDrinkCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F77F3A20884FC00019A592 /* CreateDrinkCollect.swift */; };
+		27F77F3E208859440019A592 /* ListDrinkCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F77F3D208859440019A592 /* ListDrinkCreateView.swift */; };
+		27F77F40208859520019A592 /* ListDrinkCreateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F77F3F208859520019A592 /* ListDrinkCreateView.xib */; };
 		27FBAF102086E57E00ABF0A4 /* IngredientSearchObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FBAF0F2086E57E00ABF0A4 /* IngredientSearchObj.swift */; };
 		27FBAF1520874AD300ABF0A4 /* IngreItemCusCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27FBAF1420874AD300ABF0A4 /* IngreItemCusCollect.xib */; };
 		27FD8E3B207C4CC800F0AAF2 /* garnish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FD8E3A207C4CC800F0AAF2 /* garnish.swift */; };
@@ -160,6 +173,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2724F86C208879EC003305F9 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		2724F86D208879EC003305F9 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		2724F86F208879EC003305F9 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		2724F870208879EC003305F9 /* ViewAnimatorConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAnimatorConfig.swift; sourceTree = "<group>"; };
+		2724F872208879EC003305F9 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		2724F873208879EC003305F9 /* AnimationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationType.swift; sourceTree = "<group>"; };
+		2724F875208879EC003305F9 /* UITableView + ViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView + ViewAnimator.swift"; sourceTree = "<group>"; };
+		2724F876208879EC003305F9 /* UICollectionView + ViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView + ViewAnimator.swift"; sourceTree = "<group>"; };
+		2724F877208879EC003305F9 /* ViewAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewAnimator.swift; sourceTree = "<group>"; };
 		272A0C9E20746A9F00ECB485 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		272A0CA020746AAE00ECB485 /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		272A0CA52074B96B00ECB485 /* MainBarObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBarObj.swift; sourceTree = "<group>"; };
@@ -226,6 +248,10 @@
 		27F60F79206B453F009FDDC0 /* TopLoungeCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLoungeCollect.swift; sourceTree = "<group>"; };
 		27F60F7C206B4A63009FDDC0 /* LoungeTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoungeTabbarVC.swift; sourceTree = "<group>"; };
 		27F70D13206E4C2D00077428 /* SearchTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagVC.swift; sourceTree = "<group>"; };
+		27F77F3920884FC00019A592 /* CreateDrinkCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateDrinkCollect.xib; sourceTree = "<group>"; };
+		27F77F3A20884FC00019A592 /* CreateDrinkCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDrinkCollect.swift; sourceTree = "<group>"; };
+		27F77F3D208859440019A592 /* ListDrinkCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDrinkCreateView.swift; sourceTree = "<group>"; };
+		27F77F3F208859520019A592 /* ListDrinkCreateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListDrinkCreateView.xib; sourceTree = "<group>"; };
 		27FBAF0F2086E57E00ABF0A4 /* IngredientSearchObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientSearchObj.swift; sourceTree = "<group>"; };
 		27FBAF1420874AD300ABF0A4 /* IngreItemCusCollect.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IngreItemCusCollect.xib; sourceTree = "<group>"; };
 		27FD8E3A207C4CC800F0AAF2 /* garnish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = garnish.swift; sourceTree = "<group>"; };
@@ -348,6 +374,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2724F86A208879EC003305F9 /* ViewAnimator */ = {
+			isa = PBXGroup;
+			children = (
+				2724F86B208879EC003305F9 /* Protocols */,
+				2724F86D208879EC003305F9 /* .gitkeep */,
+				2724F86E208879EC003305F9 /* Utilities */,
+				2724F870208879EC003305F9 /* ViewAnimatorConfig.swift */,
+				2724F871208879EC003305F9 /* Models */,
+				2724F874208879EC003305F9 /* Extensions */,
+				2724F877208879EC003305F9 /* ViewAnimator.swift */,
+			);
+			path = ViewAnimator;
+			sourceTree = "<group>";
+		};
+		2724F86B208879EC003305F9 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2724F86C208879EC003305F9 /* Animation.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		2724F86E208879EC003305F9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2724F86F208879EC003305F9 /* Utilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		2724F871208879EC003305F9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2724F872208879EC003305F9 /* Direction.swift */,
+				2724F873208879EC003305F9 /* AnimationType.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2724F874208879EC003305F9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2724F875208879EC003305F9 /* UITableView + ViewAnimator.swift */,
+				2724F876208879EC003305F9 /* UICollectionView + ViewAnimator.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		272A0CA42074B95E00ECB485 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -498,6 +572,7 @@
 		3B91CB122058C3C90073D54B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2724F86A208879EC003305F9 /* ViewAnimator */,
 				27330F0C20805A4800F5033A /* iOSDevCenters+GIF.swift */,
 				272A0CA42074B95E00ECB485 /* Objects */,
 				27E9F50620737351004801D6 /* UIView+DCAnimationKit.h */,
@@ -629,6 +704,8 @@
 				27EB269A207DEE5E009021A2 /* FooterDetailTag.xib */,
 				27EB269B207DEE5E009021A2 /* FooterDetailTag.swift */,
 				27330F102080AAC600F5033A /* visacell.swift */,
+				27F77F3D208859440019A592 /* ListDrinkCreateView.swift */,
+				27F77F3F208859520019A592 /* ListDrinkCreateView.xib */,
 			);
 			name = Cells;
 			path = Tabbars/Cells;
@@ -707,6 +784,8 @@
 			isa = PBXGroup;
 			children = (
 				3BFF9C8B2059003700FFA49C /* MyTabVC.swift */,
+				27F77F3920884FC00019A592 /* CreateDrinkCollect.xib */,
+				27F77F3A20884FC00019A592 /* CreateDrinkCollect.swift */,
 			);
 			path = MyTabVC;
 			sourceTree = "<group>";
@@ -849,6 +928,8 @@
 				3BC9BA14205C9DBE0060DB98 /* FooterCustomCell.xib in Resources */,
 				27FBAF1520874AD300ABF0A4 /* IngreItemCusCollect.xib in Resources */,
 				3B4FAE40205F71630050331F /* FooterCurrentOrderCell.xib in Resources */,
+				27F77F40208859520019A592 /* ListDrinkCreateView.xib in Resources */,
+				27F77F3B20884FC00019A592 /* CreateDrinkCollect.xib in Resources */,
 				3BDBE400205F961700CDA28E /* HeaderPreOrderCell.xib in Resources */,
 				3BC39B65205C18E700D2E60B /* CustomCell.xib in Resources */,
 				27C692C6206A3BCA0057156C /* QuickSearchCollect.xib in Resources */,
@@ -857,6 +938,7 @@
 				3BDFD6712061F40300938C56 /* CurrentOrderCellNotTimeLine.xib in Resources */,
 				27C692CE206A41C50057156C /* MenuSearchCollect.xib in Resources */,
 				27EB26A4207E0A12009021A2 /* NoDataCollect.xib in Resources */,
+				2724F879208879EC003305F9 /* .gitkeep in Resources */,
 				3BD02E5E205AC5890042F890 /* FooterMainBarCollect.xib in Resources */,
 				3B91CB0D2058C3160073D54B /* AlrightSans-Bold-v3.otf in Resources */,
 				3B91CAFB2058C2D50073D54B /* Main.storyboard in Resources */,
@@ -949,6 +1031,7 @@
 			files = (
 				3BC20364206322E4005A2D21 /* IngreItemCollect.swift in Sources */,
 				3BDBE404205FA5B200CDA28E /* SearchGenereVC.swift in Sources */,
+				2724F87E208879ED003305F9 /* UITableView + ViewAnimator.swift in Sources */,
 				3BB0ED4C205FFA6E00702239 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				3BFF9C932059157200FFA49C /* CarouselCollectionViewCell.swift in Sources */,
 				27F70D14206E4C2D00077428 /* SearchTagVC.swift in Sources */,
@@ -971,18 +1054,21 @@
 				3B91CB282058CC1E0073D54B /* UIViewX.swift in Sources */,
 				3BB0ED4F205FFA6E00702239 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				27FD8E3B207C4CC800F0AAF2 /* garnish.swift in Sources */,
+				27F77F3C20884FC00019A592 /* CreateDrinkCollect.swift in Sources */,
 				2776C795206360330040F065 /* DetailTagVC.swift in Sources */,
 				3BB0ED4D205FFA6E00702239 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				3B038FBD2062B5010051691E /* IngredientVC.swift in Sources */,
 				3B91CB312058DB640073D54B /* AnimationManager.m in Sources */,
 				3BDBE40D205FB1D900CDA28E /* DetailHeaderGenereCollect.swift in Sources */,
 				27EB26A5207E0A12009021A2 /* NoDataCollect.swift in Sources */,
+				2724F878208879EC003305F9 /* Animation.swift in Sources */,
 				3BFF9C992059204500FFA49C /* MainBarViewCell.swift in Sources */,
 				3BC4CE0C206141FB00CECB57 /* CustomTransitionViewController.swift in Sources */,
 				2776C791206350030040F065 /* CustomDetailVC.swift in Sources */,
 				27330F0D20805A4800F5033A /* iOSDevCenters+GIF.swift in Sources */,
 				27F60F7D206B4A63009FDDC0 /* LoungeTabbarVC.swift in Sources */,
 				3B91CB1C2058C4AD0073D54B /* ForgotPasswordVC.swift in Sources */,
+				2724F87D208879EC003305F9 /* AnimationType.swift in Sources */,
 				275418B92068FC0F00DEED32 /* NSObject+TLYSwizzlingHelpers.m in Sources */,
 				3B91CB2C2058DA600073D54B /* PickerView.swift in Sources */,
 				3BD02E58205ABE140042F890 /* TagButton.swift in Sources */,
@@ -990,10 +1076,12 @@
 				3BC4CE0F206141FB00CECB57 /* TransitionButton.swift in Sources */,
 				3B91CB262058C5070073D54B /* BaseViewController.swift in Sources */,
 				3BD02E5D205AC5890042F890 /* FooterMainBarCollect.swift in Sources */,
+				2724F87F208879ED003305F9 /* UICollectionView + ViewAnimator.swift in Sources */,
 				3B91CB1E2058C4BD0073D54B /* AgeVerificationVC.swift in Sources */,
 				3BC9BA13205C9DBE0060DB98 /* FooterCustomCell.swift in Sources */,
 				275418BB2068FC0F00DEED32 /* UIScrollView+Helpers.m in Sources */,
 				272A0CA62074B96B00ECB485 /* MainBarObj.swift in Sources */,
+				2724F87B208879EC003305F9 /* ViewAnimatorConfig.swift in Sources */,
 				27F60F75206B31A4009FDDC0 /* ShowMorePreCell.swift in Sources */,
 				27EB26A1207DFAE8009021A2 /* GenreObj.swift in Sources */,
 				3B91CAF62058C2D50073D54B /* AppDelegate.swift in Sources */,
@@ -1010,6 +1098,7 @@
 				27E9F50A20738EC6004801D6 /* FlashVC.swift in Sources */,
 				27EB269F207DF037009021A2 /* Ingredient.swift in Sources */,
 				3B149D36206F2FC100CBBCCA /* CurrentOrderCollect.swift in Sources */,
+				2724F880208879ED003305F9 /* ViewAnimator.swift in Sources */,
 				3BFF9C862059001300FFA49C /* CustomVC.swift in Sources */,
 				27FD8E41207C618A00F0AAF2 /* LyTailCell.swift in Sources */,
 				3BDBE3FF205F961700CDA28E /* HeaderPreOrderCell.swift in Sources */,
@@ -1031,7 +1120,9 @@
 				275418BE2068FC0F00DEED32 /* TLYShyViewController.m in Sources */,
 				3BD02E56205ABE140042F890 /* TagsView.swift in Sources */,
 				3BC4CE0B206141FB00CECB57 /* CGRectExtension.swift in Sources */,
+				2724F87A208879EC003305F9 /* Utilities.swift in Sources */,
 				27EB269D207DEE5E009021A2 /* FooterDetailTag.swift in Sources */,
+				2724F87C208879EC003305F9 /* Direction.swift in Sources */,
 				27F60F7B206B453F009FDDC0 /* TopLoungeCollect.swift in Sources */,
 				3B91CB242058C5070073D54B /* Define.swift in Sources */,
 				275418BD2068FC0F00DEED32 /* TLYShyStatusBarController.m in Sources */,
@@ -1046,6 +1137,7 @@
 				2754189A206899DD00DEED32 /* ManagerWS.swift in Sources */,
 				3BDBE40A205FB04F00CDA28E /* DetailSearchGenereVC.swift in Sources */,
 				2754189B206899DD00DEED32 /* ManagerError.swift in Sources */,
+				27F77F3E208859440019A592 /* ListDrinkCreateView.swift in Sources */,
 				3BB0ED4E205FFA6E00702239 /* TPKeyboardAvoidingTableView.m in Sources */,
 				27C692C7206A3BCA0057156C /* QuickSearchCollect.swift in Sources */,
 				3BFF9C942059157200FFA49C /* UPCarouselFlowLayout.swift in Sources */,

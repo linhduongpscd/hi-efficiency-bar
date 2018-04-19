@@ -931,12 +931,80 @@
                                     <outlet property="delegate" destination="x4U-kK-UwE" id="7nF-Wx-IOg"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RUn-yG-ImB">
+                                <rect key="frame" x="196" y="387" width="114" height="122"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yc1-2s-r1b">
+                                        <rect key="frame" x="2" y="2" width="110" height="118"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEc-9D-57M">
+                                        <rect key="frame" x="0.0" y="0.0" width="114" height="122"/>
+                                        <connections>
+                                            <action selector="doDrink:" destination="x4U-kK-UwE" eventType="touchUpInside" id="aRA-PR-YAv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="jEc-9D-57M" secondAttribute="trailing" id="6vO-Nr-Qu1"/>
+                                    <constraint firstItem="jEc-9D-57M" firstAttribute="leading" secondItem="RUn-yG-ImB" secondAttribute="leading" id="Ck8-oM-S13"/>
+                                    <constraint firstAttribute="trailing" secondItem="yc1-2s-r1b" secondAttribute="trailing" constant="2" id="Hn3-g9-UJR"/>
+                                    <constraint firstAttribute="width" constant="114" id="RAQ-YX-mj4"/>
+                                    <constraint firstAttribute="height" constant="122" id="ggO-Ri-Jtj"/>
+                                    <constraint firstItem="jEc-9D-57M" firstAttribute="top" secondItem="RUn-yG-ImB" secondAttribute="top" id="k5w-Ly-vkh"/>
+                                    <constraint firstAttribute="bottom" secondItem="jEc-9D-57M" secondAttribute="bottom" id="oOn-bt-psz"/>
+                                    <constraint firstItem="yc1-2s-r1b" firstAttribute="leading" secondItem="RUn-yG-ImB" secondAttribute="leading" constant="2" id="pO4-3M-qVf"/>
+                                    <constraint firstItem="yc1-2s-r1b" firstAttribute="top" secondItem="RUn-yG-ImB" secondAttribute="top" constant="2" id="sBV-yC-Qg5"/>
+                                    <constraint firstAttribute="bottom" secondItem="yc1-2s-r1b" secondAttribute="bottom" constant="2" id="za9-wR-MnI"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HT7-Bn-X5f">
+                                <rect key="frame" x="0.0" y="219" width="320" height="300"/>
+                                <subviews>
+                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOM-Rs-DRZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eXI-GB-UyR">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Xab-Ve-zF2">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="x4U-kK-UwE" id="XOq-jY-Hek"/>
+                                            <outlet property="delegate" destination="x4U-kK-UwE" id="97Z-9E-gPo"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="eXI-GB-UyR" firstAttribute="leading" secondItem="HT7-Bn-X5f" secondAttribute="leading" id="7U1-re-6ya"/>
+                                    <constraint firstItem="XOM-Rs-DRZ" firstAttribute="top" secondItem="HT7-Bn-X5f" secondAttribute="top" id="8E5-oY-VgK"/>
+                                    <constraint firstAttribute="trailing" secondItem="eXI-GB-UyR" secondAttribute="trailing" id="MwE-iD-vvl"/>
+                                    <constraint firstAttribute="bottom" secondItem="XOM-Rs-DRZ" secondAttribute="bottom" id="bJs-gk-rj8"/>
+                                    <constraint firstAttribute="bottom" secondItem="eXI-GB-UyR" secondAttribute="bottom" id="bOy-Kn-ADv"/>
+                                    <constraint firstAttribute="trailing" secondItem="XOM-Rs-DRZ" secondAttribute="trailing" id="dY4-EF-iCx"/>
+                                    <constraint firstItem="XOM-Rs-DRZ" firstAttribute="leading" secondItem="HT7-Bn-X5f" secondAttribute="leading" id="jre-dr-Oo7"/>
+                                    <constraint firstItem="eXI-GB-UyR" firstAttribute="top" secondItem="HT7-Bn-X5f" secondAttribute="top" id="yzD-31-X0Q"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Qtn-Rj-PNi" firstAttribute="trailing" secondItem="tL2-bH-mUq" secondAttribute="trailing" id="0zc-fl-bm3"/>
+                            <constraint firstItem="HT7-Bn-X5f" firstAttribute="trailing" secondItem="tL2-bH-mUq" secondAttribute="trailing" id="2xo-qi-hi6"/>
                             <constraint firstAttribute="bottom" secondItem="Qtn-Rj-PNi" secondAttribute="bottom" id="dKb-Qc-HKj"/>
+                            <constraint firstItem="tL2-bH-mUq" firstAttribute="trailing" secondItem="RUn-yG-ImB" secondAttribute="trailing" constant="10" id="fVb-te-QHp"/>
+                            <constraint firstItem="tL2-bH-mUq" firstAttribute="bottom" secondItem="RUn-yG-ImB" secondAttribute="bottom" constant="10" id="hT8-Q2-YDr"/>
+                            <constraint firstItem="HT7-Bn-X5f" firstAttribute="bottom" secondItem="tL2-bH-mUq" secondAttribute="bottom" id="ndo-GR-Rdf"/>
+                            <constraint firstItem="HT7-Bn-X5f" firstAttribute="leading" secondItem="tL2-bH-mUq" secondAttribute="leading" id="oUF-rm-LSp"/>
                             <constraint firstItem="Qtn-Rj-PNi" firstAttribute="leading" secondItem="tL2-bH-mUq" secondAttribute="leading" id="pcB-9B-dzn"/>
+                            <constraint firstItem="HT7-Bn-X5f" firstAttribute="top" secondItem="tL2-bH-mUq" secondAttribute="top" constant="155" id="rC1-0b-vrt"/>
                             <constraint firstItem="Qtn-Rj-PNi" firstAttribute="top" secondItem="sT9-5G-109" secondAttribute="top" id="uRs-Cd-HhC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tL2-bH-mUq"/>
@@ -945,7 +1013,11 @@
                     <navigationItem key="navigationItem" id="tLy-gA-fVp"/>
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
+                        <outlet property="collectionSearch" destination="eXI-GB-UyR" id="lGI-sw-EEP"/>
                         <outlet property="collectionView" destination="Qtn-Rj-PNi" id="4Ux-ao-nlF"/>
+                        <outlet property="imgDrink" destination="yc1-2s-r1b" id="Ob8-Li-2Nf"/>
+                        <outlet property="subSearchTag" destination="HT7-Bn-X5f" id="pfU-Xx-NDV"/>
+                        <outlet property="viewDrink" destination="RUn-yG-ImB" id="3Kh-A0-l2z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYx-of-QFJ" userLabel="First Responder" sceneMemberID="firstResponder"/>

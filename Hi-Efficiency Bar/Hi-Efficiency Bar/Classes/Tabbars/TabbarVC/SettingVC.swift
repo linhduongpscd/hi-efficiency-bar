@@ -7,14 +7,12 @@
 //
 
 import UIKit
-
 class SettingVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = "Settings"
-        
         // Do any additional setup after loading the view.
     }
 

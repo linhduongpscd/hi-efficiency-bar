@@ -13,10 +13,12 @@ class IngredientSearchObj: NSObject {
     var image: String?
     var name: String?
     var isSeleled: Bool?
+    var type_search: Int?
     init(dict: NSDictionary) {
         self.id = dict["id"] as? Int
         self.image = dict["image"] as? String
         self.name = dict["name"] as? String
+         self.type_search = dict["type_search"] as? Int
         self.isSeleled = false
     }
 }
