@@ -13,7 +13,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var lblNavi: UILabel!
     @IBOutlet weak var heightNavi: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    var refreshControl:UIRefreshControl!
     var arrSlices = [MainBarObj]()
     var offset = 0
     var isLoadMore = false
@@ -21,22 +21,40 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var drinkObj = DrinkObj.init(dict: NSDictionary.init())
     var indexPathCell: IndexPath?
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
+     var websocket = WebSocket.init()
     override func viewDidLoad() {
-          ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
-        //self.navigationItem.title = "Main Bar"
-        
+        ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
-     self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
-          self.collectionView.register(UINib(nibName: "FooterMainBarCollect", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterMainBarCollect")
+        self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
+        self.collectionView.register(UINib(nibName: "FooterMainBarCollect", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterMainBarCollect")
        self.configHideNaviScroll(collectionView)
-        self.getSliceHeader()
-        self.fetchAllDrink()
+       self.getSliceHeader()
+       self.fetchAllDrink()
+        //self.open()
     }
-    
+    func open()
+    {
+        websocket = WebSocket.init("ws://hiefficiencybar.com:80/")
+        websocket.delegate = self
+        websocket.open()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-      
     }
+    
+    func configRefresh()
+    {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        collectionView!.addSubview(refreshControl)
+    }
+    
+    @objc func refresh(sender:AnyObject)
+    {
+        //DO
+    }
+    
     func getSliceHeader()
     {
         ManagerWS.shared.getMainBar { (success, arrs) in
@@ -224,5 +242,38 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     
+   
+}
+extension MainBarVC: WebSocketDelegate
+{
+    func webSocketOpen() {
+        print("OPEN")
+        
+    }
+    
+    func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
+        print("Close \(reason)")
+    }
+    
+    func webSocketMessageData(_ data: Data) {
+        print("DATA  - \(data)")
+        
+    }
+    
+    func webSocketMessageText(_ text: String) {
+        print("TEXT  \(text)")
+    }
+    
+    func webSocketPong() {
+        print("PONG")
+    }
+    
+    func webSocketError(_ error: NSError) {
+        print("ERROR \(error)")
+    }
+    
+    func webSocketEnd(_ code: Int, reason: String, wasClean: Bool, error: NSError?) {
+        print("END")
+    }
 }
 

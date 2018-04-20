@@ -39,6 +39,9 @@
 		275418BE2068FC0F00DEED32 /* TLYShyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B42068FC0F00DEED32 /* TLYShyViewController.m */; };
 		275418BF2068FC0F00DEED32 /* TLYShyScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B52068FC0F00DEED32 /* TLYShyScrollViewController.m */; };
 		277409B7207B69780092C9AC /* GarnishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277409B6207B69780092C9AC /* GarnishCell.swift */; };
+		2775FA59208994A6006CA25F /* OrderUserObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2775FA58208994A6006CA25F /* OrderUserObj.swift */; };
+		2775FA5B20899500006CA25F /* ProductObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2775FA5A20899500006CA25F /* ProductObj.swift */; };
+		2775FA5D2089AB81006CA25F /* TimeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2775FA5C2089AB80006CA25F /* TimeAgo.swift */; };
 		2776C78F20634DA10040F065 /* IngreCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2776C78E20634DA10040F065 /* IngreCollect.xib */; };
 		2776C791206350030040F065 /* CustomDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C790206350030040F065 /* CustomDetailVC.swift */; };
 		2776C7932063595A0040F065 /* CustomDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C7922063595A0040F065 /* CustomDetailCell.swift */; };
@@ -61,6 +64,8 @@
 		27EB26A1207DFAE8009021A2 /* GenreObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB26A0207DFAE8009021A2 /* GenreObj.swift */; };
 		27EB26A4207E0A12009021A2 /* NoDataCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EB26A2207E0A12009021A2 /* NoDataCollect.xib */; };
 		27EB26A5207E0A12009021A2 /* NoDataCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB26A3207E0A12009021A2 /* NoDataCollect.swift */; };
+		27EB52D22089E85C009294BA /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB52D12089E85B009294BA /* WebSocket.swift */; };
+		27EB52D42089E9EA009294BA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 27EB52D32089E9EA009294BA /* libz.tbd */; };
 		27EEF5FA20776AC7007ED912 /* DrinkObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EEF5F920776AC7007ED912 /* DrinkObj.swift */; };
 		27F60F74206B31A4009FDDC0 /* ShowMorePreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F60F72206B31A4009FDDC0 /* ShowMorePreCell.xib */; };
 		27F60F75206B31A4009FDDC0 /* ShowMorePreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F60F73206B31A4009FDDC0 /* ShowMorePreCell.swift */; };
@@ -216,6 +221,9 @@
 		275418B62068FC0F00DEED32 /* TLYShyNavBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBarManager.h; sourceTree = "<group>"; };
 		275418B72068FC0F00DEED32 /* TLYShyNavBarFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBarFade.h; sourceTree = "<group>"; };
 		277409B6207B69780092C9AC /* GarnishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GarnishCell.swift; sourceTree = "<group>"; };
+		2775FA58208994A6006CA25F /* OrderUserObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderUserObj.swift; sourceTree = "<group>"; };
+		2775FA5A20899500006CA25F /* ProductObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductObj.swift; sourceTree = "<group>"; };
+		2775FA5C2089AB80006CA25F /* TimeAgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeAgo.swift; sourceTree = "<group>"; };
 		2776C78E20634DA10040F065 /* IngreCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngreCollect.xib; sourceTree = "<group>"; };
 		2776C790206350030040F065 /* CustomDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailVC.swift; sourceTree = "<group>"; };
 		2776C7922063595A0040F065 /* CustomDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailCell.swift; sourceTree = "<group>"; };
@@ -240,6 +248,8 @@
 		27EB26A0207DFAE8009021A2 /* GenreObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreObj.swift; sourceTree = "<group>"; };
 		27EB26A2207E0A12009021A2 /* NoDataCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataCollect.xib; sourceTree = "<group>"; };
 		27EB26A3207E0A12009021A2 /* NoDataCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataCollect.swift; sourceTree = "<group>"; };
+		27EB52D12089E85B009294BA /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
+		27EB52D32089E9EA009294BA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		27EEF5F920776AC7007ED912 /* DrinkObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkObj.swift; sourceTree = "<group>"; };
 		27F60F72206B31A4009FDDC0 /* ShowMorePreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowMorePreCell.xib; sourceTree = "<group>"; };
 		27F60F73206B31A4009FDDC0 /* ShowMorePreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMorePreCell.swift; sourceTree = "<group>"; };
@@ -367,6 +377,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27EB52D42089E9EA009294BA /* libz.tbd in Frameworks */,
 				21F278813AC65E5FDC7A6F87 /* Pods_Hi_Efficiency_Bar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +446,8 @@
 				27330F0E20805F5E00F5033A /* MyTabObj.swift */,
 				27DA83252085A18D00C44ED6 /* IngredientCusObj.swift */,
 				27FBAF0F2086E57E00ABF0A4 /* IngredientSearchObj.swift */,
+				2775FA58208994A6006CA25F /* OrderUserObj.swift */,
+				2775FA5A20899500006CA25F /* ProductObj.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -572,6 +585,8 @@
 		3B91CB122058C3C90073D54B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				27EB52D12089E85B009294BA /* WebSocket.swift */,
+				2775FA5C2089AB80006CA25F /* TimeAgo.swift */,
 				2724F86A208879EC003305F9 /* ViewAnimator */,
 				27330F0C20805A4800F5033A /* iOSDevCenters+GIF.swift */,
 				272A0CA42074B95E00ECB485 /* Objects */,
@@ -835,6 +850,7 @@
 		E1C9FA3EB1B3D57F947B67E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				27EB52D32089E9EA009294BA /* libz.tbd */,
 				9F666944C69A254AEB833642 /* Pods_Hi_Efficiency_Bar.framework */,
 			);
 			name = Frameworks;
@@ -1032,6 +1048,7 @@
 				3BC20364206322E4005A2D21 /* IngreItemCollect.swift in Sources */,
 				3BDBE404205FA5B200CDA28E /* SearchGenereVC.swift in Sources */,
 				2724F87E208879ED003305F9 /* UITableView + ViewAnimator.swift in Sources */,
+				2775FA5D2089AB81006CA25F /* TimeAgo.swift in Sources */,
 				3BB0ED4C205FFA6E00702239 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				3BFF9C932059157200FFA49C /* CarouselCollectionViewCell.swift in Sources */,
 				27F70D14206E4C2D00077428 /* SearchTagVC.swift in Sources */,
@@ -1095,6 +1112,7 @@
 				275418A02068DFD000DEED32 /* HidingViewController.swift in Sources */,
 				27FD8E3F207C52A600F0AAF2 /* HelpController.swift in Sources */,
 				3BFF9C8E2059004400FFA49C /* SearchVC.swift in Sources */,
+				2775FA59208994A6006CA25F /* OrderUserObj.swift in Sources */,
 				27E9F50A20738EC6004801D6 /* FlashVC.swift in Sources */,
 				27EB269F207DF037009021A2 /* Ingredient.swift in Sources */,
 				3B149D36206F2FC100CBBCCA /* CurrentOrderCollect.swift in Sources */,
@@ -1106,6 +1124,7 @@
 				3BC39B68205C190800D2E60B /* HeaderCustomCell.swift in Sources */,
 				3B038FBF2062B5D00051691E /* IngreCollect.swift in Sources */,
 				27DA83262085A18D00C44ED6 /* IngredientCusObj.swift in Sources */,
+				27EB52D22089E85C009294BA /* WebSocket.swift in Sources */,
 				3BFF9C8C2059003700FFA49C /* MyTabVC.swift in Sources */,
 				3BDBE402205FA15400CDA28E /* ScannerVC.swift in Sources */,
 				275418BC2068FC0F00DEED32 /* TLYDelegateProxy.m in Sources */,
@@ -1147,6 +1166,7 @@
 				3BDBE407205FA7B900CDA28E /* SearchGenereCollect.swift in Sources */,
 				3BD76FDE2061D037009A15FE /* ViewDetailVC.swift in Sources */,
 				27C692CF206A41C50057156C /* MenuSearchCollect.swift in Sources */,
+				2775FA5B20899500006CA25F /* ProductObj.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1295,8 +1315,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.tt.Hi-Efficiency-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "673b5ad1-3abb-43f2-85eb-62e6254825a3";
-				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_Apr09;
+				PROVISIONING_PROFILE = "88009e6c-7621-4c72-986e-fdc3a904cea1";
+				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_Apr20;
 				SWIFT_OBJC_BRIDGING_HEADER = "Hi-Efficiency Bar/Resources/Class/Hi-Efficiency Bar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1319,8 +1339,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.tt.Hi-Efficiency-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "673b5ad1-3abb-43f2-85eb-62e6254825a3";
-				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_Apr09;
+				PROVISIONING_PROFILE = "88009e6c-7621-4c72-986e-fdc3a904cea1";
+				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_Apr20;
 				SWIFT_OBJC_BRIDGING_HEADER = "Hi-Efficiency Bar/Resources/Class/Hi-Efficiency Bar-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

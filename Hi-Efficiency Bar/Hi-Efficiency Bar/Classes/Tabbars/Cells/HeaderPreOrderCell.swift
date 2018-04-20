@@ -14,6 +14,10 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var tblOrder: UITableView!
     @IBOutlet weak var ic_repeat: UIImageView!
     var isMore = false
+    @IBOutlet weak var lblOrder: UILabel!
+    @IBOutlet weak var lblTimeAgo: UILabel!
+    @IBOutlet weak var lblPrice: UILabel!
+    var userOrderObj = OrderUserObj.init(dict: NSDictionary.init())
     override func awakeFromNib() {
          tblOrder.register( UINib(nibName: "PreOrderCell", bundle: nil), forCellReuseIdentifier: "PreOrderCell")
           tblOrder.register( UINib(nibName: "ShowMorePreCell", bundle: nil), forCellReuseIdentifier: "ShowMorePreCell")
@@ -56,101 +60,160 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
         // Configure the view for the selected state
     }
     
+    func configCell(_ cell: PreOrderCell,_ obj: ProductObj)
+    {
+        if obj.image != nil
+        {
+            cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                
+            })
+        }
+        
+        cell.lblName.text = obj.name
+        if obj.price != nil
+        {
+            cell.lblPrice.text = "$\(obj.price!)"
+        }
+        
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !isMore {
-            return 3
+        if userOrderObj.isLoadMore
+        {
+            return userOrderObj.arrProducts.count + 1
         }
-        return 5
+        else{
+            if userOrderObj.arrProducts.count > 2
+            {
+                return 3
+            }
+            else{
+                return userOrderObj.arrProducts.count
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if !isMore {
-            if indexPath.row == 2
+        
+        if userOrderObj.isLoadMore
+        {
+            if userOrderObj.arrProducts.count == indexPath.row
             {
                 return 30
             }
+            return 70
         }
         else{
-            if indexPath.row == 4
+            if userOrderObj.arrProducts.count > 2
             {
-                return 30
-            }
-        }
-        return 70
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if !isMore {
-            if indexPath.row == 2
-            {
-                let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "ShowMorePreCell") as! ShowMorePreCell
-                if isMore
+                if indexPath.row == 2
                 {
-                    cell.imgDownUp.image = #imageLiteral(resourceName: "ic_up")
-                    cell.lblText.text = "Hide 2 more"
+                    return 30
                 }
-                else{
-                    cell.imgDownUp.image = #imageLiteral(resourceName: "ic_down")
-                    cell.lblText.text = "Show 2 more"
-                }
-                return cell
-            }
-            let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "PreOrderCell") as! PreOrderCell
-            if indexPath.row == 1 {
-                cell.subLine.isHidden = true
+                return 70
             }
             else{
-                cell.subLine.isHidden = false
+                return 70
             }
-            return cell
         }
-        else{
-            if indexPath.row == 4
-            {
-                let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "ShowMorePreCell") as! ShowMorePreCell
-                if isMore
-                {
-                    cell.imgDownUp.image = #imageLiteral(resourceName: "ic_up")
-                    cell.lblText.text = "Hide 2 more"
-                }
-                else{
-                    cell.imgDownUp.image = #imageLiteral(resourceName: "ic_down")
-                    cell.lblText.text = "Show 2 more"
-                }
-                return cell
-            }
-            let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "PreOrderCell") as! PreOrderCell
-            if indexPath.row == 1 {
-                cell.subLine.isHidden = true
-            }
-            else{
-                cell.subLine.isHidden = false
-            }
-            return cell
-        }
+        
         
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !isMore {
-            if indexPath.row == 2
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if userOrderObj.isLoadMore
+        {
+            if indexPath.row == userOrderObj.arrProducts.count
             {
-                isMore = true
+                let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "ShowMorePreCell") as! ShowMorePreCell
+                cell.lblText.text = "Hide \(userOrderObj.arrProducts.count - 2) more"
+                return cell
             }
+            else{
+                let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "PreOrderCell") as! PreOrderCell
+                print(userOrderObj.arrProducts.count)
+                print(indexPath.row)
+                self.configCell(cell, userOrderObj.arrProducts[indexPath.row])
+                if indexPath.row == userOrderObj.arrProducts.count - 1 {
+                    cell.subLine.isHidden = true
+                }
+                else{
+                    cell.subLine.isHidden = false
+                }
+                return cell
+            }
+          
         }
         else{
-            if indexPath.row == 4
+            if userOrderObj.arrProducts.count > 2
             {
-                 isMore = false
+                if indexPath.row == 2
+                {
+                    let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "ShowMorePreCell") as! ShowMorePreCell
+                    cell.imgDownUp.image = #imageLiteral(resourceName: "ic_down")
+                    cell.lblText.text = "Show \(userOrderObj.arrProducts.count - 2) more"
+                    return cell
+                }
+                let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "PreOrderCell") as! PreOrderCell
+                self.configCell(cell, userOrderObj.arrProducts[indexPath.row])
+                if indexPath.row == 1 {
+                    cell.subLine.isHidden = true
+                }
+                else{
+                    cell.subLine.isHidden = false
+                }
+                return cell
+            }
+            else{
+                let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "PreOrderCell") as! PreOrderCell
+                self.configCell(cell, userOrderObj.arrProducts[indexPath.row])
+                if indexPath.row == userOrderObj.arrProducts.count - 1 {
+                    cell.subLine.isHidden = true
+                }
+                else{
+                    cell.subLine.isHidden = false
+                }
             }
         }
-        self.tblOrder.reloadData()
-        self.tapShowMoreHeader?()
+         let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "PreOrderCell") as! PreOrderCell
+        self.configCell(cell, userOrderObj.arrProducts[indexPath.row])
+        if indexPath.row == userOrderObj.arrProducts.count - 1 {
+            cell.subLine.isHidden = true
+        }
+        else{
+            cell.subLine.isHidden = false
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if userOrderObj.isLoadMore
+        {
+            if userOrderObj.arrProducts.count == indexPath.row
+            {
+                self.userOrderObj.isLoadMore = false
+                self.tblOrder.reloadData()
+                self.tapShowMoreHeader?()
+            }
+          
+        }
+        else{
+            if userOrderObj.arrProducts.count > 2
+            {
+                if indexPath.row == 2
+                {
+                    self.userOrderObj.isLoadMore = true
+                    self.tblOrder.reloadData()
+                    self.tapShowMoreHeader?()
+                }
+            }
+           
+        }
+      
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 1.0

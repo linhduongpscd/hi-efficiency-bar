@@ -11,7 +11,7 @@ import FBSDKCoreKit
 import Stripe
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
-
+    
     var window: UIWindow?
     var tabbarController: UITabBarController!
     var drinkObj: DrinkObj?
@@ -143,5 +143,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
        
     }
+    
 }
-

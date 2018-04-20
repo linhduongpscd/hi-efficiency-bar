@@ -23,6 +23,7 @@ class SignUpVC: BaseViewController {
     var imagePicker: UIImagePickerController!
     var imageAvatar = UIImage.init()
     @IBOutlet weak var btnSignUp: TransitionButton!
+    @IBOutlet weak var txfLastName: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         btnSignUp.spinnerColor = .white
@@ -107,6 +108,7 @@ class SignUpVC: BaseViewController {
     @IBAction func actionSignUp(_ sender: TransitionButton) {
       
         let name = CommonHellper.trimSpaceString(txtString: txfName.text!)
+        let lastName = CommonHellper.trimSpaceString(txtString: txfLastName.text!)
         let email = CommonHellper.trimSpaceString(txtString: txfEmail.text!)
         let password = txfPassword.text!
         let confirmpassword = txfConfimPassword.text!
@@ -114,6 +116,11 @@ class SignUpVC: BaseViewController {
         if name.isEmpty
         {
             self.showAlertMessage(message: ERROR_NAME)
+            return
+        }
+        if lastName.isEmpty
+        {
+            self.showAlertMessage(message: ERROR_LASTNAME)
             return
         }
         if email.isEmpty
@@ -157,7 +164,7 @@ class SignUpVC: BaseViewController {
             self.showAlertMessage(message: ERROR_ACCEPT)
             return
         }
-        let para = ["first_name":name,"last_name":name, "email":email,"password":password,"birthday":date]
+        let para = ["first_name":name,"last_name":lastName, "email":email,"password":password,"birthday":date]
         self.addLoadingView()
         btnSignUp.startAnimation() // 2: Then start the animation when the user tap the button
         

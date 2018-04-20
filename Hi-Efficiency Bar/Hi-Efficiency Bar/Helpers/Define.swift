@@ -36,7 +36,8 @@ struct SERVER_CODE {
 let COLOR_SELECTED   = UIColor.init(red: 72/255.0, green:  181/255.0, blue:  251/255.0, alpha: 1)
 let COLOR_NORMAL   = UIColor.init(red: 89/255.0, green:  109/255.0, blue:  119/255.0, alpha: 1)
 
-let ERROR_NAME  = "Name is required"
+let ERROR_NAME  = "First Name is required"
+let ERROR_LASTNAME  = "Last Name is required"
 let ERROR_EMAIL  = "Email is required"
 let ERROR_EMAIL_INVALID  = "Email is invalid"
 let ERROR_PASSWORD  = "Password is required"

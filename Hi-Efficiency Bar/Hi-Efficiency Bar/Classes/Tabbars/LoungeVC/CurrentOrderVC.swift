@@ -12,15 +12,17 @@ class CurrentOrderVC: UIViewController  {
 
     @IBOutlet weak var tblCurrent: UITableView!
     var currentPage = 0
+     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblCurrent.register(UINib(nibName: "CurrentOrderCell", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
          self.tblCurrent.register(UINib(nibName: "FooterCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "FooterCurrentOrderCell")
         self.tblCurrent.register(UINib(nibName: "HeaderCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderCurrentOrderCell")
-        
+    
         self.initpalalax()
         // Do any additional setup after loading the view.
     }
+   
     func initpalalax()
     {
         let headerView = Bundle.main.loadNibNamed("HeaderCustomOrder", owner: self, options: nil)?[0] as! HeaderCustom
@@ -42,6 +44,8 @@ class CurrentOrderVC: UIViewController  {
     }
     
     @IBAction func doBack(_ sender: Any) {
+        // websocket.send(text: "{\"payload\": {\"action\": \"subscribe\", \"response_status\": 200, \"errors\": [], \"data\": {\"action\": \"update\"}, \"request_id\": null}, \"stream\": \"orders\"}")
+        
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -54,6 +58,7 @@ class CurrentOrderVC: UIViewController  {
     }
   
 }
+
 
 extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
 {

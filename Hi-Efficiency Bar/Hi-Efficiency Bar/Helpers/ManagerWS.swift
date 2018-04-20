@@ -1211,4 +1211,50 @@ struct ManagerWS {
                 }
         }
     }
+    
+    // GET LIST USER ODER
+    func fetchListUserOrder(offset: Int,complete:@escaping (_ success: Bool?, _ arrs: [OrderUserObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        print("\(URL_SERVER)api/user/order/?offset=\(offset)&limit=\(kLimitPage)")
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/order/?offset=\(offset)&limit=\(kLimitPage)")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [OrderUserObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let arrs = val.object(forKey: "results") as? NSArray
+                            {
+                                if code == SERVER_CODE.CODE_200
+                                {
+                                    for item in arrs
+                                    {
+                                        let dictItem = item as! NSDictionary
+                                        arrDatas.append(OrderUserObj.init(dict: dictItem))
+                                    }
+                                    complete(true, arrDatas)
+                                }
+                                else{
+                                    complete(true, arrDatas)
+                                }
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(true, arrDatas)
+                    break
+                }
+        }
+    }
 }

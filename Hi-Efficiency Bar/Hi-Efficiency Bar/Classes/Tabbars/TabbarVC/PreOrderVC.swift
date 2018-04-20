@@ -11,8 +11,8 @@ import UIKit
 class PreOrderVC: BaseViewController {
 
     @IBOutlet weak var tblOrder: UITableView!
-    var tableViewCells = NSMutableArray()
-
+    var offset = 0
+    var arrOrders = [OrderUserObj]()
     override func viewDidLoad() {
         super.viewDidLoad()
         tblOrder.register( UINib(nibName: "HeaderPreOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderPreOrderCell")
@@ -21,9 +21,20 @@ class PreOrderVC: BaseViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
         self.configHideNaviTable(tblOrder)
+        self.fectAllOrder()
         // Do any additional setup after loading the view.
     }
 
+    
+    func fectAllOrder()
+    {
+        CommonHellper.showBusy()
+        ManagerWS.shared.fetchListUserOrder(offset: offset) { (success, arrs) in
+            self.arrOrders = arrs!
+            self.tblOrder.reloadData()
+            CommonHellper.hideBusy()
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -53,31 +64,42 @@ extension PreOrderVC: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        
+        return arrOrders.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let cell  = tableViewCells.object(at: indexPath.row) as? HeaderPreOrderCell
+        let userOrderObj = arrOrders[indexPath.row]
+        if userOrderObj.isLoadMore
         {
-            if cell.isMore
+            return 175 + CGFloat(userOrderObj.arrProducts.count * 70)
+        }
+        else{
+            if userOrderObj.arrProducts.count > 2
             {
-                return 455
-            }
-            else{
                 return 315
             }
+            else{
+                return 140 + CGFloat(userOrderObj.arrProducts.count * 70)
+            }
         }
-        return 315
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "HeaderPreOrderCell") as! HeaderPreOrderCell
+        cell.userOrderObj = arrOrders[indexPath.row]
+        cell.lblOrder.text = "Order #\(cell.userOrderObj.id!)"
+        cell.lblPrice.text = "$\(cell.userOrderObj.amount!)"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        guard let date = dateFormatter.date(from: cell.userOrderObj.creation_date!) else {
+            fatalError("ERROR: Date conversion failed due to mismatched format.")
+        }
+        cell.lblTimeAgo.text = timeAgoSince(date)
         cell.tapShowMoreHeader = { [] in
             tableView.reloadData()
         }
-        if !tableViewCells.contains(cell) {
-            tableViewCells.add(cell)
-        }
+    
         cell.tapShowCurrentOrder = { [] in
             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CurrentOrderVC") as! CurrentOrderVC
             self.navigationController?.pushViewController(vc, animated: true)

@@ -12,6 +12,9 @@ class PreOrderCell: UITableViewCell {
 
     @IBOutlet weak var btnRepeat: UIButton!
     @IBOutlet weak var subLine: UIView!
+    @IBOutlet weak var imgCell: UIImageView!
+    @IBOutlet weak var lblPrice: UILabel!
+    @IBOutlet weak var lblName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
