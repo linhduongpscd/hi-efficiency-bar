@@ -54,13 +54,16 @@
                         <rect key="frame" x="44" y="5" width="285" height="44.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 part" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fam-qX-Yke">
-                                <rect key="frame" x="17" y="13" width="42" height="19"/>
+                                <rect key="frame" x="17" y="14.5" width="42" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="AEe-fC-vdJ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sugar syrup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYo-w9-ryW">
-                                <rect key="frame" x="64" y="12.5" width="84.5" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="sugar syrup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYo-w9-ryW">
+                                <rect key="frame" x="64" y="14" width="211" height="16"/>
                                 <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="16"/>
                                 <color key="textColor" red="0.64931827783584595" green="0.64608579874038696" blue="0.51477974653244019" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -69,6 +72,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fam-qX-Yke" firstAttribute="leading" secondItem="6is-9A-mk2" secondAttribute="leading" constant="17" id="XjN-BL-5yz"/>
+                            <constraint firstAttribute="trailing" secondItem="JYo-w9-ryW" secondAttribute="trailing" constant="10" id="bXT-iW-lRi"/>
                             <constraint firstItem="JYo-w9-ryW" firstAttribute="leading" secondItem="fam-qX-Yke" secondAttribute="trailing" constant="5" id="exZ-LR-1G8"/>
                             <constraint firstItem="JYo-w9-ryW" firstAttribute="centerY" secondItem="6is-9A-mk2" secondAttribute="centerY" id="q5P-hh-xLZ"/>
                             <constraint firstItem="fam-qX-Yke" firstAttribute="centerY" secondItem="6is-9A-mk2" secondAttribute="centerY" id="xGd-UN-5ui"/>
@@ -112,6 +116,8 @@
             <connections>
                 <outlet property="bgTranfer" destination="N9J-8Q-0A8" id="ksc-Kz-Q9Q"/>
                 <outlet property="doTimeLine" destination="1NC-0r-eZy" id="IhA-Nw-gfC"/>
+                <outlet property="lblName" destination="JYo-w9-ryW" id="WNc-3v-DoW"/>
+                <outlet property="lblPart" destination="fam-qX-Yke" id="Ieo-Zn-cO5"/>
                 <outlet property="spaceButtom" destination="Uq4-Hb-QCB" id="ayx-lB-ddQ"/>
                 <outlet property="spaceTop" destination="62y-Ju-arO" id="5rh-qm-x18"/>
                 <outlet property="subContent" destination="6is-9A-mk2" id="pbS-H1-fv7"/>

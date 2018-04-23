@@ -9,12 +9,13 @@
 import UIKit
 
 class PreOrderCell: UITableViewCell {
-
+    var tapPreOrderProduct:(() ->())?
     @IBOutlet weak var btnRepeat: UIButton!
     @IBOutlet weak var subLine: UIView!
     @IBOutlet weak var imgCell: UIImageView!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var lblName: UILabel!
+    var productObj = ProductObj.init(dict: NSDictionary.init())
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -43,6 +44,10 @@ class PreOrderCell: UITableViewCell {
             rotationAnimation.repeatCount = 1
             
             CATransaction.setCompletionBlock {
+                ManagerWS.shared.reorderTab(order_id: self.productObj.id!, complete: { (success, error) in
+                     self.tapPreOrderProduct?()
+                })
+               
             }
             self.btnRepeat.layer.add(rotationAnimation, forKey: nil)
             CATransaction.commit()

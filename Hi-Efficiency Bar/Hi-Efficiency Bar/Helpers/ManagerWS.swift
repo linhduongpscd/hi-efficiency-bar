@@ -1257,4 +1257,96 @@ struct ManagerWS {
                 }
         }
     }
+    // REODER Anh gọi api POST
+    
+    func reorder(order_id: Int,complete:@escaping (_ success: Bool?, _ error: String?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        let param = ["order_id":order_id]
+        print(param)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/order/")!, method: .post, parameters: param,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                if let code = response.response?.statusCode
+                {
+                    if code == SERVER_CODE.CODE_200
+                    {
+                        complete(true, nil)
+                    }
+                    else{
+                        complete(false,"\(response.result as? NSDictionary)")
+                    }
+                }
+        }
+    }
+    
+    func reorderTab(order_id: Int,complete:@escaping (_ success: Bool?, _ error: String?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        let param = ["tab_id":order_id]
+        print(param)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/order/")!, method: .post, parameters: param,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                if let code = response.response?.statusCode
+                {
+                    if code == SERVER_CODE.CODE_200
+                    {
+                        complete(true, nil)
+                    }
+                    else{
+                        complete(false,"\(response.result as? NSDictionary)")
+                    }
+                }
+        }
+    }
+    
+    func fetchListCurrentOrder(complete:@escaping (_ success: Bool?, _ arrs: [OrderUserObj]?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/order/?current=true")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                var arrDatas = [OrderUserObj]()
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let arrs = val.object(forKey: "results") as? NSArray
+                            {
+                                if code == SERVER_CODE.CODE_200
+                                {
+                                    for item in arrs
+                                    {
+                                        let dictItem = item as! NSDictionary
+                                        arrDatas.append(OrderUserObj.init(dict: dictItem))
+                                    }
+                                    complete(true, arrDatas)
+                                }
+                                else{
+                                    complete(true, arrDatas)
+                                }
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(true, arrDatas)
+                    break
+                }
+        }
+    }
+    
 }

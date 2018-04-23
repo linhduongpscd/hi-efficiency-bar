@@ -10,6 +10,7 @@ import UIKit
 
 class HeaderCurrentOrderCell: UITableViewCell {
 
+    @IBOutlet weak var lblName: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

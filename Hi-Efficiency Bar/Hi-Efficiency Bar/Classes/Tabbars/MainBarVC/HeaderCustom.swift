@@ -11,6 +11,7 @@ import UIKit
 class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var tapClick:(() ->())?
     var arrSlices = [MainBarObj]()
+    var arrProducts = [ProductObj]()
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -29,24 +30,25 @@ class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
         
         self.setupLayout()
-        self.items = self.createItems()
-        
         self.currentPage = 0
     }
     var isListOrder = Bool()
     var tapHeaderMainBar: (() ->())?
     @IBOutlet weak var collectionView: UICollectionView!
-    fileprivate var items = [Character]()
     @IBOutlet weak var lblName: UILabel!
     fileprivate var currentPage: Int = 0 {
         didSet {
             if isListOrder
             {
-                let character = self.items[self.currentPage]
-                lblName.text = character.name
-                currentDot = currentPage
-                print("ZO DAY")
-                self.tapClick?()
+                if arrProducts.count > 0
+                {
+                    let character = self.arrProducts[self.currentPage]
+                    lblName.text = character.name
+                    currentDot = currentPage
+                    print("ZO DAY")
+                    self.tapClick?()
+                }
+               
             }
             else{
                 if arrSlices.count > 0
@@ -78,22 +80,10 @@ class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         layout.spacingMode = UPCarouselFlowLayoutSpacingMode.overlap(visibleOffset: 60)
     }
     
-    fileprivate func createItems() -> [Character] {
-        let characters = [
-            Character(imageName: "cocktail", name: "Wall-E", movie: "Wall-E"),
-            Character(imageName: "cocktail", name: "Nemo", movie: "Finding Nemo"),
-            Character(imageName: "cocktail", name: "Remy", movie: "Ratatouille"),
-            Character(imageName: "cocktail", name: "Buzz Lightyear", movie: "Toy Story"),
-            Character(imageName: "cocktail", name: "Mike & Sullivan", movie: "Monsters Inc."),
-            Character(imageName: "cocktail", name: "Merida", movie: "Brave")
-        ]
-        return characters
-    }
+ 
     func initRegisterCollect()
     {
         self.setupLayout()
-        self.items = self.createItems()
-        
         self.currentPage = 0
     }
     
@@ -103,7 +93,7 @@ class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          if isListOrder {
-            return items.count
+            return arrProducts.count
         }
          else{
             return arrSlices.count
@@ -114,6 +104,16 @@ class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if isListOrder {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainBarViewCell", for: indexPath) as! MainBarViewCell
+            cell.lblLevel.isHidden = true
+            cell.iconLevel.isHidden = true
+            cell.btnFav.isHidden = true
+            let obj = arrProducts[indexPath.row]
+            if obj.image != nil
+            {
+                cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                    
+                })
+            }
             return cell
         }
         else{
@@ -145,6 +145,6 @@ class HeaderCustom: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             return CGSize(width: 200, height: 210)
         }
         
-        return CGSize(width: 155, height:  195 + (UIScreen.main.bounds.size.width - 320) - 50)
+        return CGSize(width: UIScreen.main.bounds.size.width - 180, height:  195 + (UIScreen.main.bounds.size.width - 320) - 50)
     }
 }

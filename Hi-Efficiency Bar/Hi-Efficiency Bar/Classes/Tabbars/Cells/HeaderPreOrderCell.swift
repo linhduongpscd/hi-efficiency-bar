@@ -11,6 +11,7 @@ import UIKit
 class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDelegate {
     var tapShowMoreHeader:(() ->())?
     var tapShowCurrentOrder:(() ->())?
+    var tapReorderProduct:(() ->())?
     @IBOutlet weak var tblOrder: UITableView!
     @IBOutlet weak var ic_repeat: UIImageView!
     var isMore = false
@@ -74,7 +75,7 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
         {
             cell.lblPrice.text = "$\(obj.price!)"
         }
-        
+        cell.productObj = obj
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -144,6 +145,9 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
                 else{
                     cell.subLine.isHidden = false
                 }
+                cell.tapPreOrderProduct = { [] in
+                    self.tapReorderProduct?()
+                }
                 return cell
             }
           
@@ -166,6 +170,9 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
                 else{
                     cell.subLine.isHidden = false
                 }
+                cell.tapPreOrderProduct = { [] in
+                    self.tapReorderProduct?()
+                }
                 return cell
             }
             else{
@@ -177,17 +184,12 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
                 else{
                     cell.subLine.isHidden = false
                 }
+                cell.tapPreOrderProduct = { [] in
+                    self.tapReorderProduct?()
+                }
+                return cell
             }
         }
-         let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "PreOrderCell") as! PreOrderCell
-        self.configCell(cell, userOrderObj.arrProducts[indexPath.row])
-        if indexPath.row == userOrderObj.arrProducts.count - 1 {
-            cell.subLine.isHidden = true
-        }
-        else{
-            cell.subLine.isHidden = false
-        }
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -12,23 +12,55 @@ class CurrentOrderVC: UIViewController  {
 
     @IBOutlet weak var tblCurrent: UITableView!
     var currentPage = 0
-     
+    var isLoadWS = false
+      var websocket = WebSocket.init()
+    var userOrderObj = OrderUserObj.init(dict: NSDictionary.init())
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblCurrent.register(UINib(nibName: "CurrentOrderCell", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
          self.tblCurrent.register(UINib(nibName: "FooterCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "FooterCurrentOrderCell")
         self.tblCurrent.register(UINib(nibName: "HeaderCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderCurrentOrderCell")
-    
+        //self.open()
         self.initpalalax()
+        self.fetchCurrentOrder()
         // Do any additional setup after loading the view.
     }
-   
+    
+    func fetchCurrentOrder()
+    {
+        ManagerWS.shared.fetchListCurrentOrder { (success, arrs) in
+           
+            if arrs?.count == 0
+            {
+                print("NOT FOUND")
+            }
+            else{
+                self.isLoadWS = true
+                self.userOrderObj = arrs![0]
+            }
+            self.initpalalax()
+            self.tblCurrent.reloadData()
+        }
+    }
+    func open()
+    {
+        websocket = WebSocket.init("ws://hiefficiencybar.com:80/")
+        websocket.delegate = self
+        websocket.open()
+    }
     func initpalalax()
     {
         let headerView = Bundle.main.loadNibNamed("HeaderCustomOrder", owner: self, options: nil)?[0] as! HeaderCustom
         headerView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 195 + (UIScreen.main.bounds.size.width - 320))
         headerView.isListOrder = true
         headerView.registerCell()
+        headerView.arrProducts = self.userOrderObj.arrProducts
+        headerView.collectionView.reloadData()
+        if self.userOrderObj.arrProducts.count > 0
+        {
+            let obj = self.userOrderObj.arrProducts[0]
+            headerView.lblName.text = obj.name
+        }
         headerView.tapClick = { [] in
             self.currentPage = headerView.currentDot
             self.tblCurrent.reloadData()
@@ -59,7 +91,38 @@ class CurrentOrderVC: UIViewController  {
   
 }
 
-
+extension CurrentOrderVC: WebSocketDelegate
+{
+    func webSocketOpen() {
+        print("OPEN")
+        
+    }
+    
+    func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
+        print("Close \(reason)")
+    }
+    
+    func webSocketMessageData(_ data: Data) {
+        print("DATA  - \(data)")
+        
+    }
+    
+    func webSocketMessageText(_ text: String) {
+        print("TEXT  \(text)")
+    }
+    
+    func webSocketPong() {
+        print("PONG")
+    }
+    
+    func webSocketError(_ error: NSError) {
+        print("ERROR \(error)")
+    }
+    
+    func webSocketEnd(_ code: Int, reason: String, wasClean: Bool, error: NSError?) {
+        print("END")
+    }
+}
 extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
 {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -67,10 +130,13 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.currentPage % 2 == 0 {
-            return 3
+      
+        if !isLoadWS
+        {
+            return 0
         }
-        return 5
+       let obj = userOrderObj.arrProducts[currentPage]
+        return obj.arringredients.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -79,6 +145,11 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "CurrentOrderCell") as! CurrentOrderCell
+        let obj = userOrderObj.arrProducts[currentPage]
+        print(obj.arringredients.count)
+        let item = obj.arringredients[indexPath.row]
+        cell.lblName.text = item.name
+        cell.lblPart.text = "\(item.ratio!) \(item.unit!)"
         if indexPath.row == 0 {
             cell.bgTranfer.isHidden = false
             cell.spaceTop.isHidden = true
@@ -86,47 +157,6 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
         else{
             cell.bgTranfer.isHidden = true
             cell.spaceTop.isHidden = false
-        }
-          if self.currentPage % 2 != 0 {
-             if indexPath.row == 3 {
-                cell.subContent.backgroundColor = UIColor.white
-                cell.spaceButtom.backgroundColor = UIColor.lightGray
-                cell.doTimeLine.backgroundColor = UIColor.lightGray
-                   cell.spaceTop.backgroundColor = UIColor.lightGray
-            }
-            else if indexPath.row == 4 {
-                cell.subContent.backgroundColor =  UIColor.init(red: 241/255.0, green: 240/255.0, blue: 144/255.0, alpha: 1.0)
-                cell.spaceButtom.backgroundColor = UIColor.lightGray
-                cell.doTimeLine.backgroundColor = UIColor.lightGray
-                   cell.spaceTop.backgroundColor = UIColor.lightGray
-            }
-            else{
-                cell.subContent.backgroundColor = UIColor.white
-                cell.spaceButtom.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
-                cell.doTimeLine.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
-                 cell.spaceTop.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
-            }
-        }
-        else{
-            if indexPath.row == 1
-            {
-                cell.subContent.backgroundColor = UIColor.white
-                cell.spaceButtom.backgroundColor = UIColor.lightGray
-                cell.doTimeLine.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
-                   cell.spaceTop.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
-            }
-            else if indexPath.row == 2 {
-                cell.subContent.backgroundColor =  UIColor.init(red: 241/255.0, green: 240/255.0, blue: 144/255.0, alpha: 1.0)
-                cell.spaceButtom.backgroundColor = UIColor.lightGray
-                cell.doTimeLine.backgroundColor = UIColor.lightGray
-                   cell.spaceTop.backgroundColor = UIColor.lightGray
-            }
-            else{
-                cell.subContent.backgroundColor = UIColor.white
-                cell.spaceButtom.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
-                cell.doTimeLine.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
-                   cell.spaceTop.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
-            }
         }
        
         return cell
@@ -147,6 +177,16 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "HeaderCurrentOrderCell") as! HeaderCurrentOrderCell
+        if userOrderObj.user != nil
+        {
+            if let first_name = userOrderObj.user!["first_name"] as? String
+            {
+                if let last_name = userOrderObj.user!["last_name"] as? String
+                {
+                    cell.lblName.text = "By: \(first_name) \(last_name)"
+                }
+            }
+        }
         return cell.contentView
     }
 }

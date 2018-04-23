@@ -48,8 +48,8 @@
                         <outlet property="delegate" destination="iN0-l3-epB" id="cy2-Lu-bUa"/>
                     </connections>
                 </collectionView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rym-aR-pec">
-                    <rect key="frame" x="141" y="21" width="38" height="15"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rym-aR-pec">
+                    <rect key="frame" x="160" y="36" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>

@@ -26,6 +26,24 @@ class SettingVC: UITableViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    func showLogout()
+    {
+        let alert = UIAlertController(title: APP_NAME,
+                                      message: "Do you want to logout?",
+                                      preferredStyle: UIAlertControllerStyle.actionSheet)
+        let logout = UIAlertAction.init(title: "Logout", style: .destructive) { (action) in
+            UserDefaults.standard.removeObject(forKey: kToken)
+            UserDefaults.standard.synchronize()
+            APP_DELEGATE.initLogin()
+        }
+        alert.addAction(logout)
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel, handler: nil)
+        
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -38,5 +56,9 @@ class SettingVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.row == 9
+        {
+            self.showLogout()
+        }
     }
 }

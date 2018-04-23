@@ -101,8 +101,22 @@ extension PreOrderVC: UITableViewDataSource, UITableViewDelegate
         }
     
         cell.tapShowCurrentOrder = { [] in
-            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CurrentOrderVC") as! CurrentOrderVC
-            self.navigationController?.pushViewController(vc, animated: true)
+            //let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CurrentOrderVC") as! CurrentOrderVC
+            //self.navigationController?.pushViewController(vc, animated: true)
+            CommonHellper.showBusy()
+            ManagerWS.shared.reorder(order_id: cell.userOrderObj.id!, complete: { (success, error) in
+                CommonHellper.hideBusy()
+                if success!
+                {
+                    self.tabBarController?.selectedIndex = 3
+                }
+                else{
+                    self.showAlertMessage(message: error!)
+                }
+            })
+        }
+        cell.tapReorderProduct = {[] in
+            self.tabBarController?.selectedIndex = 3
         }
         return cell
     }

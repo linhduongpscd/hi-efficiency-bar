@@ -21,7 +21,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var drinkObj = DrinkObj.init(dict: NSDictionary.init())
     var indexPathCell: IndexPath?
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
-     var websocket = WebSocket.init()
+    
     override func viewDidLoad() {
         ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
@@ -32,12 +32,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
        self.fetchAllDrink()
         //self.open()
     }
-    func open()
-    {
-        websocket = WebSocket.init("ws://hiefficiencybar.com:80/")
-        websocket.delegate = self
-        websocket.open()
-    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -244,36 +239,5 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     
    
 }
-extension MainBarVC: WebSocketDelegate
-{
-    func webSocketOpen() {
-        print("OPEN")
-        
-    }
-    
-    func webSocketClose(_ code: Int, reason: String, wasClean: Bool) {
-        print("Close \(reason)")
-    }
-    
-    func webSocketMessageData(_ data: Data) {
-        print("DATA  - \(data)")
-        
-    }
-    
-    func webSocketMessageText(_ text: String) {
-        print("TEXT  \(text)")
-    }
-    
-    func webSocketPong() {
-        print("PONG")
-    }
-    
-    func webSocketError(_ error: NSError) {
-        print("ERROR \(error)")
-    }
-    
-    func webSocketEnd(_ code: Int, reason: String, wasClean: Bool, error: NSError?) {
-        print("END")
-    }
-}
+
 

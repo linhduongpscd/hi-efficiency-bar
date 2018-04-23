@@ -86,6 +86,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         window?.rootViewController = navTab1
         window?.makeKeyAndVisible()
     }
+    func initLogin()
+    {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let tab1 = storyboard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+        let navTab1 = BaseNaviController(rootViewController: tab1)
+        navTab1.isNavigationBarHidden = true
+        window?.rootViewController = navTab1
+        window?.makeKeyAndVisible()
+    }
     func initTabbarHome()
     {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)

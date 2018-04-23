@@ -14,6 +14,7 @@ class OrderUserObj: NSObject {
     var amount: Double?
     var arrProducts = [ProductObj]()
     var isLoadMore: Bool
+    var user: NSDictionary?
     init(dict: NSDictionary) {
         self.id = dict["id"] as? Int
         self.creation_date = dict["creation_date"] as? String
@@ -25,6 +26,10 @@ class OrderUserObj: NSObject {
                 let val = item as! NSDictionary
                 self.arrProducts.append(ProductObj.init(dict: val["drink"] as! NSDictionary))
             }
+        }
+        if let user = dict["user"] as? NSDictionary
+        {
+            self.user = user
         }
         isLoadMore = false
     }

@@ -13,10 +13,19 @@ class ProductObj: NSObject {
     var name: String?
     var image: String?
     var price: Double?
+    var arringredients = [IngredientCusObj]()
     init(dict: NSDictionary) {
         self.id = dict["id"] as? Int
         self.name = dict["name"] as? String
         self.image = dict["image"] as? String
         self.price = dict["price"] as? Double
+        if let ingredients = dict["ingredients"] as? NSArray
+        {
+            for recod in ingredients
+            {
+                arringredients.append(IngredientCusObj.init(dict: recod as! NSDictionary))
+            }
+            
+        }
     }
 }
