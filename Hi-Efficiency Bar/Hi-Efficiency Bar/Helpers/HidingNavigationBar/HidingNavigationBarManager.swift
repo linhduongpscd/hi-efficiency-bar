@@ -125,9 +125,13 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	
 	deinit {
 		NotificationCenter.default.removeObserver(self)
-		if let panGesture = panGesture {
-			scrollView.removeGestureRecognizer(panGesture)
-		}
+        if panGesture != nil{
+            //if let panGesture = panGesture {
+                
+               // scrollView.removeGestureRecognizer(panGesture)
+            //}
+        }
+		
 	}
 	
 	//MARK: Public methods

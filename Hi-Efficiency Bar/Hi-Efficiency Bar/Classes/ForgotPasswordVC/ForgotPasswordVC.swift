@@ -61,11 +61,10 @@ class ForgotPasswordVC: BaseViewController {
                 if success!
                 {
                     self.removeLoadingView()
-                    self.btnReset.setTitle("", for: .normal)
-                    self.btnReset.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                   
                     self.btnReset.stopAnimation(animationStyle: .shake, completion: {
-                        
-                        
+                        self.btnReset.setTitle("RESET MY PASSWORD", for: .normal)
+                        self.btnReset.setImage(UIImage.init(), for: .normal)
                     })
                     self.perform(#selector(self.successforgot), with: nil, afterDelay: 0.5)
                 }
@@ -82,14 +81,18 @@ class ForgotPasswordVC: BaseViewController {
     
     @objc func successforgot()
     {
-        let alert = UIAlertController(title: APP_NAME,
-                                      message: "The password has been reset please check your email.",
-                                      preferredStyle: UIAlertControllerStyle.alert)
-        let cancelAction = UIAlertAction.init(title: "OK", style: .cancel) { (success) in
-            self.navigationController?.popViewController(animated: true)
-        }
-        
-        alert.addAction(cancelAction)
-        self.present(alert, animated: true, completion: nil)
+        let email = CommonHellper.trimSpaceString(txtString: txfEmail.text!)
+        let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ActiveCodeVC") as! ActiveCodeVC
+        vc.email = email
+        self.navigationController?.pushViewController(vc, animated: true)
+//        let alert = UIAlertController(title: APP_NAME,
+//                                      message: "The password has been reset please check your email.",
+//                                      preferredStyle: UIAlertControllerStyle.alert)
+//        let cancelAction = UIAlertAction.init(title: "OK", style: .cancel) { (success) in
+//            self.navigationController?.popViewController(animated: true)
+//        }
+//        
+//        alert.addAction(cancelAction)
+//        self.present(alert, animated: true, completion: nil)
     }
 }

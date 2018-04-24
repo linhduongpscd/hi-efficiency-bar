@@ -20,12 +20,12 @@ class CurrentOrderVC: UIViewController  {
         self.tblCurrent.register(UINib(nibName: "CurrentOrderCell", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
          self.tblCurrent.register(UINib(nibName: "FooterCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "FooterCurrentOrderCell")
         self.tblCurrent.register(UINib(nibName: "HeaderCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderCurrentOrderCell")
-        //self.open()
         self.initpalalax()
         self.fetchCurrentOrder()
         // Do any additional setup after loading the view.
     }
     
+   
     func fetchCurrentOrder()
     {
         ManagerWS.shared.fetchListCurrentOrder { (success, arrs) in
@@ -37,6 +37,7 @@ class CurrentOrderVC: UIViewController  {
             else{
                 self.isLoadWS = true
                 self.userOrderObj = arrs![0]
+                self.open()
             }
             self.initpalalax()
             self.tblCurrent.reloadData()
@@ -74,9 +75,11 @@ class CurrentOrderVC: UIViewController  {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        websocket.close()
+    }
     @IBAction func doBack(_ sender: Any) {
-        // websocket.send(text: "{\"payload\": {\"action\": \"subscribe\", \"response_status\": 200, \"errors\": [], \"data\": {\"action\": \"update\"}, \"request_id\": null}, \"stream\": \"orders\"}")
         
         self.navigationController?.popViewController(animated: true)
     }
@@ -87,14 +90,52 @@ class CurrentOrderVC: UIViewController  {
         self.navigationController?.view.backgroundColor = .white
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
+        if userOrderObj.id != nil{
+            self.open()
+        }
     }
   
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
+    
+    func resetObjToProduct(value: String)
+    {
+        let result = self.convertToDictionary(text: value)
+        if let payload = result!["payload"] as? NSDictionary
+        {
+            if let data = payload["data"] as? NSDictionary
+            {
+                print(data)
+                if let id = data["id"] as? Int{
+                    print(id)
+                    let userOrderObj = OrderUserObj.init(dict: data)
+                    self.userOrderObj.arrProducts = userOrderObj.arrProducts
+                     self.tblCurrent.reloadData()
+                }
+               
+               
+            }
+        }
+    }
+   
 }
 
 extension CurrentOrderVC: WebSocketDelegate
 {
     func webSocketOpen() {
         print("OPEN")
+        //print("{\"stream\":\"orders\",\"payload\":{\"action\":\"subscribe\",\"pk\":\"\(userOrderObj.id!)\",\"data\":{\"action\":\"update\"}}}")
+        websocket.send("{\"stream\":\"orders\",\"payload\":{\"action\":\"subscribe\",\"pk\":\"\(userOrderObj.id!)\",\"data\":{\"action\":\"update\"}}}")
         
     }
     
@@ -109,7 +150,9 @@ extension CurrentOrderVC: WebSocketDelegate
     
     func webSocketMessageText(_ text: String) {
         print("TEXT  \(text)")
+        self.resetObjToProduct(value: text)
     }
+    
     
     func webSocketPong() {
         print("PONG")
@@ -132,6 +175,10 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       
         if !isLoadWS
+        {
+            return 0
+        }
+        if userOrderObj.arrProducts.count == 0
         {
             return 0
         }
@@ -158,11 +205,64 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
             cell.bgTranfer.isHidden = true
             cell.spaceTop.isHidden = false
         }
-       
+        
+        if obj.status! < 31
+        {
+            cell.subContent.backgroundColor = UIColor.white
+            cell.spaceButtom.backgroundColor = UIColor.lightGray
+            cell.doTimeLine.backgroundColor = UIColor.lightGray
+            cell.spaceTop.backgroundColor = UIColor.lightGray
+
+        }
+        else if obj.status! == 31 ||  obj.status! == 32
+        {
+           if indexPath.row == obj.arringredients.count - 1
+           {
+            cell.subContent.backgroundColor = UIColor.white
+            cell.spaceButtom.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+            cell.doTimeLine.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+            cell.spaceTop.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+
+           }
+           else{
+            cell.subContent.backgroundColor = UIColor.white
+            cell.spaceButtom.backgroundColor = UIColor.lightGray
+            cell.doTimeLine.backgroundColor = UIColor.lightGray
+            cell.spaceTop.backgroundColor = UIColor.lightGray
+            }
+        }
+        else if obj.status! == 33
+        {
+            cell.subContent.backgroundColor = UIColor.white
+            cell.spaceButtom.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+            cell.doTimeLine.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+            cell.spaceTop.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+            
+        }
+        else{
+            if indexPath.row == obj.arringredients.count - 1
+            {
+                cell.subContent.backgroundColor = UIColor.white
+                cell.spaceButtom.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+                cell.doTimeLine.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+                cell.spaceTop.backgroundColor = UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha: 1.0)
+                
+            }
+            else{
+                cell.subContent.backgroundColor = UIColor.white
+                cell.spaceButtom.backgroundColor = UIColor.lightGray
+                cell.doTimeLine.backgroundColor = UIColor.lightGray
+                cell.spaceTop.backgroundColor = UIColor.lightGray
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if !isLoadWS
+        {
+            return 0
+        }
         return 100
     }
     

@@ -14,18 +14,29 @@ class ProductObj: NSObject {
     var image: String?
     var price: Double?
     var arringredients = [IngredientCusObj]()
+    var status: Int?
     init(dict: NSDictionary) {
-        self.id = dict["id"] as? Int
-        self.name = dict["name"] as? String
-        self.image = dict["image"] as? String
-        self.price = dict["price"] as? Double
-        if let ingredients = dict["ingredients"] as? NSArray
+        print(dict)
+        if let val = dict["drink"] as? NSDictionary
         {
-            for recod in ingredients
+            self.id = val["id"] as? Int
+            self.name = val["name"] as? String
+            self.image = val["image"] as? String
+            self.price = val["price"] as? Double
+            if let ingredients = val["ingredients"] as? NSArray
             {
-                arringredients.append(IngredientCusObj.init(dict: recod as! NSDictionary))
+                for recod in ingredients
+                {
+                    arringredients.append(IngredientCusObj.init(dict: recod as! NSDictionary))
+                }
+                
             }
-            
         }
+        if let status = dict["status"] as? Int
+        {
+            self.status = status
+        }
+       
+       
     }
 }

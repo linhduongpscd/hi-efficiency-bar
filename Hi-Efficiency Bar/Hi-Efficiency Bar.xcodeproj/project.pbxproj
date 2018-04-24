@@ -54,6 +54,7 @@
 		27C692CB206A3C410057156C /* HeaderSearchReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C692C9206A3C410057156C /* HeaderSearchReusable.swift */; };
 		27C692CE206A41C50057156C /* MenuSearchCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27C692CC206A41C50057156C /* MenuSearchCollect.xib */; };
 		27C692CF206A41C50057156C /* MenuSearchCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C692CD206A41C50057156C /* MenuSearchCollect.swift */; };
+		27D5E400208ECE2200477324 /* ActiveCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D5E3FF208ECE2200477324 /* ActiveCodeVC.swift */; };
 		27DA83262085A18D00C44ED6 /* IngredientCusObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA83252085A18D00C44ED6 /* IngredientCusObj.swift */; };
 		27E9F50820737352004801D6 /* UIView+DCAnimationKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E9F50720737352004801D6 /* UIView+DCAnimationKit.m */; };
 		27E9F50A20738EC6004801D6 /* FlashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E9F50920738EC6004801D6 /* FlashVC.swift */; };
@@ -237,6 +238,7 @@
 		27C692C9206A3C410057156C /* HeaderSearchReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSearchReusable.swift; sourceTree = "<group>"; };
 		27C692CC206A41C50057156C /* MenuSearchCollect.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuSearchCollect.xib; sourceTree = "<group>"; };
 		27C692CD206A41C50057156C /* MenuSearchCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSearchCollect.swift; sourceTree = "<group>"; };
+		27D5E3FF208ECE2200477324 /* ActiveCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCodeVC.swift; sourceTree = "<group>"; };
 		27DA83252085A18D00C44ED6 /* IngredientCusObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCusObj.swift; sourceTree = "<group>"; };
 		27E9F50620737351004801D6 /* UIView+DCAnimationKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DCAnimationKit.h"; sourceTree = "<group>"; };
 		27E9F50720737352004801D6 /* UIView+DCAnimationKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DCAnimationKit.m"; sourceTree = "<group>"; };
@@ -631,6 +633,7 @@
 			isa = PBXGroup;
 			children = (
 				3B91CB1B2058C4AD0073D54B /* ForgotPasswordVC.swift */,
+				27D5E3FF208ECE2200477324 /* ActiveCodeVC.swift */,
 			);
 			path = ForgotPasswordVC;
 			sourceTree = "<group>";
@@ -1164,6 +1167,7 @@
 				2754189F2068DFD000DEED32 /* HidingNavigationBarManager.swift in Sources */,
 				3BC4CE0E206141FB00CECB57 /* SpinerLayer.swift in Sources */,
 				3BDBE407205FA7B900CDA28E /* SearchGenereCollect.swift in Sources */,
+				27D5E400208ECE2200477324 /* ActiveCodeVC.swift in Sources */,
 				3BD76FDE2061D037009A15FE /* ViewDetailVC.swift in Sources */,
 				27C692CF206A41C50057156C /* MenuSearchCollect.swift in Sources */,
 				2775FA5B20899500006CA25F /* ProductObj.swift in Sources */,

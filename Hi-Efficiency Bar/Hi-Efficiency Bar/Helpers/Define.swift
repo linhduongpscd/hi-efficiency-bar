@@ -46,9 +46,9 @@ let ERROR_PASSWORD_NOTMATCH  = "Confirm password do not match"
 let ERROR_BIRTHDAY   =  "Birthday is required"
 let ERROR_AVATAR   =  "Please select avatar"
 let ERROR_ACCEPT  = "Please accept terms or conditions"
-
+let ERROR_CODE  = "Active code is required"
 let ALERT_DELETE  = "Do you want to delete?"
-
+let ERROR_NEWPASSWORD  = "New Password is required"
 // DEFINE URL
 let URL_SERVER  = "http://hiefficiencybar.com/"
 let kID   = "kID"

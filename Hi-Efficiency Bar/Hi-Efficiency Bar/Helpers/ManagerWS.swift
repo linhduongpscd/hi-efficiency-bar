@@ -606,12 +606,12 @@ struct ManagerWS {
                                         complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
                                     }
                                     else{
-                                          complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Token invalid."))
+                                          complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Token is invalid."))
                                     }
                                     
                                 }
                                 else{
-                                      complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Id invalid."))
+                                      complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "ID is invalid."))
                                 }
                             }
                             else if code == SERVER_CODE.CODE_400
@@ -991,7 +991,7 @@ struct ManagerWS {
                     break
                     
                 case .failure(_):
-                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(response.result as? NSDictionary)"))
+                     complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
                     break
                 }
         }
@@ -1348,5 +1348,34 @@ struct ManagerWS {
                 }
         }
     }
+    
+    func activeCodeForgot(param: Parameters,complete:@escaping (_ success: Bool?, _ error: String) ->Void)
+    {
+       
+        print("\(URL_SERVER)api/user/forget/password/")
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/forget/password/")!, method: .post, parameters: param,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if code == SERVER_CODE.CODE_200
+                        {
+                            complete(true, "")
+                        }
+                        else{
+                            complete(false, "\(response.result.value as! NSDictionary)")
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(false, "\(response.result.value as! NSDictionary)")
+                    break
+                }
+        }
+    }
+    
     
 }

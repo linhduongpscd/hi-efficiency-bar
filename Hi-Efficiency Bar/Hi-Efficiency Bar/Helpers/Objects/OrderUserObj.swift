@@ -21,16 +21,18 @@ class OrderUserObj: NSObject {
         self.amount = dict["amount"] as? Double
         if let products = dict["products"] as? NSArray
         {
+            print(products)
             for item in products
             {
                 let val = item as! NSDictionary
-                self.arrProducts.append(ProductObj.init(dict: val["drink"] as! NSDictionary))
+                self.arrProducts.append(ProductObj.init(dict: val))
             }
         }
         if let user = dict["user"] as? NSDictionary
         {
             self.user = user
         }
+       
         isLoadMore = false
     }
 }
