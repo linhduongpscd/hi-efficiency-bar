@@ -26,6 +26,14 @@
 		27330F0D20805A4800F5033A /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F0C20805A4800F5033A /* iOSDevCenters+GIF.swift */; };
 		27330F0F20805F5E00F5033A /* MyTabObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F0E20805F5E00F5033A /* MyTabObj.swift */; };
 		27330F112080AAC600F5033A /* visacell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F102080AAC600F5033A /* visacell.swift */; };
+		274B993E2091B61100E506E2 /* UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274B99342091B61000E506E2 /* UIImage+Crop.swift */; };
+		274B993F2091B61100E506E2 /* PhotoCropEditorBorder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 274B99352091B61000E506E2 /* PhotoCropEditorBorder@2x.png */; };
+		274B99402091B61100E506E2 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274B99362091B61100E506E2 /* CropViewController.swift */; };
+		274B99412091B61100E506E2 /* PhotoCropEditorBorder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 274B99372091B61100E506E2 /* PhotoCropEditorBorder@3x.png */; };
+		274B99422091B61100E506E2 /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274B99382091B61100E506E2 /* CropView.swift */; };
+		274B99432091B61100E506E2 /* ResizeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274B99392091B61100E506E2 /* ResizeControl.swift */; };
+		274B99452091B61100E506E2 /* PhotoCropEditorBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 274B993C2091B61100E506E2 /* PhotoCropEditorBorder.png */; };
+		274B99462091B61100E506E2 /* CropRectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274B993D2091B61100E506E2 /* CropRectView.swift */; };
 		2754189A206899DD00DEED32 /* ManagerWS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27541898206899DD00DEED32 /* ManagerWS.swift */; };
 		2754189B206899DD00DEED32 /* ManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27541899206899DD00DEED32 /* ManagerError.swift */; };
 		2754189F2068DFD000DEED32 /* HidingNavigationBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754189D2068DFD000DEED32 /* HidingNavigationBarManager.swift */; };
@@ -197,6 +205,15 @@
 		27330F0C20805A4800F5033A /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		27330F0E20805F5E00F5033A /* MyTabObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabObj.swift; sourceTree = "<group>"; };
 		27330F102080AAC600F5033A /* visacell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = visacell.swift; sourceTree = "<group>"; };
+		274B99342091B61000E506E2 /* UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Crop.swift"; sourceTree = "<group>"; };
+		274B99352091B61000E506E2 /* PhotoCropEditorBorder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PhotoCropEditorBorder@2x.png"; sourceTree = "<group>"; };
+		274B99362091B61100E506E2 /* CropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
+		274B99372091B61100E506E2 /* PhotoCropEditorBorder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PhotoCropEditorBorder@3x.png"; sourceTree = "<group>"; };
+		274B99382091B61100E506E2 /* CropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
+		274B99392091B61100E506E2 /* ResizeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResizeControl.swift; sourceTree = "<group>"; };
+		274B993B2091B61100E506E2 /* CropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CropViewController.h; sourceTree = "<group>"; };
+		274B993C2091B61100E506E2 /* PhotoCropEditorBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoCropEditorBorder.png; sourceTree = "<group>"; };
+		274B993D2091B61100E506E2 /* CropRectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropRectView.swift; sourceTree = "<group>"; };
 		27541898206899DD00DEED32 /* ManagerWS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerWS.swift; sourceTree = "<group>"; };
 		27541899206899DD00DEED32 /* ManagerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerError.swift; sourceTree = "<group>"; };
 		2754189D2068DFD000DEED32 /* HidingNavigationBarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingNavigationBarManager.swift; sourceTree = "<group>"; };
@@ -454,6 +471,22 @@
 			path = Objects;
 			sourceTree = "<group>";
 		};
+		274B99332091B61000E506E2 /* CropViewController */ = {
+			isa = PBXGroup;
+			children = (
+				274B99342091B61000E506E2 /* UIImage+Crop.swift */,
+				274B99352091B61000E506E2 /* PhotoCropEditorBorder@2x.png */,
+				274B99362091B61100E506E2 /* CropViewController.swift */,
+				274B99372091B61100E506E2 /* PhotoCropEditorBorder@3x.png */,
+				274B99382091B61100E506E2 /* CropView.swift */,
+				274B99392091B61100E506E2 /* ResizeControl.swift */,
+				274B993B2091B61100E506E2 /* CropViewController.h */,
+				274B993C2091B61100E506E2 /* PhotoCropEditorBorder.png */,
+				274B993D2091B61100E506E2 /* CropRectView.swift */,
+			);
+			path = CropViewController;
+			sourceTree = "<group>";
+		};
 		2754189C2068DFD000DEED32 /* HidingNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -550,6 +583,7 @@
 		3B91CB072058C3160073D54B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				274B99332091B61000E506E2 /* CropViewController */,
 				27E9F50B20738F04004801D6 /* Gif */,
 				3BD02E54205ABE130042F890 /* Extensions.swift */,
 				3BD02E55205ABE140042F890 /* TagButton.swift */,
@@ -936,6 +970,7 @@
 				3B91CB0E2058C3160073D54B /* AlrightSans-Light-v3.otf in Resources */,
 				3B91CB102058C3160073D54B /* AlrightSans-Regular-v3.otf in Resources */,
 				27F60F77206B3A9C009FDDC0 /* HeaderCustomOrder.xib in Resources */,
+				274B99452091B61100E506E2 /* PhotoCropEditorBorder.png in Resources */,
 				3BFF9C9E2059206100FFA49C /* TopSectionViewCell.xib in Resources */,
 				27F60F7A206B453F009FDDC0 /* TopLoungeCollect.xib in Resources */,
 				2776C78F20634DA10040F065 /* IngreCollect.xib in Resources */,
@@ -943,6 +978,7 @@
 				27E9F50D20738F04004801D6 /* Speed3.gif in Resources */,
 				3BDBE40E205FB1D900CDA28E /* DetailHeaderGenereCollect.xib in Resources */,
 				27C692CA206A3C410057156C /* HeaderSearchReusable.xib in Resources */,
+				274B993F2091B61100E506E2 /* PhotoCropEditorBorder@2x.png in Resources */,
 				3B91CB002058C2D50073D54B /* LaunchScreen.storyboard in Resources */,
 				3BC9BA14205C9DBE0060DB98 /* FooterCustomCell.xib in Resources */,
 				27FBAF1520874AD300ABF0A4 /* IngreItemCusCollect.xib in Resources */,
@@ -964,6 +1000,7 @@
 				272AD3972064AA0900164856 /* CarouselCollectionViewCell.xib in Resources */,
 				3BB0ED53206003DD00702239 /* ProfileView.xib in Resources */,
 				3BFF9C9A2059204500FFA49C /* MainBarViewCell.xib in Resources */,
+				274B99412091B61100E506E2 /* PhotoCropEditorBorder@3x.png in Resources */,
 				3B4FAE44205F75FD0050331F /* HeaderCurrentOrderCell.xib in Resources */,
 				3BDBE408205FA7BA00CDA28E /* SearchGenereCollect.xib in Resources */,
 			);
@@ -1079,6 +1116,7 @@
 				3BB0ED4D205FFA6E00702239 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				3B038FBD2062B5010051691E /* IngredientVC.swift in Sources */,
 				3B91CB312058DB640073D54B /* AnimationManager.m in Sources */,
+				274B99402091B61100E506E2 /* CropViewController.swift in Sources */,
 				3BDBE40D205FB1D900CDA28E /* DetailHeaderGenereCollect.swift in Sources */,
 				27EB26A5207E0A12009021A2 /* NoDataCollect.swift in Sources */,
 				2724F878208879EC003305F9 /* Animation.swift in Sources */,
@@ -1086,8 +1124,10 @@
 				3BC4CE0C206141FB00CECB57 /* CustomTransitionViewController.swift in Sources */,
 				2776C791206350030040F065 /* CustomDetailVC.swift in Sources */,
 				27330F0D20805A4800F5033A /* iOSDevCenters+GIF.swift in Sources */,
+				274B99432091B61100E506E2 /* ResizeControl.swift in Sources */,
 				27F60F7D206B4A63009FDDC0 /* LoungeTabbarVC.swift in Sources */,
 				3B91CB1C2058C4AD0073D54B /* ForgotPasswordVC.swift in Sources */,
+				274B99462091B61100E506E2 /* CropRectView.swift in Sources */,
 				2724F87D208879EC003305F9 /* AnimationType.swift in Sources */,
 				275418B92068FC0F00DEED32 /* NSObject+TLYSwizzlingHelpers.m in Sources */,
 				3B91CB2C2058DA600073D54B /* PickerView.swift in Sources */,
@@ -1157,6 +1197,7 @@
 				3BC9BA16205CBB1A0060DB98 /* MyTabCell.swift in Sources */,
 				3BFF9C90205914C000FFA49C /* Character.swift in Sources */,
 				2754189A206899DD00DEED32 /* ManagerWS.swift in Sources */,
+				274B993E2091B61100E506E2 /* UIImage+Crop.swift in Sources */,
 				3BDBE40A205FB04F00CDA28E /* DetailSearchGenereVC.swift in Sources */,
 				2754189B206899DD00DEED32 /* ManagerError.swift in Sources */,
 				27F77F3E208859440019A592 /* ListDrinkCreateView.swift in Sources */,
@@ -1168,6 +1209,7 @@
 				3BC4CE0E206141FB00CECB57 /* SpinerLayer.swift in Sources */,
 				3BDBE407205FA7B900CDA28E /* SearchGenereCollect.swift in Sources */,
 				27D5E400208ECE2200477324 /* ActiveCodeVC.swift in Sources */,
+				274B99422091B61100E506E2 /* CropView.swift in Sources */,
 				3BD76FDE2061D037009A15FE /* ViewDetailVC.swift in Sources */,
 				27C692CF206A41C50057156C /* MenuSearchCollect.swift in Sources */,
 				2775FA5B20899500006CA25F /* ProductObj.swift in Sources */,

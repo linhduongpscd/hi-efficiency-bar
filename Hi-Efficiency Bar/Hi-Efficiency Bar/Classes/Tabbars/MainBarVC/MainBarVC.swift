@@ -30,9 +30,21 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
        self.configHideNaviScroll(collectionView)
        self.getSliceHeader()
        self.fetchAllDrink()
-        //self.open()
+        self.callSetting()
     }
     
+    func callSetting()
+    {
+        ManagerWS.shared.getSettingApp { (success) in
+            if !success!
+            {
+                let alert = UIAlertController(title: nil,
+                                              message: "Bar was close, cannot order.",
+                                              preferredStyle: UIAlertControllerStyle.alert)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }

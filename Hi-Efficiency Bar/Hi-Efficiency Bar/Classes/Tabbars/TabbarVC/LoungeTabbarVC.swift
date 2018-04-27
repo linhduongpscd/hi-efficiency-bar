@@ -22,6 +22,7 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var isLoadMore = false
     var arrDrinks = [DrinkObj]()
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
+    var isReload = false
     override func viewDidLoad() {
         super.viewDidLoad()
             ASFSharedViewTransition.addWith(fromViewControllerClass: LoungeTabbarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
@@ -90,7 +91,13 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
         offset = 0
-        self.fetchAllDrink(isIndicator: true)
+        if !isReload
+        {
+            self.fetchAllDrink(isIndicator: true)
+        }
+        else{
+            isReload = false
+        }
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        self.navigationController?.navigationBar.isTranslucent = true
@@ -104,6 +111,7 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         profileView = Bundle.main.loadNibNamed("ProfileView", owner: self, options: nil)?[0] as! ProfileView
         profileView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 190)
         profileView.tapChangeAvatar = { [] in
+            self.isReload = true
             let alert = UIAlertController(title: APP_NAME,
                                           message: nil,
                                           preferredStyle: UIAlertControllerStyle.actionSheet)
@@ -138,7 +146,7 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
             imagePicker =  UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .camera
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             present(imagePicker, animated: true, completion: nil)
         }
         
@@ -150,7 +158,7 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
             imagePicker =  UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .photoLibrary
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -169,16 +177,40 @@ extension LoungeTabbarVC: UIImagePickerControllerDelegate, UINavigationControlle
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerEditedImage] as? UIImage
-        {
-            profileView.imgAvatar.layer.cornerRadius = profileView.imgAvatar.frame.size.width/2
-            profileView.imgAvatar.layer.masksToBounds = true
-           profileView.imgAvatar.image = image
-            isChangeAvatar = true
-        }
+        
         self.dismiss(animated: true) {
-            
+            if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+            {
+                self.isReload = true
+                let controller = CropViewController()
+                controller.delegate = self
+                controller.image = image
+                
+                let navController = UINavigationController(rootViewController: controller)
+                self.present(navController, animated: true, completion: nil)
+                
+                
+            }
         }
+    }
+}
+extension LoungeTabbarVC: CropViewControllerDelegate
+{
+    func cropViewController(_ controller: CropViewController, didFinishCroppingImage image: UIImage)
+    {
+        controller.dismiss(animated: true, completion: nil)
+        profileView.imgAvatar.layer.cornerRadius = profileView.imgAvatar.frame.size.width/2
+        profileView.imgAvatar.layer.masksToBounds = true
+        profileView.imgAvatar.image = image
+        isChangeAvatar = true
+    }
+    func cropViewController(_ controller: CropViewController, didFinishCroppingImage image: UIImage, transform: CGAffineTransform, cropRect: CGRect)
+    {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    func cropViewControllerDidCancel(_ controller: CropViewController)
+    {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
 extension LoungeTabbarVC: MXParallaxHeaderDelegate

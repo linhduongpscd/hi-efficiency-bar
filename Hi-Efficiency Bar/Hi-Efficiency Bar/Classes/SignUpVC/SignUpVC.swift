@@ -74,7 +74,7 @@ class SignUpVC: BaseViewController {
             imagePicker =  UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .camera
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             present(imagePicker, animated: true, completion: nil)
         }
         
@@ -86,7 +86,7 @@ class SignUpVC: BaseViewController {
             imagePicker =  UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .photoLibrary
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -242,16 +242,40 @@ extension SignUpVC: UIImagePickerControllerDelegate, UINavigationControllerDeleg
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerEditedImage] as? UIImage
-        {
-            isSelectAvatar = true
-            imageAvatar = image
-            self.btnAvatar.setImage(image, for: .normal)
-            self.btnAvatar.layer.cornerRadius = self.btnAvatar.frame.size.width/2
-            self.btnAvatar.layer.masksToBounds = true
-        }
         self.dismiss(animated: true) {
-            
+            if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+            {
+                let controller = CropViewController()
+                controller.delegate = self
+                controller.image = image
+                
+                let navController = UINavigationController(rootViewController: controller)
+                self.present(navController, animated: true, completion: nil)
+                
+            }
         }
+        
+        
+    }
+}
+
+extension SignUpVC: CropViewControllerDelegate
+{
+    func cropViewController(_ controller: CropViewController, didFinishCroppingImage image: UIImage)
+    {
+        controller.dismiss(animated: true, completion: nil)
+        isSelectAvatar = true
+        imageAvatar = image
+        self.btnAvatar.setImage(image, for: .normal)
+        self.btnAvatar.layer.cornerRadius = self.btnAvatar.frame.size.width/2
+        self.btnAvatar.layer.masksToBounds = true
+    }
+    func cropViewController(_ controller: CropViewController, didFinishCroppingImage image: UIImage, transform: CGAffineTransform, cropRect: CGRect)
+    {
+          controller.dismiss(animated: true, completion: nil)
+    }
+    func cropViewControllerDidCancel(_ controller: CropViewController)
+    {
+         controller.dismiss(animated: true, completion: nil)
     }
 }

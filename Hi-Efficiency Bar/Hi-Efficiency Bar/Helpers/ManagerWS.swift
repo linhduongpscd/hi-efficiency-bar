@@ -1376,6 +1376,56 @@ struct ManagerWS {
                 }
         }
     }
-    
+    func getSettingApp(_ complete:@escaping (_ success: Bool?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/settings/")!, method: .get, parameters: nil,  encoding: URLEncoding(destination: .methodDependent), headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let arrs = response.value as? NSArray
+                    {
+                        if arrs.count > 0
+                        {
+                            if let val = arrs[0] as? NSDictionary
+                            {
+                                if let bar_status  = val["bar_status"] as? Bool
+                                {
+                                    if bar_status
+                                    {
+                                        complete(true)
+                                    }
+                                    else{
+                                        complete(false)
+                                    }
+                                }
+                                else{
+                                    complete(false)
+                                }
+                            }
+                            else{
+                                complete(false)
+                            }
+                        }
+                        else{
+                           complete(false)
+                        }
+                    }
+                    else{
+                        complete(false)
+                    }
+                    
+                    break
+                case .failure(_):
+                    complete(false)
+                    break
+                }
+        }
+    }
     
 }

@@ -48,7 +48,7 @@ class AgeVerificationVC: BaseViewController {
         AnimationManager.sharedInstance().doAppearView(fromBottom: pickerView)
     }
     @IBAction func actionConfirm(_ sender: TransitionButton) {
-        if CommonHellper.trimSpaceString(txtString: txfBirthday.text!) == birthday
+        if self.convertDateBirthday() == birthday
         {
             UserDefaults.standard.set(self.userID, forKey: kID)
            UserDefaults.standard.set(self.token, forKey: kToken)
@@ -92,6 +92,19 @@ extension AgeVerificationVC: PickerViewDelegate
         txfBirthday.text = CommonHellper.formatDateBirthday(date: value)
         AnimationManager.sharedInstance().doDisappearView(toBottom: pickerView)
     }
+    
+    func convertDateBirthday()->String
+    {
+        let birthday = CommonHellper.trimSpaceString(txtString: txfBirthday.text!)
+        let arrs = birthday.components(separatedBy: "-")
+        if arrs.count == 3
+        {
+            return "\(arrs[2])-\(arrs[0])-\(arrs[1])"
+        }
+        else{
+            return birthday
+        }
+    }
 }
 
 extension AgeVerificationVC: UITextFieldDelegate
@@ -104,7 +117,7 @@ extension AgeVerificationVC: UITextFieldDelegate
         if textField == txfBirthday {
             
             // check the chars length dd -->2 at the same time calculate the dd-MM --> 5
-            if (txfBirthday?.text?.characters.count == 4) || (txfBirthday?.text?.characters.count == 7) {
+            if (txfBirthday?.text?.characters.count == 2) || (txfBirthday?.text?.characters.count == 5) {
                 //Handle backspace being pressed
                 if !(string == "") {
                     // append the text

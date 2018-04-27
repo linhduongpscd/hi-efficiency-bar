@@ -38,6 +38,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     @IBOutlet weak var imgNormal: UIImageView!
     @IBOutlet weak var lblNormal: UILabel!
     var valueIce = 0
+    @IBOutlet weak var bgCover: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
@@ -65,6 +66,12 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         if drinkObj.image != nil
         {
             imgDetail.sd_setImage(with: URL.init(string: drinkObj.image!), completed: { (image, error, type, url) in
+                
+            })
+        }
+        if drinkObj.image_background != nil
+        {
+            bgCover.sd_setImage(with: URL.init(string: drinkObj.image_background!), completed: { (image, error, type, url) in
                 
             })
         }
@@ -366,7 +373,15 @@ extension ViewDetailVC: UITableViewDelegate, UITableViewDataSource
     
     func configCell(_ cell: CurrentOrderCell, dict: NSDictionary)
     {
-        cell.lblPart.text = "\(dict.object(forKey: "ratio") as! Int) \(dict.object(forKey: "unit") as! String)"
+        if let unit = dict.object(forKey: "unit") as? Int
+        {
+            cell.lblPart.text = "\(dict.object(forKey: "ratio") as! Int) \(unit)"
+        }
+        else  if let unit = dict.object(forKey: "unit") as? String
+        {
+            cell.lblPart.text = "\(dict.object(forKey: "ratio") as! Int) \(unit)"
+        }
+        
         if let val = dict.object(forKey: "ingredient") as? NSDictionary
         {
             if let name = val.object(forKey: "name") as? String
