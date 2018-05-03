@@ -182,6 +182,8 @@ extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
             cell.subContent.borderColor =  UIColor.clear
             
         }
+        cell.lbltext.textColor = UIColor.black
+        cell.subContent.backgroundColor = CommonHellper.ramColorViewDetail()
        return cell
         
     }

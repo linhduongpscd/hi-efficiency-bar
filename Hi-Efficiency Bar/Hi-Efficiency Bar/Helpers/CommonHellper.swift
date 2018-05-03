@@ -21,7 +21,34 @@ class CommonHellper {
         RappleActivityIndicatorView.startAnimatingWithLabel("", attributes: attribute)
         
     }
+    static func radomColor()->[UIColor]
+    {
+        return [UIColor.init(red: 214/255.0, green: 180/255.0, blue: 110/255.0, alpha: 1.0),
+                UIColor.init(red: 241/255.0, green: 240/255.0, blue: 144/255.0, alpha: 1.0),
+                UIColor.init(red: 201/255.0, green: 233/255.0, blue: 122/255.0, alpha: 1.0),
+                UIColor.init(red: 224/255.0, green: 129/255.0, blue: 85/255.0, alpha: 1.0),
+                UIColor.init(red: 165/255.0, green: 23/255.0, blue: 14/255.0, alpha: 1.0),
+                UIColor.init(red: 248/255.0, green: 225/255.0, blue: 32/255.0, alpha: 1.0),
+                UIColor.init(red: 253/255.0, green: 139/255.0, blue: 28/255.0, alpha: 1.0),
+                UIColor.init(red: 103/255.0, green: 128/255.0, blue: 255/255.0, alpha: 1.0),
+        UIColor.init(red: 232/255.0, green: 103/255.0, blue: 255/255.0, alpha: 1.0),
+        UIColor.init(red: 255/255.0, green: 175/255.0, blue: 103/255.0, alpha: 1.0),
+        UIColor.init(red: 7/255.0, green: 226/255.0, blue: 12/255.0, alpha: 1.0),
+        UIColor.init(red: 255/255.0, green: 45/255.0, blue: 85/255.0, alpha: 1.0),
+        UIColor.init(red: 193/255.0, green: 195/255.0, blue: 10/255.0, alpha: 1.0),
+        UIColor.init(red: 117/255.0, green: 250/255.0, blue: 252/255.0, alpha: 1.0),
+        UIColor.init(red: 160/255.0, green: 168/255.0, blue: 240/255.0, alpha: 1.0),
+        UIColor.init(red: 215/255.0, green: 157/255.0, blue: 151/255.0, alpha: 1.0),
+        UIColor.init(red: 251/255.0, green: 188/255.0, blue: 225/255.0, alpha: 1.0),
+        UIColor.init(red: 177/255.0, green: 177/255.0, blue: 177/255.0, alpha: 1.0)]
+    }
     
+    static func ramColorViewDetail()->UIColor
+    {
+        let arrColor = self.radomColor()
+        let randomIndex = Int(arc4random_uniform(UInt32(arrColor.count)))
+        return arrColor[randomIndex]
+    }
     static func hideBusy()
     {
         RappleActivityIndicatorView.stopAnimation()

@@ -150,6 +150,7 @@ class MyTabVC: BaseViewController {
     {
         stpToke = nil
         tokenStriper = ""
+        self.tblMyTab.reloadData()
         let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CurrentOrderVC") as! CurrentOrderVC
         self.navigationController?.pushViewController(vc, animated: true)
         self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)

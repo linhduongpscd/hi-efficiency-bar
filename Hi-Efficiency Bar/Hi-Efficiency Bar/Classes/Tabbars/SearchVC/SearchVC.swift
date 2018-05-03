@@ -632,6 +632,7 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     func configCell(_ cell: IngreItemCollect, _ obj: IngredientSearchObj)
     {
         cell.lbltext.text = obj.name
+        cell.lbltext.textColor = UIColor.black
         if obj.isSeleled!
         {
             cell.imgCheck.isHidden = false
@@ -643,7 +644,9 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
             cell.subContent.borderWidth = 1.0
             cell.subContent.borderColor =  UIColor.clear
         }
+        cell.subContent.backgroundColor = CommonHellper.ramColorViewDetail()
     }
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize
