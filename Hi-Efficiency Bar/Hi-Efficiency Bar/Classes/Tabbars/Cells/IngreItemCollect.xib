@@ -27,6 +27,18 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2UF-cf-OBU" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                         <rect key="frame" x="20" y="5" width="120" height="40"/>
                         <subviews>
+                            <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oGA-8R-Ruv" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="18"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check" translatesAutoresizingMaskIntoConstraints="NO" id="TG9-4F-Qh3">
                                 <rect key="frame" x="5" y="7.5" width="25" height="25"/>
                             </imageView>
@@ -37,13 +49,17 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.38930785655975342" green="0.27791675925254822" blue="0.18959793448448181" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="TG9-4F-Qh3" firstAttribute="leading" secondItem="2UF-cf-OBU" secondAttribute="leading" constant="5" id="FA9-bE-49M"/>
                             <constraint firstItem="5en-Gm-FY6" firstAttribute="leading" secondItem="2UF-cf-OBU" secondAttribute="leading" constant="35" id="JYQ-pa-D3c"/>
+                            <constraint firstAttribute="trailing" secondItem="oGA-8R-Ruv" secondAttribute="trailing" id="KNX-b6-Zuv"/>
+                            <constraint firstAttribute="bottom" secondItem="oGA-8R-Ruv" secondAttribute="bottom" id="LT8-DA-gU8"/>
                             <constraint firstAttribute="trailing" secondItem="5en-Gm-FY6" secondAttribute="trailing" constant="5" id="O6y-rR-04c"/>
                             <constraint firstItem="TG9-4F-Qh3" firstAttribute="centerY" secondItem="2UF-cf-OBU" secondAttribute="centerY" id="eT5-nJ-LuT"/>
                             <constraint firstItem="5en-Gm-FY6" firstAttribute="centerY" secondItem="2UF-cf-OBU" secondAttribute="centerY" id="sMa-di-ZNK"/>
+                            <constraint firstItem="oGA-8R-Ruv" firstAttribute="leading" secondItem="2UF-cf-OBU" secondAttribute="leading" id="vuB-O7-yNt"/>
+                            <constraint firstItem="oGA-8R-Ruv" firstAttribute="top" secondItem="2UF-cf-OBU" secondAttribute="top" id="x1D-UF-otJ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -69,7 +85,7 @@
             <connections>
                 <outlet property="imgCheck" destination="TG9-4F-Qh3" id="Kf5-se-1Df"/>
                 <outlet property="lbltext" destination="5en-Gm-FY6" id="Jzn-dg-wXZ"/>
-                <outlet property="subContent" destination="2UF-cf-OBU" id="EjX-zR-Su9"/>
+                <outlet property="subContent" destination="oGA-8R-Ruv" id="2GJ-OC-H3E"/>
             </connections>
         </collectionViewCell>
     </objects>

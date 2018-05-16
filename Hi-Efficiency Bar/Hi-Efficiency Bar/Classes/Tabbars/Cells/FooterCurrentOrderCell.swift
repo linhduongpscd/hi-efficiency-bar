@@ -9,7 +9,7 @@
 import UIKit
 
 class FooterCurrentOrderCell: UITableViewCell {
-
+    var doShareFacebook: (() ->())?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,4 +21,7 @@ class FooterCurrentOrderCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func doFacebook(_ sender: Any) {
+        self.doShareFacebook?()
+    }
 }

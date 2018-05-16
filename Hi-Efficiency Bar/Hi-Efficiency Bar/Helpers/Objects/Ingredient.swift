@@ -16,6 +16,7 @@ class Ingredient: NSObject {
     var quanlity_of_bottle: Int?
     var type: NSDictionary?
     var brand: NSDictionary?
+    var bgColor: UIColor?
     init(dict: NSDictionary) {
         self.id = dict["id"] as? Int
         self.image = dict["image"] as? String
@@ -24,5 +25,6 @@ class Ingredient: NSObject {
         self.quanlity_of_bottle = dict["quanlity_of_bottle"] as? Int
         self.type = dict["type"] as? NSDictionary
         self.brand = dict["brand"] as? NSDictionary
+        self.bgColor =  CommonHellper.ramColorViewDetail()
     }
 }

@@ -72,7 +72,7 @@ class CustomVC: HelpController {
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
         rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
-        rotationAnimation.duration = 0.4
+        rotationAnimation.duration = 0.6
         rotationAnimation.repeatCount = 1
         
         CATransaction.setCompletionBlock {
@@ -80,10 +80,12 @@ class CustomVC: HelpController {
             let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
             rotationAnimation.fromValue = 0.0
             rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
-            rotationAnimation.duration = 0.4
+            rotationAnimation.duration = 0.6
             rotationAnimation.repeatCount = 1
             
             CATransaction.setCompletionBlock {
+                self.arrSelected.removeAll()
+                self.collectionView.reloadData()
             }
             self.imgReset.layer.add(rotationAnimation, forKey: nil)
             CATransaction.commit()
@@ -116,6 +118,8 @@ class CustomVC: HelpController {
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        self.navigationController?.navigationBar.isTranslucent = true
         super.viewWillAppear(animated)
+        arrSelected.removeAll()
+        self.collectionView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -132,7 +136,7 @@ class CustomVC: HelpController {
     
     func registerCell()
     {
-         self.collectionView.register(UINib(nibName: "IngreItemCusCollect", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
+         self.collectionView.register(UINib(nibName: "IngreItemCollectCus", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
         self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
     }
     override func didReceiveMemoryWarning() {
@@ -175,15 +179,19 @@ extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
             cell.lbltext.font = UIFont.init(name: FONT_APP.AlrightSans_Bold, size: cell.lbltext.font.pointSize)
             cell.subContent.borderWidth = 2.0
             cell.subContent.borderColor =  UIColor.init(red: 72/255.0, green: 181/255.0, blue: 251/255.0, alpha:1.0)
+            cell.imgCheck.isHidden = false
+             cell.spaceCheck.constant = 35
         }
         else{
             cell.lbltext.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: cell.lbltext.font.pointSize)
             cell.subContent.borderWidth = 0.0
             cell.subContent.borderColor =  UIColor.clear
+            cell.imgCheck.isHidden = true
+            cell.spaceCheck.constant = 10
             
         }
         cell.lbltext.textColor = UIColor.black
-        cell.subContent.backgroundColor = CommonHellper.ramColorViewDetail()
+        cell.subContent.backgroundColor = item.bgColor!
        return cell
         
     }

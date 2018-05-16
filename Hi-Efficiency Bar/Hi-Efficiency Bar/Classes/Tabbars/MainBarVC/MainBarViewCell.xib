@@ -28,7 +28,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="155" height="193"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Cy-pc-Baa" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
+                    <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Cy-pc-Baa" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                         <rect key="frame" x="5" y="2.5" width="145" height="188"/>
                         <color key="backgroundColor" red="0.99329620599746704" green="0.95169442892074585" blue="0.89776968955993652" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
@@ -101,6 +101,7 @@
                 <outlet property="lblLevel" destination="gUu-t3-zw6" id="qtB-If-d0C"/>
                 <outlet property="lblName" destination="Cbd-kc-qVQ" id="sKL-7I-j6a"/>
                 <outlet property="leaningSubX" destination="ArV-0s-JDC" id="a3i-RD-S5Y"/>
+                <outlet property="subContent" destination="1Cy-pc-Baa" id="8wc-ii-Z2H"/>
             </connections>
             <point key="canvasLocation" x="24.5" y="70.5"/>
         </collectionViewCell>

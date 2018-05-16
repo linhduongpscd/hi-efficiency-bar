@@ -21,6 +21,7 @@ class MainBarViewCell: UICollectionViewCell {
     var indexPathCell: IndexPath?
     @IBOutlet weak var lblLevel: UILabel!
     @IBOutlet weak var iconLevel: UIImageView!
+    @IBOutlet weak var subContent: UIViewX!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -109,11 +110,11 @@ class MainBarViewCell: UICollectionViewCell {
         else{
             lblLevel.isHidden = true
             iconLevel.isHidden = false
-            if drinkObj.categoryObj?.main_level! == 1
+            if drinkObj.categoryObj?.name == "1"
             {
                iconLevel.image = #imageLiteral(resourceName: "ic_cup")
             }
-            else if drinkObj.categoryObj?.main_level! == 1
+            else if drinkObj.categoryObj?.name == "2"
             {
                 iconLevel.image = #imageLiteral(resourceName: "ic_cup2")
             }
@@ -121,5 +122,6 @@ class MainBarViewCell: UICollectionViewCell {
                 iconLevel.image = #imageLiteral(resourceName: "ic_cup3")
             }
         }
+        self.subContent.backgroundColor = drinkObj.bgColorCell!
     }
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		21F278813AC65E5FDC7A6F87 /* Pods_Hi_Efficiency_Bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F666944C69A254AEB833642 /* Pods_Hi_Efficiency_Bar.framework */; };
+		270CC09C20A44F74000B62C0 /* SettingObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CC09B20A44F74000B62C0 /* SettingObj.swift */; };
 		2724F878208879EC003305F9 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F86C208879EC003305F9 /* Animation.swift */; };
 		2724F879208879EC003305F9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 2724F86D208879EC003305F9 /* .gitkeep */; };
 		2724F87A208879EC003305F9 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F86F208879EC003305F9 /* Utilities.swift */; };
@@ -23,6 +24,7 @@
 		272AD3932064A67400164856 /* HeaderCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272AD3922064A67400164856 /* HeaderCustom.swift */; };
 		272AD3952064A67F00164856 /* HeaderCustom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD3942064A67F00164856 /* HeaderCustom.xib */; };
 		272AD3972064AA0900164856 /* CarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD3962064AA0900164856 /* CarouselCollectionViewCell.xib */; };
+		272AD57F20A941D40096E2F3 /* IngreItemCollectCus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD57E20A941D40096E2F3 /* IngreItemCollectCus.xib */; };
 		27330F0D20805A4800F5033A /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F0C20805A4800F5033A /* iOSDevCenters+GIF.swift */; };
 		27330F0F20805F5E00F5033A /* MyTabObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F0E20805F5E00F5033A /* MyTabObj.swift */; };
 		27330F112080AAC600F5033A /* visacell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F102080AAC600F5033A /* visacell.swift */; };
@@ -187,6 +189,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		270CC09B20A44F74000B62C0 /* SettingObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingObj.swift; sourceTree = "<group>"; };
 		2724F86C208879EC003305F9 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		2724F86D208879EC003305F9 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		2724F86F208879EC003305F9 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -202,6 +205,7 @@
 		272AD3922064A67400164856 /* HeaderCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCustom.swift; sourceTree = "<group>"; };
 		272AD3942064A67F00164856 /* HeaderCustom.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCustom.xib; sourceTree = "<group>"; };
 		272AD3962064AA0900164856 /* CarouselCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCollectionViewCell.xib; sourceTree = "<group>"; };
+		272AD57E20A941D40096E2F3 /* IngreItemCollectCus.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IngreItemCollectCus.xib; sourceTree = "<group>"; };
 		27330F0C20805A4800F5033A /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		27330F0E20805F5E00F5033A /* MyTabObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabObj.swift; sourceTree = "<group>"; };
 		27330F102080AAC600F5033A /* visacell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = visacell.swift; sourceTree = "<group>"; };
@@ -467,6 +471,7 @@
 				27FBAF0F2086E57E00ABF0A4 /* IngredientSearchObj.swift */,
 				2775FA58208994A6006CA25F /* OrderUserObj.swift */,
 				2775FA5A20899500006CA25F /* ProductObj.swift */,
+				270CC09B20A44F74000B62C0 /* SettingObj.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -713,6 +718,7 @@
 		3BC39B61205C18D100D2E60B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				272AD57E20A941D40096E2F3 /* IngreItemCollectCus.xib */,
 				27FBAF1420874AD300ABF0A4 /* IngreItemCusCollect.xib */,
 				3BDFD6702061F40200938C56 /* CurrentOrderCellNotTimeLine.xib */,
 				3BC39B62205C18E700D2E60B /* CustomCell.swift */,
@@ -1001,6 +1007,7 @@
 				3BB0ED53206003DD00702239 /* ProfileView.xib in Resources */,
 				3BFF9C9A2059204500FFA49C /* MainBarViewCell.xib in Resources */,
 				274B99412091B61100E506E2 /* PhotoCropEditorBorder@3x.png in Resources */,
+				272AD57F20A941D40096E2F3 /* IngreItemCollectCus.xib in Resources */,
 				3B4FAE44205F75FD0050331F /* HeaderCurrentOrderCell.xib in Resources */,
 				3BDBE408205FA7BA00CDA28E /* SearchGenereCollect.xib in Resources */,
 			);
@@ -1035,12 +1042,14 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/MXParallaxHeader/MXParallaxHeader.framework",
 				"${BUILT_PRODUCTS_DIR}/RappleProgressHUD/RappleProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyGif/SwiftyGif.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1048,12 +1057,14 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXParallaxHeader.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RappleProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyGif.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1146,6 +1157,7 @@
 				27EB26A1207DFAE8009021A2 /* GenreObj.swift in Sources */,
 				3B91CAF62058C2D50073D54B /* AppDelegate.swift in Sources */,
 				277409B7207B69780092C9AC /* GarnishCell.swift in Sources */,
+				270CC09C20A44F74000B62C0 /* SettingObj.swift in Sources */,
 				3BFF9C9D2059206100FFA49C /* TopSectionViewCell.swift in Sources */,
 				272AD3932064A67400164856 /* HeaderCustom.swift in Sources */,
 				272A0C9F20746A9F00ECB485 /* LoadingView.swift in Sources */,
@@ -1361,8 +1373,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.tt.Hi-Efficiency-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "88009e6c-7621-4c72-986e-fdc3a904cea1";
-				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_Apr20;
+				PROVISIONING_PROFILE = "61c0f10a-0f13-4f7c-b733-83f9aa4ed8ef";
+				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_May11;
 				SWIFT_OBJC_BRIDGING_HEADER = "Hi-Efficiency Bar/Resources/Class/Hi-Efficiency Bar-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1385,8 +1397,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.tt.Hi-Efficiency-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "88009e6c-7621-4c72-986e-fdc3a904cea1";
-				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_Apr20;
+				PROVISIONING_PROFILE = "61c0f10a-0f13-4f7c-b733-83f9aa4ed8ef";
+				PROVISIONING_PROFILE_SPECIFIER = DrinkBar_DEV_May11;
 				SWIFT_OBJC_BRIDGING_HEADER = "Hi-Efficiency Bar/Resources/Class/Hi-Efficiency Bar-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

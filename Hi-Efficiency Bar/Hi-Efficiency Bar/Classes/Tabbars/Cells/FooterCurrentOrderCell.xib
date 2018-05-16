@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,7 +25,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZA-26-Nyu">
-                        <rect key="frame" x="135.5" y="24" width="50" height="17.5"/>
+                        <rect key="frame" x="135.5" y="24" width="50" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="eXP-yH-xP7"/>
                         </constraints>
@@ -34,37 +34,40 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6jk-LN-tk5">
-                        <rect key="frame" x="230.5" y="32.5" width="89.5" height="1"/>
+                        <rect key="frame" x="230.5" y="31.5" width="89.5" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="gdm-Hy-wUI"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sgn-NX-WUP">
-                        <rect key="frame" x="0.0" y="32.5" width="90" height="1"/>
+                        <rect key="frame" x="0.0" y="31.5" width="90" height="1"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="rue-5V-3Nm"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O32-HB-oGP">
-                        <rect key="frame" x="144" y="54.5" width="32" height="32"/>
-                        <state key="normal" image="share_g"/>
+                        <rect key="frame" x="144" y="52" width="32" height="32"/>
+                        <state key="normal" image="share_fb"/>
+                        <connections>
+                            <action selector="doFacebook:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="UV0-kX-OYl"/>
+                        </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rmn-Wd-27v">
-                        <rect key="frame" x="201" y="54.5" width="32" height="32"/>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rmn-Wd-27v">
+                        <rect key="frame" x="201" y="52" width="32" height="32"/>
                         <state key="normal" image="share_insta"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8m-w8-zt3">
-                        <rect key="frame" x="87" y="54.5" width="32" height="32"/>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8m-w8-zt3">
+                        <rect key="frame" x="87" y="52" width="32" height="32"/>
                         <state key="normal" image="share_tt"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dtw-0y-XmB">
-                        <rect key="frame" x="258" y="54.5" width="32" height="32"/>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dtw-0y-XmB">
+                        <rect key="frame" x="258" y="52" width="32" height="32"/>
                         <state key="normal" image="share_yt"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1m-c9-TL9">
-                        <rect key="frame" x="30" y="54.5" width="32" height="32"/>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1m-c9-TL9">
+                        <rect key="frame" x="30" y="52" width="32" height="32"/>
                         <state key="normal" image="share_fb"/>
                     </button>
                 </subviews>
@@ -95,7 +98,6 @@
     </objects>
     <resources>
         <image name="share_fb" width="32" height="32"/>
-        <image name="share_g" width="32" height="32"/>
         <image name="share_insta" width="32" height="32"/>
         <image name="share_tt" width="32" height="32"/>
         <image name="share_yt" width="32" height="32"/>

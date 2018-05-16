@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SwiftyGif
 class FlashVC: UIViewController {
 
     @IBOutlet weak var imgFlash: UIImageView!
@@ -16,8 +16,17 @@ class FlashVC: UIViewController {
      
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:
-            let jeremyGif = UIImage.gifImageWithName("Speed3")
-            imgFlash.image = jeremyGif
+            //let jeremyGif = UIImage.gifImageWithName("Speed3")
+            //imgFlash.image = jeremyGif
+            
+            let gif = UIImage(gifName: "Speed3.gif")
+            let imageview = UIImageView(gifImage: gif, loopCount: 1) // Use -1 for infinite loop
+            print(imgFlash.frame.size.height)
+            imageview.frame = CGRect(x:0, y:20 , width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 248)
+            imageview.delegate = self
+            imageview.contentMode = .scaleAspectFit
+            view.addSubview(imageview)
+            imageview.startAnimatingGif()
         // It's an iPhone
         case .pad: break
         // It's an iPad
@@ -29,21 +38,22 @@ class FlashVC: UIViewController {
         case .carPlay:
             break
         }
-        self.perform(#selector(clickLogin), with: nil, afterDelay: 5.0)
+       // self.perform(#selector(clickLogin), with: nil, afterDelay: 3.5)
         // Do any additional setup after loading the view.
     }
 
     @objc func clickLogin()
     {
-        if let token =  UserDefaults.standard.value(forKey: kToken) as? String
-        {
-            APP_DELEGATE.initTabbarHome()
-        }
-        else{
-            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            let tab1 = storyboard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
-            self.navigationController?.pushViewController(tab1, animated: true)
-        }
+//        if let token =  UserDefaults.standard.value(forKey: kToken) as? String
+//        {
+//
+//            APP_DELEGATE.initTabbarHome()
+//        }
+//        else{
+//            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+//            let tab1 = storyboard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+//            self.navigationController?.pushViewController(tab1, animated: true)
+//        }
        
     }
     override func didReceiveMemoryWarning() {
@@ -62,4 +72,38 @@ class FlashVC: UIViewController {
     }
     */
 
+}
+
+extension FlashVC : SwiftyGifDelegate {
+    
+    func gifURLDidFinish(sender: UIImageView) {
+        print("gifURLDidFinish")
+        
+    }
+    
+    func gifURLDidFail(sender: UIImageView) {
+        print("gifURLDidFail")
+    }
+    
+    func gifDidStart(sender: UIImageView) {
+        print("gifDidStart")
+    }
+    
+    func gifDidLoop(sender: UIImageView) {
+        print("gifDidLoop")
+    }
+    
+    func gifDidStop(sender: UIImageView) {
+        print("gifDidStop")
+        if let token =  UserDefaults.standard.value(forKey: kToken) as? String
+        {
+            print(token)
+            APP_DELEGATE.initTabbarHome()
+        }
+        else{
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let tab1 = storyboard.instantiateViewController(withIdentifier: "SignInVC") as! SignInVC
+            self.navigationController?.pushViewController(tab1, animated: true)
+        }
+    }
 }

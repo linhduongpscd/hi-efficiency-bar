@@ -13,12 +13,19 @@ class CategoryObj: NSObject {
     var image: String?
     var link: String?
     var main_level: Int?
-    var name: Int?
+    var name: String?
     init(dict: NSDictionary) {
         self.id = dict["id"] as? Int
          self.image = dict["image"] as? String
          self.link = dict["link"] as? String
          self.main_level = dict["main_level"] as? Int
-        self.name = dict["name"] as? Int
+        if let name = dict["name"] as? Int
+        {
+            self.name = "\(name)"
+        }
+        else  if let name = dict["name"] as? String
+        {
+            self.name = name
+        }
     }
 }

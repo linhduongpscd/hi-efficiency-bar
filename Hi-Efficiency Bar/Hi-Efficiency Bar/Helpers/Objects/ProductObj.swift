@@ -11,15 +11,16 @@ import UIKit
 class ProductObj: NSObject {
     var id: Int?
     var name: String?
+    var idProduct: Int?
     var image: String?
     var price: Double?
     var arringredients = [IngredientCusObj]()
     var status: Int?
     init(dict: NSDictionary) {
-        print(dict)
+       
         if let val = dict["drink"] as? NSDictionary
         {
-            self.id = val["id"] as? Int
+           self.idProduct = val["id"] as? Int
             self.name = val["name"] as? String
             self.image = val["image"] as? String
             self.price = val["price"] as? Double
@@ -32,6 +33,7 @@ class ProductObj: NSObject {
                 
             }
         }
+         self.id = dict["id"] as? Int
         if let status = dict["status"] as? Int
         {
             self.status = status

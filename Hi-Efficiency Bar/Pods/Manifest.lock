@@ -18,21 +18,26 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.31.1):
     - FBSDKCoreKit
+  - FBSDKShareKit (4.31.1):
+    - FBSDKCoreKit (~> 4.31.1)
   - MXParallaxHeader (0.6.1)
   - RappleProgressHUD (2.4.1)
   - SDWebImage (4.3.3):
     - SDWebImage/Core (= 4.3.3)
   - SDWebImage/Core (4.3.3)
   - Stripe (12.1.2)
+  - SwiftyGif (4.1.0)
 
 DEPENDENCIES:
   - Alamofire (from `https://github.com/Alamofire/Alamofire.git`)
   - FacebookLogin
   - FBSDKCoreKit
+  - FBSDKShareKit
   - MXParallaxHeader
   - RappleProgressHUD (~> 2.4)
   - SDWebImage
   - Stripe
+  - SwiftyGif
 
 EXTERNAL SOURCES:
   Alamofire:
@@ -50,11 +55,13 @@ SPEC CHECKSUMS:
   FacebookLogin: 0af839ea858faef99550d16596b87b4a8e8906e6
   FBSDKCoreKit: e08ccfcefa7bc1347a07c276dac9bf6c7fe57024
   FBSDKLoginKit: 99797ac39252fef6f72600b886f6ee60b4b29cab
+  FBSDKShareKit: e640c41c9fcd61929eeb3d0c21ad335103e7cb62
   MXParallaxHeader: 858c403532ed933b381556a81ce333d7065ad182
   RappleProgressHUD: 1d97178abc04ea9e89e4df74227064ded389ce24
   SDWebImage: de4d90b5bff3571eae7bd16202b1f43135409fa5
   Stripe: 3230cdf8a8b0c04902e45e86f222fb82a926239c
+  SwiftyGif: d36c6dfb52e2ca1e48fe349d225f50ec4123ec85
 
-PODFILE CHECKSUM: b2651252ab389a958665c3cb79befa8ada682344
+PODFILE CHECKSUM: 10469d255300bf556d136419c543c5d5cb5b3955
 
 COCOAPODS: 1.4.0

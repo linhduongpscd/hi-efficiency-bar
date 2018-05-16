@@ -10,7 +10,9 @@ target 'Hi-Efficiency Bar' do
  pod "Alamofire", :git => 'https://github.com/Alamofire/Alamofire.git'
  pod 'SDWebImage'
  pod "FBSDKCoreKit"
+ pod "FBSDKShareKit"
  pod 'FacebookLogin'
  pod 'RappleProgressHUD', '~> 2.4'
  pod 'Stripe'
+ pod 'SwiftyGif'
 end

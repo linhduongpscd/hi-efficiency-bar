@@ -564,7 +564,11 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                 }
                 cell.tapSearchQuickly = { [weak self] in
                     let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "SearchTagVC") as! SearchTagVC
-                    self?.present(vc, animated: true, completion: nil)
+//                    vc.tapDetailSearch = { [] in
+//                       
+//                    }
+                    let nav = BaseNaviController.init(rootViewController: vc)
+                    self?.present(nav, animated: true, completion: nil)
                 }
                 return cell
             }
@@ -644,7 +648,7 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
             cell.subContent.borderWidth = 1.0
             cell.subContent.borderColor =  UIColor.clear
         }
-        cell.subContent.backgroundColor = CommonHellper.ramColorViewDetail()
+        cell.subContent.backgroundColor = obj.bgColor!
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -732,9 +736,9 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                 }
                 obj.isSeleled = !obj.isSeleled!
                 self.collectionView.reloadData()
-                CommonHellper.showBusy()
+                //CommonHellper.showBusy()
                 ManagerWS.shared.createDrinkByUser(self.convertToParamSearchDrinkByUser(), complete: { (success, arrs) in
-                    CommonHellper.hideBusy()
+                   // CommonHellper.hideBusy()
                     self.arrDrinkCreate = arrs!
                     if arrs?.count == 0
                     {

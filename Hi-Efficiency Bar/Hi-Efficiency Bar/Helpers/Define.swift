@@ -55,7 +55,6 @@ let kID   = "kID"
 let kToken  = "kToken"
 let kLimitPage = 20
 
-
 let KEY_STRIPE = "pk_test_KSMESnZKrSyuNxek4u6JmQPb"
 
 let CONST_SEARCH_BASICS = 0

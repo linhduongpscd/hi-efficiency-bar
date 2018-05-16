@@ -14,6 +14,7 @@ class MainBarObj: NSObject {
     var image: String?
     var slug: String?
     var arrIngredients = [Ingredient]()
+    var bgColor: UIColor?
     init(dict: NSDictionary) {
         self.id = dict["id"] as? Int
         self.name = dict["name"] as? String
@@ -26,5 +27,6 @@ class MainBarObj: NSObject {
                 self.arrIngredients.append(Ingredient.init(dict: item as! NSDictionary))
             }
         }
+        self.bgColor =  CommonHellper.ramColorViewDetail()
     }
 }

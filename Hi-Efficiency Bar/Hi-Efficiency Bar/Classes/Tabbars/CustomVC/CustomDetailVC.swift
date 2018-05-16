@@ -62,10 +62,11 @@ class CustomDetailVC: HelpController {
     var valueIce = 0
     var isRedirectCus = false
     var arrCusIngredients = [Ingredient]()
+    @IBOutlet weak var btnFullEditName: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
-        self.setDefault()
+        
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
         let btnRight = UIBarButtonItem.init(customView: subNaviRight)
         self.navigationItem.rightBarButtonItem = btnRight
@@ -83,6 +84,7 @@ class CustomDetailVC: HelpController {
        
         if !isRedirectCus
         {
+            arringredients.removeAll()
             for recod in drinkObj.ingredients!
             {
                 let dict = recod as! NSDictionary
@@ -93,6 +95,7 @@ class CustomDetailVC: HelpController {
              txfDrinkName.text = drinkObj.name
         }
         else{
+             arringredients.removeAll()
             for recod in arrCusIngredients
             {
                 let obj = IngredientCusObj.init(dict: NSDictionary.init())
@@ -107,6 +110,13 @@ class CustomDetailVC: HelpController {
             heightTable.constant = CGFloat(arringredients.count * 44)
             txfDrinkName.placeholder = "Name drink"
             txfDrinkName.text = ""
+        }
+        if self.getTotolRatioUnit() > Double((glassObj?.size)!)
+        {
+            self.lblMaxSize.textColor = UIColor.red
+        }
+        else{
+            self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
         }
        
     }
@@ -199,12 +209,14 @@ class CustomDetailVC: HelpController {
                  self.lblMaxSize.text = ""
             }
             self.initData()
+            self.setDefault()
         }
     }
     @IBAction func doEditName(_ sender: Any) {
         if !isEditName {
             txfDrinkName.isEnabled = true
             isEditName = true
+            btnFullEditName.isHidden = true
             
             UIView.animate(withDuration: 0.25, animations: {
                 self.widthTxfDrinkName.constant = UIScreen.main.bounds.size.width - 180
@@ -220,7 +232,7 @@ class CustomDetailVC: HelpController {
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
         rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
-        rotationAnimation.duration = 0.4
+        rotationAnimation.duration = 0.6
         rotationAnimation.repeatCount = 1
         
         CATransaction.setCompletionBlock {
@@ -228,10 +240,11 @@ class CustomDetailVC: HelpController {
             let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
             rotationAnimation.fromValue = 0.0
             rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
-            rotationAnimation.duration = 0.4
+            rotationAnimation.duration = 0.6
             rotationAnimation.repeatCount = 1
             
             CATransaction.setCompletionBlock {
+                self.fectAllGlass()
             }
             self.imgRorate.layer.add(rotationAnimation, forKey: nil)
             CATransaction.commit()
@@ -262,7 +275,10 @@ class CustomDetailVC: HelpController {
     
     func setDefault()
     {
-       
+        numberQuanlity = 1
+        lblQuanlity.text = "\(numberQuanlity)"
+       valueIce = 0
+         prep = 0
         self.setColorTextNormalOrSelect(lable: lblShake, isSelect: true)
         self.setColorTextNormalOrSelect(lable: lblFilter, isSelect: false)
         self.setColorTextNormalOrSelect(lable: lblStir, isSelect: false)
@@ -504,6 +520,7 @@ class CustomDetailVC: HelpController {
         if self.getTotolRatioUnit() > Double((glassObj?.size)!)
         {
             self.showAlertMessage(message: "Your total custom mL is greater than the max size of drink")
+            
             return
         }
         self.view.endEditing(true)
@@ -573,7 +590,7 @@ extension CustomDetailVC: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         txfDrinkName.isEnabled = false
         isEditName = false
-        
+         btnFullEditName.isHidden = false
         UIView.animate(withDuration: 0.25, animations: {
             self.widthTxfDrinkName.constant = 140
             self.leaningBtnName.constant = 7
@@ -601,10 +618,33 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tblDetail.dequeueReusableCell(withIdentifier: "CustomDetailCell") as! CustomDetailCell
         self.configCellCustomDetailCell(cell, obj: arringredients[indexPath.row])
+        cell.ingredientCusObj = arringredients[indexPath.row]
+        cell.tapChangeML = { [] in
+            if self.getTotolRatioUnit() > Double((self.glassObj?.size)!)
+            {
+                self.lblMaxSize.textColor = UIColor.red
+            }
+            else{
+                self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+            }
+        }
         cell.tapRemove = { [] in
-            self.arringredients.remove(at: indexPath.row)
-            self.heightTable.constant = CGFloat(self.arringredients.count * 44)
-            self.tblDetail.reloadData()
+            let alert = UIAlertController(title: APP_NAME,
+                                          message: "Are you sure you want to delete?",
+                                          preferredStyle: UIAlertControllerStyle.actionSheet)
+            let delete = UIAlertAction.init(title: "Delete", style: .destructive, handler: { (action) in
+                self.arringredients.remove(at: indexPath.row)
+                self.heightTable.constant = CGFloat(self.arringredients.count * 44)
+                self.tblDetail.reloadData()
+            })
+             alert.addAction(delete)
+            let cancelAction = UIAlertAction(title: "Cancel",
+                                             style: .cancel, handler: nil)
+            
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+            
+            
         }
         return cell
     }
@@ -628,16 +668,9 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
         var value = 0.0
         for var i in 0..<arringredients.count
         {
-            let indexPath = IndexPath(row: i, section: 0)
-            if let cell = self.tblDetail.cellForRow(at: indexPath) as? CustomDetailCell
-            {
-                let obj = arringredients[i]
-                if !CommonHellper.trimSpaceString(txtString: cell.txfValue.text!).isEmpty
-                {
-                    value = value + Double(cell.txfValue.text!)!
-                    obj.value = Int(cell.txfValue.text!)!
-                }
-            }
+             let obj = arringredients[i]
+            value = value + Double(obj.value!)
+           
         }
         return value
     }

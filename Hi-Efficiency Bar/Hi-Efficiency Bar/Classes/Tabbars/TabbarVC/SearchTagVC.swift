@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SearchTagVC: UIViewController {
-
+class SearchTagVC: UIViewController, ASFSharedViewTransitionDataSource {
+    var tapDetailSearch: (() ->())?
     @IBOutlet weak var txfSearch: UITextField!
     @IBOutlet weak var collectionSearch: UICollectionView!
     var arrDrinks = [DrinkObj]()
@@ -17,13 +17,20 @@ class SearchTagVC: UIViewController {
     var isLoadMore = false
     var indexPathCell: IndexPath?
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
+    var drinkSelectedObj = DrinkObj.init(dict: NSDictionary.init())
     override func viewDidLoad() {
         super.viewDidLoad()
+         ASFSharedViewTransition.addWith(fromViewControllerClass: SearchTagVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         txfSearch.becomeFirstResponder()
         self.collectionSearch.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
+        txfSearch.becomeFirstResponder()
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -41,7 +48,9 @@ class SearchTagVC: UIViewController {
     */
     func fetchAllDrink()
     {
+        CommonHellper.showBusy()
         ManagerWS.shared.getSearchDrink(txtSearch: CommonHellper.trimSpaceString(txtString: txfSearch.text!), offset: offset) { (success, arrs) in
+            CommonHellper.hideBusy()
             if arrs!.count > 0
             {
                 self.isLoadMore = true
@@ -61,10 +70,25 @@ class SearchTagVC: UIViewController {
             
         }
     }
+    func sharedView() -> UIView! {
+        if ((collectionSearch.indexPathsForSelectedItems?.first) != nil)
+        {
+            if let cell = collectionSearch.cellForItem(at: (collectionSearch.indexPathsForSelectedItems?.first)!) as? MainBarViewCell
+            {
+                return cell.imgCell
+            }
+            return UIView.init()
+        }
+        else{
+            return UIView.init()
+        }
+        
+    }
 }
 extension SearchTagVC: UITextFieldDelegate
 {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.txfSearch.resignFirstResponder()
         self.arrDrinks.removeAll()
         offset = 0
         isLoadMore = false
@@ -75,7 +99,7 @@ extension SearchTagVC: UITextFieldDelegate
 extension SearchTagVC: UIScrollViewDelegate
 {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        txfSearch.resignFirstResponder()
+        
     }
 }
 extension SearchTagVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
@@ -138,10 +162,13 @@ extension SearchTagVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
                                        completion: { _ in
                                         self.indexPathCell = indexPath
                                         self.mainBarViewCell.removedropShadow()
-                                        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
-                                        vc.drinkObj = self.arrDrinks[indexPath.row]
-                                        
-                                        self.navigationController?.pushViewController(vc, animated: true)
+                                       self.drinkSelectedObj = self.arrDrinks[indexPath.row]
+                                        let presetVC = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
+                                        presetVC.drinkObj = self.drinkSelectedObj
+                                        self.navigationController?.pushViewController(presetVC, animated: true)
+//                                        self.dismiss(animated: true, completion: {
+//                                            self.tapDetailSearch?()
+//                                        })
                         })
                         
         })

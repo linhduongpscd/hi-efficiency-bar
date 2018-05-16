@@ -135,6 +135,7 @@ class MyTabVC: BaseViewController {
                     self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
                 }
                 else{
+                    self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
                     self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
                     self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
                         self.removeLoadingView()
@@ -195,6 +196,7 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
         return 70
     }
     
+  
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0
@@ -206,8 +208,9 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
         {
             let cell = self.tblMyTab.dequeueReusableCell(withIdentifier: "visacell") as! visacell
             cell.lblFee.text = "$0"
-            cell.lblPrice.text = "$\(doublePrice)"
-            cell.lblTotalPay.text = "$\(doublePrice)"
+            cell.lblPrice.text = String(format: "$%.2f", Double(doublePrice))
+            cell.lblTotalPay.text = String(format: "$%.2f", Double(doublePrice + CommonHellper.getTaxDrink(doublePrice)))
+            cell.lblFee.text =  String(format: "$%.2f", CommonHellper.getTaxDrink(doublePrice))
             cell.tapStripeVisa = { [] in
                 self.isReload = true
                 let addCardViewController = STPAddCardViewController()
@@ -231,6 +234,11 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
                 else{
                     cell.imgCard.image = #imageLiteral(resourceName: "card")
                 }
+            }
+            else{
+                cell.lblNumberHide.text = ""
+                cell.lblLastCard.text = ""
+                cell.imgCard.image = UIImage.init()
             }
             return cell
         }
@@ -334,7 +342,7 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
             cell.lblPrice.text = "$0"
         }
         else{
-            cell.lblPrice.text = "$\(Double((Double(obj.quantity!) * Double(obj.price!))))"
+            cell.lblPrice.text =  String(format: "$%.2f", Double((Double(obj.quantity!) * Double(obj.price!))))
         }
     }
 }

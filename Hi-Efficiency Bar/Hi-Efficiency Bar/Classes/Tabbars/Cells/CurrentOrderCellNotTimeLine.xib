@@ -26,8 +26,20 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6is-9A-mk2" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                         <rect key="frame" x="46" y="5" width="283" height="44.5"/>
                         <subviews>
+                            <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RJc-lS-YAo" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="283" height="44.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 part" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fam-qX-Yke">
-                                <rect key="frame" x="17" y="14.5" width="42" height="16"/>
+                                <rect key="frame" x="17" y="13" width="42" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="8So-1B-hoE"/>
                                 </constraints>
@@ -36,7 +48,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="sugar syrup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JYo-w9-ryW">
-                                <rect key="frame" x="64" y="14" width="209" height="16"/>
+                                <rect key="frame" x="64" y="12.5" width="209" height="19"/>
                                 <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="16"/>
                                 <color key="textColor" red="0.64931827783584595" green="0.64608579874038696" blue="0.51477974653244019" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -44,8 +56,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="RJc-lS-YAo" secondAttribute="trailing" id="V2x-we-F9S"/>
                             <constraint firstItem="fam-qX-Yke" firstAttribute="leading" secondItem="6is-9A-mk2" secondAttribute="leading" constant="17" id="XjN-BL-5yz"/>
+                            <constraint firstItem="RJc-lS-YAo" firstAttribute="top" secondItem="6is-9A-mk2" secondAttribute="top" id="Za5-NU-shA"/>
                             <constraint firstItem="JYo-w9-ryW" firstAttribute="leading" secondItem="fam-qX-Yke" secondAttribute="trailing" constant="5" id="exZ-LR-1G8"/>
+                            <constraint firstItem="RJc-lS-YAo" firstAttribute="leading" secondItem="6is-9A-mk2" secondAttribute="leading" id="hIP-9l-K0K"/>
+                            <constraint firstAttribute="bottom" secondItem="RJc-lS-YAo" secondAttribute="bottom" id="hO0-Cf-Mb9"/>
                             <constraint firstItem="JYo-w9-ryW" firstAttribute="centerY" secondItem="6is-9A-mk2" secondAttribute="centerY" id="q5P-hh-xLZ"/>
                             <constraint firstItem="fam-qX-Yke" firstAttribute="centerY" secondItem="6is-9A-mk2" secondAttribute="centerY" id="xGd-UN-5ui"/>
                             <constraint firstAttribute="trailing" secondItem="JYo-w9-ryW" secondAttribute="trailing" constant="10" id="ybj-NQ-Gaf"/>
@@ -73,7 +89,7 @@
             <connections>
                 <outlet property="lblName" destination="JYo-w9-ryW" id="eF4-n7-X1f"/>
                 <outlet property="lblPart" destination="fam-qX-Yke" id="ZiE-EX-FRi"/>
-                <outlet property="subContent" destination="6is-9A-mk2" id="xlg-3h-QHr"/>
+                <outlet property="subContent" destination="RJc-lS-YAo" id="fw7-Od-IlN"/>
             </connections>
             <point key="canvasLocation" x="24.5" y="52.5"/>
         </tableViewCell>

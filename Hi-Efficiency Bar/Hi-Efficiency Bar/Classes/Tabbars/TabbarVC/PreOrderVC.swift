@@ -99,7 +99,12 @@ extension PreOrderVC: UITableViewDataSource, UITableViewDelegate
         cell.tapShowMoreHeader = { [] in
             tableView.reloadData()
         }
-    
+        cell.tapProduct = { [] in
+            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
+            vc.idProduct = self.arrOrders[indexPath.row].arrProducts[cell.indexPathSelect].idProduct!
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         cell.tapShowCurrentOrder = { [] in
             //let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CurrentOrderVC") as! CurrentOrderVC
             //self.navigationController?.pushViewController(vc, animated: true)

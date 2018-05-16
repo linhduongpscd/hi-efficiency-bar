@@ -57,12 +57,12 @@ struct ManagerWS {
                                 {
                                     if let id = val["id"] as? Int
                                     {
-                                        UserDefaults.standard.set(id, forKey: kID)
-                                        if let token = val["token"] as? String
-                                        {
-                                            UserDefaults.standard.set(token, forKey: kToken)
-                                        }
-                                        UserDefaults.standard.synchronize()
+//                                        UserDefaults.standard.set(id, forKey: kID)
+//                                        if let token = val["token"] as? String
+//                                        {
+//                                            UserDefaults.standard.set(token, forKey: kToken)
+//                                        }
+//                                        UserDefaults.standard.synchronize()
                                         complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
                                     }
                                 }
@@ -112,14 +112,26 @@ struct ManagerWS {
                                             complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"), token, id, birthday)
                                         }
                                         else{
-                                             complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Wrong birthday."), nil, nil, nil)
+                                            if let detail = val.object(forKey: "detail") as? String
+                                            {
+                                                 complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:detail), nil, nil, nil)
+                                            }
+                                            else{
+                                                 complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Wrong birthday."), nil, nil, nil)
+                                            }
                                         }
                                     }
                                 }
                             }
                             else if code == SERVER_CODE.CODE_400
                             {
-                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Wrong email or password."), nil, nil, nil)
+                                if let detail = val.object(forKey: "detail") as? String
+                                {
+                                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:detail), nil, nil, nil)
+                                }
+                                else{
+                                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Wrong birthday."), nil, nil, nil)
+                                }
                             }
                             else{
                                 complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(val)"),nil,nil, nil)
@@ -979,13 +991,25 @@ struct ManagerWS {
                 case .success(_):
                     if let code = response.response?.statusCode
                     {
-                         print(code)
+                        
                         if code == SERVER_CODE.CODE_200 || code == SERVER_CODE.CODE_201
                         {
                             complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
                         }
                         else{
-                            complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(response.result.value as? NSDictionary)"))
+                            if let val = response.value as? NSDictionary
+                            {
+                                if let detail = val.object(forKey: "detail") as? String
+                                {
+                                     complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: detail))
+                                }
+                                else{
+                                     complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(response.result.value as? NSDictionary)"))
+                                }
+                            }
+                            else{
+                                 complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(response.result.value as? NSDictionary)"))
+                            }
                         }
                     }
                     break
@@ -1291,7 +1315,9 @@ struct ManagerWS {
         print(param)
         let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
         manager.request(URL.init(string: "\(URL_SERVER)api/user/order/")!, method: .post, parameters: param,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            
             .responseJSON { response in
+                print(response)
                 if let code = response.response?.statusCode
                 {
                     if code == SERVER_CODE.CODE_200
@@ -1394,6 +1420,7 @@ struct ManagerWS {
                         {
                             if let val = arrs[0] as? NSDictionary
                             {
+                                APP_DELEGATE.settingObj = SettingObj.init(dict: val)
                                 if let bar_status  = val["bar_status"] as? Bool
                                 {
                                     if bar_status
@@ -1423,6 +1450,46 @@ struct ManagerWS {
                     break
                 case .failure(_):
                     complete(false)
+                    break
+                }
+        }
+    }
+    
+    
+    // GET DRINK BY ID
+    func getDrinkBYID(drinkID: Int,complete:@escaping (_ success: Bool?, _ drinkObj: DrinkObj?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print("\(URL_SERVER)api/drink/\(drinkID)/")
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/drink/\(drinkID)/")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if code == SERVER_CODE.CODE_200
+                            {
+                                 complete(true, DrinkObj.init(dict: val))
+                            }
+                            else{
+                                complete(true, DrinkObj.init(dict: NSDictionary.init()))
+                            }
+                        }
+                        else{
+                            complete(true, DrinkObj.init(dict: NSDictionary.init()))
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(true, DrinkObj.init(dict: NSDictionary.init()))
                     break
                 }
         }

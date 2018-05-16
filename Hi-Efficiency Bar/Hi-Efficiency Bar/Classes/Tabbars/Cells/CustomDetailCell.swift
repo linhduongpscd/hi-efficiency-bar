@@ -8,13 +8,16 @@
 
 import UIKit
 
-class CustomDetailCell: UITableViewCell {
+class CustomDetailCell: UITableViewCell, UITextFieldDelegate {
     var tapRemove: (() ->())?
+    var tapChangeML: (() ->())?
     @IBOutlet weak var lblUnit: UILabel!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var txfValue: UITextField!
+    var ingredientCusObj = IngredientCusObj.init(dict: NSDictionary.init())
     override func awakeFromNib() {
         super.awakeFromNib()
+        txfValue.delegate = self
         // Initialization code
     }
 
@@ -26,5 +29,29 @@ class CustomDetailCell: UITableViewCell {
 
     @IBAction func doRemove(_ sender: Any) {
         self.tapRemove?()
+    }
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        ingredientCusObj.value = 0
+        ingredientCusObj.ratio = 0
+        self.tapChangeML?()
+        return true
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let text = txfValue.text,
+            let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange,
+                                                       with: string)
+            if CommonHellper.trimSpaceString(txtString: updatedText).isEmpty
+            {
+                ingredientCusObj.value = 0
+                ingredientCusObj.ratio = 0
+            }
+            else{
+                ingredientCusObj.value = Int(CommonHellper.trimSpaceString(txtString: updatedText))
+                ingredientCusObj.ratio = Int(CommonHellper.trimSpaceString(txtString: updatedText))
+            }
+            self.tapChangeML?()
+        }
+        return true
     }
 }

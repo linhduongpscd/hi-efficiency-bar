@@ -160,7 +160,7 @@
     }
     
     [containerView addSubview:snapshotView];
-    
+    [containerView layoutIfNeeded];
     [UIView animateWithDuration:dur animations:^{
         if (!reversed) {
             toVC.view.alpha = 1.0; // Fade in
@@ -170,7 +170,8 @@
         }
         
         // Move the SnapshotView
-        snapshotView.frame = [containerView convertRect:toView.frame fromView:toView.superview];
+        NSLog(@"%f %f %f %f",toView.frame.origin.x,toView.frame.origin.y,toView.frame.size.width, toView.frame.size.height);
+        snapshotView.frame = [containerView convertRect:toView.frame fromView:toView];
         
     } completion:^(BOOL finished) {
         // Clean up

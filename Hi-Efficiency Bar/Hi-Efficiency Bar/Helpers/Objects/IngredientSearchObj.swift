@@ -14,11 +14,13 @@ class IngredientSearchObj: NSObject {
     var name: String?
     var isSeleled: Bool?
     var type_search: Int?
+    var bgColor: UIColor?
     init(dict: NSDictionary) {
         self.id = dict["id"] as? Int
         self.image = dict["image"] as? String
         self.name = dict["name"] as? String
          self.type_search = dict["type_search"] as? Int
         self.isSeleled = false
+        self.bgColor =  CommonHellper.ramColorViewDetail()
     }
 }

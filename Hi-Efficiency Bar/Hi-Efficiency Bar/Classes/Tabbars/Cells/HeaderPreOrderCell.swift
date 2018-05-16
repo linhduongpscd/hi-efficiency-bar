@@ -12,12 +12,14 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
     var tapShowMoreHeader:(() ->())?
     var tapShowCurrentOrder:(() ->())?
     var tapReorderProduct:(() ->())?
+    var tapProduct:(() ->())?
     @IBOutlet weak var tblOrder: UITableView!
     @IBOutlet weak var ic_repeat: UIImageView!
     var isMore = false
     @IBOutlet weak var lblOrder: UILabel!
     @IBOutlet weak var lblTimeAgo: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
+    var indexPathSelect = Int()
     var userOrderObj = OrderUserObj.init(dict: NSDictionary.init())
     override func awakeFromNib() {
          tblOrder.register( UINib(nibName: "PreOrderCell", bundle: nil), forCellReuseIdentifier: "PreOrderCell")
@@ -33,7 +35,7 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
         rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
-        rotationAnimation.duration = 0.4
+        rotationAnimation.duration = 0.6
         rotationAnimation.repeatCount = 1
         
         CATransaction.setCompletionBlock {
@@ -41,7 +43,7 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
             let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
             rotationAnimation.fromValue = 0.0
             rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
-            rotationAnimation.duration = 0.4
+            rotationAnimation.duration = 0.6
             rotationAnimation.repeatCount = 1
             
             CATransaction.setCompletionBlock {
@@ -201,7 +203,10 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
                 self.tblOrder.reloadData()
                 self.tapShowMoreHeader?()
             }
-          
+            else{
+                indexPathSelect = indexPath.row
+                self.tapProduct?()
+            }
         }
         else{
             if userOrderObj.arrProducts.count > 2
@@ -212,6 +217,14 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
                     self.tblOrder.reloadData()
                     self.tapShowMoreHeader?()
                 }
+                else{
+                   indexPathSelect = indexPath.row
+                    self.tapProduct?()
+                }
+            }
+            else{
+               indexPathSelect = indexPath.row
+                self.tapProduct?()
             }
            
         }

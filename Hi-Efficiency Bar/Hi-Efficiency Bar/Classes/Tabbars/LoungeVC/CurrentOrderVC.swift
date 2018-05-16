@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import FBSDKShareKit
 class CurrentOrderVC: UIViewController  {
 
     @IBOutlet weak var tblCurrent: UITableView!
@@ -268,7 +268,29 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
          let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "FooterCurrentOrderCell") as! FooterCurrentOrderCell
-        return cell.contentView
+        cell.doShareFacebook = { [] in
+            
+            let obj = self.userOrderObj.arrProducts[self.currentPage]
+            /*FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+            content.contentURL = [NSURL URLWithString:@"https://developers.facebook.com"];
+            
+            FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
+            dialog.fromViewController = self;
+            dialog.content = content;
+            dialog.mode = FBSDKShareDialogModeShareSheet;
+            [dialog show];*/
+            let content = FBSDKShareLinkContent.init()
+            if obj.image != nil
+            {
+                content.contentURL = URL.init(string: obj.image!)
+            }
+            content.quote = obj.name
+            let dialog = FBSDKShareDialog.init()
+            dialog.fromViewController = self
+            dialog.shareContent = content
+            dialog.show()
+        }
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -290,3 +312,5 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
         return cell.contentView
     }
 }
+
+

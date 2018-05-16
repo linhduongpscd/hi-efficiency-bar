@@ -13,11 +13,15 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
      var items = [MainBarObj]()
     var isCustom = false
     @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var bgItem: UIImageView!
     var currentPage: Int = 0 {
         didSet {
             if self.items.count > 0 {
                 let mainBarObj = self.items[self.currentPage]
                 lblName.text = mainBarObj.name
+                self.bgItem.sd_setImage(with: URL.init(string: mainBarObj.image!), completed: { (image, error, type, url) in
+                   
+                })
                 if isCustom
                 {
                     self.tapHeaderMainBar?()
@@ -47,6 +51,7 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
     {
         self.setupLayout()
         self.currentPage = 0
+         CommonHellper.addBlurView(self.bgItem)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

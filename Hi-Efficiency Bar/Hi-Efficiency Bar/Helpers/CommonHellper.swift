@@ -112,7 +112,30 @@ class CommonHellper {
         })
     }
     
-  
+    static func addBlurView(_ inView : UIView)
+    {
+        let darkBlur = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurView = UIVisualEffectView(effect: darkBlur)
+        blurView.frame = inView.bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurView.alpha = 1
+        inView.addSubview(blurView)
+    }
+    
+    static func getTaxDrink(_ price: Double) -> Double
+    {
+        print(price)
+        print(APP_DELEGATE.settingObj.tax)
+        print(APP_DELEGATE.settingObj.tax! + APP_DELEGATE.settingObj.free!)
+        print((APP_DELEGATE.settingObj.tax! + APP_DELEGATE.settingObj.free!)/100)
+        if APP_DELEGATE.settingObj.fee_unit_view == "%"
+        {
+            return price * Double(Double((APP_DELEGATE.settingObj.tax! + APP_DELEGATE.settingObj.free!)) * 0.01)
+        }
+        else{
+            return price * Double(Double(APP_DELEGATE.settingObj.tax!) * 0.01) + Double(APP_DELEGATE.settingObj.free!)
+        }
+    }
 }
 extension UIColor {
     func as1ptImage() -> UIImage {

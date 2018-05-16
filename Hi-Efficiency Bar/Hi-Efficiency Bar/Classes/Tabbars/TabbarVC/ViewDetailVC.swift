@@ -39,6 +39,8 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     @IBOutlet weak var lblNormal: UILabel!
     var valueIce = 0
     @IBOutlet weak var bgCover: UIImageView!
+    @IBOutlet weak var icCup: UIImageView!
+    var idProduct = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
@@ -49,11 +51,28 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         self.navigationController?.navigationBar.isTranslucent = true
         let btnRight = UIBarButtonItem.init(customView: subNaviRight)
         self.navigationItem.rightBarButtonItem = btnRight
-        self.initViewDetail()
+        if idProduct == 0
+        {
+              self.initViewDetail()
+        }
+        else{
+            self.getDrinkByID()
+        }
+      
+    }
+    
+    func getDrinkByID()
+    {
+        ManagerWS.shared.getDrinkBYID(drinkID: self.idProduct) { (success, obj) in
+            self.drinkObj = obj!
+            print(self.drinkObj.ingredients!)
+            self.initViewDetail()
+        }
     }
     
     func initViewDetail()
     {
+        arrGarnish.removeAllObjects()
         arringredients = drinkObj.ingredients?.mutableCopy() as! NSMutableArray
         for recod in drinkObj.garnishes!
         {
@@ -69,11 +88,14 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
                 
             })
         }
-        if drinkObj.image_background != nil
+        if drinkObj.image != nil
         {
-            bgCover.sd_setImage(with: URL.init(string: drinkObj.image_background!), completed: { (image, error, type, url) in
-                
+            bgCover.sd_setImage(with: URL.init(string: drinkObj.image!), completed: { (image, error, type, url) in
+                CommonHellper.addBlurView(self.bgCover)
             })
+        }
+        else{
+            CommonHellper.addBlurView(self.bgCover)
         }
         lblName.text = drinkObj.name
         if drinkObj.is_favorite! {
@@ -97,13 +119,26 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
             heightTitleIce.constant = 0
             heightIce.constant = 0
         }
-        
+        valueIce = 0
         self.setColorTextNormalOrSelect(lable: lblNone, isSelect: true)
         self.setColorTextNormalOrSelect(lable: lblSome, isSelect: false)
         self.setColorTextNormalOrSelect(lable: lblNormal, isSelect: false)
         setImageSeletd(imageView: imgNone, uimage: #imageLiteral(resourceName: "ice_none2"))
         setImageSeletd(imageView: imgSome, uimage: #imageLiteral(resourceName: "ice_some1"))
         setImageSeletd(imageView: imgNormal, uimage: #imageLiteral(resourceName: "ice_normal1"))
+        if drinkObj.categoryObj?.name == "1"
+        {
+            icCup.image = #imageLiteral(resourceName: "ic_cup")
+        }
+        else if drinkObj.categoryObj?.name == "2"
+        {
+            icCup.image = #imageLiteral(resourceName: "ic_cup2")
+        }
+        else{
+            icCup.image = #imageLiteral(resourceName: "ic_cup3")
+        }
+        self.tblDetail.reloadData()
+        self.tblGarnish.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -280,7 +315,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     
    
     func sharedView() -> UIView! {
-        return imgDetail
+        return self.imgDetail
     }
     
     func setColorTextNormalOrSelect(lable: UILabel, isSelect: Bool)
@@ -359,13 +394,7 @@ extension ViewDetailVC: UITableViewDelegate, UITableViewDataSource
             return cell
         }
         let cell = self.tblDetail.dequeueReusableCell(withIdentifier: "CurrentOrderCell") as! CurrentOrderCell
-       if indexPath.row == 2
-       {
-            //cell.subContent.backgroundColor = UIColor.init(red: 241/255.0, green: 240/255.0, blue: 144/255.0, alpha: 1.0)
-       }
-       else{
-            cell.subContent.backgroundColor = UIColor.white
-        }
+        cell.subContent.backgroundColor = CommonHellper.ramColorViewDetail()
         cell.backgroundColor = UIColor.clear
         self.configCell(cell, dict: arringredients[indexPath.row] as! NSDictionary)
         return cell

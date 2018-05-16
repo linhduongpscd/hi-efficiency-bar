@@ -199,7 +199,7 @@ class SignUpVC: BaseViewController {
     
     @objc func actionTabbar()
     {
-        APP_DELEGATE.initTabbarHome()
+        self.navigationController?.popViewController(animated: true)
     }
 }
 extension SignUpVC: UITextFieldDelegate
