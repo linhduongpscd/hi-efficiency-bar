@@ -44,11 +44,11 @@ class CustomDetailCell: UITableViewCell, UITextFieldDelegate {
             if CommonHellper.trimSpaceString(txtString: updatedText).isEmpty
             {
                 ingredientCusObj.value = 0
-                ingredientCusObj.ratio = 0
+                ingredientCusObj.unit = 0
             }
             else{
-                ingredientCusObj.value = Int(CommonHellper.trimSpaceString(txtString: updatedText))
-                ingredientCusObj.ratio = Int(CommonHellper.trimSpaceString(txtString: updatedText))
+                ingredientCusObj.value = CommonHellper.convertMLDrink(unit: (ingredientCusObj.unit_view?.lowercased())!, number: ingredientCusObj.unit!)
+                ingredientCusObj.unit = Int(CommonHellper.trimSpaceString(txtString: updatedText))
             }
             self.tapChangeML?()
         }

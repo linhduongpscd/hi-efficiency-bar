@@ -25,6 +25,8 @@
 		272AD3952064A67F00164856 /* HeaderCustom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD3942064A67F00164856 /* HeaderCustom.xib */; };
 		272AD3972064AA0900164856 /* CarouselCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD3962064AA0900164856 /* CarouselCollectionViewCell.xib */; };
 		272AD57F20A941D40096E2F3 /* IngreItemCollectCus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD57E20A941D40096E2F3 /* IngreItemCollectCus.xib */; };
+		272B388720B5168B00CB43BF /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 272B388620B5168B00CB43BF /* LocalAuthentication.framework */; };
+		272B388A20B51C7500CB43BF /* TouchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 272B388920B51C7500CB43BF /* TouchHelper.m */; };
 		27330F0D20805A4800F5033A /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F0C20805A4800F5033A /* iOSDevCenters+GIF.swift */; };
 		27330F0F20805F5E00F5033A /* MyTabObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F0E20805F5E00F5033A /* MyTabObj.swift */; };
 		27330F112080AAC600F5033A /* visacell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F102080AAC600F5033A /* visacell.swift */; };
@@ -206,6 +208,9 @@
 		272AD3942064A67F00164856 /* HeaderCustom.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCustom.xib; sourceTree = "<group>"; };
 		272AD3962064AA0900164856 /* CarouselCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CarouselCollectionViewCell.xib; sourceTree = "<group>"; };
 		272AD57E20A941D40096E2F3 /* IngreItemCollectCus.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IngreItemCollectCus.xib; sourceTree = "<group>"; };
+		272B388620B5168B00CB43BF /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		272B388820B51C7500CB43BF /* TouchHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchHelper.h; sourceTree = "<group>"; };
+		272B388920B51C7500CB43BF /* TouchHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchHelper.m; sourceTree = "<group>"; };
 		27330F0C20805A4800F5033A /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		27330F0E20805F5E00F5033A /* MyTabObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabObj.swift; sourceTree = "<group>"; };
 		27330F102080AAC600F5033A /* visacell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = visacell.swift; sourceTree = "<group>"; };
@@ -400,6 +405,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				272B388720B5168B00CB43BF /* LocalAuthentication.framework in Frameworks */,
 				27EB52D42089E9EA009294BA /* libz.tbd in Frameworks */,
 				21F278813AC65E5FDC7A6F87 /* Pods_Hi_Efficiency_Bar.framework in Frameworks */,
 			);
@@ -696,6 +702,8 @@
 				3B91CB2A2058DA600073D54B /* PickerView.swift */,
 				3B91CB2B2058DA600073D54B /* PickerView.xib */,
 				3B91CB2E2058DB630073D54B /* Hi-Efficiency Bar-Bridging-Header.h */,
+				272B388820B51C7500CB43BF /* TouchHelper.h */,
+				272B388920B51C7500CB43BF /* TouchHelper.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -893,6 +901,7 @@
 		E1C9FA3EB1B3D57F947B67E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				272B388620B5168B00CB43BF /* LocalAuthentication.framework */,
 				27EB52D32089E9EA009294BA /* libz.tbd */,
 				9F666944C69A254AEB833642 /* Pods_Hi_Efficiency_Bar.framework */,
 			);
@@ -1201,6 +1210,7 @@
 				3B91CB242058C5070073D54B /* Define.swift in Sources */,
 				275418BD2068FC0F00DEED32 /* TLYShyStatusBarController.m in Sources */,
 				2791606B207F161100D91210 /* CategoryObj.swift in Sources */,
+				272B388A20B51C7500CB43BF /* TouchHelper.m in Sources */,
 				275418BF2068FC0F00DEED32 /* TLYShyScrollViewController.m in Sources */,
 				27330F112080AAC600F5033A /* visacell.swift in Sources */,
 				3BD02E62205AC6C70042F890 /* UIButtonX.swift in Sources */,

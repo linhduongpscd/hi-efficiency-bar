@@ -140,7 +140,7 @@
     UIView *toView = [toVC sharedView];
     
     UIView *containerView = [transitionContext containerView];
-    NSTimeInterval dur = [self transitionDuration:transitionContext];
+   // NSTimeInterval dur = [self transitionDuration:transitionContext];
     
     // Take Snapshot of fomView
     UIView *snapshotView = [fromView snapshotViewAfterScreenUpdates:NO];
@@ -161,22 +161,26 @@
     
     [containerView addSubview:snapshotView];
     [containerView layoutIfNeeded];
-    [UIView animateWithDuration:dur animations:^{
+    [UIView animateWithDuration:0.25 animations:^{
         if (!reversed) {
             toVC.view.alpha = 1.0; // Fade in
+              snapshotView.frame = [containerView convertRect:CGRectMake(toView.frame.origin.x - 16,0,toView.frame.size.width - 80, toView.frame.size.height) fromView:toView];
         }
         else {
             fromVC.view.alpha = 0.0; // Fade out
+              snapshotView.frame = [containerView convertRect:CGRectMake(toView.frame.origin.x - 16,0,toView.frame.size.width, toView.frame.size.height) fromView:toView];
         }
         
         // Move the SnapshotView
-        NSLog(@"%f %f %f %f",toView.frame.origin.x,toView.frame.origin.y,toView.frame.size.width, toView.frame.size.height);
-        snapshotView.frame = [containerView convertRect:toView.frame fromView:toView];
+      
         
     } completion:^(BOOL finished) {
         // Clean up
-        toView.hidden = NO;
-        fromView.hidden = NO;
+        //snapshotView.alpha = 0.0
+        [UIView animateWithDuration:0.2 animations:^{
+            toView.hidden = NO;
+            fromView.hidden = NO;
+        }];
         [snapshotView removeFromSuperview];
         
         // Declare that we've finished

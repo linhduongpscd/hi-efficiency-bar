@@ -32,7 +32,7 @@ class SettingVC: UITableViewController {
                                       message: "Do you want to logout?",
                                       preferredStyle: UIAlertControllerStyle.actionSheet)
         let logout = UIAlertAction.init(title: "Logout", style: .destructive) { (action) in
-            UserDefaults.standard.removeObject(forKey: kToken)
+            UserDefaults.standard.removeObject(forKey: kLoginApp)
             UserDefaults.standard.synchronize()
             APP_DELEGATE.initLogin()
         }

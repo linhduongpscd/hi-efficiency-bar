@@ -53,6 +53,7 @@ let ERROR_NEWPASSWORD  = "New Password is required"
 let URL_SERVER  = "http://hiefficiencybar.com/"
 let kID   = "kID"
 let kToken  = "kToken"
+let kLoginApp  = "kLoginApp"
 let kLimitPage = 20
 
 let KEY_STRIPE = "pk_test_KSMESnZKrSyuNxek4u6JmQPb"

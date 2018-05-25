@@ -119,6 +119,7 @@ class CustomVC: HelpController {
 //        self.navigationController?.navigationBar.isTranslucent = true
         super.viewWillAppear(animated)
         arrSelected.removeAll()
+        self.arrIngredientSelected.removeAll()
         self.collectionView.reloadData()
     }
     

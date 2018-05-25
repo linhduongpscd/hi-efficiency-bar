@@ -95,7 +95,7 @@ extension FlashVC : SwiftyGifDelegate {
     
     func gifDidStop(sender: UIImageView) {
         print("gifDidStop")
-        if let token =  UserDefaults.standard.value(forKey: kToken) as? String
+        if let token =  UserDefaults.standard.value(forKey: kLoginApp) as? String
         {
             print(token)
             APP_DELEGATE.initTabbarHome()

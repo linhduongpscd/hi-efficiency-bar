@@ -61,6 +61,51 @@ class CommonHellper {
         return emailTest.evaluate(with: testStr)
     }
     
+    static func convertMLDrink(unit: String, number: Int)-> Double
+    {
+        if unit == "mL"
+        {
+            return Double(number) * 29.57
+        }
+        else if unit == "dash"
+        {
+             return Double(number) * 0.9240625
+        }
+        else if unit == "splash"
+        {
+            return Double(number) * 2.4641666667
+        }
+        else if unit == "teaspoon"
+        {
+            return Double(number) * 4.9283333333
+        }
+        else if unit == "tablespoon"
+        {
+            return Double(number) * 14.785
+        }
+        else if unit == "pony"
+        {
+            return Double(number) * 29.57
+        }
+        else if unit == "jigger" || unit == "shot"
+        {
+            return Double(number) * 44.1343283582
+        }
+        else if unit == "snit"
+        {
+            return Double(number) * 89.6060606061
+        }
+        else if unit == "split"
+        {
+            return Double(number) * 173.9411764706
+        }
+        else if unit == "oz"
+        {
+             return Double(number) * 29.57
+        }
+        return Double(number) * 29.57
+    }
+    
     static func trimSpaceString(txtString:String) -> String {
         return txtString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }

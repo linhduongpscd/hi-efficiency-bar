@@ -52,6 +52,7 @@ class AgeVerificationVC: BaseViewController {
         {
             UserDefaults.standard.set(self.userID, forKey: kID)
            UserDefaults.standard.set(self.token, forKey: kToken)
+             UserDefaults.standard.set(self.token, forKey: kLoginApp)
             UserDefaults.standard.synchronize()
             btnConfirm.startAnimation()
             

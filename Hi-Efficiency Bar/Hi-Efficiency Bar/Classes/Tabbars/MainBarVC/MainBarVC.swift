@@ -13,7 +13,17 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var lblNavi: UILabel!
     @IBOutlet weak var heightNavi: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
-    var refreshControl:UIRefreshControl!
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(MainBarVC.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+       // refreshControl.tintColor = UIColor.red
+        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
+        return refreshControl
+    }()
+    
     var arrSlices = [MainBarObj]()
     var offset = 0
     var isLoadMore = false
@@ -31,6 +41,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
        self.getSliceHeader()
        self.fetchAllDrink()
         self.callSetting()
+        self.collectionView.addSubview(self.refreshControl)
     }
     
     func callSetting()
@@ -38,10 +49,10 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         ManagerWS.shared.getSettingApp { (success) in
             if !success!
             {
-                let alert = UIAlertController(title: nil,
-                                              message: "Bar was close, cannot order.",
-                                              preferredStyle: UIAlertControllerStyle.alert)
-                self.present(alert, animated: true, completion: nil)
+//                let alert = UIAlertController(title: nil,
+//                                              message: "Bar was close, cannot order.",
+//                                              preferredStyle: UIAlertControllerStyle.alert)
+//                self.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -49,17 +60,14 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         super.viewWillAppear(animated)
     }
     
-    func configRefresh()
-    {
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
-        collectionView!.addSubview(refreshControl)
-    }
+   
     
-    @objc func refresh(sender:AnyObject)
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
         //DO
+        offset = 0
+        self.fetchAllDrink()
+        
     }
     
     func getSliceHeader()
@@ -76,6 +84,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         //CommonHellper.showBusy()
         ManagerWS.shared.getListDrink(offset: offset) { (success, arrs) in
             CommonHellper.hideBusy()
+            self.refreshControl.endRefreshing()
             if arrs!.count > 0
             {
                 self.isLoadMore = true

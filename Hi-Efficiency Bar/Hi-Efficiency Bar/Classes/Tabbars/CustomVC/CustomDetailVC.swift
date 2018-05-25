@@ -100,9 +100,10 @@ class CustomDetailVC: HelpController {
             {
                 let obj = IngredientCusObj.init(dict: NSDictionary.init())
                 obj.id = recod.id
-                obj.unit = "ml"
+                obj.unit_view = "ml"
                 obj.ratio = 0
                 obj.value = 0
+                obj.unit = 0
                 obj.name = recod.name
                 arringredients.append(obj)
             }
@@ -122,28 +123,12 @@ class CustomDetailVC: HelpController {
     }
     
     
-    func getTotalIngenUnitPart() -> Int
-    {
-        var number = 0
-        for obj in self.arringredients
-        {
-            if obj.unit?.lowercased() == "part"
-            {
-                number = number + obj.ratio!
-            }
-        }
-        return number
-    }
     
     func changeRationUnitPart()
     {
-        let number = self.getTotalIngenUnitPart()
         for obj in self.arringredients
         {
-            if obj.unit?.lowercased() == "part"
-            {
-                obj.value = (self.glassObj?.size)!/number * obj.ratio!
-            }
+            obj.value = CommonHellper.convertMLDrink(unit: (obj.unit_view?.lowercased())!, number: obj.unit!)
         }
          tblDetail.reloadData()
     }
@@ -620,7 +605,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
         self.configCellCustomDetailCell(cell, obj: arringredients[indexPath.row])
         cell.ingredientCusObj = arringredients[indexPath.row]
         cell.tapChangeML = { [] in
-            if self.getTotolRatioUnit() > Double((self.glassObj?.size)!)
+            if self.getTotolRatioUnit() > CommonHellper.convertMLDrink(unit: (self.glassObj?.unit_view)!, number: (self.glassObj?.unit)!)
             {
                 self.lblMaxSize.textColor = UIColor.red
             }
@@ -651,14 +636,14 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
     
     func configCellCustomDetailCell(_ cell: CustomDetailCell, obj: IngredientCusObj)
     {
-        if obj.value != nil{
-             cell.txfValue.text = "\(obj.value!)"
+        if obj.unit != nil{
+             cell.txfValue.text = "\(obj.unit!)"
         }
         else{
              cell.txfValue.text = "0"
         }
        
-        cell.lblUnit.text = "ml"
+        cell.lblUnit.text = obj.unit_view
         cell.lblName.text = obj.name
         
     }
@@ -669,7 +654,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
         for var i in 0..<arringredients.count
         {
              let obj = arringredients[i]
-            value = value + Double(obj.value!)
+            value = value + obj.value!
            
         }
         return value

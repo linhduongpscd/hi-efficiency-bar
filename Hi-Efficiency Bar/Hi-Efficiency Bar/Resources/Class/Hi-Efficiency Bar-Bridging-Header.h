@@ -8,3 +8,4 @@
 #import "TLYShyNavBarManager.h"
 #import "UIView+DCAnimationKit.h"
 #import <SDWebImage/SDWebImageManager.h>
+#import "TouchHelper.h"

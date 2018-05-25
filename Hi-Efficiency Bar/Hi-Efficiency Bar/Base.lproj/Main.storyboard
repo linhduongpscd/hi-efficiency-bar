@@ -577,7 +577,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xj-5Z-T3X">
-                                                <rect key="frame" x="0.0" y="133.5" width="320" height="44"/>
+                                                <rect key="frame" x="0.0" y="126.5" width="320" height="44"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3H-X3-YAf" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                                                         <rect key="frame" x="40" y="0.0" width="240" height="44"/>
@@ -633,7 +633,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Le3-tO-Ft8">
-                                                <rect key="frame" x="0.0" y="207.5" width="320" height="44"/>
+                                                <rect key="frame" x="0.0" y="200.5" width="320" height="44"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Npb-LH-fB7" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                                                         <rect key="frame" x="40" y="0.0" width="240" height="44"/>
@@ -689,7 +689,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEH-CW-yXQ">
-                                                <rect key="frame" x="71.5" y="263.5" width="177" height="26"/>
+                                                <rect key="frame" x="71.5" y="256.5" width="177" height="26"/>
                                                 <fontDescription key="fontDescription" name="AlrightSans-Medium" family="Alright Sans" pointSize="14"/>
                                                 <state key="normal" title="Help, I forgot my password">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -699,7 +699,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sQB-kR-05a" customClass="TransitionButton" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
-                                                <rect key="frame" x="40" y="324" width="240" height="50"/>
+                                                <rect key="frame" x="40" y="317" width="240" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="qGg-nh-YT8"/>
@@ -711,13 +711,13 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or sign in with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acZ-Pe-AUv">
-                                                <rect key="frame" x="101.5" y="404" width="118.5" height="17"/>
+                                                <rect key="frame" x="101.5" y="407" width="118.5" height="17"/>
                                                 <fontDescription key="fontDescription" name="AlrightSans-Bold" family="Alright Sans" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rq4-fV-hol">
-                                                <rect key="frame" x="137.5" y="451" width="45" height="45"/>
+                                                <rect key="frame" x="137.5" y="454" width="45" height="45"/>
                                                 <state key="normal" backgroundImage="facebook"/>
                                                 <connections>
                                                     <action selector="doFacebook:" destination="Epr-8G-6U0" eventType="touchUpInside" id="36U-o1-zmQ"/>
@@ -733,6 +733,16 @@
                                                     <segue destination="CeX-wR-1JC" kind="push" id="Gap-jy-p4G"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v6q-Cn-1SH">
+                                                <rect key="frame" x="88.5" y="371" width="143" height="27"/>
+                                                <fontDescription key="fontDescription" name="AlrightSans-Bold" family="Alright Sans" pointSize="15"/>
+                                                <state key="normal" title="Login with Touch ID">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="doTouchID:" destination="Epr-8G-6U0" eventType="touchUpInside" id="yYh-K3-PnC"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -742,15 +752,17 @@
                                             <constraint firstAttribute="trailing" secondItem="2xj-5Z-T3X" secondAttribute="trailing" id="5uK-2q-R4s"/>
                                             <constraint firstItem="WxW-3Q-h9x" firstAttribute="centerX" secondItem="Mts-JJ-rLv" secondAttribute="centerX" id="6t7-XG-B9u"/>
                                             <constraint firstItem="3A4-T6-Kio" firstAttribute="top" secondItem="Mts-JJ-rLv" secondAttribute="top" constant="69" id="8Ap-Br-hqW"/>
-                                            <constraint firstItem="WxW-3Q-h9x" firstAttribute="top" secondItem="rq4-fV-hol" secondAttribute="bottom" constant="23" id="99G-5b-2hp"/>
+                                            <constraint firstItem="WxW-3Q-h9x" firstAttribute="top" secondItem="rq4-fV-hol" secondAttribute="bottom" constant="20" id="99G-5b-2hp"/>
                                             <constraint firstItem="sQB-kR-05a" firstAttribute="top" secondItem="hEH-CW-yXQ" secondAttribute="bottom" constant="34.5" id="CLD-09-b5K"/>
                                             <constraint firstItem="Le3-tO-Ft8" firstAttribute="leading" secondItem="Mts-JJ-rLv" secondAttribute="leading" id="EJa-ah-wlw"/>
                                             <constraint firstItem="rq4-fV-hol" firstAttribute="centerX" secondItem="Mts-JJ-rLv" secondAttribute="centerX" id="FQ3-HZ-fNC"/>
                                             <constraint firstItem="hEH-CW-yXQ" firstAttribute="top" secondItem="Le3-tO-Ft8" secondAttribute="bottom" constant="12" id="GQm-BQ-hdN"/>
                                             <constraint firstItem="rq4-fV-hol" firstAttribute="top" secondItem="acZ-Pe-AUv" secondAttribute="bottom" constant="30" id="NIa-Dx-1w8"/>
                                             <constraint firstItem="3A4-T6-Kio" firstAttribute="leading" secondItem="Mts-JJ-rLv" secondAttribute="leading" constant="60" id="Pge-eR-x0D"/>
+                                            <constraint firstItem="v6q-Cn-1SH" firstAttribute="top" secondItem="sQB-kR-05a" secondAttribute="bottom" constant="4" id="XrL-ds-Hfc"/>
                                             <constraint firstAttribute="trailing" secondItem="Le3-tO-Ft8" secondAttribute="trailing" id="Xxq-Ga-BJL"/>
-                                            <constraint firstItem="acZ-Pe-AUv" firstAttribute="top" secondItem="hEH-CW-yXQ" secondAttribute="bottom" constant="114.5" id="fkG-N0-Rb2"/>
+                                            <constraint firstItem="acZ-Pe-AUv" firstAttribute="top" secondItem="sQB-kR-05a" secondAttribute="bottom" constant="40" id="eTL-dc-xL7"/>
+                                            <constraint firstItem="v6q-Cn-1SH" firstAttribute="centerX" secondItem="Mts-JJ-rLv" secondAttribute="centerX" id="lRp-JG-FRg"/>
                                             <constraint firstItem="acZ-Pe-AUv" firstAttribute="centerX" secondItem="sQB-kR-05a" secondAttribute="centerX" id="oWr-D8-L4a"/>
                                             <constraint firstAttribute="trailing" secondItem="sQB-kR-05a" secondAttribute="trailing" constant="40" id="pw8-ML-BEN"/>
                                             <constraint firstItem="Le3-tO-Ft8" firstAttribute="top" secondItem="2xj-5Z-T3X" secondAttribute="bottom" constant="30" id="tor-XI-5m9"/>
@@ -786,6 +798,7 @@
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
                         <outlet property="btnSignIn" destination="sQB-kR-05a" id="2z5-EQ-orE"/>
+                        <outlet property="btnTouch" destination="v6q-Cn-1SH" id="slN-Na-Ago"/>
                         <outlet property="txfPassword" destination="dLs-TJ-KqH" id="JrE-tk-d0t"/>
                         <outlet property="txfUsername" destination="S2f-s1-aHs" id="DLg-6M-D1b"/>
                     </connections>
@@ -812,7 +825,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ON4-M3-hz9">
-                                <rect key="frame" x="0.0" y="241" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="191" width="320" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VRw-bw-XUG" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                                         <rect key="frame" x="40" y="0.0" width="240" height="44"/>
@@ -878,13 +891,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of birth" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiM-Db-SVF">
-                                <rect key="frame" x="60" y="222" width="84.5" height="14"/>
+                                <rect key="frame" x="60" y="172" width="84.5" height="14"/>
                                 <fontDescription key="fontDescription" name="AlrightSans-Medium" family="Alright Sans" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bdk-I7-Nqs" customClass="TransitionButton" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
-                                <rect key="frame" x="40" y="405" width="240" height="50"/>
+                                <rect key="frame" x="40" y="355" width="240" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="muS-2e-swo"/>
                                 </constraints>
@@ -907,7 +920,7 @@
                             <constraint firstAttribute="bottom" secondItem="wIZ-DQ-4x1" secondAttribute="bottom" id="TRS-01-VTO"/>
                             <constraint firstItem="Bdk-I7-Nqs" firstAttribute="leading" secondItem="Pnz-bH-Umy" secondAttribute="leading" constant="40" id="Vmb-dt-6m0"/>
                             <constraint firstItem="wIZ-DQ-4x1" firstAttribute="top" secondItem="kok-Kw-QwQ" secondAttribute="top" id="XDB-ir-HbA"/>
-                            <constraint firstItem="xiM-Db-SVF" firstAttribute="top" secondItem="z0u-Xi-evQ" secondAttribute="bottom" constant="120" id="a6O-8a-f9t"/>
+                            <constraint firstItem="xiM-Db-SVF" firstAttribute="top" secondItem="z0u-Xi-evQ" secondAttribute="bottom" constant="70" id="a6O-8a-f9t"/>
                             <constraint firstAttribute="trailing" secondItem="wIZ-DQ-4x1" secondAttribute="trailing" id="aBW-IN-aex"/>
                             <constraint firstItem="ON4-M3-hz9" firstAttribute="trailing" secondItem="Pnz-bH-Umy" secondAttribute="trailing" id="vhg-6m-F82"/>
                             <constraint firstItem="xiM-Db-SVF" firstAttribute="leading" secondItem="Pnz-bH-Umy" secondAttribute="leading" constant="60" id="yPe-OK-Gof"/>
@@ -1433,7 +1446,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GaX-cO-hcy">
-                            <rect key="frame" x="2" y="16.5" width="35" height="13"/>
+                            <rect key="frame" x="2" y="15.5" width="35" height="13"/>
                             <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="13"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
