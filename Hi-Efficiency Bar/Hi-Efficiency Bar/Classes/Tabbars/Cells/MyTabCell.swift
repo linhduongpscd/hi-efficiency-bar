@@ -19,6 +19,7 @@ class MyTabCell: UITableViewCell {
     @IBOutlet weak var imgCell: UIImageView!
     var indexPathCell: IndexPath?
     var myTabObj: MyTabObj?
+    @IBOutlet weak var btnAm: UIButtonX!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,6 +32,7 @@ class MyTabCell: UITableViewCell {
     }
 
     @IBAction func doTang(_ sender: Any) {
+        btnAm.isEnabled = false
         numberQuanlity = (myTabObj?.quantity!)! + 1
         lblQuanlity.text = "\(numberQuanlity)"
         CommonHellper.animateViewSmall(view: lblQuanlity)
@@ -45,17 +47,21 @@ class MyTabCell: UITableViewCell {
            
         }
         ManagerWS.shared.updateMyTab(tabID: (myTabObj?.id!)!, quantity: numberQuanlity, complete: { (success) in
+            self.btnAm.isEnabled = true
             self.myTabObj?.quantity = (self.myTabObj?.quantity)! + 1
              self.changePrice?()
         })
     }
     @IBAction func doGiam(_ sender: Any) {
+        btnAm.isEnabled = false
         numberQuanlity = (myTabObj?.quantity!)!
         if numberQuanlity == 1
         {
             self.tapDeleteMyTab?()
+             self.btnAm.isEnabled = true
         }
         else{
+            
             numberQuanlity = (myTabObj?.quantity!)! - 1
             lblQuanlity.text = "\(numberQuanlity)"
             CommonHellper.animateViewSmall(view: lblQuanlity)
@@ -64,14 +70,16 @@ class MyTabCell: UITableViewCell {
                 lblPrice.text = "$0"
             }
             else{
-                 let value = Double((Double(numberQuanlity) * (myTabObj?.price!)!))
+                let value = Double((Double(numberQuanlity) * (myTabObj?.price!)!))
                 lblPrice.text = "$\(value)"
-               
+                
             }
             ManagerWS.shared.updateMyTab(tabID: (myTabObj?.id!)!, quantity: numberQuanlity, complete: { (success) in
                 self.myTabObj?.quantity = (self.myTabObj?.quantity)! - 1
-                 self.changePrice?()
+                self.changePrice?()
+                self.btnAm.isEnabled = true
             })
+            
         }
     }
 }

@@ -62,6 +62,7 @@ class CustomDetailVC: HelpController {
     var valueIce = 0
     var isRedirectCus = false
     var arrCusIngredients = [Ingredient]()
+    var arrUnitView = ["%","part","mL", "dash" , "splash" ,"teaspoon","tablespoon","pony","jigger","shot","snit","split"]
     @IBOutlet weak var btnFullEditName: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,7 +113,8 @@ class CustomDetailVC: HelpController {
             txfDrinkName.placeholder = "Name drink"
             txfDrinkName.text = ""
         }
-        if self.getTotolRatioUnit() > Double((glassObj?.size)!)
+        print(self.getTotolRatioUnit())
+        if self.getTotolRatioUnit() > (self.glassObj?.change_to_ml!)!
         {
             self.lblMaxSize.textColor = UIColor.red
         }
@@ -128,7 +130,7 @@ class CustomDetailVC: HelpController {
     {
         for obj in self.arringredients
         {
-            obj.value = CommonHellper.convertMLDrink(unit: (obj.unit_view?.lowercased())!, number: obj.unit!)
+            obj.value = CommonHellper.convertMLDrink(unit: (obj.unit_view?.lowercased())!, number: obj.ratio!)
         }
          tblDetail.reloadData()
     }
@@ -170,7 +172,15 @@ class CustomDetailVC: HelpController {
                                     self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
                                 })
                             }
-                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                            if self.glassObj?.unit_view == "oz"
+                            {
+                                 self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                            }
+                            else{
+                                 self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                            }
+                           
+                            
                             break
                         }
                     }
@@ -185,7 +195,13 @@ class CustomDetailVC: HelpController {
                             self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
                         })
                     }
-                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                    if self.glassObj?.unit_view == "oz"
+                    {
+                        self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                    }
+                    else{
+                        self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                    }
                 }
                
               
@@ -462,14 +478,39 @@ class CustomDetailVC: HelpController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func doAdd(_ sender: Any) {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let tab3 = storyboard.instantiateViewController(withIdentifier: "CustomVC") as! CustomVC
+        tab3.tapSelectedIng = { [] in
+            for recod in tab3.arrIngredientSelected
+            {
+                let obj = IngredientCusObj.init(dict: NSDictionary.init())
+                obj.id = recod.id
+                obj.unit_view = "ml"
+                obj.ratio = 0
+                obj.value = 0
+                obj.unit = 0
+                obj.name = recod.name
+                self.arringredients.append(obj)
+            }
+            self.changeRationUnitPart()
+            self.heightTable.constant = CGFloat(self.arringredients.count * 44)
+            if self.getTotolRatioUnit() > (self.glassObj?.change_to_ml!)!
+            {
+                self.lblMaxSize.textColor = UIColor.red
+            }
+            else{
+                self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+            }
+        }
+        tab3.isAddCustom = true
+        let nav = BaseNaviController.init(rootViewController: tab3)
+        self.present(nav, animated: true, completion: nil)
+    }
     
     func convertParamToWS()->NSDictionary
     {
-        var arrs = [NSDictionary]()
-        for obj in arringredients {
-            let para = ["ratio":"\(obj.value!)","ingredient":"\(obj.id!)","unit":"10"] as [String : Any]
-            arrs.append(para as NSDictionary)
-        }
+      
         let value = ["name": self.txfDrinkName.text!,
                      "glass": "\(self.glassID!)",
                     "prep":"\(prep)",
@@ -482,7 +523,7 @@ class CustomDetailVC: HelpController {
     {
         var strIngredient = ""
         for obj in arringredients {
-            strIngredient = "\(strIngredient){\"unit\":10,\"ratio\":\(obj.value!),\"ingredient\":\(obj.id!)},"
+            strIngredient = "\(strIngredient){\"unit\":\(CommonHellper.valueUnit(unit: obj.unit_view!.lowercased())),\"ratio\":\(obj.value!),\"ingredient\":\(obj.id!)},"
         }
         if !strIngredient.isEmpty
         {
@@ -502,7 +543,7 @@ class CustomDetailVC: HelpController {
             self.showAlertMessage(message: "Name drink is required")
             return
         }
-        if self.getTotolRatioUnit() > Double((glassObj?.size)!)
+        if self.getTotolRatioUnit() > (self.glassObj?.change_to_ml!)!
         {
             self.showAlertMessage(message: "Your total custom mL is greater than the max size of drink")
             
@@ -605,13 +646,45 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
         self.configCellCustomDetailCell(cell, obj: arringredients[indexPath.row])
         cell.ingredientCusObj = arringredients[indexPath.row]
         cell.tapChangeML = { [] in
-            if self.getTotolRatioUnit() > CommonHellper.convertMLDrink(unit: (self.glassObj?.unit_view)!, number: (self.glassObj?.unit)!)
+            print(self.getTotolRatioUnit())
+            print(self.glassObj?.change_to_ml as Any)
+            for obj in self.arringredients
+            {
+                obj.value = CommonHellper.convertMLDrink(unit: (obj.unit_view?.lowercased())!, number: obj.ratio!)
+            }
+            if self.getTotolRatioUnit() > (self.glassObj?.change_to_ml!)!
             {
                 self.lblMaxSize.textColor = UIColor.red
             }
             else{
                 self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
             }
+        }
+        cell.changeUnitView = { [] in
+            let alert = UIAlertController(title: nil,
+                                          message: nil,
+                                          preferredStyle: UIAlertControllerStyle.actionSheet)
+            for str in self.arrUnitView {
+                let delete = UIAlertAction.init(title: str, style: .default, handler: { (action) in
+                   cell.ingredientCusObj.unit_view = str
+                    cell.lblUnit.text = str
+                    self.changeRationUnitPart()
+                    if self.getTotolRatioUnit() > (self.glassObj?.change_to_ml!)!
+                    {
+                        self.lblMaxSize.textColor = UIColor.red
+                    }
+                    else{
+                        self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                    }
+                })
+                alert.addAction(delete)
+            }
+          
+            let cancelAction = UIAlertAction(title: "Cancel",
+                                             style: .cancel, handler: nil)
+            
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
         }
         cell.tapRemove = { [] in
             let alert = UIAlertController(title: APP_NAME,
@@ -620,6 +693,14 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
             let delete = UIAlertAction.init(title: "Delete", style: .destructive, handler: { (action) in
                 self.arringredients.remove(at: indexPath.row)
                 self.heightTable.constant = CGFloat(self.arringredients.count * 44)
+                self.changeRationUnitPart()
+                if self.getTotolRatioUnit() > (self.glassObj?.change_to_ml!)!
+                {
+                    self.lblMaxSize.textColor = UIColor.red
+                }
+                else{
+                    self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                }
                 self.tblDetail.reloadData()
             })
              alert.addAction(delete)
@@ -637,7 +718,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
     func configCellCustomDetailCell(_ cell: CustomDetailCell, obj: IngredientCusObj)
     {
         if obj.unit != nil{
-             cell.txfValue.text = "\(obj.unit!)"
+             cell.txfValue.text = "\(obj.ratio!)"
         }
         else{
              cell.txfValue.text = "0"
@@ -686,7 +767,7 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let obj = self.arrLys[indexPath.row]
-        // self.glassObj = obj
+         self.glassObj = obj
         if obj.image != nil{
             self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
                 self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
@@ -694,8 +775,21 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
             })
         }
         self.glassID = obj.id
-         //self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
-        //self.changeRationUnitPart()
+        if self.glassObj?.unit_view == "oz"
+        {
+            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+        }
+        else{
+            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+        }
+        self.changeRationUnitPart()
+        if self.getTotolRatioUnit() > (self.glassObj?.change_to_ml!)!
+        {
+            self.lblMaxSize.textColor = UIColor.red
+        }
+        else{
+            self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+        }
     }
     
     func configCell(_ cell: LyTailCell, glassObj: GlassObj)

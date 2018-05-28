@@ -24,6 +24,7 @@ class SignUpVC: BaseViewController {
     var imageAvatar = UIImage.init()
     @IBOutlet weak var btnSignUp: TransitionButton!
     @IBOutlet weak var txfLastName: UITextField!
+    var stringBirthday = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         btnSignUp.spinnerColor = .white
@@ -164,7 +165,7 @@ class SignUpVC: BaseViewController {
             self.showAlertMessage(message: ERROR_ACCEPT)
             return
         }
-        let para = ["first_name":name,"last_name":lastName, "email":email,"password":password,"birthday":date]
+        let para = ["first_name":name,"last_name":lastName, "email":email,"password":password,"birthday":stringBirthday]
         self.addLoadingView()
         btnSignUp.startAnimation() // 2: Then start the animation when the user tap the button
         
@@ -228,7 +229,8 @@ extension SignUpVC: PickerViewDelegate
     }
     
     func tapDonePicker(value: Date) {
-        txfDateTime.text = CommonHellper.formatDateBirthday(date: value)
+        stringBirthday = CommonHellper.formatDateBirthday(date: value)
+        txfDateTime.text = CommonHellper.formatDateBirthday2(date: value)
         AnimationManager.sharedInstance().doDisappearView(toBottom: pickerView)
     }
 }

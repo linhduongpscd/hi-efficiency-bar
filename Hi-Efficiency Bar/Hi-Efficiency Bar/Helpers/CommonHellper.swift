@@ -63,9 +63,10 @@ class CommonHellper {
     
     static func convertMLDrink(unit: String, number: Int)-> Double
     {
-        if unit == "mL"
+        
+        if unit == "ml"
         {
-            return Double(number) * 29.57
+            return Double(number)
         }
         else if unit == "dash"
         {
@@ -103,8 +104,72 @@ class CommonHellper {
         {
              return Double(number) * 29.57
         }
-        return Double(number) * 29.57
+        else if unit == "part" ||  unit == "%"
+        {
+            return 0.0
+        }
+        return Double(number)
     }
+    
+    
+    static func valueUnit(unit: String)-> Int
+    {
+        
+        if unit == "ml"
+        {
+            return 10
+        }
+        else if unit == "dash"
+        {
+            return 20
+        }
+        else if unit == "splash"
+        {
+            return 30
+        }
+        else if unit == "teaspoon"
+        {
+            return 40
+        }
+        else if unit == "tablespoon"
+        {
+            return 50
+        }
+        else if unit == "pony"
+        {
+            return 60
+        }
+        else if unit == "jigger"
+        {
+            return 70
+        }
+        else if unit == "shot"
+        {
+            return 80
+        }
+        else if unit == "snit"
+        {
+            return 90
+        }
+        else if unit == "split"
+        {
+            return 100
+        }
+        else if unit == "oz"
+        {
+            return 110
+        }
+        else if unit == "part"
+        {
+            return 1
+        }
+        else if unit == "%"
+        {
+            return 0
+        }
+        return 0
+    }
+    
     
     static func trimSpaceString(txtString:String) -> String {
         return txtString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -117,7 +182,13 @@ class CommonHellper {
         
         return formatter.string(from: date)
     }
-    
+    static func formatDateBirthday2(date: Date)->String
+    {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        
+        return formatter.string(from: date)
+    }
     static func animateButton(view: UIView) {
         view.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         

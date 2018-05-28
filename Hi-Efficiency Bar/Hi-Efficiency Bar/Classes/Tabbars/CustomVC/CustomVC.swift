@@ -9,7 +9,7 @@
 import UIKit
 
 class CustomVC: HelpController {
-    
+    var tapSelectedIng: (() ->())?
     @IBOutlet var subNavi: UIView!
     @IBOutlet weak var imgReset: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -19,7 +19,7 @@ class CustomVC: HelpController {
     var arrSelected = [Int]()
     var arrIngredientSelected = [Ingredient]()
     @IBOutlet weak var lblNoData: UILabel!
-  
+    var isAddCustom = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Custom"
@@ -145,15 +145,24 @@ class CustomVC: HelpController {
         // Dispose of any resources that can be recreated.ingredient_by
     }
     @IBAction func btnNext(_ sender: Any) {
-        if self.arrIngredientSelected.count == 0
+        
+        if isAddCustom
         {
-            self.showAlertMessage(message: "Please select ingredient")
-            return
+            self.tapSelectedIng?()
+            self.dismiss(animated: true, completion: nil)
         }
-        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
-        vc.isRedirectCus = true
-        vc.arrCusIngredients = self.arrIngredientSelected
-        self.navigationController?.pushViewController(vc, animated: true)
+        else{
+            if self.arrIngredientSelected.count == 0
+            {
+                self.showAlertMessage(message: "Please select ingredient")
+                return
+            }
+            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
+            vc.isRedirectCus = true
+            vc.arrCusIngredients = self.arrIngredientSelected
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+       
     }
 }
 

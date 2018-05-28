@@ -571,15 +571,24 @@ struct ManagerWS {
                                 {
                                     complete(true, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"), id)
                                 }
+                                else{
+                                    if let detail = val.object(forKey: "name") as? String
+                                    {
+                                        complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:detail), 0)
+                                    }
+                                    else{
+                                        complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0)
+                                    }
+                                }
                             }
                             else{
-                                 complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0)
+                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0)
                             }
                             
                             
                         }
                         else{
-                            complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0)
+                             complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:"Drink with this name already exists"), 0)
                         }
                     }
                     break

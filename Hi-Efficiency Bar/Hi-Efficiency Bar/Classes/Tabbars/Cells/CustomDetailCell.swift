@@ -11,6 +11,7 @@ import UIKit
 class CustomDetailCell: UITableViewCell, UITextFieldDelegate {
     var tapRemove: (() ->())?
     var tapChangeML: (() ->())?
+    var changeUnitView: (() ->())?
     @IBOutlet weak var lblUnit: UILabel!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var txfValue: UITextField!
@@ -41,17 +42,21 @@ class CustomDetailCell: UITableViewCell, UITextFieldDelegate {
             let textRange = Range(range, in: text) {
             let updatedText = text.replacingCharacters(in: textRange,
                                                        with: string)
+            print(updatedText)
             if CommonHellper.trimSpaceString(txtString: updatedText).isEmpty
             {
                 ingredientCusObj.value = 0
-                ingredientCusObj.unit = 0
+                ingredientCusObj.ratio = 0
             }
             else{
                 ingredientCusObj.value = CommonHellper.convertMLDrink(unit: (ingredientCusObj.unit_view?.lowercased())!, number: ingredientCusObj.unit!)
-                ingredientCusObj.unit = Int(CommonHellper.trimSpaceString(txtString: updatedText))
+                ingredientCusObj.ratio = Int(CommonHellper.trimSpaceString(txtString: updatedText))
             }
             self.tapChangeML?()
         }
         return true
+    }
+    @IBAction func doChangeUnitView(_ sender: Any) {
+        self.changeUnitView?()
     }
 }
