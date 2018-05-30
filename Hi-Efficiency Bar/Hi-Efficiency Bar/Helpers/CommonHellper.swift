@@ -238,10 +238,19 @@ class CommonHellper {
         inView.addSubview(blurView)
     }
     
+    static func CreateaddBlurView(_einView : UIView) -> UIView
+    {
+        let darkBlur = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurView = UIVisualEffectView(effect: darkBlur)
+        blurView.frame = _einView.bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurView.alpha = 1
+        return blurView
+    }
+    
     static func getTaxDrink(_ price: Double) -> Double
     {
         print(price)
-        print(APP_DELEGATE.settingObj.tax)
         print(APP_DELEGATE.settingObj.tax! + APP_DELEGATE.settingObj.free!)
         print((APP_DELEGATE.settingObj.tax! + APP_DELEGATE.settingObj.free!)/100)
         if APP_DELEGATE.settingObj.fee_unit_view == "%"

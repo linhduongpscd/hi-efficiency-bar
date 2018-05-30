@@ -21,7 +21,7 @@ class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
     var ingredientObj = Ingredient.init(dict: NSDictionary.init())
     override func viewDidLoad() {
         super.viewDidLoad()
-        ASFSharedViewTransition.addWith(fromViewControllerClass: DetailMainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
+       // ASFSharedViewTransition.addWith(fromViewControllerClass: DetailMainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         if isIngredient
         {
             self.navigationItem.title = ingredientObj.name

@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var drinkObj: DrinkObj?
     var isRedirectMyTab = false
     var settingObj =  SettingObj.init(dict: NSDictionary.init())
+    var mainBarVC: MainBarVC?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         sleep(1)

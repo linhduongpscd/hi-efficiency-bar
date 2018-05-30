@@ -14,13 +14,17 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
     var isCustom = false
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var bgItem: UIImageView!
+    var subBG = CommonHellper.CreateaddBlurView(_einView: UIView.init())
     var currentPage: Int = 0 {
         didSet {
             if self.items.count > 0 {
                 let mainBarObj = self.items[self.currentPage]
                 lblName.text = mainBarObj.name
                 self.bgItem.sd_setImage(with: URL.init(string: mainBarObj.image!), completed: { (image, error, type, url) in
-                   
+                    self.subBG.removeFromSuperview()
+                    self.subBG = CommonHellper.CreateaddBlurView(_einView: self.bgItem)
+                    self.bgItem.addSubview(self.subBG)
+                   //CommonHellper.addBlurView(self.bgItem)
                 })
                 if isCustom
                 {
@@ -51,7 +55,7 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
     {
         self.setupLayout()
         self.currentPage = 0
-         CommonHellper.addBlurView(self.bgItem)
+        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

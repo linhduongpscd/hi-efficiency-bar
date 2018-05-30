@@ -26,7 +26,7 @@ class DetailTagVC: UIViewController, ASFSharedViewTransitionDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ASFSharedViewTransition.addWith(fromViewControllerClass: DetailTagVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
+        //ASFSharedViewTransition.addWith(fromViewControllerClass: DetailTagVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         self.collectionResult.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         self.collectionResult.register(UINib(nibName: "IngreItemCollect", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
         self.collectionResult.register(UINib(nibName: "DetailCockTailCollect", bundle: nil), forCellWithReuseIdentifier: "DetailCockTailCollect")

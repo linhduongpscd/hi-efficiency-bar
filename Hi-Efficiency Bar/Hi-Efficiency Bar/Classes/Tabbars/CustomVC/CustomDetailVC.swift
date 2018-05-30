@@ -62,7 +62,7 @@ class CustomDetailVC: HelpController {
     var valueIce = 0
     var isRedirectCus = false
     var arrCusIngredients = [Ingredient]()
-    var arrUnitView = ["%","part","mL", "dash" , "splash" ,"teaspoon","tablespoon","pony","jigger","shot","snit","split"]
+    var arrUnitView = ["oz","%","part","mL", "dash" , "splash" ,"teaspoon","tablespoon","pony","jigger","shot","snit","split"]
     @IBOutlet weak var btnFullEditName: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -213,6 +213,103 @@ class CustomDetailVC: HelpController {
             self.setDefault()
         }
     }
+    
+    func fectAllGlassReset()
+    {
+        ManagerWS.shared.getListAllGlass { (success, arrs) in
+            self.arrLys = arrs!
+            self.collectionLy.reloadData()
+            if self.arrLys.count > 0
+            {
+                if !self.isRedirectCus
+                {
+                    for obj in self.arrLys
+                    {
+                        if obj.id == self.glassObj?.id
+                        {
+                            self.glassObj = obj
+                            self.glassID = obj.id
+                            if obj.image != nil{
+                                self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                                    self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                    self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                })
+                            }
+                            if self.glassObj?.unit_view == "oz"
+                            {
+                                self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                            }
+                            else{
+                                self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                            }
+                            
+                            
+                            break
+                        }
+                    }
+                }
+                else{
+                    let obj = self.arrLys[0]
+                    self.glassObj = obj
+                    self.glassID = obj.id
+                    if obj.image != nil{
+                        self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                            self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                            self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                        })
+                    }
+                    if self.glassObj?.unit_view == "oz"
+                    {
+                        self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                    }
+                    else{
+                        self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                    }
+                }
+                
+                
+            }
+            else{
+                self.lblMaxSize.text = ""
+            }
+            self.initDataReset()
+            self.setDefault()
+        }
+    }
+    func initDataReset()
+    {
+        
+        if !isRedirectCus
+        {
+            arringredients.removeAll()
+            for recod in drinkObj.ingredients!
+            {
+                let dict = recod as! NSDictionary
+                arringredients.append(IngredientCusObj.init(dict: dict))
+            }
+            self.changeRationUnitPart()
+            heightTable.constant = CGFloat(arringredients.count * 44)
+            txfDrinkName.text = drinkObj.name
+        }
+        else{
+            arringredients.removeAll()
+            self.changeRationUnitPart()
+            heightTable.constant = CGFloat(arringredients.count * 44)
+            txfDrinkName.placeholder = "Name drink"
+            txfDrinkName.text = ""
+        }
+        print(self.getTotolRatioUnit())
+        if self.getTotolRatioUnit() > (self.glassObj?.change_to_ml!)!
+        {
+            self.lblMaxSize.textColor = UIColor.red
+        }
+        else{
+            self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+        }
+        
+    }
+    
+    
     @IBAction func doEditName(_ sender: Any) {
         if !isEditName {
             txfDrinkName.isEnabled = true
@@ -233,7 +330,7 @@ class CustomDetailVC: HelpController {
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
         rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
-        rotationAnimation.duration = 0.6
+        rotationAnimation.duration = 0.4
         rotationAnimation.repeatCount = 1
         
         CATransaction.setCompletionBlock {
@@ -241,11 +338,11 @@ class CustomDetailVC: HelpController {
             let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
             rotationAnimation.fromValue = 0.0
             rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
-            rotationAnimation.duration = 0.6
+            rotationAnimation.duration = 0.4
             rotationAnimation.repeatCount = 1
             
             CATransaction.setCompletionBlock {
-                self.fectAllGlass()
+                self.fectAllGlassReset()
             }
             self.imgRorate.layer.add(rotationAnimation, forKey: nil)
             CATransaction.commit()
@@ -523,7 +620,11 @@ class CustomDetailVC: HelpController {
     {
         var strIngredient = ""
         for obj in arringredients {
-            strIngredient = "\(strIngredient){\"unit\":\(CommonHellper.valueUnit(unit: obj.unit_view!.lowercased())),\"ratio\":\(obj.value!),\"ingredient\":\(obj.id!)},"
+            if obj.id != nil
+            {
+                strIngredient = "\(strIngredient){\"unit\":\(CommonHellper.valueUnit(unit: obj.unit_view!.lowercased())),\"ratio\":\(obj.value!),\"ingredient\":\(obj.id!)},"
+            }
+            
         }
         if !strIngredient.isEmpty
         {

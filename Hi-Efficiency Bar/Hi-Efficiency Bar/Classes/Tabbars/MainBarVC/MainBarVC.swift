@@ -33,15 +33,17 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
     
     override func viewDidLoad() {
-        ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.4)
+        //ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.4)
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
         self.collectionView.register(UINib(nibName: "FooterMainBarCollect", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterMainBarCollect")
        self.configHideNaviScroll(collectionView)
+        APP_DELEGATE.mainBarVC = self
        self.getSliceHeader()
        self.fetchAllDrink()
         self.callSetting()
         self.collectionView.addSubview(self.refreshControl)
+        
     }
     
     func callSetting()
@@ -49,18 +51,26 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         ManagerWS.shared.getSettingApp { (success) in
             if !success!
             {
-//                let alert = UIAlertController(title: nil,
-//                                              message: "Bar was close, cannot order.",
-//                                              preferredStyle: UIAlertControllerStyle.alert)
-//                self.present(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: nil,
+                                              message: "Bar was close, cannot order.",
+                                              preferredStyle: UIAlertControllerStyle.alert)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
     }
     
    
+    func showAlertCloseBar(_ message: String)
+    {
+        let alert = UIAlertController(title: nil,
+         message: message,
+         preferredStyle: UIAlertControllerStyle.alert)
+         self.present(alert, animated: true, completion: nil)
+    }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {

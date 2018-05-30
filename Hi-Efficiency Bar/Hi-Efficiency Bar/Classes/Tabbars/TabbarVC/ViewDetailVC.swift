@@ -88,9 +88,9 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
                 
             })
         }
-        if drinkObj.image != nil
+        if drinkObj.image_background != nil
         {
-            bgCover.sd_setImage(with: URL.init(string: drinkObj.image!), completed: { (image, error, type, url) in
+            bgCover.sd_setImage(with: URL.init(string: drinkObj.image_background!), completed: { (image, error, type, url) in
                 CommonHellper.addBlurView(self.bgCover)
             })
         }
@@ -402,11 +402,7 @@ extension ViewDetailVC: UITableViewDelegate, UITableViewDataSource
     
     func configCell(_ cell: CurrentOrderCell, dict: NSDictionary)
     {
-        if let unit = dict.object(forKey: "unit") as? Int
-        {
-            cell.lblPart.text = "\(dict.object(forKey: "ratio") as! Int) \(unit)"
-        }
-        else  if let unit = dict.object(forKey: "unit") as? String
+        if let unit = dict.object(forKey: "unit_view") as? String
         {
             cell.lblPart.text = "\(dict.object(forKey: "ratio") as! Int) \(unit)"
         }
@@ -417,6 +413,9 @@ extension ViewDetailVC: UITableViewDelegate, UITableViewDataSource
             {
                  cell.lblName.text = name
             }
+        }
+        else{
+             cell.lblName.text = ""
         }
        
     }

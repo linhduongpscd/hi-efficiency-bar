@@ -32,6 +32,7 @@ struct SERVER_CODE {
     static let CODE_200  = 200
     static let CODE_201  = 201
     static let CODE_400  = 400
+    static let CODE_403  = 403
 }
 let COLOR_SELECTED   = UIColor.init(red: 72/255.0, green:  181/255.0, blue:  251/255.0, alpha: 1)
 let COLOR_NORMAL   = UIColor.init(red: 89/255.0, green:  109/255.0, blue:  119/255.0, alpha: 1)

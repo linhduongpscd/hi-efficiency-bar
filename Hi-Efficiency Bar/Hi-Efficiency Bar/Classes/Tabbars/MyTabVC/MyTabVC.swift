@@ -9,6 +9,7 @@
 import UIKit
 import MXParallaxHeader
 import Stripe
+import Photos
 class MyTabVC: BaseViewController {
 
     @IBOutlet weak var tblMyTab: UITableView!
@@ -18,15 +19,37 @@ class MyTabVC: BaseViewController {
     var tokenStriper = ""
     var isReload = false
     var stpToke: STPToken?
+    @IBOutlet weak var cameraView: UIView!
+     let cameraManager = CameraManager()
+    @IBOutlet weak var imgView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "My Tab"
         btnMakeMeDrink.spinnerColor = .white
         self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
         self.configHideNaviTable(tblMyTab)
-       
+       self.confiCamera()
+        cameraView.isHidden = true
     }
     
+    func confiCamera()
+    {
+        cameraManager.shouldFlipFrontCameraImage = false
+        cameraManager.showAccessPermissionPopupAutomatically = false
+        cameraManager.flashMode = .off
+        cameraManager.cameraDevice = CameraDevice.front
+        
+        self.askForCameraPermissions()
+        
+    }
+    @IBAction func askForCameraPermissions() {
+        
+        self.cameraManager.askUserForCameraPermission({ permissionGranted in
+            if permissionGranted {
+                self.addCameraToView()
+            }
+        })
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -39,10 +62,26 @@ class MyTabVC: BaseViewController {
         else{
             isReload = false
         }
+        cameraManager.resumeCaptureSession()
         
     }
     
-  
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        cameraManager.stopCaptureSession()
+    }
+    fileprivate func addCameraToView()
+    {
+        cameraManager.addPreviewLayerToView(cameraView, newCameraOutputMode: CameraOutputMode.stillImage)
+        cameraManager.showErrorBlock = { [weak self] (erTitle: String, erMessage: String) -> Void in
+            
+            let alertController = UIAlertController(title: erTitle, message: erMessage, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (alertAction) -> Void in  }))
+            
+            self?.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
     func fetchALlMyTab()
     {
         CommonHellper.showBusy()
@@ -99,30 +138,12 @@ class MyTabVC: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func doMakeMeADrink(_ sender: Any) {
-        if self.arrMyTabs.count == 0
+    func saveCardNotImage(_ isImage: Bool, _ image: UIImage)
+    {
+        if !isImage
         {
-            self.showAlertMessage(message: "You have no drinks in your tab")
-            return
-        }
-        if self.getQuanlity() > 5
-        {
-            self.showAlertMessage(message: "Your order has more than 5 quantities")
-            return
-        }
-        if tokenStriper.isEmpty
-        {
-            self.showAlertMessage(message: "Please add card")
-            return
-        }
-        self.addLoadingView()
-        btnMakeMeDrink.startAnimation() // 2: Then start the animation when the user tap the button
-        
-        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-        backgroundQueue.async(execute: {
             ManagerWS.shared.addMyTabCard(token: self.tokenStriper, complete: { (success, error) in
-              
+                
                 if success!
                 {
                     self.removeLoadingView()
@@ -143,6 +164,76 @@ class MyTabVC: BaseViewController {
                     self.showAlertMessage(message:(error?.msg!)!)
                 }
             })
+        }
+        else{
+            ManagerWS.shared.addMyCardImage(token: self.tokenStriper, image: image, complete: { (success, error) in
+                
+                if success!
+                {
+                    self.removeLoadingView()
+                    self.btnMakeMeDrink.setTitle("", for: .normal)
+                    self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                    self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
+                        
+                        
+                    })
+                    self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
+                }
+                else{
+                    self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
+                    self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
+                    self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
+                        self.removeLoadingView()
+                    })
+                    self.showAlertMessage(message:(error?.msg!)!)
+                }
+            })
+        }
+    }
+    @IBAction func doMakeMeADrink(_ sender: Any) {
+        
+        if self.arrMyTabs.count == 0
+        {
+            self.showAlertMessage(message: "You have no drinks in your tab")
+            return
+        }
+        if self.getQuanlity() > 5
+        {
+            self.showAlertMessage(message: "Your order has more than 5 quantities")
+            return
+        }
+        if tokenStriper.isEmpty
+        {
+            self.showAlertMessage(message: "Please add card")
+            return
+        }
+        self.addLoadingView()
+        btnMakeMeDrink.startAnimation() // 2: Then start the animation when the user tap the button
+        
+//        let qualityOfServiceClass = DispatchQoS.QoSClass.background
+//        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
+//        backgroundQueue.async(execute: {
+//
+//
+//
+//        })
+        self.cameraManager.askUserForCameraPermission({ permissionGranted in
+            if permissionGranted {
+                self.cameraManager.capturePictureWithCompletion({ (image, error) -> Void in
+                    
+                    if error != nil {
+                        //self.cameraManager.showErrorBlock("Error occurred", "Cannot save picture.")
+                        self.saveCardNotImage(false, UIImage.init())
+                    }
+                    else {
+                        self.saveCardNotImage(true,image!)
+                        
+                    }
+                })
+            }
+            else{
+                self.saveCardNotImage(false, UIImage.init())
+            }
         })
         
     }
@@ -310,7 +401,9 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
                                           preferredStyle: UIAlertControllerStyle.alert)
             let okAction = UIAlertAction.init(title: "Delete", style: .destructive, handler: { (action) in
                 let obj = self.arrMyTabs[indexPath.row - 1]
+                CommonHellper.showBusy()
                 ManagerWS.shared.deleteMyTab(tabID: obj.id!, complete: { (success) in
+                    CommonHellper.hideBusy()
                     self.arrMyTabs.remove(at: indexPath.row - 1)
                    self.doublePrice = self.getPriceTotal()
                     self.tblMyTab.reloadData()

@@ -58,6 +58,7 @@
 		2776C791206350030040F065 /* CustomDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C790206350030040F065 /* CustomDetailVC.swift */; };
 		2776C7932063595A0040F065 /* CustomDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C7922063595A0040F065 /* CustomDetailCell.swift */; };
 		2776C795206360330040F065 /* DetailTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2776C794206360330040F065 /* DetailTagVC.swift */; };
+		2787ABAB20BCF6210022A9A1 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2787ABAA20BCF6200022A9A1 /* CameraManager.swift */; };
 		2791606B207F161100D91210 /* CategoryObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791606A207F161100D91210 /* CategoryObj.swift */; };
 		279D57812062493900E1845C /* ASFSharedViewTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 279D577F2062493900E1845C /* ASFSharedViewTransition.m */; };
 		27C692C6206A3BCA0057156C /* QuickSearchCollect.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27C692C4206A3BCA0057156C /* QuickSearchCollect.xib */; };
@@ -255,6 +256,7 @@
 		2776C790206350030040F065 /* CustomDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailVC.swift; sourceTree = "<group>"; };
 		2776C7922063595A0040F065 /* CustomDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailCell.swift; sourceTree = "<group>"; };
 		2776C794206360330040F065 /* DetailTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTagVC.swift; sourceTree = "<group>"; };
+		2787ABAA20BCF6200022A9A1 /* CameraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		2791606A207F161100D91210 /* CategoryObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryObj.swift; sourceTree = "<group>"; };
 		279D577F2062493900E1845C /* ASFSharedViewTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASFSharedViewTransition.m; sourceTree = "<group>"; };
 		279D57802062493900E1845C /* ASFSharedViewTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASFSharedViewTransition.h; sourceTree = "<group>"; };
@@ -594,6 +596,7 @@
 		3B91CB072058C3160073D54B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2787ABAA20BCF6200022A9A1 /* CameraManager.swift */,
 				274B99332091B61000E506E2 /* CropViewController */,
 				27E9F50B20738F04004801D6 /* Gif */,
 				3BD02E54205ABE130042F890 /* Extensions.swift */,
@@ -1193,6 +1196,7 @@
 				3BDBE402205FA15400CDA28E /* ScannerVC.swift in Sources */,
 				275418BC2068FC0F00DEED32 /* TLYDelegateProxy.m in Sources */,
 				3B4FAE43205F75FD0050331F /* HeaderCurrentOrderCell.swift in Sources */,
+				2787ABAB20BCF6210022A9A1 /* CameraManager.swift in Sources */,
 				3BFF9C8A2059002B00FFA49C /* MainBarVC.swift in Sources */,
 				3B4FAE3B205F6E180050331F /* CurrentOrderCell.swift in Sources */,
 				3BFF9C842059000700FFA49C /* TabbarVC.swift in Sources */,

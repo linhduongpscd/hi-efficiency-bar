@@ -198,6 +198,7 @@ struct ManagerWS {
                 case .success(_):
                     if let code = response.response?.statusCode
                     {
+                        print(code)
                         if let val = response.value as? NSDictionary
                         {
                             if let arrs = val.object(forKey: "results") as? NSArray
@@ -211,11 +212,28 @@ struct ManagerWS {
                                     }
                                     complete(true, arrDatas)
                                 }
+                                else if code == SERVER_CODE.CODE_403
+                                {
+                                    if let detail = val.object(forKey: "detail") as? String
+                                    {
+                                        APP_DELEGATE.mainBarVC?.showAlertCloseBar(detail)
+                                    }
+                                    complete(true, arrDatas)
+                                }
                                 else{
                                      complete(true, arrDatas)
                                 }
                             }
-                           
+                            else{
+                                if code == SERVER_CODE.CODE_403
+                                {
+                                    if let detail = val.object(forKey: "detail") as? String
+                                    {
+                                        APP_DELEGATE.mainBarVC?.showAlertCloseBar(detail)
+                                    }
+                                    complete(true, arrDatas)
+                                }
+                            }
                         }
                     }
                     break
@@ -986,6 +1004,68 @@ struct ManagerWS {
         }
     }
     
+    
+    func addMyCardImage(token: String, image: UIImage,complete:@escaping (_ success: Bool?, _ errer: ErrorModel?) ->Void)
+    {
+        print(image)
+         print(token)
+        let name = Date().millisecondsSince1970
+        let imgData = UIImageJPEGRepresentation(image, 1.0)!
+        guard let tokenLogin = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        let param = ["stripe_token":token]
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(tokenLogin)"]
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            multipartFormData.append(imgData, withName: "photo",fileName: "\(name).jpg", mimeType: "image/jpg")
+            for (key, value) in param {
+                multipartFormData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
+            }
+        }, usingThreshold: UInt64.init(), to: "\(URL_SERVER)api/user/order/", method: .post, headers: auth_headerLogin) { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (progress) in
+                    print("Upload Progress: \(progress.fractionCompleted)")
+                })
+                
+                upload.responseJSON { response in
+                    switch(response.result) {
+                    case .success(_):
+                        if let code = response.response?.statusCode
+                        {
+                            
+                            if code == SERVER_CODE.CODE_200 || code == SERVER_CODE.CODE_201
+                            {
+                                complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
+                            }
+                            else{
+                                if let val = response.value as? NSDictionary
+                                {
+                                    if let detail = val.object(forKey: "detail") as? String
+                                    {
+                                        complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: detail))
+                                    }
+                                    else{
+                                        complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(response.result.value as? NSDictionary)"))
+                                    }
+                                }
+                                else{
+                                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(response.result.value as? NSDictionary)"))
+                                }
+                            }
+                        }
+                        break
+                    case .failure(let error):
+                        complete(false, ErrorManager.processError(error: error))
+                    }
+                }
+                
+            case .failure(let encodingError):
+                print(encodingError)
+            }
+        }
+    }
     func addMyTabCard(token: String,complete:@escaping (_ success: Bool?, _ errer: ErrorModel?) ->Void)
     {
         guard let tokenLogin = UserDefaults.standard.value(forKey: kToken) as? String else {
