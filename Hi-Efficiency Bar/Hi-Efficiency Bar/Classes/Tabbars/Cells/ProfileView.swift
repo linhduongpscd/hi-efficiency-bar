@@ -10,6 +10,7 @@ import UIKit
 
 class ProfileView: UIView {
    var tapChangeAvatar:(() ->())?
+    var tapName:(() ->())?
     @IBOutlet weak var imgAvatar: UIImageView!    
     @IBOutlet weak var constaintAvatar: NSLayoutConstraint!
     
@@ -26,6 +27,9 @@ class ProfileView: UIView {
         self.tapChangeAvatar?()
     }
     
+    @IBAction func doChangeUser(_ sender: Any) {
+        self.tapName?()
+    }
     
    
 }

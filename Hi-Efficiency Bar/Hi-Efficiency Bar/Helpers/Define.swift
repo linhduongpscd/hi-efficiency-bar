@@ -50,11 +50,16 @@ let ERROR_ACCEPT  = "Please accept terms or conditions"
 let ERROR_CODE  = "Active code is required"
 let ALERT_DELETE  = "Do you want to delete?"
 let ERROR_NEWPASSWORD  = "New Password is required"
+let ERROR_OLDPASSWORD  = "Old Password is required"
+let ERROR_CONFIRM_NEW_PASSWORD = "Confirm new password is required"
+let ERROR_PASSWORD_NEW_NOTMATCH  = "Confirm password do not match"
+let ERROR_OLDPASSWORD_NOT_MATCH  = "The old password is incorrect"
 // DEFINE URL
 let URL_SERVER  = "http://hiefficiencybar.com/"
 let kID   = "kID"
 let kToken  = "kToken"
 let kLoginApp  = "kLoginApp"
+let kPassword  = "kPassword"
 let kLimitPage = 20
 
 let KEY_STRIPE = "pk_test_KSMESnZKrSyuNxek4u6JmQPb"
@@ -66,4 +71,6 @@ let CONST_SEARCH_MIXERS = 30
 let CONST_SEARCH_OTHER = 40
 let CONST_SEARCH_FRUITS = 50
 
+let CONST_STATUS_ENABLED = 0
+let CONST_STATUS_BLOCKED = 10
 

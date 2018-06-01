@@ -8,15 +8,40 @@
 
 import UIKit
 class SettingVC: UITableViewController {
-
+    var inforUser: NSDictionary?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.title = "Settings"
+       
         // Do any additional setup after loading the view.
     }
 
-  
+   func loadProfile()
+   {
+        ManagerWS.shared.getProfile { (success, info) in
+            print(info)
+            self.inforUser = info
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+         self.loadProfile()
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 1
+        {
+            if let password = UserDefaults.standard.value(forKey: kPassword) as? String
+            {
+                print(password)
+                return 44
+            }
+            return 0
+        }
+        return 44
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -56,7 +81,20 @@ class SettingVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 9
+        if indexPath.row == 0
+        {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditProfileVC") as! EditProfileVC
+            vc.inforUser = inforUser
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+        else if indexPath.row == 1
+        {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChangePasswordVC") as! ChangePasswordVC
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+        else if indexPath.row == 2
         {
             self.showLogout()
         }

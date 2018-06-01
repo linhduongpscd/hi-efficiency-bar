@@ -23,6 +23,8 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var arrDrinks = [DrinkObj]()
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
     var isReload = false
+    var userID = 0
+    var inforUser: NSDictionary?
     override func viewDidLoad() {
         super.viewDidLoad()
            // ASFSharedViewTransition.addWith(fromViewControllerClass: LoungeTabbarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
@@ -40,7 +42,7 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
                 print("unknown")
             }
         }
-        self.fetchProfile()
+      
         
         // Do any additional setup after loading the view.
     }
@@ -72,7 +74,8 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     {
         ManagerWS.shared.getProfile { (success, info) in
             print(info)
-            if let avatar = info.object(forKey: "avatar_url") as? String
+            self.inforUser = info
+            if let avatar = info.object(forKey: "avatar") as? String
             {
                 self.profileView.imgAvatar.sd_setImage(with: URL.init(string: avatar), completed: { (image, error, type, url) in
                     self.profileView.imgAvatar.layer.cornerRadius =  self.profileView.imgAvatar.frame.size.width/2
@@ -80,15 +83,24 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
                     self.isChangeAvatar = true
                 })
             }
+            if let id = info.object(forKey: "id") as? Int
+            {
+                self.userID = id
+            }
             if let first_name = info.object(forKey: "first_name") as? String
             {
-                self.profileView.lblName.text = first_name
+                if let last_name = info.object(forKey: "last_name") as? String
+                {
+                     self.profileView.lblName.text = first_name + " " + last_name
+                }
+               
             }
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+          self.fetchProfile()
         self.navigationController?.isNavigationBarHidden = true
         offset = 0
         if !isReload
@@ -133,6 +145,11 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
             
             alert.addAction(cancelAction)
             self.present(alert, animated: true, completion: nil)
+        }
+        profileView.tapName = { [] in
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditProfileVC") as! EditProfileVC
+            vc.inforUser = self.inforUser
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         collectionView.parallaxHeader.delegate = self
         collectionView.parallaxHeader.view = profileView
@@ -203,6 +220,9 @@ extension LoungeTabbarVC: CropViewControllerDelegate
         profileView.imgAvatar.layer.masksToBounds = true
         profileView.imgAvatar.image = image
         isChangeAvatar = true
+        ManagerWS.shared.changeAvatar(user_id: userID, image: image) { (success, error) in
+            
+        }
     }
     func cropViewController(_ controller: CropViewController, didFinishCroppingImage image: UIImage, transform: CGAffineTransform, cropRect: CGRect)
     {

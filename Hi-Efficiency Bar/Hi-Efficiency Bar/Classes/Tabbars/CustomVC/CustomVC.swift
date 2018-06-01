@@ -20,6 +20,18 @@ class CustomVC: HelpController {
     var arrIngredientSelected = [Ingredient]()
     @IBOutlet weak var lblNoData: UILabel!
     var isAddCustom = false
+    var id =  Int()
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(CustomVC.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        // refreshControl.tintColor = UIColor.red
+        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
+        return refreshControl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Custom"
@@ -28,9 +40,26 @@ class CustomVC: HelpController {
         self.customNavi()
         self.fecthingredientType()
         lblNoData.isHidden = true
+       // self.collectionView.addSubview(refreshControl)
         // Do any additional setup after loading the view.
     }
-    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl)
+    {
+        ManagerWS.shared.fetchIngredientbyTypeID(id) { (success, arrs) in
+            CommonHellper.hideBusy()
+            self.refreshControl.endRefreshing()
+            self.arrDatas = arrs!
+            if self.arrDatas.count == 0
+            {
+                self.lblNoData.isHidden = false
+            }
+            else{
+                self.lblNoData.isHidden = true
+            }
+            self.collectionView.reloadData()
+            
+        }
+    }
     func fecthingredientType()
     {
         ManagerWS.shared.fetchIngredientType { (success, arrs) in
@@ -39,6 +68,8 @@ class CustomVC: HelpController {
             if self.arrTypes.count > 0
             {
                 let obj = self.arrTypes[0]
+                self.id = obj.id!
+                
                 self.fechByTypeID(id: obj.id!)
             }
         }
@@ -46,6 +77,7 @@ class CustomVC: HelpController {
     
     func fechByTypeID(id: Int)
     {
+         self.id = id
         CommonHellper.showBusy()
         ManagerWS.shared.fetchIngredientbyTypeID(id) { (success, arrs) in
             CommonHellper.hideBusy()

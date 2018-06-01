@@ -34,24 +34,27 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
         CATransaction.begin()
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
-        rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
+        rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
         rotationAnimation.duration = 0.4
         rotationAnimation.repeatCount = 1
-        
         CATransaction.setCompletionBlock {
-            CATransaction.begin()
-            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-            rotationAnimation.fromValue = 0.0
-            rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
-            rotationAnimation.duration = 0.4
-            rotationAnimation.repeatCount = 1
-            
-            CATransaction.setCompletionBlock {
-                self.tapShowCurrentOrder?()
-            }
-            self.ic_repeat.layer.add(rotationAnimation, forKey: nil)
-            CATransaction.commit()
+            self.tapShowCurrentOrder?()
         }
+//
+//        CATransaction.setCompletionBlock {
+//            CATransaction.begin()
+//            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+//            rotationAnimation.fromValue = 0.0
+//            rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
+//            rotationAnimation.duration = 0.4
+//            rotationAnimation.repeatCount = 1
+//
+//            CATransaction.setCompletionBlock {
+//                self.tapShowCurrentOrder?()
+//            }
+//            self.ic_repeat.layer.add(rotationAnimation, forKey: nil)
+//            CATransaction.commit()
+//        }
         self.ic_repeat.layer.add(rotationAnimation, forKey: nil)
         CATransaction.commit()
      

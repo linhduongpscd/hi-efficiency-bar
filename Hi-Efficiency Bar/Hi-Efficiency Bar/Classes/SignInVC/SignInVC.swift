@@ -78,6 +78,8 @@ class SignInVC: BaseViewController {
                         
                         
                     })
+                    UserDefaults.standard.setValue(password, forKey: kPassword)
+                    UserDefaults.standard.synchronize()
                     self.perform(#selector(self.clickAgeVertified), with: nil, afterDelay: 0.5)
                 }
                 else{
@@ -116,6 +118,8 @@ class SignInVC: BaseViewController {
                                         CommonHellper.hideBusy()
                                         if success!
                                         {
+                                            UserDefaults.standard.removeObject(forKey: kPassword)
+                                            UserDefaults.standard.synchronize()
                                             APP_DELEGATE.initTabbarHome()
                                         }
                                         else{

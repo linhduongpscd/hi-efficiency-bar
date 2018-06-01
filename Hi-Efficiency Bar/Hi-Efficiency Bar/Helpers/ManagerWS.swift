@@ -857,7 +857,7 @@ struct ManagerWS {
     func getSubCategoryByParentID(parentID: Int, complete:@escaping (_ success: Bool?, _ arrs: [GenreObj]?) ->Void)
     {
         
-        CommonHellper.showBusy()
+       
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
         }
@@ -1580,6 +1580,157 @@ struct ManagerWS {
                 case .failure(_):
                     complete(true, DrinkObj.init(dict: NSDictionary.init()))
                     break
+                }
+        }
+    }
+    
+    func changeAvatar(user_id: Int, image: UIImage,complete:@escaping (_ success: Bool?, _ errer: ErrorModel?) ->Void)
+    {
+        let name = Date().millisecondsSince1970
+        let imgData = UIImageJPEGRepresentation(image, 1.0)!
+        guard let tokenLogin = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        let param = Parameters()
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(tokenLogin)"]
+        print(auth_headerLogin)
+        print("\(URL_SERVER)api/user/\(user_id)")
+        Alamofire.upload(multipartFormData: { (multipartFormData) in
+            multipartFormData.append(imgData, withName: "avatar",fileName: "\(name).jpg", mimeType: "image/jpg")
+            for (key, value) in param {
+                multipartFormData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
+            }
+        }, usingThreshold: UInt64.init(), to: "\(URL_SERVER)api/user/\(user_id)/", method: .patch, headers: auth_headerLogin) { (result) in
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (progress) in
+                    print("Upload Progress: \(progress.fractionCompleted)")
+                })
+                
+                upload.responseJSON { response in
+                    switch(response.result) {
+                    case .success(_):
+                        if let code = response.response?.statusCode
+                        {
+                            
+                            if code == SERVER_CODE.CODE_200 || code == SERVER_CODE.CODE_201
+                            {
+                                complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
+                            }
+                            else{
+                                if let val = response.value as? NSDictionary
+                                {
+                                    if let detail = val.object(forKey: "detail") as? String
+                                    {
+                                        complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: detail))
+                                    }
+                                    else{
+                                        complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(response.result.value as? NSDictionary)"))
+                                    }
+                                }
+                                else{
+                                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(response.result.value as? NSDictionary)"))
+                                }
+                            }
+                        }
+                        break
+                    case .failure(let error):
+                        complete(false, ErrorManager.processError(error: error))
+                    }
+                }
+                
+            case .failure(let encodingError):
+                print(encodingError)
+            }
+        }
+    }
+    
+    
+    
+    func editProfile(_ para: Parameters, _ userID: Int, complete:@escaping (_ success: Bool?, _ errer: ErrorModel?) ->Void)
+    {
+        guard let tokenLogin = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(tokenLogin)"]
+        print(auth_headerLogin)
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/\(userID)/")!, method: .patch, parameters: para,  encoding: URLEncoding(destination: .methodDependent), headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if code == SERVER_CODE.CODE_200
+                            {
+                               complete(true, nil)
+                            }
+                            else if code == SERVER_CODE.CODE_400
+                            {
+                                if let detail = val.object(forKey: "detail") as? String
+                                {
+                                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:detail))
+                                }
+                                else{
+                                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Wrong birthday."))
+                                }
+                            }
+                            else{
+                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(val)"))
+                            }
+                        }
+                        
+                    }
+                    break
+                case .failure(let error):
+                    complete(false, ErrorManager.processError(error: error))
+                }
+        }
+    }
+    
+    
+    func changePassword(_ para: Parameters, complete:@escaping (_ success: Bool?, _ errer: ErrorModel?) ->Void)
+    {
+        guard let tokenLogin = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(tokenLogin)"]
+        print(auth_headerLogin)
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/change/password/")!, method: .post, parameters: para,  encoding: URLEncoding(destination: .methodDependent), headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            if code == 202
+                            {
+                                complete(true, nil)
+                            }
+                            else if code == SERVER_CODE.CODE_400
+                            {
+                                if let detail = val.object(forKey: "detail") as? String
+                                {
+                                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:detail))
+                                }
+                                else{
+                                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(val)"))
+                                }
+                            }
+                            else{
+                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(val)"))
+                            }
+                        }
+                        
+                    }
+                    break
+                case .failure(let error):
+                    complete(false, ErrorManager.processError(error: error))
                 }
         }
     }

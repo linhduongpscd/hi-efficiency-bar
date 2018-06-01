@@ -13,19 +13,39 @@ class DetailCocktailVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     var genereObj = GenreObj.init(dict: NSDictionary.init())
     var arrGeneres = [GenreObj]()
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(DetailCocktailVC.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        // refreshControl.tintColor = UIColor.red
+        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
+        return refreshControl
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.register(UINib(nibName: "DetailCockTailCollect", bundle: nil), forCellWithReuseIdentifier: "DetailCockTailCollect")
      
          self.collectionView.register(UINib(nibName: "DetailHeaderGenereCollect", bundle: nil), forCellWithReuseIdentifier: "DetailHeaderGenereCollect")
         self.navigationItem.title = genereObj.name
-        self.fectSubAllgenere()
+        self.fectSubAllgenere(true)
+        self.collectionView.addSubview(refreshControl)
         // Do any additional setup after loading the view.
     }
-
-    func fectSubAllgenere()
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
+        fectSubAllgenere(false)
+    }
+    func fectSubAllgenere(_ isLoading: Bool)
+    {
+        if isLoading
+        {
+             CommonHellper.showBusy()
+        }
         ManagerWS.shared.getSubCategoryByParentID(parentID: genereObj.id!) { (success, arrs) in
+             CommonHellper.hideBusy()
+            self.refreshControl.endRefreshing()
             self.arrGeneres = arrs!
             self.collectionView.reloadData()
         }

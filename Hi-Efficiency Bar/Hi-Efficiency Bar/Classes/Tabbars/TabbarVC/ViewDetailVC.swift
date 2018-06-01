@@ -41,6 +41,17 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     @IBOutlet weak var bgCover: UIImageView!
     @IBOutlet weak var icCup: UIImageView!
     var idProduct = 0
+    @IBOutlet weak var scrollPage: UIScrollView!
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(ViewDetailVC.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        // refreshControl.tintColor = UIColor.red
+        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
+        return refreshControl
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
@@ -58,12 +69,31 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         else{
             self.getDrinkByID()
         }
-      
+      self.scrollPage.addSubview(self.refreshControl)
     }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl)
+    {
+        //DO
+        if idProduct == 0
+        {
+            if drinkObj.id != nil
+            {
+                self.idProduct = drinkObj.id!
+                self.getDrinkByID()
+            }
+            
+        }
+        else{
+            self.getDrinkByID()
+        }
+    }
+    
     
     func getDrinkByID()
     {
         ManagerWS.shared.getDrinkBYID(drinkID: self.idProduct) { (success, obj) in
+            self.refreshControl.endRefreshing()
             self.drinkObj = obj!
             print(self.drinkObj.ingredients!)
             self.initViewDetail()
@@ -91,7 +121,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         if drinkObj.image_background != nil
         {
             bgCover.sd_setImage(with: URL.init(string: drinkObj.image_background!), completed: { (image, error, type, url) in
-                CommonHellper.addBlurView(self.bgCover)
+                //CommonHellper.addBlurView(self.bgCover)
             })
         }
         else{
@@ -139,6 +169,13 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         }
         self.tblDetail.reloadData()
         self.tblGarnish.reloadData()
+        if drinkObj.status == CONST_STATUS_ENABLED
+        {
+            btnAddMyCard.isEnabled = true
+        }
+        else{
+             btnAddMyCard.isEnabled = false
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

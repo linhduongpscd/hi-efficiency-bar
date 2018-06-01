@@ -23,12 +23,14 @@ class DrinkObj: NSObject {
     var ingredients: NSArray?
     var garnishes: NSArray?
     var bgColorCell: UIColor?
+    var status: Int?
     init(dict: NSDictionary) {
       
         self.creation_date = dict["creation_date"] as? String
         self.creator = dict["creator"] as? String
         self.glass = dict["glass"] as? NSDictionary
         self.id = dict["id"] as? Int
+        self.status = dict["status"] as? Int
         self.image = dict["image"] as? String
         self.image_background = dict["image_background"] as? String
         self.is_favorite = dict["is_favorite"] as? Bool

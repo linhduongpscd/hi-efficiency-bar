@@ -32,11 +32,17 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBK-HC-JaW">
-                            <rect key="frame" x="159.5" y="158" width="0.0" height="0.0"/>
+                            <rect key="frame" x="144.5" y="128" width="30" height="30"/>
                             <fontDescription key="fontDescription" name="AlrightSans-Medium" family="Alright Sans" pointSize="22"/>
                             <color key="textColor" red="0.092288292940000002" green="0.19512778519999999" blue="0.23933044079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBZ-7a-EbT">
+                            <rect key="frame" x="145" y="128" width="30" height="30"/>
+                            <connections>
+                                <action selector="doChangeUser:" destination="iN0-l3-epB" eventType="touchUpInside" id="JuJ-9h-03B"/>
+                            </connections>
+                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vMv-hD-drz">
                             <rect key="frame" x="114.5" y="29.5" width="91" height="91"/>
                             <connections>
@@ -46,14 +52,18 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="iBZ-7a-EbT" firstAttribute="centerX" secondItem="PBK-HC-JaW" secondAttribute="centerX" id="1fA-9j-MiY"/>
                         <constraint firstItem="75C-Li-n6q" firstAttribute="centerX" secondItem="itR-uI-2qM" secondAttribute="centerX" id="3FK-bl-meT"/>
                         <constraint firstItem="PBK-HC-JaW" firstAttribute="centerX" secondItem="itR-uI-2qM" secondAttribute="centerX" id="4XY-UK-pPA"/>
                         <constraint firstItem="vMv-hD-drz" firstAttribute="height" secondItem="75C-Li-n6q" secondAttribute="height" id="A8e-DI-sy3"/>
                         <constraint firstAttribute="bottom" secondItem="PBK-HC-JaW" secondAttribute="bottom" constant="20" id="AOv-7O-9Rg"/>
                         <constraint firstItem="vMv-hD-drz" firstAttribute="centerY" secondItem="75C-Li-n6q" secondAttribute="centerY" id="KrH-E1-ZAa"/>
+                        <constraint firstItem="iBZ-7a-EbT" firstAttribute="width" secondItem="PBK-HC-JaW" secondAttribute="width" id="U6N-c4-SAg"/>
                         <constraint firstAttribute="bottom" secondItem="75C-Li-n6q" secondAttribute="bottom" constant="57" id="VAe-XY-eSl"/>
+                        <constraint firstItem="iBZ-7a-EbT" firstAttribute="centerY" secondItem="PBK-HC-JaW" secondAttribute="centerY" id="aFC-fH-c8N"/>
                         <constraint firstItem="vMv-hD-drz" firstAttribute="width" secondItem="75C-Li-n6q" secondAttribute="width" id="kpn-0O-OFt"/>
                         <constraint firstItem="vMv-hD-drz" firstAttribute="centerX" secondItem="75C-Li-n6q" secondAttribute="centerX" id="nXD-Ft-6cK"/>
+                        <constraint firstItem="iBZ-7a-EbT" firstAttribute="height" secondItem="PBK-HC-JaW" secondAttribute="height" id="pGN-ya-zVS"/>
                         <constraint firstItem="75C-Li-n6q" firstAttribute="top" secondItem="itR-uI-2qM" secondAttribute="top" constant="30" id="ssF-zd-yPM"/>
                     </constraints>
                 </view>

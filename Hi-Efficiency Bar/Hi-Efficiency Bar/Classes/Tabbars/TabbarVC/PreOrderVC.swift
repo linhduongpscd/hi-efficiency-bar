@@ -13,6 +13,16 @@ class PreOrderVC: BaseViewController {
     @IBOutlet weak var tblOrder: UITableView!
     var offset = 0
     var arrOrders = [OrderUserObj]()
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(PreOrderVC.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        // refreshControl.tintColor = UIColor.red
+        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
+        return refreshControl
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         tblOrder.register( UINib(nibName: "HeaderPreOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderPreOrderCell")
@@ -21,15 +31,24 @@ class PreOrderVC: BaseViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
         self.configHideNaviTable(tblOrder)
-        self.fectAllOrder()
+        self.fectAllOrder(true)
+        self.tblOrder.addSubview(refreshControl)
         // Do any additional setup after loading the view.
     }
-
-    
-    func fectAllOrder()
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
-        CommonHellper.showBusy()
+        self.fectAllOrder(false)
+    }
+    
+    func fectAllOrder(_ isLoading: Bool)
+    {
+        if isLoading
+        {
+            CommonHellper.showBusy()
+        }
+        
         ManagerWS.shared.fetchListUserOrder(offset: offset) { (success, arrs) in
+            self.refreshControl.endRefreshing()
             self.arrOrders = arrs!
             self.tblOrder.reloadData()
             CommonHellper.hideBusy()

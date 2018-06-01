@@ -64,6 +64,7 @@ class CustomDetailVC: HelpController {
     var arrCusIngredients = [Ingredient]()
     var arrUnitView = ["oz","%","part","mL", "dash" , "splash" ,"teaspoon","tablespoon","pony","jigger","shot","snit","split"]
     @IBOutlet weak var btnFullEditName: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white

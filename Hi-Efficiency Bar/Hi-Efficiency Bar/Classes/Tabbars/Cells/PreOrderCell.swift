@@ -31,27 +31,27 @@ class PreOrderCell: UITableViewCell {
         CATransaction.begin()
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
-        rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
+        rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
         rotationAnimation.duration = 0.4
         rotationAnimation.repeatCount = 1
-        
         CATransaction.setCompletionBlock {
-            CATransaction.begin()
-            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-            rotationAnimation.fromValue = 0.0
-            rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
-            rotationAnimation.duration = 0.4
-            rotationAnimation.repeatCount = 1
+            ManagerWS.shared.reorderTab(order_id: self.productObj.id!, complete: { (success, error) in
+                self.tapPreOrderProduct?()
+            })
             
-            CATransaction.setCompletionBlock {
-                ManagerWS.shared.reorderTab(order_id: self.productObj.id!, complete: { (success, error) in
-                     self.tapPreOrderProduct?()
-                })
-               
-            }
-            self.btnRepeat.layer.add(rotationAnimation, forKey: nil)
-            CATransaction.commit()
         }
+//        CATransaction.setCompletionBlock {
+//            CATransaction.begin()
+//            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+//            rotationAnimation.fromValue = 0.0
+//            rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
+//            rotationAnimation.duration = 0.4
+//            rotationAnimation.repeatCount = 1
+//
+//
+//            self.btnRepeat.layer.add(rotationAnimation, forKey: nil)
+//            CATransaction.commit()
+//        }
         self.btnRepeat.layer.add(rotationAnimation, forKey: nil)
         CATransaction.commit()
     }

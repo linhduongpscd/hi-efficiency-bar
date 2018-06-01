@@ -19,6 +19,16 @@ class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
     var isIngredient = false
     var ingredientObj = Ingredient.init(dict: NSDictionary.init())
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(DetailMainBarVC.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        // refreshControl.tintColor = UIColor.red
+        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
+        return refreshControl
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
        // ASFSharedViewTransition.addWith(fromViewControllerClass: DetailMainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
@@ -36,22 +46,18 @@ class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: collectionView)
         //self.configRefresh()
         collectionView.isHidden = true
+        collectionView.addSubview(refreshControl)
+        
         self.fetchAllDrinkByCategory()
     }
     
-    func configRefresh()
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
-        self.refresher = UIRefreshControl()
-        self.collectionView!.alwaysBounceVertical = true
-        refresher.tintColor = UIColor.red
-        self.refresher.addTarget(self, action: #selector(loadData), for: .valueChanged)
-        if #available(iOS 10.0, *) {
-            self.collectionView.refreshControl = refresher
-        } else {
-            self.collectionView!.addSubview(refresher)
-        }
-        
+        offset = 0
+        isLoadMore = false
+        self.fetchAllDrinkByCategory()
     }
+    
     @objc func loadData() {
         self.isLoadMore = false
         offset = 0
@@ -114,7 +120,7 @@ class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
         if isIngredient
         {
              ManagerWS.shared.getListDrinkByingredient(ingredientID: ingredientObj.id!, offset: offset) { (success, arrs) in
-                
+                self.refreshControl.endRefreshing()
                 if arrs!.count > 0
                 {
                     self.isLoadMore = true
@@ -132,7 +138,7 @@ class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
         }
         else{
             ManagerWS.shared.getListDrinkByCategory(categoryID: mainBarObj.id!, offset: offset) { (success, arrs) in
-                
+                self.refreshControl.endRefreshing()
                 if arrs!.count > 0
                 {
                     self.isLoadMore = true

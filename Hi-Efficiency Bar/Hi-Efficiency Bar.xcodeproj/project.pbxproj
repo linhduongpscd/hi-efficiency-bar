@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		21F278813AC65E5FDC7A6F87 /* Pods_Hi_Efficiency_Bar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F666944C69A254AEB833642 /* Pods_Hi_Efficiency_Bar.framework */; };
 		270CC09C20A44F74000B62C0 /* SettingObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270CC09B20A44F74000B62C0 /* SettingObj.swift */; };
+		2724343020C137A500F9E832 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724342F20C137A500F9E832 /* EditProfileVC.swift */; };
+		2724343220C137B900F9E832 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724343120C137B900F9E832 /* ChangePasswordVC.swift */; };
 		2724F878208879EC003305F9 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F86C208879EC003305F9 /* Animation.swift */; };
 		2724F879208879EC003305F9 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 2724F86D208879EC003305F9 /* .gitkeep */; };
 		2724F87A208879EC003305F9 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2724F86F208879EC003305F9 /* Utilities.swift */; };
@@ -193,6 +195,8 @@
 
 /* Begin PBXFileReference section */
 		270CC09B20A44F74000B62C0 /* SettingObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingObj.swift; sourceTree = "<group>"; };
+		2724342F20C137A500F9E832 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
+		2724343120C137B900F9E832 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		2724F86C208879EC003305F9 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		2724F86D208879EC003305F9 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		2724F86F208879EC003305F9 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -665,6 +669,8 @@
 			isa = PBXGroup;
 			children = (
 				3B91CB192058C4A20073D54B /* SignUpVC.swift */,
+				2724342F20C137A500F9E832 /* EditProfileVC.swift */,
+				2724343120C137B900F9E832 /* ChangePasswordVC.swift */,
 			);
 			path = SignUpVC;
 			sourceTree = "<group>";
@@ -1108,6 +1114,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2724343220C137B900F9E832 /* ChangePasswordVC.swift in Sources */,
 				3BC20364206322E4005A2D21 /* IngreItemCollect.swift in Sources */,
 				3BDBE404205FA5B200CDA28E /* SearchGenereVC.swift in Sources */,
 				2724F87E208879ED003305F9 /* UITableView + ViewAnimator.swift in Sources */,
@@ -1118,6 +1125,7 @@
 				3B91CB252058C5070073D54B /* BaseNaviController.swift in Sources */,
 				27FBAF102086E57E00ABF0A4 /* IngredientSearchObj.swift in Sources */,
 				275418BA2068FC0F00DEED32 /* UIViewController+BetterLayoutGuides.m in Sources */,
+				2724343020C137A500F9E832 /* EditProfileVC.swift in Sources */,
 				27C692CB206A3C410057156C /* HeaderSearchReusable.swift in Sources */,
 				3BC4CE0D206141FB00CECB57 /* FadeTransition.swift in Sources */,
 				3B91CB182058C4960073D54B /* SignInVC.swift in Sources */,

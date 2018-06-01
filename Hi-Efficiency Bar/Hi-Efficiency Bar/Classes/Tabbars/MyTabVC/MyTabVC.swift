@@ -217,6 +217,8 @@ class MyTabVC: BaseViewController {
 //
 //
 //        })
+        
+        
         self.cameraManager.askUserForCameraPermission({ permissionGranted in
             if permissionGranted {
                 self.cameraManager.capturePictureWithCompletion({ (image, error) -> Void in
