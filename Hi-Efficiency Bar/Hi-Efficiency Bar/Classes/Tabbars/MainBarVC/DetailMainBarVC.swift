@@ -31,7 +31,7 @@ class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-       // ASFSharedViewTransition.addWith(fromViewControllerClass: DetailMainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
+        ASFSharedViewTransition.addWith(fromViewControllerClass: DetailMainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         if isIngredient
         {
             self.navigationItem.title = ingredientObj.name
@@ -191,6 +191,7 @@ class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
         else{
             cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
         }
+          cell.imgCell.isHidden = true
         return cell.imgCell
     }
 }

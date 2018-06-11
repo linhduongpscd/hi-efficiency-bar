@@ -42,6 +42,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     @IBOutlet weak var icCup: UIImageView!
     var idProduct = 0
     @IBOutlet weak var scrollPage: UIScrollView!
+     var closeBar = CloseBar.init(frame: .zero)
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -64,14 +65,31 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         self.navigationItem.rightBarButtonItem = btnRight
         if idProduct == 0
         {
-              self.initViewDetail()
+            self.initViewDetail()
         }
         else{
             self.getDrinkByID()
         }
       self.scrollPage.addSubview(self.refreshControl)
     }
-    
+    func showPopUpCloseBar(_ isAdd: Bool)
+    {
+        self.closeBar.removeFromSuperview()
+        closeBar = Bundle.main.loadNibNamed("CloseBar", owner: self, options: nil)?[0] as! CloseBar
+        closeBar.registerCell()
+        closeBar.frame = UIScreen.main.bounds
+        closeBar.tapRefresh = { [] in
+            if isAdd
+            {
+                self.closeBar.removeFromSuperview()
+            }
+            else{
+              self.getDrinkByID()
+            }
+            
+        }
+        APP_DELEGATE.window?.addSubview(closeBar)
+    }
     @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
         //DO
@@ -94,9 +112,20 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     {
         ManagerWS.shared.getDrinkBYID(drinkID: self.idProduct) { (success, obj) in
             self.refreshControl.endRefreshing()
-            self.drinkObj = obj!
-            print(self.drinkObj.ingredients!)
-            self.initViewDetail()
+            if !success!
+            {
+                self.showPopUpCloseBar(false)
+            }
+            else{
+                if obj != nil
+                {
+                    self.closeBar.removeFromSuperview()
+                    self.drinkObj = obj!
+                    print(self.drinkObj.ingredients!)
+                    self.initViewDetail()
+                }
+            }
+           
         }
     }
     
@@ -274,7 +303,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         let qualityOfServiceClass = DispatchQoS.QoSClass.background
         let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
         backgroundQueue.async(execute: {
-            ManagerWS.shared.addMyTab(para: self.paramAddMyTab(), complete: { (success) in
+            ManagerWS.shared.addMyTab(para: self.paramAddMyTab(), complete: { (success, error, code) in
                 if success!
                 {
                     self.removeLoadingView()
@@ -292,7 +321,15 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
                     self.btnAddMyCard.stopAnimation(animationStyle: .shake, completion: {
                         self.removeLoadingView()
                     })
-                    //self.showAlertMessage(message: "The email is not existed, please try again")
+                    
+                    if code == SERVER_CODE.CODE_403
+                    {
+                        self.showPopUpCloseBar(true)
+                    }
+                    else{
+                        self.showAlertMessage(message: error!)
+                    }
+                    
                 }
             })
         })

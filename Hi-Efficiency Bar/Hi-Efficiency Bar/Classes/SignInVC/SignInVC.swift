@@ -20,10 +20,15 @@ class SignInVC: BaseViewController {
     var token = String()
     var birthday = String()
     @IBOutlet weak var btnTouch: UIButton!
+    @IBOutlet weak var imgTouch: UIImageView!
+    @IBOutlet weak var lblTouch: UILabel!
+    @IBOutlet weak var traingPasword: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         btnSignIn.spinnerColor = .white
         btnTouch.isHidden = true
+        imgTouch.isHidden = true
+        lblTouch.isHidden = true
         self.deviceSupportsTouchId()
         // Do any additional setup after loading the view.
     }
@@ -34,6 +39,8 @@ class SignInVC: BaseViewController {
     }
     
     @IBAction func doTouchID(_ sender: Any) {
+        //UIControl().sendAction(#selector(NSXPCConnection.suspend),
+                              // to: UIApplication.shared, for: nil)
         self.authenticationWithTouchID()
     }
     
@@ -104,16 +111,19 @@ class SignInVC: BaseViewController {
     }
     @IBAction func doFacebook(_ sender: Any) {
         let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
-        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
+        fbLoginManager.logIn(withReadPermissions: ["email", "public_profile"], from: self) { (result, error) in
             if (error == nil){
+               
                 let fbloginresult : FBSDKLoginManagerLoginResult = result!
                 if fbloginresult.grantedPermissions != nil {
                     if(fbloginresult.grantedPermissions.contains("email")) {
                         if((FBSDKAccessToken.current()) != nil){
                             FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "id, name, first_name, last_name, picture.type(large), email"]).start(completionHandler: { (connection, result, error) -> Void in
+
                                 if (error == nil){
                                     CommonHellper.showBusy()
                                     let para: Parameters = ["fb_token": fbloginresult.token.tokenString]
+                                    print(para)
                                     ManagerWS.shared.loginFacebook(para: para, complete: { (success, error) in
                                         CommonHellper.hideBusy()
                                         if success!
@@ -168,19 +178,34 @@ extension SignInVC {
             if TouchHelper.supportFaceID() && TouchHelper.isFaceIDAvailable()
             {
                 btnTouch.isHidden = false
-                btnTouch.setTitle("Login with Face ID", for: .normal)
+                imgTouch.isHidden = false
+                lblTouch.isHidden = false
+                btnTouch.setTitle("", for: .normal)
+                lblTouch.text = "Face ID"
+                imgTouch.image = #imageLiteral(resourceName: "faceid")
+                traingPasword.constant = 60
             }
             else if TouchHelper.isTouchIDAvailable()
             {
                 btnTouch.isHidden = false
-                btnTouch.setTitle("Login with Touch ID", for: .normal)
+                imgTouch.isHidden = false
+                lblTouch.isHidden = false
+                  lblTouch.text = "Touch ID"
+                imgTouch.image = #imageLiteral(resourceName: "touchid")
+                traingPasword.constant = 60
             }
             else{
                 btnTouch.isHidden = true
+                imgTouch.isHidden = true
+                lblTouch.isHidden = true
+                traingPasword.constant = 10
             }
         }
         else{
             btnTouch.isHidden = true
+            imgTouch.isHidden = true
+            lblTouch.isHidden = true
+             traingPasword.constant = 10
         }
     }
     func authenticationWithTouchID() {

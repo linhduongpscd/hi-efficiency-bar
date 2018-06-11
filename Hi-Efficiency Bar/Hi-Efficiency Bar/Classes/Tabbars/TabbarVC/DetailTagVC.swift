@@ -26,7 +26,7 @@ class DetailTagVC: UIViewController, ASFSharedViewTransitionDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //ASFSharedViewTransition.addWith(fromViewControllerClass: DetailTagVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
+        ASFSharedViewTransition.addWith(fromViewControllerClass: DetailTagVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         self.collectionResult.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         self.collectionResult.register(UINib(nibName: "IngreItemCollect", bundle: nil), forCellWithReuseIdentifier: "IngreItemCollect")
         self.collectionResult.register(UINib(nibName: "DetailCockTailCollect", bundle: nil), forCellWithReuseIdentifier: "DetailCockTailCollect")
@@ -101,15 +101,19 @@ class DetailTagVC: UIViewController, ASFSharedViewTransitionDataSource {
         }
     }
     func sharedView() -> UIView! {
-        let cell = collectionResult.cellForItem(at: (collectionResult.indexPathsForSelectedItems?.first)!) as! MainBarViewCell
-        if cell.drinkObj.is_favorite!
+        if let cell = collectionResult.cellForItem(at: (collectionResult.indexPathsForSelectedItems?.first)!) as? MainBarViewCell
         {
-            cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+            if cell.drinkObj.is_favorite!
+            {
+                cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav2"), for: .normal)
+            }
+            else{
+                cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
+            }
+            cell.imgCell.isHidden = true
+            return cell.imgCell
         }
-        else{
-            cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
-        }
-        return cell.imgCell
+        return UIView.init()
     }
     /*
     // MARK: - Navigation

@@ -148,7 +148,7 @@ class MyTabVC: BaseViewController {
                 {
                     self.removeLoadingView()
                     self.btnMakeMeDrink.setTitle("", for: .normal)
-                    self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                    self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
                     self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
                         
                         
@@ -172,7 +172,7 @@ class MyTabVC: BaseViewController {
                 {
                     self.removeLoadingView()
                     self.btnMakeMeDrink.setTitle("", for: .normal)
-                    self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                    self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
                     self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
                         
                         
@@ -209,14 +209,6 @@ class MyTabVC: BaseViewController {
         }
         self.addLoadingView()
         btnMakeMeDrink.startAnimation() // 2: Then start the animation when the user tap the button
-        
-//        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-//        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-//        backgroundQueue.async(execute: {
-//
-//
-//
-//        })
         
         
         self.cameraManager.askUserForCameraPermission({ permissionGranted in

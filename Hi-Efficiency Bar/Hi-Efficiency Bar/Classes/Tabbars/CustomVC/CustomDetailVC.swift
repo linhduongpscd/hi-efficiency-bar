@@ -64,7 +64,7 @@ class CustomDetailVC: HelpController {
     var arrCusIngredients = [Ingredient]()
     var arrUnitView = ["oz","%","part","mL", "dash" , "splash" ,"teaspoon","tablespoon","pony","jigger","shot","snit","split"]
     @IBOutlet weak var btnFullEditName: UIButton!
-    
+     var closeBar = CloseBar.init(frame: .zero)
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
@@ -80,7 +80,25 @@ class CustomDetailVC: HelpController {
        self.fectAllGlass()
         
     }
-    
+    func showPopUpCloseBar(_ isAdd: Bool)
+    {
+        self.closeBar.removeFromSuperview()
+        closeBar = Bundle.main.loadNibNamed("CloseBar", owner: self, options: nil)?[0] as! CloseBar
+        closeBar.registerCell()
+        closeBar.frame = UIScreen.main.bounds
+        closeBar.tapRefresh = { [] in
+            if isAdd
+            {
+                 self.closeBar.removeFromSuperview()
+            }
+            else{
+                self.fectAllGlass()
+            }
+            
+            
+        }
+        APP_DELEGATE.window?.addSubview(closeBar)
+    }
     func initData()
     {
        
@@ -154,127 +172,147 @@ class CustomDetailVC: HelpController {
     
     func fectAllGlass()
     {
-        ManagerWS.shared.getListAllGlass { (success, arrs) in
-            self.arrLys = arrs!
-            self.collectionLy.reloadData()
-            if self.arrLys.count > 0
+        ManagerWS.shared.getListAllGlass { (success, arrs, code) in
+            if success!
             {
-                if !self.isRedirectCus
+                self.closeBar.removeFromSuperview()
+                self.arrLys = arrs!
+                self.collectionLy.reloadData()
+                if self.arrLys.count > 0
                 {
-                    for obj in self.arrLys
+                    if !self.isRedirectCus
                     {
-                        if obj.id == self.glassObj?.id
+                        for obj in self.arrLys
                         {
-                            self.glassObj = obj
-                            self.glassID = obj.id
-                            if obj.image != nil{
-                                self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                                    self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                                    self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
-                                })
-                            }
-                            if self.glassObj?.unit_view == "oz"
+                            if obj.id == self.glassObj?.id
                             {
-                                 self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                                self.glassObj = obj
+                                self.glassID = obj.id
+                                if obj.image != nil{
+                                    self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                                        self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                        self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                    })
+                                }
+                                if self.glassObj?.unit_view == "oz"
+                                {
+                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                                }
+                                else{
+                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                                }
+                                
+                                
+                                break
                             }
-                            else{
-                                 self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
-                            }
-                           
-                            
-                            break
                         }
                     }
+                    else{
+                        let obj = self.arrLys[0]
+                        self.glassObj = obj
+                        self.glassID = obj.id
+                        if obj.image != nil{
+                            self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                                self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                            })
+                        }
+                        if self.glassObj?.unit_view == "oz"
+                        {
+                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                        }
+                        else{
+                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                        }
+                    }
+                    
+                    
                 }
                 else{
-                    let obj = self.arrLys[0]
-                    self.glassObj = obj
-                    self.glassID = obj.id
-                    if obj.image != nil{
-                        self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                            self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                            self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
-                        })
-                    }
-                    if self.glassObj?.unit_view == "oz"
-                    {
-                        self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
-                    }
-                    else{
-                        self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
-                    }
+                    self.lblMaxSize.text = ""
                 }
-               
-              
+                self.initData()
+                self.setDefault()
             }
             else{
-                 self.lblMaxSize.text = ""
+                if code == SERVER_CODE.CODE_403
+                {
+                    self.showPopUpCloseBar(false)
+                }
             }
-            self.initData()
-            self.setDefault()
         }
     }
     
     func fectAllGlassReset()
     {
-        ManagerWS.shared.getListAllGlass { (success, arrs) in
-            self.arrLys = arrs!
-            self.collectionLy.reloadData()
-            if self.arrLys.count > 0
+        ManagerWS.shared.getListAllGlass { (success, arrs, code) in
+            if success!
             {
-                if !self.isRedirectCus
+                self.closeBar.removeFromSuperview()
+                self.arrLys = arrs!
+                self.collectionLy.reloadData()
+                if self.arrLys.count > 0
                 {
-                    for obj in self.arrLys
+                    if !self.isRedirectCus
                     {
-                        if obj.id == self.glassObj?.id
+                        for obj in self.arrLys
                         {
-                            self.glassObj = obj
-                            self.glassID = obj.id
-                            if obj.image != nil{
-                                self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                                    self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                                    self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
-                                })
-                            }
-                            if self.glassObj?.unit_view == "oz"
+                            if obj.id == self.glassObj?.id
                             {
-                                self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                                self.glassObj = obj
+                                self.glassID = obj.id
+                                if obj.image != nil{
+                                    self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                                        self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                        self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                    })
+                                }
+                                if self.glassObj?.unit_view == "oz"
+                                {
+                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                                }
+                                else{
+                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                                }
+                                
+                                
+                                break
                             }
-                            else{
-                                self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
-                            }
-                            
-                            
-                            break
                         }
                     }
+                    else{
+                        let obj = self.arrLys[0]
+                        self.glassObj = obj
+                        self.glassID = obj.id
+                        if obj.image != nil{
+                            self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                                self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                            })
+                        }
+                        if self.glassObj?.unit_view == "oz"
+                        {
+                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                        }
+                        else{
+                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                        }
+                    }
+                    
+                    
                 }
                 else{
-                    let obj = self.arrLys[0]
-                    self.glassObj = obj
-                    self.glassID = obj.id
-                    if obj.image != nil{
-                        self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                            self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                            self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
-                        })
-                    }
-                    if self.glassObj?.unit_view == "oz"
-                    {
-                        self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
-                    }
-                    else{
-                        self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
-                    }
+                    self.lblMaxSize.text = ""
                 }
-                
-                
+                self.initDataReset()
+                self.setDefault()
             }
             else{
-                self.lblMaxSize.text = ""
+                if code == SERVER_CODE.CODE_403
+                {
+                    self.showPopUpCloseBar(false)
+                }
             }
-            self.initDataReset()
-            self.setDefault()
         }
     }
     func initDataReset()
@@ -658,11 +696,11 @@ class CustomDetailVC: HelpController {
         let qualityOfServiceClass = DispatchQoS.QoSClass.background
         let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
         backgroundQueue.async(execute: {
-            ManagerWS.shared.addDrinkStep1(para: self.convertParamToWS() as! Parameters) { (success, error, drinkID) in
+            ManagerWS.shared.addDrinkStep1(para: self.convertParamToWS() as! Parameters) { (success, error, drinkID, code) in
                 print(success!)
                 if success!
                 {
-                    ManagerWS.shared.addMyTab(para: self.addTomyTabParam(drinkID: drinkID!), complete: { (ok) in
+                    ManagerWS.shared.addMyTab(para: self.addTomyTabParam(drinkID: drinkID!), complete: { (ok, error, code) in
                         if ok!
                         {
                             self.removeLoadingView()
@@ -678,7 +716,14 @@ class CustomDetailVC: HelpController {
                             self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
                                 self.btnAddCustom.setTitle("ADD TO MY TAB", for: .normal)
                                 self.removeLoadingView()
-                                self.showAlertMessage(message: (error?.msg)!)
+                                if code == SERVER_CODE.CODE_403
+                                {
+                                    self.showPopUpCloseBar(true)
+                                }
+                                else{
+                                    self.showAlertMessage(message: error!)
+                                }
+                                
                             })
                         }
                     })
@@ -688,7 +733,14 @@ class CustomDetailVC: HelpController {
                     self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
                         self.btnAddCustom.setTitle("ADD TO MY TAB", for: .normal)
                         self.removeLoadingView()
-                        self.showAlertMessage(message: (error?.msg)!)
+                        if code == SERVER_CODE.CODE_403
+                        {
+                            self.showPopUpCloseBar(true)
+                        }
+                        else{
+                            self.showAlertMessage(message: (error?.msg)!)
+                        }
+                        
                     })
                 }
             }
@@ -871,10 +923,34 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         let obj = self.arrLys[indexPath.row]
          self.glassObj = obj
         if obj.image != nil{
-            self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
-            })
+            //http://hiefficiencybar.com/media/glass/grey1x_yosVdVL.svg
+            let arrs = obj.image?.components(separatedBy: "/")
+            let lastName = arrs?.last
+            let arrLast = lastName?.components(separatedBy: ".")
+            if Int(arrLast!.count) > 0
+            {
+                if arrLast![1].lowercased() == "svg"
+                {
+                   
+//                    let svgURL = URL(string: obj.image!)!
+//                    let hammock = UIView(SVGURL: svgURL) { (svgLayer) in
+//                        svgLayer.fillColor =  UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0).cgColor
+//                        svgLayer.resizeToFit(self.imgDrink.bounds)
+//                        self.imgDrink.layer.addSublayer(svgLayer)
+//                    }
+                }
+                else{
+                    self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                        if error == nil
+                        {
+                            self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                            self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                        }
+                        
+                    })
+                }
+            }
+          
         }
         self.glassID = obj.id
         if self.glassObj?.unit_view == "oz"
@@ -899,9 +975,36 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         cell.lblName.text = glassObj.name
         if glassObj.image != nil
         {
-            cell.imgCell.sd_setImage(with: URL.init(string: glassObj.image!), completed: { (image, error, type, url) in
-                
-            })
+            let arrs = glassObj.image?.components(separatedBy: "/")
+            let lastName = arrs?.last
+            let arrLast = lastName?.components(separatedBy: ".")
+            if Int(arrLast!.count) > 0
+            {
+                cell.viewSVG.isHidden = true
+                cell.imgCell.isHidden = true
+                if arrLast![1].lowercased() == "svg"
+                {
+                    
+//                    let svgURL = URL(string: glassObj.image!)!
+//                    let hammock = UIView(SVGURL: svgURL) { (svgLayer) in
+//                        svgLayer.fillColor = UIColor.lightGray.cgColor
+//
+//                         svgLayer.resizeToFit(cell.viewSVG.bounds)
+//                        cell.viewSVG.layer.addSublayer(svgLayer)
+//                    }
+                    
+                }
+                else{
+                    cell.viewSVG.isHidden = true
+                     cell.imgCell.isHidden = false
+                    cell.imgCell.sd_setImage(with: URL.init(string: glassObj.image!), completed: { (image, error, type, url) in
+                        if error == nil
+                        {
+                        }
+                        
+                    })
+                }
+            }
         }
     }
 }

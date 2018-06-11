@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CloseBar" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NQq-XU-gpU">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q8f-ss-ShI">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="fuD-Uk-b2g"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="qXu-Lc-8dJ"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="q8f-ss-ShI" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="MT3-Tn-4dh"/>
+                <constraint firstItem="NQq-XU-gpU" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="R3G-3b-0dp"/>
+                <constraint firstItem="q8f-ss-ShI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="hDA-Um-aZc"/>
+                <constraint firstItem="NQq-XU-gpU" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="kJF-aD-Hdp"/>
+                <constraint firstItem="NQq-XU-gpU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ns9-G7-YDe"/>
+                <constraint firstItem="q8f-ss-ShI" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="rxg-7B-1MR"/>
+                <constraint firstItem="NQq-XU-gpU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yET-gX-Rcd"/>
+                <constraint firstItem="q8f-ss-ShI" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="zkT-TN-pRL"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="tblClose" destination="q8f-ss-ShI" id="sej-cW-au3"/>
+            </connections>
+            <point key="canvasLocation" x="25.5" y="52.5"/>
+        </view>
+    </objects>
+</document>

@@ -11,5 +11,6 @@ import UIKit
 class LyTailCell: UICollectionViewCell {
     @IBOutlet weak var imgCell: UIImageView!
     @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var viewSVG: UIView!
     
 }

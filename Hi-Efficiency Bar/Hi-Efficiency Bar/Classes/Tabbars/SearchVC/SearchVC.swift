@@ -58,7 +58,7 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
         subSearchTag.isHidden = true
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         self.viewDrink.addGestureRecognizer(gestureRecognizer)
-         //ASFSharedViewTransition.addWith(fromViewControllerClass: SearchVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
+         ASFSharedViewTransition.addWith(fromViewControllerClass: SearchVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
     }
     @IBAction func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
@@ -100,6 +100,7 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
     }
     
     func sharedView() -> UIView! {
+        listDrinkCreateView.createDrinkCollect.imgCell.isHidden = true
         return listDrinkCreateView.createDrinkCollect.imgCell
     }
     /*

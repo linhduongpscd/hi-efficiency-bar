@@ -27,7 +27,7 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var inforUser: NSDictionary?
     override func viewDidLoad() {
         super.viewDidLoad()
-           // ASFSharedViewTransition.addWith(fromViewControllerClass: LoungeTabbarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
+            ASFSharedViewTransition.addWith(fromViewControllerClass: LoungeTabbarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         self.collectionView.register(UINib(nibName: "TopLoungeCollect", bundle: nil), forCellWithReuseIdentifier: "TopLoungeCollect")
         self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
@@ -180,9 +180,12 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         }
     }
     func sharedView() -> UIView! {
-        let cell = collectionView.cellForItem(at: (collectionView.indexPathsForSelectedItems?.first)!) as! MainBarViewCell
-       
-        return cell.imgCell
+        if let cell = collectionView.cellForItem(at: (collectionView.indexPathsForSelectedItems?.first)!) as? MainBarViewCell
+        {
+            cell.imgCell.isHidden = true
+            return cell.imgCell
+        }
+        return UIView.init()
     }
 }
 extension LoungeTabbarVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate

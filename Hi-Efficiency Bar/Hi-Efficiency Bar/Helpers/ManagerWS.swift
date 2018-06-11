@@ -147,7 +147,7 @@ struct ManagerWS {
     }
     
     
-    func getMainBar(complete:@escaping (_ success: Bool?, _ arrs: [MainBarObj]?) ->Void)
+    func getMainBar(complete:@escaping (_ success: Bool?, _ arrs: [MainBarObj]?, _ code: Int) ->Void)
     {
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
@@ -171,13 +171,17 @@ struct ManagerWS {
                                     let dictItem = item as! NSDictionary
                                     arrDatas.append(MainBarObj.init(dict: dictItem))
                                 }
-                                complete(true, arrDatas)
+                                complete(true, arrDatas, code)
                             }
+                        }
+                        else{
+                            complete(false, arrDatas, code)
                         }
                     }
                  break
                     
                 case .failure(_):
+                     complete(false, arrDatas, SERVER_CODE.CODE_403)
                     break
                 }
             }
@@ -490,7 +494,7 @@ struct ManagerWS {
         }
     }
     
-    func addMyTab(para: Parameters, complete:@escaping (_ success: Bool?) ->Void)
+    func addMyTab(para: Parameters, complete:@escaping (_ success: Bool?,_ error: String?, _ codeError: Int?) ->Void)
     {
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
@@ -507,23 +511,36 @@ struct ManagerWS {
                         print("CODE --\(code)")
                         if code == SERVER_CODE.CODE_201 || code == SERVER_CODE.CODE_200
                         {
-                            complete(true)
+                            complete(true, nil, code)
                             
                         }
                         else{
-                            complete(true)
+                            if let val = response.value as? NSDictionary
+                            {
+                                if let detail = val.object(forKey: "detail") as? String
+                                {
+                                    complete(false, detail, code)
+                                }
+                                else{
+                                    complete(false, "Server not order", code)
+                                }
+                            }
+                            else{
+                                complete(false,"Server not order", code)
+                            }
+                            
                         }
                     }
                     break
                     
                 case .failure(_):
-                    complete(true)
+                     complete(false,"Server not order", SERVER_CODE.CODE_403)
                     break
                 }
         }
     }
     
-    func getListAllGlass(complete:@escaping (_ success: Bool?, _ arrs: [GlassObj]?) ->Void)
+    func getListAllGlass(complete:@escaping (_ success: Bool?, _ arrs: [GlassObj]?, _ code: Int) ->Void)
     {
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
@@ -547,25 +564,28 @@ struct ManagerWS {
                                     let dictItem = item as! NSDictionary
                                     arrDatas.append(GlassObj.init(dict: dictItem))
                                 }
-                                complete(true, arrDatas)
+                                complete(true, arrDatas, code)
                             }
                             else{
-                                 complete(true, arrDatas)
+                                 complete(false, arrDatas, code)
                             }
                             
+                        }
+                        else{
+                            complete(false, arrDatas, code)
                         }
                     }
                     break
                     
                 case .failure(_):
-                     complete(true, arrDatas)
+                     complete(false, arrDatas, SERVER_CODE.CODE_403)
                     break
                 }
         }
     }
     
     
-    func addDrinkStep1(para: Parameters, complete:@escaping (_ success: Bool?, _ errer: ErrorModel?,_ drinkID: Int?) ->Void)
+    func addDrinkStep1(para: Parameters, complete:@escaping (_ success: Bool?, _ errer: ErrorModel?,_ drinkID: Int?, _ code: Int) ->Void)
     {
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
@@ -587,33 +607,33 @@ struct ManagerWS {
                             {
                                 if let id = val["id"] as? Int
                                 {
-                                    complete(true, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"), id)
+                                    complete(true, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"), id, code)
                                 }
                                 else{
                                     if let detail = val.object(forKey: "name") as? String
                                     {
-                                        complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:detail), 0)
+                                        complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:detail), 0, code)
                                     }
                                     else{
-                                        complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0)
+                                        complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0, code)
                                     }
                                 }
                             }
                             else{
-                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0)
+                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0, code)
                             }
                             
                             
                         }
                         else{
-                             complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:"Drink with this name already exists"), 0)
+                             complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:"Drink with this name already exists"), 0, code)
                         }
                     }
                     break
                     
                 case .failure(_):
                     //complete(true, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
-                     complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0)
+                     complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: response.description), 0, SERVER_CODE.CODE_403)
                     break
                 }
         }
@@ -1010,7 +1030,7 @@ struct ManagerWS {
         print(image)
          print(token)
         let name = Date().millisecondsSince1970
-        let imgData = UIImageJPEGRepresentation(image, 1.0)!
+        let imgData = UIImageJPEGRepresentation(image, 0.5)!
         guard let tokenLogin = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
         }
@@ -1199,7 +1219,7 @@ struct ManagerWS {
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
         }
-        print(token)
+        print("\(URL_SERVER)api/ingredient/brand/type/?type=\(id)&ingredients=true")
         let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
         manager.request(URL.init(string: "\(URL_SERVER)api/ingredient/brand/type/?type=\(id)&ingredients=true")!, method: .get, parameters: nil,  encoding: URLEncoding.default, headers: auth_headerLogin)
             .responseJSON { response in
@@ -1563,9 +1583,14 @@ struct ManagerWS {
                     {
                         if let val = response.value as? NSDictionary
                         {
+                            print(code)
                             if code == SERVER_CODE.CODE_200
                             {
                                  complete(true, DrinkObj.init(dict: val))
+                            }
+                            else if code == SERVER_CODE.CODE_403
+                            {
+                                 complete(false, DrinkObj.init(dict: NSDictionary.init()))
                             }
                             else{
                                 complete(true, DrinkObj.init(dict: NSDictionary.init()))
@@ -1708,7 +1733,7 @@ struct ManagerWS {
                     {
                         if let val = response.value as? NSDictionary
                         {
-                            if code == 202
+                            if code == 200
                             {
                                 complete(true, nil)
                             }

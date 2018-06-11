@@ -13,6 +13,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var lblNavi: UILabel!
     @IBOutlet weak var heightNavi: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
+    var closeBar = CloseBar.init(frame: .zero)
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -33,13 +34,12 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var mainBarViewCell = MainBarViewCell.init(frame: .zero)
     
     override func viewDidLoad() {
-        //ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.4)
+        ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.4)
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
         self.collectionView.register(UINib(nibName: "FooterMainBarCollect", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterMainBarCollect")
        self.configHideNaviScroll(collectionView)
         APP_DELEGATE.mainBarVC = self
-       self.getSliceHeader()
        self.fetchAllDrink()
         self.callSetting()
         self.collectionView.addSubview(self.refreshControl)
@@ -51,47 +51,98 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         ManagerWS.shared.getSettingApp { (success) in
             if !success!
             {
-                let alert = UIAlertController(title: nil,
-                                              message: "Bar was close, cannot order.",
-                                              preferredStyle: UIAlertControllerStyle.alert)
-                self.present(alert, animated: true, completion: nil)
+                self.showPopUpCloseBar()
+            }
+            else{
+                self.closeBar.removeFromSuperview()
             }
         }
     }
+    
+    func showPopUpCloseBar()
+    {
+         self.closeBar.removeFromSuperview()
+        closeBar = Bundle.main.loadNibNamed("CloseBar", owner: self, options: nil)?[0] as! CloseBar
+        closeBar.registerCell()
+        closeBar.frame = UIScreen.main.bounds
+        closeBar.tapRefresh = { [] in
+            ManagerWS.shared.getSettingApp { (success) in
+                if !success!
+                {
+                    self.showPopUpCloseBar()
+                }
+                else{
+                    self.closeBar.removeFromSuperview()
+                    self.offset = 0
+                      self.getSliceHeader()
+                }
+            }
+        }
+        APP_DELEGATE.window?.addSubview(closeBar)
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.getSliceHeaderAgain()
     }
     
    
     func showAlertCloseBar(_ message: String)
     {
-        let alert = UIAlertController(title: nil,
-         message: message,
-         preferredStyle: UIAlertControllerStyle.alert)
-         self.present(alert, animated: true, completion: nil)
+       self.showPopUpCloseBar()
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
         //DO
         offset = 0
-        self.fetchAllDrink()
+          self.getSliceHeader()
+       
         
     }
     
     func getSliceHeader()
     {
-        ManagerWS.shared.getMainBar { (success, arrs) in
-            self.arrSlices = arrs!
-            self.collectionView.reloadData()
+        ManagerWS.shared.getMainBar { (success, arrs, code) in
+            if success!
+            {
+                self.closeBar.removeFromSuperview()
+                self.arrSlices = arrs!
+                self.collectionView.reloadData()
+                 self.fetchAllDrink()
+            }
+            else{
+                if code == SERVER_CODE.CODE_403
+                {
+                    self.showPopUpCloseBar()
+                }
+            }
+           
         }
     }
     
+    func getSliceHeaderAgain()
+    {
+        ManagerWS.shared.getMainBar { (success, arrs, code) in
+            if success!
+            {
+                self.closeBar.removeFromSuperview()
+                self.arrSlices = arrs!
+                self.collectionView.reloadData()
+            }
+            else{
+                if code == SERVER_CODE.CODE_403
+                {
+                    self.showPopUpCloseBar()
+                }
+            }
+            
+        }
+    }
     
     func fetchAllDrink()
     {
         //CommonHellper.showBusy()
+       
         ManagerWS.shared.getListDrink(offset: offset) { (success, arrs) in
             CommonHellper.hideBusy()
             self.refreshControl.endRefreshing()
@@ -101,6 +152,9 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
             }
             else{
                 self.isLoadMore = false
+            }
+            if self.offset == 0 {
+                self.arrDrinks.removeAll()
             }
             for drink in arrs!
             {
@@ -128,6 +182,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
                 else{
                     cell.btnFav.setImage(#imageLiteral(resourceName: "ic_fav1"), for: .normal)
                 }
+                cell.imgCell.isHidden = true
                 return cell.imgCell
             }
             return UIView.init()

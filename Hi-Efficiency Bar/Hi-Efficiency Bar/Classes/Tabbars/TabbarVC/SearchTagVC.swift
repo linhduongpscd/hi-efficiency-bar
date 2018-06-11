@@ -20,7 +20,7 @@ class SearchTagVC: UIViewController, ASFSharedViewTransitionDataSource {
     var drinkSelectedObj = DrinkObj.init(dict: NSDictionary.init())
     override func viewDidLoad() {
         super.viewDidLoad()
-        // ASFSharedViewTransition.addWith(fromViewControllerClass: SearchTagVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
+         ASFSharedViewTransition.addWith(fromViewControllerClass: SearchTagVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
         txfSearch.becomeFirstResponder()
         self.collectionSearch.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         txfSearch.becomeFirstResponder()
@@ -75,6 +75,7 @@ class SearchTagVC: UIViewController, ASFSharedViewTransitionDataSource {
         {
             if let cell = collectionSearch.cellForItem(at: (collectionSearch.indexPathsForSelectedItems?.first)!) as? MainBarViewCell
             {
+                 cell.imgCell.isHidden = true
                 return cell.imgCell
             }
             return UIView.init()
