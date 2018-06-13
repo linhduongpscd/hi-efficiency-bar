@@ -77,9 +77,27 @@ extension DetailCocktailVC: UICollectionViewDelegate, UICollectionViewDataSource
             cell.lblName.text = genereObj.name
             if genereObj.image != nil
             {
-                cell.imgCell.sd_setImage(with: URL.init(string: genereObj.image!), completed: { (image, error, type, url) in
-                    
-                })
+                if let imageurl = URL.init(string: genereObj.image!)
+                {
+                    let name = imageurl.lastPathComponent
+                    if name.lowercased().contains("gif")
+                    {
+                        
+                        let imageURL = UIImage.gifImageWithURL(genereObj.image!)
+                        cell.imgCell.image = imageURL
+
+                    }
+                    else{
+                        cell.imgCell.sd_setImage(with: URL.init(string: genereObj.image!), completed: { (image, error, type, url) in
+                            
+                        })
+                    }
+                }
+                else{
+                    cell.imgCell.sd_setImage(with: URL.init(string: genereObj.image!), completed: { (image, error, type, url) in
+                        
+                    })
+                }
             }
             return cell
         }

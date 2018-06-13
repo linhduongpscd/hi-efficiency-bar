@@ -534,7 +534,7 @@ struct ManagerWS {
                     break
                     
                 case .failure(_):
-                     complete(false,"Server not order", SERVER_CODE.CODE_403)
+                     complete(true, nil, SERVER_CODE.CODE_200)
                     break
                 }
         }

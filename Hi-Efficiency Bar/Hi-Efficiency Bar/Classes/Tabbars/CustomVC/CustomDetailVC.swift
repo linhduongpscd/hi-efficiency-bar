@@ -65,10 +65,12 @@ class CustomDetailVC: HelpController {
     var arrUnitView = ["oz","%","part","mL", "dash" , "splash" ,"teaspoon","tablespoon","pony","jigger","shot","snit","split"]
     @IBOutlet weak var btnFullEditName: UIButton!
      var closeBar = CloseBar.init(frame: .zero)
+    var indexSelected = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
-        
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
         let btnRight = UIBarButtonItem.init(customView: subNaviRight)
         self.navigationItem.rightBarButtonItem = btnRight
@@ -78,8 +80,8 @@ class CustomDetailVC: HelpController {
              glassObj = GlassObj.init(dict: drinkObj.glass!)
         }
        self.fectAllGlass()
-        
     }
+    
     func showPopUpCloseBar(_ isAdd: Bool)
     {
         self.closeBar.removeFromSuperview()
@@ -94,14 +96,12 @@ class CustomDetailVC: HelpController {
             else{
                 self.fectAllGlass()
             }
-            
-            
         }
         APP_DELEGATE.window?.addSubview(closeBar)
     }
+    
     func initData()
     {
-       
         if !isRedirectCus
         {
             arringredients.removeAll()
@@ -132,7 +132,6 @@ class CustomDetailVC: HelpController {
             txfDrinkName.placeholder = "Name drink"
             txfDrinkName.text = ""
         }
-        print(self.getTotolRatioUnit())
         if self.getTotolRatioUnit() > (self.glassObj?.change_to_ml!)!
         {
             self.lblMaxSize.textColor = UIColor.red
@@ -140,10 +139,7 @@ class CustomDetailVC: HelpController {
         else{
             self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
         }
-       
     }
-    
-    
     
     func changeRationUnitPart()
     {
@@ -153,6 +149,7 @@ class CustomDetailVC: HelpController {
         }
          tblDetail.reloadData()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hidingNavBarManager?.viewWillAppear(animated)
@@ -178,6 +175,7 @@ class CustomDetailVC: HelpController {
                 self.closeBar.removeFromSuperview()
                 self.arrLys = arrs!
                 self.collectionLy.reloadData()
+                var i = 0
                 if self.arrLys.count > 0
                 {
                     if !self.isRedirectCus
@@ -186,12 +184,17 @@ class CustomDetailVC: HelpController {
                         {
                             if obj.id == self.glassObj?.id
                             {
+                                self.indexSelected = i
                                 self.glassObj = obj
                                 self.glassID = obj.id
                                 if obj.image != nil{
                                     self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                                        self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                                        self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                        if error == nil
+                                        {
+                                            self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                            self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                        }
+                                        
                                     })
                                 }
                                 if self.glassObj?.unit_view == "oz"
@@ -201,10 +204,9 @@ class CustomDetailVC: HelpController {
                                 else{
                                     self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
                                 }
-                                
-                                
                                 break
                             }
+                            i = i + 1
                         }
                     }
                     else{
@@ -213,8 +215,12 @@ class CustomDetailVC: HelpController {
                         self.glassID = obj.id
                         if obj.image != nil{
                             self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                                self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                                self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                if error == nil
+                                {
+                                    self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                    self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                }
+                             
                             })
                         }
                         if self.glassObj?.unit_view == "oz"
@@ -661,7 +667,8 @@ class CustomDetailVC: HelpController {
         for obj in arringredients {
             if obj.id != nil
             {
-                strIngredient = "\(strIngredient){\"unit\":\(CommonHellper.valueUnit(unit: obj.unit_view!.lowercased())),\"ratio\":\(obj.value!),\"ingredient\":\(obj.id!)},"
+               // strIngredient = "\(strIngredient){\"unit\":\(CommonHellper.valueUnit(unit: obj.unit_view!.lowercased())),\"ratio\":\(obj.value!),\"ingredient\":\(obj.id!)},"
+                 strIngredient = "\(strIngredient){\"unit\":\(CommonHellper.valueUnit(unit: obj.unit_view!.lowercased())),\"ratio\":\(obj.ratio!),\"ingredient\":\(obj.id!)},"
             }
             
         }
@@ -674,7 +681,7 @@ class CustomDetailVC: HelpController {
     }
     func addTomyTabParam(drinkID: Int)->Parameters
     {
-        let para = ["ice": valueIce, "quantity": lblQuanlity.text!, "drink": drinkID] as [String : Any]
+        let para = ["ice": Int(valueIce), "quantity": lblQuanlity.text!, "drink": drinkID] as [String : Any]
         return para
     }
     @IBAction func doAddCustom(_ sender: TransitionButton) {
@@ -689,6 +696,7 @@ class CustomDetailVC: HelpController {
             
             return
         }
+        print(self.convertParamToWS())
         self.view.endEditing(true)
         self.addLoadingView()
         btnAddCustom.startAnimation() // 2: Then start the animation when the user tap the button
@@ -896,6 +904,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
     }
 }
 
+
 extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -909,9 +918,8 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LyTailCell", for: indexPath) as! LyTailCell
-        self.configCell(cell, glassObj: arrLys[indexPath.row])
+        self.configCell(cell, glassObj: arrLys[indexPath.row], index: indexPath)
         return cell
-        
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -921,9 +929,10 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let obj = self.arrLys[indexPath.row]
+        self.indexSelected = indexPath.row
          self.glassObj = obj
+        self.collectionLy.reloadData()
         if obj.image != nil{
-            //http://hiefficiencybar.com/media/glass/grey1x_yosVdVL.svg
             let arrs = obj.image?.components(separatedBy: "/")
             let lastName = arrs?.last
             let arrLast = lastName?.components(separatedBy: ".")
@@ -931,13 +940,6 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
             {
                 if arrLast![1].lowercased() == "svg"
                 {
-                   
-//                    let svgURL = URL(string: obj.image!)!
-//                    let hammock = UIView(SVGURL: svgURL) { (svgLayer) in
-//                        svgLayer.fillColor =  UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0).cgColor
-//                        svgLayer.resizeToFit(self.imgDrink.bounds)
-//                        self.imgDrink.layer.addSublayer(svgLayer)
-//                    }
                 }
                 else{
                     self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
@@ -946,7 +948,6 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
                             self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
                             self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
                         }
-                        
                     })
                 }
             }
@@ -970,9 +971,16 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         }
     }
     
-    func configCell(_ cell: LyTailCell, glassObj: GlassObj)
+    func configCell(_ cell: LyTailCell, glassObj: GlassObj, index: IndexPath)
     {
         cell.lblName.text = glassObj.name
+        if indexSelected == index.row
+        {
+            cell.lblName.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+        }
+        else{
+            cell.lblName.textColor = UIColor.black
+        }
         if glassObj.image != nil
         {
             let arrs = glassObj.image?.components(separatedBy: "/")

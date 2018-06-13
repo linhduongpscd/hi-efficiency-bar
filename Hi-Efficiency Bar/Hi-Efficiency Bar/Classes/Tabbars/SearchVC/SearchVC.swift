@@ -624,9 +624,35 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
             cell.lblName.text = obj.name
             if obj.image != nil
             {
-                cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                    
-                })
+                if let imageurl = URL.init(string: obj.image!)
+                {
+                    let name = imageurl.lastPathComponent
+                    if name.lowercased().contains("gif")
+                    {
+                        let imageURL = UIImage.gifImageWithURL(obj.image!)
+                        cell.imgCell.image = imageURL
+                    }
+                    else{
+                        cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                            
+                        })
+                    }
+                }
+                else{
+                    cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                        
+                    })
+                }
+               
+            }
+            if indexPath.row % 2 == 0
+            {
+                cell.leftConstraint.constant = 10.0
+                 cell.rightConstraint.constant = 0
+            }
+            else{
+                cell.leftConstraint.constant = 0
+                 cell.rightConstraint.constant = 10.0
             }
             return cell
         }
@@ -672,7 +698,6 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                 }
                 return CGSize(width: (collectionView.frame.size.width - 4)/2, height: 50)
             }
-            
             return CGSize(width:( UIScreen.main.bounds.size.width - 10)/2, height:  170)
         }
         

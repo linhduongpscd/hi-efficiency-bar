@@ -14,6 +14,8 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var heightNavi: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
     var closeBar = CloseBar.init(frame: .zero)
+    var currentpage = 0
+    var isLoadFirst = false
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -40,7 +42,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         self.collectionView.register(UINib(nibName: "FooterMainBarCollect", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterMainBarCollect")
        self.configHideNaviScroll(collectionView)
         APP_DELEGATE.mainBarVC = self
-       self.fetchAllDrink()
+       self.getSliceHeader()
         self.callSetting()
         self.collectionView.addSubview(self.refreshControl)
         
@@ -82,7 +84,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.getSliceHeaderAgain()
+       // self.getSliceHeaderAgain()
     }
     
    
@@ -95,6 +97,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     {
         //DO
         offset = 0
+        isLoadFirst = true
           self.getSliceHeader()
        
         
@@ -213,13 +216,28 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeaderViewCell", for: indexPath) as! HeaderViewCell
-            cell.initRegisterCollect()
+            if !isLoadFirst
+            {
+                cell.initRegisterCollect()
+            }
+            else{
+                if cell.currentPage > self.arrSlices.count - 1
+                {
+                    cell.currentPage = 0
+                }
+            }
             cell.items = self.arrSlices
             cell.collectionView.reloadData()
             if self.arrSlices.count > 0
             {
                 let obj = self.arrSlices[cell.currentPage]
                 cell.lblName.text = obj.name
+                cell.bgItem.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                    cell.subBG.removeFromSuperview()
+                    cell.subBG = CommonHellper.CreateaddBlurView(_einView: cell.bgItem)
+                    cell.bgItem.addSubview(cell.subBG)
+                    //CommonHellper.addBlurView(self.bgItem)
+                })
             }
             cell.tapHeaderMainBar = { [weak self] in
                 let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailMainBarVC") as! DetailMainBarVC

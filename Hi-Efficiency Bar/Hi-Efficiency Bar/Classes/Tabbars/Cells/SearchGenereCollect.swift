@@ -10,6 +10,8 @@ import UIKit
 
 class SearchGenereCollect: UICollectionViewCell {
 
+    @IBOutlet weak var leftConstraint: NSLayoutConstraint!
+    @IBOutlet weak var rightConstraint: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
