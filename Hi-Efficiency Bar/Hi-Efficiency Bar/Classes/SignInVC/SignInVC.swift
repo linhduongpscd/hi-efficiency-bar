@@ -15,7 +15,7 @@ class SignInVC: BaseViewController {
 
     @IBOutlet weak var txfUsername: UITextField!
     @IBOutlet weak var txfPassword: UITextField!
-    @IBOutlet weak var btnSignIn: TransitionButton!
+    @IBOutlet weak var btnSignIn: SSSpinnerButton!
     var userID = Int()
     var token = String()
     var birthday = String()
@@ -44,7 +44,7 @@ class SignInVC: BaseViewController {
         self.authenticationWithTouchID()
     }
     
-    @IBAction func doSignIn(_ sender: TransitionButton) {
+    @IBAction func doSignIn(_ sender: SSSpinnerButton) {
        
         let email = CommonHellper.trimSpaceString(txtString: txfUsername.text!)
         let password = txfPassword.text!
@@ -67,6 +67,41 @@ class SignInVC: BaseViewController {
         }
         let para = ["email":email,"password":password]
         self.addLoadingView()
+        sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+        sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+        ManagerWS.shared.loginUser(para, complete: { (success, error, token,id,birthday)  in
+            if success!
+            {
+                 sender.stopAnimate(complete: {
+                    self.userID = id!
+                    self.token = token!
+                    self.birthday = birthday!
+                    self.removeLoadingView()
+                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                    self.btnSignIn.setTitle("", for: .normal)
+                    self.btnSignIn.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                    
+                    UserDefaults.standard.setValue(password, forKey: kPassword)
+                    UserDefaults.standard.synchronize()
+                    self.perform(#selector(self.clickAgeVertified), with: nil, afterDelay: 0.5)
+                 })
+                
+            }
+            else{
+                sender.stopAnimate(complete: {
+                    self.btnSignIn.setTitle("SIGN IN", for: .normal)
+                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                    self.removeLoadingView()
+                    self.showAlertMessage(message: (error?.msg!)!)
+                })
+                
+                
+            }
+        })
+        
+        
+      
+        /*
         btnSignIn.startAnimation() // 2: Then start the animation when the user tap the button
         
         let qualityOfServiceClass = DispatchQoS.QoSClass.background
@@ -98,9 +133,9 @@ class SignInVC: BaseViewController {
                    
                 }
             })
-        })
+        }) */
     }
-    
+ 
     @objc func clickAgeVertified()
     {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "AgeVerificationVC") as! AgeVerificationVC

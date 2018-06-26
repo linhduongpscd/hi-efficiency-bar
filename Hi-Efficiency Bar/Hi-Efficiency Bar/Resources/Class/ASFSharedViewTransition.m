@@ -163,7 +163,7 @@
     
     [containerView addSubview:snapshotView];
     [containerView layoutIfNeeded];
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.2 animations:^{
         if (!reversed) {
             toVC.view.alpha = 1.0; // Fade in
               snapshotView.frame = [containerView convertRect:CGRectMake(toView.frame.origin.x,0,toView.frame.size.width, toView.frame.size.height) fromView:toView];
@@ -177,12 +177,8 @@
       
         
     } completion:^(BOOL finished) {
-        // Clean up
-        //snapshotView.alpha = 0.0
-        [UIView animateWithDuration:0.0 animations:^{
-            toView.hidden = NO;
-            fromView.hidden = NO;
-        }];
+        toView.hidden = NO;
+        fromView.hidden = NO;
         [snapshotView removeFromSuperview];
         
         // Declare that we've finished

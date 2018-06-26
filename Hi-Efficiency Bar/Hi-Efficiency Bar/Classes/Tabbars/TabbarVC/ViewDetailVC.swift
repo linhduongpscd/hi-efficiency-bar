@@ -11,7 +11,7 @@ import Alamofire
 class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     @IBOutlet weak var tblDetail: UITableView!
      @IBOutlet weak var imgDetail: UIImageView!
-    @IBOutlet weak var btnAddMyCard: TransitionButton!
+    @IBOutlet weak var btnAddMyCard: SSSpinnerButton!
     @IBOutlet weak var lblQuanlity: UILabel!
     var number = 1
     @IBOutlet var subNaviRight: UIView!
@@ -70,7 +70,8 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         else{
             self.getDrinkByID()
         }
-      self.scrollPage.addSubview(self.refreshControl)
+         self.scrollPage.addSubview(self.refreshControl)
+        
     }
     func showPopUpCloseBar(_ isAdd: Bool)
     {
@@ -144,7 +145,10 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         if drinkObj.image != nil
         {
             imgDetail.sd_setImage(with: URL.init(string: drinkObj.image!), completed: { (image, error, type, url) in
-                
+                if error == nil
+                {
+                    //self.setSizeFitImageToImage(image!)
+                }
             })
         }
         if drinkObj.image_background != nil
@@ -296,42 +300,42 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
             CommonHellper.animateButton(view: lblQuanlity)
         }
     }
-    @IBAction func doAddMyTab(_ sender: TransitionButton) {
+    @IBAction func doAddMyTab(_ sender: SSSpinnerButton) {
         self.addLoadingView()
-        btnAddMyCard.startAnimation() // 2: Then start the animation when the user tap the button
-        
-        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-        backgroundQueue.async(execute: {
-            ManagerWS.shared.addMyTab(para: self.paramAddMyTab(), complete: { (success, error, code) in
-                if success!
-                {
+        sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+        sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+        ManagerWS.shared.addMyTab(para: self.paramAddMyTab(), complete: { (success, error, code) in
+            if success!
+            {
+               
+                sender.stopAnimate(complete: {
                     self.removeLoadingView()
+                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
                     self.btnAddMyCard.setTitle("", for: .normal)
                     self.btnAddMyCard.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                    self.btnAddMyCard.stopAnimation(animationStyle: .shake, completion: {
-                        self.btnAddMyCard.setImage(UIImage.init(), for: .normal)
-                         self.btnAddMyCard.setTitle("ADD TO MY TAB", for: .normal)
-                        
-                    })
-                    self.perform(#selector(self.addmyTabSuccess), with: nil, afterDelay: 0.5)
+                    
+                })
+                self.perform(#selector(self.addmyTabSuccess), with: nil, afterDelay: 0.5)
+            }
+            else{
+               
+                sender.stopAnimate(complete: {
+                    self.removeLoadingView()
+                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                     self.btnAddMyCard.setTitle("ADD TO MY TAB", for: .normal)
+                    self.btnAddMyCard.setImage(UIImage.init(), for: .normal)
+                    
+                })
+                
+                if code == SERVER_CODE.CODE_403
+                {
+                    self.showPopUpCloseBar(true)
                 }
                 else{
-                    self.btnAddMyCard.setTitle("ADD TO MY TAB", for: .normal)
-                    self.btnAddMyCard.stopAnimation(animationStyle: .shake, completion: {
-                        self.removeLoadingView()
-                    })
-                    
-                    if code == SERVER_CODE.CODE_403
-                    {
-                        self.showPopUpCloseBar(true)
-                    }
-                    else{
-                        self.showAlertMessage(message: error!)
-                    }
-                    
+                    self.showAlertMessage(message: error!)
                 }
-            })
+                
+            }
         })
         
     }
@@ -340,6 +344,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     {
         APP_DELEGATE.isRedirectMyTab = true
         self.navigationController?.popViewController(animated: true)
+        
         
     }
     func checkValueGarnish()->Bool

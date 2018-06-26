@@ -13,7 +13,7 @@ import Photos
 class MyTabVC: BaseViewController {
 
     @IBOutlet weak var tblMyTab: UITableView!
-    @IBOutlet weak var btnMakeMeDrink: TransitionButton!
+    @IBOutlet weak var btnMakeMeDrink: SSSpinnerButton!
     var arrMyTabs = [MyTabObj]()
     var doublePrice = 0.0
     var tokenStriper = ""
@@ -63,7 +63,10 @@ class MyTabVC: BaseViewController {
             isReload = false
         }
         cameraManager.resumeCaptureSession()
-        
+        self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
+        self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
+        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -146,22 +149,28 @@ class MyTabVC: BaseViewController {
                 
                 if success!
                 {
-                    self.removeLoadingView()
-                    self.btnMakeMeDrink.setTitle("", for: .normal)
-                    self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
-                    self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
-                        
-                        
+                    self.btnMakeMeDrink.stopAnimate(complete: {
+                        self.removeLoadingView()
+                        self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                        self.btnMakeMeDrink.setTitle("", for: .normal)
+                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
+                         self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                        self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
                     })
-                    self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
+                   
+                  
+                    
                 }
                 else{
-                    self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
-                    self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
-                    self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
+                   self.btnMakeMeDrink.stopAnimate(complete: {
                         self.removeLoadingView()
+                        self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
+                        self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
+                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
+                        self.showAlertMessage(message:(error?.msg!)!)
                     })
-                    self.showAlertMessage(message:(error?.msg!)!)
+                    
                 }
             })
         }
@@ -170,27 +179,29 @@ class MyTabVC: BaseViewController {
                 
                 if success!
                 {
-                    self.removeLoadingView()
-                    self.btnMakeMeDrink.setTitle("", for: .normal)
-                    self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
-                    self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
-                        
-                        
+                    self.btnMakeMeDrink.stopAnimate(complete: {
+                        self.removeLoadingView()
+                        self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                        self.btnMakeMeDrink.setTitle("", for: .normal)
+                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
+                        self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                        self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
                     })
-                    self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
                 }
                 else{
-                    self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
-                    self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
-                    self.btnMakeMeDrink.stopAnimation(animationStyle: .shake, completion: {
+                    self.btnMakeMeDrink.stopAnimate(complete: {
                         self.removeLoadingView()
+                        self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
+                        self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
+                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
+                        self.showAlertMessage(message:(error?.msg!)!)
                     })
-                    self.showAlertMessage(message:(error?.msg!)!)
                 }
             })
         }
     }
-    @IBAction func doMakeMeADrink(_ sender: Any) {
+    @IBAction func doMakeMeADrink(_ sender: SSSpinnerButton) {
         
         if self.arrMyTabs.count == 0
         {
@@ -208,20 +219,20 @@ class MyTabVC: BaseViewController {
             return
         }
         self.addLoadingView()
-        btnMakeMeDrink.startAnimation() // 2: Then start the animation when the user tap the button
-        
+        sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+        sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
         
         self.cameraManager.askUserForCameraPermission({ permissionGranted in
             if permissionGranted {
                 self.cameraManager.capturePictureWithCompletion({ (image, error) -> Void in
-                    
+
                     if error != nil {
                         //self.cameraManager.showErrorBlock("Error occurred", "Cannot save picture.")
                         self.saveCardNotImage(false, UIImage.init())
                     }
                     else {
                         self.saveCardNotImage(true,image!)
-                        
+
                     }
                 })
             }

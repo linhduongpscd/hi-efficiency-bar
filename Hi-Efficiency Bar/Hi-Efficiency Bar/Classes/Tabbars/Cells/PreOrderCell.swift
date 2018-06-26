@@ -26,7 +26,7 @@ class PreOrderCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     @IBAction func doRepeat(_ sender: Any) {
         CATransaction.begin()
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
@@ -36,7 +36,14 @@ class PreOrderCell: UITableViewCell {
         rotationAnimation.repeatCount = 1
         CATransaction.setCompletionBlock {
             ManagerWS.shared.reorderTab(order_id: self.productObj.id!, complete: { (success, error) in
-                self.tapPreOrderProduct?()
+                if !success!
+                {
+                    APP_DELEGATE.mainBarVC?.showAlertMessage(message: error!)
+                }
+                else{
+                    self.tapPreOrderProduct?()
+                }
+                
             })
             
         }

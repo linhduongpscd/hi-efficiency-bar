@@ -14,10 +14,14 @@ class OrderUserObj: NSObject {
     var amount: Double?
     var arrProducts = [ProductObj]()
     var isLoadMore: Bool
+    var qr_code: String?
+    var tray_number: Int?
     var user: NSDictionary?
     init(dict: NSDictionary) {
         self.id = dict["id"] as? Int
         self.creation_date = dict["creation_date"] as? String
+        self.qr_code = dict["qr_code"] as? String
+         self.tray_number = dict["tray_number"] as? Int
         self.amount = dict["amount"] as? Double
         if let products = dict["products"] as? NSArray
         {

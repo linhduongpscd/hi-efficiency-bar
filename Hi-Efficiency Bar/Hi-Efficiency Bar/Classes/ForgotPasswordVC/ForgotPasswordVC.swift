@@ -11,7 +11,7 @@ import Alamofire
 class ForgotPasswordVC: BaseViewController {
 
     @IBOutlet weak var txfEmail: UITextField!
-    @IBOutlet weak var btnReset: TransitionButton!
+    @IBOutlet weak var btnReset: SSSpinnerButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,7 +37,7 @@ class ForgotPasswordVC: BaseViewController {
     @IBAction func doBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    @IBAction func doResetPassword(_ sender: Any) {
+    @IBAction func doResetPassword(_ sender: SSSpinnerButton) {
         let email = CommonHellper.trimSpaceString(txtString: txfEmail.text!)
         if email.isEmpty
         {
@@ -52,47 +52,40 @@ class ForgotPasswordVC: BaseViewController {
         self.txfEmail.resignFirstResponder()
         let para = ["email":email]
         self.addLoadingView()
-        btnReset.startAnimation() // 2: Then start the animation when the user tap the button
-        
-        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-        backgroundQueue.async(execute: {
-            ManagerWS.shared.forgotPassword(para: para, complete: { (success) in
-                if success!
-                {
-                    self.removeLoadingView()
-                   
-                    self.btnReset.stopAnimation(animationStyle: .shake, completion: {
-                        self.btnReset.setTitle("RESET MY PASSWORD", for: .normal)
-                        self.btnReset.setImage(UIImage.init(), for: .normal)
-                    })
-                    self.perform(#selector(self.successforgot), with: nil, afterDelay: 0.5)
-                }
-                else{
+        sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+        sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+        ManagerWS.shared.forgotPassword(para: para, complete: { (success) in
+            if success!
+            {
+                self.removeLoadingView()
+                
+                 sender.stopAnimate(complete: {
+                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                    self.btnReset.setTitle("", for: .normal)
+                    self.btnReset.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                })
+                self.perform(#selector(self.successforgot), with: nil, afterDelay: 0.5)
+            }
+            else{
+                
+                sender.stopAnimate(complete: {
+                    self.btnReset.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
                     self.btnReset.setTitle("RESET MY PASSWORD", for: .normal)
-                    self.btnReset.stopAnimation(animationStyle: .shake, completion: {
-                        self.removeLoadingView()
-                    })
-                    self.showAlertMessage(message: "The email is not existed, please try again")
-                }
-            })
+                    self.removeLoadingView()
+                })
+                self.showAlertMessage(message: "The email is not existed, please try again")
+            }
         })
+       
     }
     
     @objc func successforgot()
     {
+        self.btnReset.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+        self.btnReset.setTitle("RESET MY PASSWORD", for: .normal)
         let email = CommonHellper.trimSpaceString(txtString: txfEmail.text!)
         let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ActiveCodeVC") as! ActiveCodeVC
         vc.email = email
         self.navigationController?.pushViewController(vc, animated: true)
-//        let alert = UIAlertController(title: APP_NAME,
-//                                      message: "The password has been reset please check your email.",
-//                                      preferredStyle: UIAlertControllerStyle.alert)
-//        let cancelAction = UIAlertAction.init(title: "OK", style: .cancel) { (success) in
-//            self.navigationController?.popViewController(animated: true)
-//        }
-//        
-//        alert.addAction(cancelAction)
-//        self.present(alert, animated: true, completion: nil)
     }
 }

@@ -30,8 +30,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJS-38-9o7" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
                         <rect key="frame" x="8" y="8" width="304" height="251.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order #123456" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ye-cN-N0I">
-                                <rect key="frame" x="8" y="10" width="210" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Order #123456" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ye-cN-N0I">
+                                <rect key="frame" x="8" y="10" width="229" height="19"/>
                                 <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="19"/>
                                 <color key="textColor" red="0.23919135332107544" green="0.23923125863075256" blue="0.23918262124061584" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -43,9 +43,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2h ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Jj0-Zy-M2f">
-                                <rect key="frame" x="228" y="10" width="60" height="13"/>
+                                <rect key="frame" x="247" y="10" width="41" height="13"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="LGn-4c-DBX"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="LGn-4c-DBX"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="13"/>
                                 <color key="textColor" red="0.43526101112365723" green="0.50479143857955933" blue="0.54144734144210815" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

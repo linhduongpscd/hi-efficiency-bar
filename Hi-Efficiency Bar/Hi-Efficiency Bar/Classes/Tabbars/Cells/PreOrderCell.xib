@@ -34,8 +34,8 @@
                             <constraint firstAttribute="height" constant="50" id="qRa-dW-ClD"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ncg-KO-U5u">
-                        <rect key="frame" x="64" y="35.5" width="124" height="0.0"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ncg-KO-U5u">
+                        <rect key="frame" x="64" y="35.5" width="184" height="0.0"/>
                         <fontDescription key="fontDescription" name="AlrightSans-Light" family="Alright Sans" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -52,9 +52,9 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="jag-xd-VNb">
-                        <rect key="frame" x="196" y="34.5" width="70" height="0.0"/>
+                        <rect key="frame" x="256" y="34.5" width="10" height="0.0"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="70" id="zIC-aX-eiv"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="zIC-aX-eiv"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="AlrightSans-Medium" family="Alright Sans" pointSize="17"/>
                         <color key="textColor" red="0.28123414520000001" green="0.71152985099999999" blue="0.9852449298" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

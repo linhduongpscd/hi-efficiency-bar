@@ -12,7 +12,7 @@ class AgeVerificationVC: BaseViewController {
 
     @IBOutlet weak var txfBirthday: UITextField!
     var pickerView = PickerView.init(frame: .zero)
-    @IBOutlet weak var btnConfirm: TransitionButton!
+    @IBOutlet weak var btnConfirm: SSSpinnerButton!
     var userID = Int()
     var token = String()
     var birthday = String()
@@ -47,31 +47,17 @@ class AgeVerificationVC: BaseViewController {
         APP_DELEGATE.window?.addSubview(pickerView)
         AnimationManager.sharedInstance().doAppearView(fromBottom: pickerView)
     }
-    @IBAction func actionConfirm(_ sender: TransitionButton) {
+    @IBAction func actionConfirm(_ sender: SSSpinnerButton) {
         if self.convertDateBirthday() == birthday
         {
             UserDefaults.standard.set(self.userID, forKey: kID)
            UserDefaults.standard.set(self.token, forKey: kToken)
              UserDefaults.standard.set(self.token, forKey: kLoginApp)
             UserDefaults.standard.synchronize()
-            btnConfirm.startAnimation()
-            
-            let qualityOfServiceClass = DispatchQoS.QoSClass.background
-            let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-            backgroundQueue.async(execute: {
-                
-                sleep(1) // 3: Do your networking task or background work here.
-                
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.btnConfirm.setTitle("", for: .normal)
-                    self.btnConfirm.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                    self.btnConfirm.stopAnimation(animationStyle: .shake, completion: {
-                        
-                        
-                    })
-                    self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
-                })
-            })
+            sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+            sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+            self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.25)
+          
         }
         else{
             self.showAlertMessage(message: "Wrong date of birthday")
@@ -80,7 +66,13 @@ class AgeVerificationVC: BaseViewController {
     }
     @objc func actionTabbar()
     {
-        APP_DELEGATE.initTabbarHome()
+        self.btnConfirm.stopAnimate(complete: {
+            self.btnConfirm.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+            self.btnConfirm.setTitle("", for: .normal)
+            self.btnConfirm.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+            APP_DELEGATE.initTabbarHome()
+        })
+        
     }
 }
 extension AgeVerificationVC: PickerViewDelegate

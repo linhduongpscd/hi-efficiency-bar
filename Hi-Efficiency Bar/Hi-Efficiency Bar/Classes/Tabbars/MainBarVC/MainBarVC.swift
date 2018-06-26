@@ -21,7 +21,6 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         refreshControl.addTarget(self, action:
             #selector(MainBarVC.handleRefresh(_:)),
                                  for: UIControlEvents.valueChanged)
-       // refreshControl.tintColor = UIColor.red
         let attributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
         refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
         return refreshControl
@@ -275,7 +274,7 @@ extension MainBarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICol
             return CGSize(width: collectionView.frame.size.width, height: 260)
         }
         
-        return CGSize(width: (collectionView.frame.size.width - 2)/2, height:  (collectionView.frame.size.width - 2)/2 + 50)
+        return CGSize(width: (collectionView.frame.size.width - 2)/2, height:  (collectionView.frame.size.width - 2)/2 + 65)
     }
    
     

@@ -52,6 +52,16 @@
 		275418BD2068FC0F00DEED32 /* TLYShyStatusBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B22068FC0F00DEED32 /* TLYShyStatusBarController.m */; };
 		275418BE2068FC0F00DEED32 /* TLYShyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B42068FC0F00DEED32 /* TLYShyViewController.m */; };
 		275418BF2068FC0F00DEED32 /* TLYShyScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275418B52068FC0F00DEED32 /* TLYShyScrollViewController.m */; };
+		2754877C20DB8858006CD1DE /* SpinnerTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754876F20DB8858006CD1DE /* SpinnerTypes.swift */; };
+		2754877D20DB8858006CD1DE /* SSLineSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754877120DB8858006CD1DE /* SSLineSpinFadeLoader.swift */; };
+		2754877E20DB8858006CD1DE /* SSBallRotateChase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754877220DB8858006CD1DE /* SSBallRotateChase.swift */; };
+		2754877F20DB8858006CD1DE /* SSCircleStrokeSpin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754877320DB8858006CD1DE /* SSCircleStrokeSpin.swift */; };
+		2754878020DB8858006CD1DE /* SSBallSpinFadeLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754877420DB8858006CD1DE /* SSBallSpinFadeLoader.swift */; };
+		2754878120DB8858006CD1DE /* SSSpinnerBallClipRotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754877520DB8858006CD1DE /* SSSpinnerBallClipRotate.swift */; };
+		2754878220DB8858006CD1DE /* spinnerLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754877620DB8858006CD1DE /* spinnerLayers.swift */; };
+		2754878320DB8858006CD1DE /* SpinnerAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754877820DB8858006CD1DE /* SpinnerAnimationDelegate.swift */; };
+		2754878420DB8859006CD1DE /* spinnerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754877920DB8858006CD1DE /* spinnerShape.swift */; };
+		2754878520DB8859006CD1DE /* SSSpinnerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2754877B20DB8858006CD1DE /* SSSpinnerButton.swift */; };
 		2756C6EC20C7990A005C55F7 /* CloseBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2756C6EB20C7990A005C55F7 /* CloseBar.swift */; };
 		2756C6EE20C79916005C55F7 /* CloseBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2756C6ED20C79916005C55F7 /* CloseBar.xib */; };
 		2756C6F120C79A11005C55F7 /* CloseBarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2756C6EF20C79A11005C55F7 /* CloseBarCell.xib */; };
@@ -302,6 +312,16 @@
 		275418B52068FC0F00DEED32 /* TLYShyScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLYShyScrollViewController.m; sourceTree = "<group>"; };
 		275418B62068FC0F00DEED32 /* TLYShyNavBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBarManager.h; sourceTree = "<group>"; };
 		275418B72068FC0F00DEED32 /* TLYShyNavBarFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLYShyNavBarFade.h; sourceTree = "<group>"; };
+		2754876F20DB8858006CD1DE /* SpinnerTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerTypes.swift; sourceTree = "<group>"; };
+		2754877120DB8858006CD1DE /* SSLineSpinFadeLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSLineSpinFadeLoader.swift; sourceTree = "<group>"; };
+		2754877220DB8858006CD1DE /* SSBallRotateChase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSBallRotateChase.swift; sourceTree = "<group>"; };
+		2754877320DB8858006CD1DE /* SSCircleStrokeSpin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSCircleStrokeSpin.swift; sourceTree = "<group>"; };
+		2754877420DB8858006CD1DE /* SSBallSpinFadeLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSBallSpinFadeLoader.swift; sourceTree = "<group>"; };
+		2754877520DB8858006CD1DE /* SSSpinnerBallClipRotate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSSpinnerBallClipRotate.swift; sourceTree = "<group>"; };
+		2754877620DB8858006CD1DE /* spinnerLayers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = spinnerLayers.swift; sourceTree = "<group>"; };
+		2754877820DB8858006CD1DE /* SpinnerAnimationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerAnimationDelegate.swift; sourceTree = "<group>"; };
+		2754877920DB8858006CD1DE /* spinnerShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = spinnerShape.swift; sourceTree = "<group>"; };
+		2754877B20DB8858006CD1DE /* SSSpinnerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSSpinnerButton.swift; sourceTree = "<group>"; };
 		2756C6EB20C7990A005C55F7 /* CloseBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseBar.swift; sourceTree = "<group>"; };
 		2756C6ED20C79916005C55F7 /* CloseBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloseBar.xib; sourceTree = "<group>"; };
 		2756C6EF20C79A11005C55F7 /* CloseBarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloseBarCell.xib; sourceTree = "<group>"; };
@@ -656,6 +676,55 @@
 			path = ShyControllers;
 			sourceTree = "<group>";
 		};
+		2754876D20DB8858006CD1DE /* SSSpinnerButton */ = {
+			isa = PBXGroup;
+			children = (
+				2754876E20DB8858006CD1DE /* SpinerShapes */,
+				2754877A20DB8858006CD1DE /* SpinnerButton */,
+			);
+			path = SSSpinnerButton;
+			sourceTree = "<group>";
+		};
+		2754876E20DB8858006CD1DE /* SpinerShapes */ = {
+			isa = PBXGroup;
+			children = (
+				2754876F20DB8858006CD1DE /* SpinnerTypes.swift */,
+				2754877020DB8858006CD1DE /* SpinnerShapeWithAnimation */,
+				2754877620DB8858006CD1DE /* spinnerLayers.swift */,
+				2754877720DB8858006CD1DE /* SpinnerAnimationDelegate */,
+				2754877920DB8858006CD1DE /* spinnerShape.swift */,
+			);
+			path = SpinerShapes;
+			sourceTree = "<group>";
+		};
+		2754877020DB8858006CD1DE /* SpinnerShapeWithAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				2754877120DB8858006CD1DE /* SSLineSpinFadeLoader.swift */,
+				2754877220DB8858006CD1DE /* SSBallRotateChase.swift */,
+				2754877320DB8858006CD1DE /* SSCircleStrokeSpin.swift */,
+				2754877420DB8858006CD1DE /* SSBallSpinFadeLoader.swift */,
+				2754877520DB8858006CD1DE /* SSSpinnerBallClipRotate.swift */,
+			);
+			path = SpinnerShapeWithAnimation;
+			sourceTree = "<group>";
+		};
+		2754877720DB8858006CD1DE /* SpinnerAnimationDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				2754877820DB8858006CD1DE /* SpinnerAnimationDelegate.swift */,
+			);
+			path = SpinnerAnimationDelegate;
+			sourceTree = "<group>";
+		};
+		2754877A20DB8858006CD1DE /* SpinnerButton */ = {
+			isa = PBXGroup;
+			children = (
+				2754877B20DB8858006CD1DE /* SSSpinnerButton.swift */,
+			);
+			path = SpinnerButton;
+			sourceTree = "<group>";
+		};
 		277A2B3120CE2AC1000712A9 /* SwiftSVG */ = {
 			isa = PBXGroup;
 			children = (
@@ -856,6 +925,7 @@
 		3B91CB122058C3C90073D54B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2754876D20DB8858006CD1DE /* SSSpinnerButton */,
 				277A2B3120CE2AC1000712A9 /* SwiftSVG */,
 				27EB52D12089E85B009294BA /* WebSocket.swift */,
 				2775FA5C2089AB80006CA25F /* TimeAgo.swift */,
@@ -1343,6 +1413,7 @@
 				2756C6F220C79A11005C55F7 /* CloseBarCell.swift in Sources */,
 				277A2B7520CE2AC2000712A9 /* NSXMLSVGParser.swift in Sources */,
 				3BC20364206322E4005A2D21 /* IngreItemCollect.swift in Sources */,
+				2754877C20DB8858006CD1DE /* SpinnerTypes.swift in Sources */,
 				3BDBE404205FA5B200CDA28E /* SearchGenereVC.swift in Sources */,
 				277A2B6B20CE2AC2000712A9 /* CALayer+SVG.swift in Sources */,
 				2724F87E208879ED003305F9 /* UITableView + ViewAnimator.swift in Sources */,
@@ -1374,6 +1445,7 @@
 				3B91CB1A2058C4A20073D54B /* SignUpVC.swift in Sources */,
 				275418B82068FC0F00DEED32 /* TLYShyNavBarManager.m in Sources */,
 				3BDBE411205FB1F200CDA28E /* DetailCockTailCollect.swift in Sources */,
+				2754877D20DB8858006CD1DE /* SSLineSpinFadeLoader.swift in Sources */,
 				277A2B7020CE2AC2000712A9 /* CoordinateLexer.swift in Sources */,
 				3BC39B64205C18E700D2E60B /* CustomCell.swift in Sources */,
 				3B91CB282058CC1E0073D54B /* UIViewX.swift in Sources */,
@@ -1398,6 +1470,7 @@
 				2776C791206350030040F065 /* CustomDetailVC.swift in Sources */,
 				27330F0D20805A4800F5033A /* iOSDevCenters+GIF.swift in Sources */,
 				277A2B8220CE2AC2000712A9 /* SVGRootElement.swift in Sources */,
+				2754878220DB8858006CD1DE /* spinnerLayers.swift in Sources */,
 				274B99432091B61100E506E2 /* ResizeControl.swift in Sources */,
 				27F60F7D206B4A63009FDDC0 /* LoungeTabbarVC.swift in Sources */,
 				277A2B7920CE2AC2000712A9 /* Transformable.swift in Sources */,
@@ -1422,10 +1495,12 @@
 				277A2B9220CE2AC2000712A9 /* Stack.swift in Sources */,
 				277A2B8920CE2AC2000712A9 /* FloatingPoint+DegreesRadians.swift in Sources */,
 				27EB26A1207DFAE8009021A2 /* GenreObj.swift in Sources */,
+				2754877F20DB8858006CD1DE /* SSCircleStrokeSpin.swift in Sources */,
 				3B91CAF62058C2D50073D54B /* AppDelegate.swift in Sources */,
 				277A2B7F20CE2AC2000712A9 /* SVGEllipse.swift in Sources */,
 				277A2B6E20CE2AC2000712A9 /* NSBezierPath+CrossPlatform.swift in Sources */,
 				277409B7207B69780092C9AC /* GarnishCell.swift in Sources */,
+				2754878320DB8858006CD1DE /* SpinnerAnimationDelegate.swift in Sources */,
 				270CC09C20A44F74000B62C0 /* SettingObj.swift in Sources */,
 				277A2B8520CE2AC2000712A9 /* ParsesAsynchronously.swift in Sources */,
 				277A2B7C20CE2AC2000712A9 /* SVGPath.swift in Sources */,
@@ -1453,6 +1528,7 @@
 				3BDBE3FF205F961700CDA28E /* HeaderPreOrderCell.swift in Sources */,
 				2776C7932063595A0040F065 /* CustomDetailCell.swift in Sources */,
 				2756C6EC20C7990A005C55F7 /* CloseBar.swift in Sources */,
+				2754878520DB8859006CD1DE /* SSSpinnerButton.swift in Sources */,
 				277A2B8420CE2AC2000712A9 /* SVGPolygon.swift in Sources */,
 				3BC39B68205C190800D2E60B /* HeaderCustomCell.swift in Sources */,
 				3B038FBF2062B5D00051691E /* IngreCollect.swift in Sources */,
@@ -1481,6 +1557,8 @@
 				3BD02E56205ABE140042F890 /* TagsView.swift in Sources */,
 				3BC4CE0B206141FB00CECB57 /* CGRectExtension.swift in Sources */,
 				2724F87A208879EC003305F9 /* Utilities.swift in Sources */,
+				2754878420DB8859006CD1DE /* spinnerShape.swift in Sources */,
+				2754878120DB8858006CD1DE /* SSSpinnerBallClipRotate.swift in Sources */,
 				277A2B6720CE2AC2000712A9 /* UIBezierPath+SVG.swift in Sources */,
 				27EB269D207DEE5E009021A2 /* FooterDetailTag.swift in Sources */,
 				2724F87C208879EC003305F9 /* Direction.swift in Sources */,
@@ -1503,6 +1581,7 @@
 				274B993E2091B61100E506E2 /* UIImage+Crop.swift in Sources */,
 				3BDBE40A205FB04F00CDA28E /* DetailSearchGenereVC.swift in Sources */,
 				2754189B206899DD00DEED32 /* ManagerError.swift in Sources */,
+				2754878020DB8858006CD1DE /* SSBallSpinFadeLoader.swift in Sources */,
 				27F77F3E208859440019A592 /* ListDrinkCreateView.swift in Sources */,
 				277A2B7E20CE2AC2000712A9 /* SVGLine.swift in Sources */,
 				3BB0ED4E205FFA6E00702239 /* TPKeyboardAvoidingTableView.m in Sources */,
@@ -1519,6 +1598,7 @@
 				3BD76FDE2061D037009A15FE /* ViewDetailVC.swift in Sources */,
 				27C692CF206A41C50057156C /* MenuSearchCollect.swift in Sources */,
 				2775FA5B20899500006CA25F /* ProductObj.swift in Sources */,
+				2754877E20DB8858006CD1DE /* SSBallRotateChase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

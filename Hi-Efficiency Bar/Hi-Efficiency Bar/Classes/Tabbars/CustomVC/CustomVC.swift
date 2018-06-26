@@ -21,6 +21,7 @@ class CustomVC: HelpController {
     @IBOutlet weak var lblNoData: UILabel!
     var isAddCustom = false
     var id =  Int()
+     var closeBar = CloseBar.init(frame: .zero)
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -45,7 +46,7 @@ class CustomVC: HelpController {
     }
     @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
-        ManagerWS.shared.fetchIngredientbyTypeID(id) { (success, arrs) in
+        ManagerWS.shared.fetchIngredientbyTypeID(id) { (success, arrs, code) in
             CommonHellper.hideBusy()
             self.refreshControl.endRefreshing()
             self.arrDatas = arrs!
@@ -59,6 +60,30 @@ class CustomVC: HelpController {
             self.collectionView.reloadData()
             
         }
+    }
+    
+    
+    
+    
+    func showPopUpCloseBar()
+    {
+        self.closeBar.removeFromSuperview()
+        closeBar = Bundle.main.loadNibNamed("CloseBar", owner: self, options: nil)?[0] as! CloseBar
+        closeBar.registerCell()
+        closeBar.frame = UIScreen.main.bounds
+        closeBar.tapRefresh = { [] in
+            ManagerWS.shared.getSettingApp { (success) in
+                if !success!
+                {
+                    self.showPopUpCloseBar()
+                }
+                else{
+                    self.closeBar.removeFromSuperview()
+                    self.fechByTypeID(id: self.id)
+                }
+            }
+        }
+        APP_DELEGATE.window?.addSubview(closeBar)
     }
     func fecthingredientType()
     {
@@ -79,18 +104,24 @@ class CustomVC: HelpController {
     {
          self.id = id
         CommonHellper.showBusy()
-        ManagerWS.shared.fetchIngredientbyTypeID(id) { (success, arrs) in
-            CommonHellper.hideBusy()
-            self.arrDatas = arrs!
-            if self.arrDatas.count == 0
+        ManagerWS.shared.fetchIngredientbyTypeID(id) { (success, arrs, code) in
+             CommonHellper.hideBusy()
+            if code == SERVER_CODE.CODE_403
             {
-                self.lblNoData.isHidden = false
+                self.showPopUpCloseBar()
             }
             else{
-                self.lblNoData.isHidden = true
+                CommonHellper.hideBusy()
+                self.arrDatas = arrs!
+                if self.arrDatas.count == 0
+                {
+                    self.lblNoData.isHidden = false
+                }
+                else{
+                    self.lblNoData.isHidden = true
+                }
+                self.collectionView.reloadData()
             }
-            self.collectionView.reloadData()
-            
         }
     }
     func customNavi()
@@ -108,19 +139,21 @@ class CustomVC: HelpController {
         rotationAnimation.repeatCount = 1
         
         CATransaction.setCompletionBlock {
-            CATransaction.begin()
-            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-            rotationAnimation.fromValue = 0.0
-            rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
-            rotationAnimation.duration = 0.4
-            rotationAnimation.repeatCount = 1
-            
-            CATransaction.setCompletionBlock {
-                self.arrSelected.removeAll()
-                self.collectionView.reloadData()
-            }
-            self.imgReset.layer.add(rotationAnimation, forKey: nil)
-            CATransaction.commit()
+            self.arrSelected.removeAll()
+            self.collectionView.reloadData()
+//            CATransaction.begin()
+//            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+//            rotationAnimation.fromValue = 0.0
+//            rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
+//            rotationAnimation.duration = 0.4
+//            rotationAnimation.repeatCount = 1
+//
+//            CATransaction.setCompletionBlock {
+//                self.arrSelected.removeAll()
+//                self.collectionView.reloadData()
+//            }
+//            self.imgReset.layer.add(rotationAnimation, forKey: nil)
+//            CATransaction.commit()
         }
         self.imgReset.layer.add(rotationAnimation, forKey: nil)
         CATransaction.commit()

@@ -1214,7 +1214,7 @@ struct ManagerWS {
     }
    
     
-    func fetchIngredientbyTypeID(_ id: Int, complete:@escaping (_ success: Bool?, _ arrs: [MainBarObj]?) ->Void)
+    func fetchIngredientbyTypeID(_ id: Int, complete:@escaping (_ success: Bool?, _ arrs: [MainBarObj]?,_ code: Int?) ->Void)
     {
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
@@ -1238,17 +1238,20 @@ struct ManagerWS {
                                     let dictItem = item as! NSDictionary
                                     arrDatas.append(MainBarObj.init(dict: dictItem))
                                 }
-                                complete(true, arrDatas)
+                                complete(true, arrDatas, code)
                             }
                             else{
-                                complete(true, arrDatas)
+                                complete(true, arrDatas, code)
                             }
+                        }
+                        else{
+                             complete(true, arrDatas, code)
                         }
                     }
                     break
                     
                 case .failure(_):
-                    complete(true, arrDatas)
+                    complete(true, arrDatas, SERVER_CODE.CODE_400)
                     break
                 }
         }
@@ -1402,14 +1405,49 @@ struct ManagerWS {
         let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
         manager.request(URL.init(string: "\(URL_SERVER)api/user/order/")!, method: .post, parameters: param,  encoding: URLEncoding.default, headers: auth_headerLogin)
             .responseJSON { response in
+                print(response)
                 if let code = response.response?.statusCode
                 {
                     if code == SERVER_CODE.CODE_200
                     {
-                        complete(true, nil)
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let block_count = val.object(forKey: "block_count") as? Int
+                            {
+                                if block_count > 0
+                                {
+                                    if let  block_drinks = val.object(forKey: "block_drinks") as? NSArray
+                                    {
+                                        if block_drinks.count > 0
+                                        {
+                                            var strValue = ""
+                                            for item in block_drinks
+                                            {
+                                                strValue = "\(strValue)\(item as! String), "
+                                            }
+                                            let err = "\(block_count) item not available at this time: \(strValue.substring(from: 0, to: strValue.count - 2))"
+                                            complete(false, err)
+                                        }
+                                    }
+                                    else{
+                                        complete(false,"Reorder error")
+                                    }
+                                }
+                                else{
+                                    complete(true, nil)
+                                }
+                            }
+                            else{
+                                complete(true, nil)
+                            }
+                        }
+                        else{
+                            complete(true, nil)
+                        }
+                        
                     }
                     else{
-                        complete(false,"\(response.result as? NSDictionary)")
+                        complete(false,"Reorder error")
                     }
                 }
         }
@@ -1423,6 +1461,8 @@ struct ManagerWS {
         let param = ["tab_id":order_id]
         print(param)
         let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        print("Token \(token)")
+        print("\(URL_SERVER)api/user/order/")
         manager.request(URL.init(string: "\(URL_SERVER)api/user/order/")!, method: .post, parameters: param,  encoding: URLEncoding.default, headers: auth_headerLogin)
             
             .responseJSON { response in
@@ -1431,10 +1471,44 @@ struct ManagerWS {
                 {
                     if code == SERVER_CODE.CODE_200
                     {
-                        complete(true, nil)
+                        if let val = response.value as? NSDictionary
+                        {
+                            if let block_count = val.object(forKey: "block_count") as? Int
+                            {
+                                if block_count > 0
+                                {
+                                    if let  block_drinks = val.object(forKey: "block_drinks") as? NSArray
+                                    {
+                                        if block_drinks.count > 0
+                                        {
+                                            var strValue = ""
+                                            for item in block_drinks
+                                            {
+                                                strValue = "\(strValue)\(item as! String), "
+                                            }
+                                            let err = "\(block_count) item not available at this time: \(strValue.substring(from: 0, to: strValue.count - 2))"
+                                              complete(false, err)
+                                        }
+                                    }
+                                    else{
+                                         complete(false,"Reorder error")
+                                    }
+                                }
+                                else{
+                                     complete(true, nil)
+                                }
+                            }
+                            else{
+                                 complete(true, nil)
+                            }
+                        }
+                        else{
+                             complete(true, nil)
+                        }
+                       
                     }
                     else{
-                        complete(false,"\(response.result as? NSDictionary)")
+                        complete(false,"Reorder error")
                     }
                 }
         }

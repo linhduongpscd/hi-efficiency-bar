@@ -128,6 +128,11 @@ class CurrentOrderVC: UIViewController  {
         }
     }
    
+    @IBAction func doCurrentOrder(_ sender: Any) {
+        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ScannerVC") as! ScannerVC
+        vc.userOrderObj = userOrderObj
+        self.present(vc, animated: true, completion: nil)
+    }
 }
 
 extension CurrentOrderVC: WebSocketDelegate

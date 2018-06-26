@@ -11,7 +11,7 @@ import Alamofire
 class CustomDetailVC: HelpController {
 
     @IBOutlet weak var tblDetail: UITableView!
-    @IBOutlet weak var btnAddCustom: TransitionButton!
+    @IBOutlet weak var btnAddCustom: SSSpinnerButton!
     @IBOutlet weak var imgDrink: UIImageView!
     @IBOutlet weak var imgShot: UIImageView!
     @IBOutlet weak var lblShot: UILabel!
@@ -67,6 +67,7 @@ class CustomDetailVC: HelpController {
      var closeBar = CloseBar.init(frame: .zero)
     var indexSelected = 0
     
+    @IBOutlet weak var lblTotalMl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,6 +140,7 @@ class CustomDetailVC: HelpController {
         else{
             self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
         }
+        self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
     }
     
     func changeRationUnitPart()
@@ -153,6 +155,9 @@ class CustomDetailVC: HelpController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hidingNavBarManager?.viewWillAppear(animated)
+        self.btnAddCustom.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+        self.btnAddCustom.setImage(UIImage.init(), for: .normal)
+        self.btnAddCustom.setTitle("ADD TO MY TAB", for: .normal)
     }
     
     override func viewDidLayoutSubviews() {
@@ -204,6 +209,7 @@ class CustomDetailVC: HelpController {
                                 else{
                                     self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
                                 }
+                                 self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
                                 break
                             }
                             i = i + 1
@@ -230,6 +236,7 @@ class CustomDetailVC: HelpController {
                         else{
                             self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
                         }
+                         self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
                     }
                     
                     
@@ -269,8 +276,12 @@ class CustomDetailVC: HelpController {
                                 self.glassID = obj.id
                                 if obj.image != nil{
                                     self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                                        self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                                        self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                        if error == nil
+                                        {
+                                            self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                            self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                        }
+                                       
                                     })
                                 }
                                 if self.glassObj?.unit_view == "oz"
@@ -280,8 +291,8 @@ class CustomDetailVC: HelpController {
                                 else{
                                     self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
                                 }
-                                
-                                
+                               
+                                self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
                                 break
                             }
                         }
@@ -303,6 +314,7 @@ class CustomDetailVC: HelpController {
                         else{
                             self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
                         }
+                         self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
                     }
                     
                     
@@ -351,6 +363,7 @@ class CustomDetailVC: HelpController {
         else{
             self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
         }
+        self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
         
     }
     
@@ -379,18 +392,20 @@ class CustomDetailVC: HelpController {
         rotationAnimation.repeatCount = 1
         
         CATransaction.setCompletionBlock {
-            CATransaction.begin()
-            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-            rotationAnimation.fromValue = 0.0
-            rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
-            rotationAnimation.duration = 0.4
-            rotationAnimation.repeatCount = 1
-            
-            CATransaction.setCompletionBlock {
-                self.fectAllGlassReset()
-            }
-            self.imgRorate.layer.add(rotationAnimation, forKey: nil)
-            CATransaction.commit()
+            self.indexSelected = 0
+            self.fectAllGlassReset()
+//            CATransaction.begin()
+//            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
+//            rotationAnimation.fromValue = 0.0
+//            rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
+//            rotationAnimation.duration = 0.4
+//            rotationAnimation.repeatCount = 1
+//
+//            CATransaction.setCompletionBlock {
+//                self.fectAllGlassReset()
+//            }
+//            self.imgRorate.layer.add(rotationAnimation, forKey: nil)
+//            CATransaction.commit()
         }
         self.imgRorate.layer.add(rotationAnimation, forKey: nil)
         CATransaction.commit()
@@ -644,6 +659,7 @@ class CustomDetailVC: HelpController {
             else{
                 self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
             }
+             self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
         }
         tab3.isAddCustom = true
         let nav = BaseNaviController.init(rootViewController: tab3)
@@ -684,7 +700,7 @@ class CustomDetailVC: HelpController {
         let para = ["ice": Int(valueIce), "quantity": lblQuanlity.text!, "drink": drinkID] as [String : Any]
         return para
     }
-    @IBAction func doAddCustom(_ sender: TransitionButton) {
+    @IBAction func doAddCustom(_ sender: SSSpinnerButton) {
         if CommonHellper.trimSpaceString(txtString: txfDrinkName.text!).isEmpty
         {
             self.showAlertMessage(message: "Name drink is required")
@@ -699,60 +715,61 @@ class CustomDetailVC: HelpController {
         print(self.convertParamToWS())
         self.view.endEditing(true)
         self.addLoadingView()
-        btnAddCustom.startAnimation() // 2: Then start the animation when the user tap the button
-        
-        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-        backgroundQueue.async(execute: {
-            ManagerWS.shared.addDrinkStep1(para: self.convertParamToWS() as! Parameters) { (success, error, drinkID, code) in
-                print(success!)
-                if success!
-                {
-                    ManagerWS.shared.addMyTab(para: self.addTomyTabParam(drinkID: drinkID!), complete: { (ok, error, code) in
-                        if ok!
-                        {
+        sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+        sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+        ManagerWS.shared.addDrinkStep1(para: self.convertParamToWS() as! Parameters) { (success, error, drinkID, code) in
+            print(success!)
+            if success!
+            {
+                ManagerWS.shared.addMyTab(para: self.addTomyTabParam(drinkID: drinkID!), complete: { (ok, error, code) in
+                    if ok!
+                    {
+                      
+                        sender.stopAnimate(complete: {
                             self.removeLoadingView()
+                            self.btnAddCustom.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
                             self.btnAddCustom.setTitle("", for: .normal)
                             self.btnAddCustom.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                            self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
-                                
-                                
-                            })
                             self.perform(#selector(self.returnCustom), with: nil, afterDelay: 0.5)
-                        }
-                        else{
-                            self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
-                                self.btnAddCustom.setTitle("ADD TO MY TAB", for: .normal)
-                                self.removeLoadingView()
-                                if code == SERVER_CODE.CODE_403
-                                {
-                                    self.showPopUpCloseBar(true)
-                                }
-                                else{
-                                    self.showAlertMessage(message: error!)
-                                }
-                                
-                            })
-                        }
-                    })
-                    
-                }
-                else{
-                    self.btnAddCustom.stopAnimation(animationStyle: .shake, completion: {
-                        self.btnAddCustom.setTitle("ADD TO MY TAB", for: .normal)
-                        self.removeLoadingView()
-                        if code == SERVER_CODE.CODE_403
-                        {
-                            self.showPopUpCloseBar(true)
-                        }
-                        else{
-                            self.showAlertMessage(message: (error?.msg)!)
-                        }
+                        })
                         
-                    })
-                }
+                    }
+                    else{
+                         sender.stopAnimate(complete: {
+                             self.btnAddCustom.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                             self.btnAddCustom.setImage(UIImage.init(), for: .normal)
+                            self.btnAddCustom.setTitle("ADD TO MY TAB", for: .normal)
+                            self.removeLoadingView()
+                            if code == SERVER_CODE.CODE_403
+                            {
+                                self.showPopUpCloseBar(true)
+                            }
+                            else{
+                                self.showAlertMessage(message: error!)
+                            }
+                            
+                        })
+                    }
+                })
+                
             }
-        })
+            else{
+                sender.stopAnimate(complete: {
+                    self.btnAddCustom.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                    self.btnAddCustom.setImage(UIImage.init(), for: .normal)
+                    self.btnAddCustom.setTitle("ADD TO MY TAB", for: .normal)
+                    self.removeLoadingView()
+                    if code == SERVER_CODE.CODE_403
+                    {
+                        self.showPopUpCloseBar(true)
+                    }
+                    else{
+                        self.showAlertMessage(message: (error?.msg!)!)
+                    }
+                    
+                })
+            }
+        }
     }
     
     @objc func returnCustom()
@@ -821,6 +838,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
             else{
                 self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
             }
+             self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
         }
         cell.changeUnitView = { [] in
             let alert = UIAlertController(title: nil,
@@ -838,6 +856,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
                     else{
                         self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
                     }
+                     self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
                 })
                 alert.addAction(delete)
             }
@@ -863,6 +882,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
                 else{
                     self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
                 }
+                self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
                 self.tblDetail.reloadData()
             })
              alert.addAction(delete)
@@ -969,6 +989,7 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         else{
             self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
         }
+         self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
     }
     
     func configCell(_ cell: LyTailCell, glassObj: GlassObj, index: IndexPath)

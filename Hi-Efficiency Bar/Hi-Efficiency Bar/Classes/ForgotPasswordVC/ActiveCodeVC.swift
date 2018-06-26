@@ -11,7 +11,7 @@ class ActiveCodeVC: BaseViewController {
 
     @IBOutlet weak var txfCode: UITextField!
     @IBOutlet weak var txfNewPassword: UITextField!
-    @IBOutlet weak var btnSubmit: TransitionButton!
+    @IBOutlet weak var btnSubmit: SSSpinnerButton!
     var email = String()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,7 @@ class ActiveCodeVC: BaseViewController {
     }
     */
 
-    @IBAction func doSubmit(_ sender: Any) {
+    @IBAction func doSubmit(_ sender: SSSpinnerButton) {
         let code = CommonHellper.trimSpaceString(txtString: txfCode.text!)
         let passcode = txfNewPassword.text!
         if code.isEmpty
@@ -65,30 +65,30 @@ class ActiveCodeVC: BaseViewController {
         self.view.endEditing(true)
         let pama = ["email": email, "code": code,"password":passcode]
         self.addLoadingView()
-        btnSubmit.startAnimation() // 2: Then start the animation when the user tap the button
-        
-        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-        backgroundQueue.async(execute: {
-            ManagerWS.shared.activeCodeForgot(param: pama, complete: { (success, error) in
-                if success!
-                {
+        sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+        sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+        ManagerWS.shared.activeCodeForgot(param: pama, complete: { (success, error) in
+            if success!
+            {
+                self.removeLoadingView()
+                
+               sender.stopAnimate(complete: {
+                 sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                self.btnSubmit.setTitle("", for: .normal)
+                self.btnSubmit.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                })
+                self.perform(#selector(self.successforgot), with: nil, afterDelay: 0.5)
+            }
+            else{
+                
+                sender.stopAnimate(complete: {
                     self.removeLoadingView()
-                    
-                    self.btnSubmit.stopAnimation(animationStyle: .shake, completion: {
-                        self.btnSubmit.setTitle("SUBMIT", for: .normal)
-                        self.btnSubmit.setImage(UIImage.init(), for: .normal)
-                    })
-                    self.perform(#selector(self.successforgot), with: nil, afterDelay: 0.5)
-                }
-                else{
+                    self.btnSubmit.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
                     self.btnSubmit.setTitle("SUBMIT", for: .normal)
-                    self.btnSubmit.stopAnimation(animationStyle: .shake, completion: {
-                        self.removeLoadingView()
-                    })
-                    self.showAlertMessage(message: error)
-                }
-            })
+                })
+                self.showAlertMessage(message: error)
+            }
         })
+      
     }
 }
