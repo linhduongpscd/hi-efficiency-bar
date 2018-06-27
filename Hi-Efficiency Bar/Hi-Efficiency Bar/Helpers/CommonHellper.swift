@@ -174,7 +174,13 @@ class CommonHellper {
     static func trimSpaceString(txtString:String) -> String {
         return txtString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
-
+    static func formatStringToDateBirthday(date: String)->Date
+    {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        return formatter.date(from: date)!
+    }
     static func formatDateBirthday(date: Date)->String
     {
         let formatter = DateFormatter()

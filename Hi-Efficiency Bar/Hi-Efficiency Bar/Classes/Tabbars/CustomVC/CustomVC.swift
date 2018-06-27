@@ -22,6 +22,7 @@ class CustomVC: HelpController {
     var isAddCustom = false
     var id =  Int()
      var closeBar = CloseBar.init(frame: .zero)
+    @IBOutlet weak var btnNext: SSSpinnerButton!
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -134,8 +135,8 @@ class CustomVC: HelpController {
         CATransaction.begin()
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
-        rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
-        rotationAnimation.duration = 0.4
+        rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
+        rotationAnimation.duration = kSPEED_REODER
         rotationAnimation.repeatCount = 1
         
         CATransaction.setCompletionBlock {
@@ -209,7 +210,7 @@ class CustomVC: HelpController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.ingredient_by
     }
-    @IBAction func btnNext(_ sender: Any) {
+    @IBAction func btnNext(_ sender: SSSpinnerButton) {
         
         if isAddCustom
         {
@@ -222,12 +223,32 @@ class CustomVC: HelpController {
                 self.showAlertMessage(message: "Please select ingredient")
                 return
             }
-            let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
-            vc.isRedirectCus = true
-            vc.arrCusIngredients = self.arrIngredientSelected
-            self.navigationController?.pushViewController(vc, animated: true)
+            sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+            sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+            self.perform(#selector(self.initStopAnimal), with: nil, afterDelay: 0.25)
         }
        
+    }
+    
+    @objc func initStopAnimal()
+    {
+        self.btnNext.stopAnimate(complete: {
+            self.btnNext.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+            self.btnNext.setTitle("", for: .normal)
+            self.btnNext.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+            self.perform(#selector(self.initComplete), with: nil, afterDelay: 0.1)
+        })
+        
+    }
+    @objc func initComplete()
+    {
+        self.btnNext.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+        self.btnNext.setTitle("Next", for: .normal)
+        self.btnNext.setImage(UIImage.init(), for: .normal)
+        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
+        vc.isRedirectCus = true
+        vc.arrCusIngredients = self.arrIngredientSelected
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

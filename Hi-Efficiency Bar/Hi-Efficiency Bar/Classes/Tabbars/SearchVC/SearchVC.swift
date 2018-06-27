@@ -44,6 +44,7 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var arrIngredientSelectedSearch = [Int]()
     @IBOutlet weak var subSearchTag: UIView!
     @IBOutlet weak var collectionSearch: UICollectionView!
+    @IBOutlet weak var imgMutiple: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initController()
@@ -772,6 +773,13 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                     }
                     else{
                         self.viewDrink.isHidden = false
+                        if arrs?.count == 1
+                        {
+                             self.imgMutiple.isHidden = true
+                        }
+                        else{
+                            self.imgMutiple.isHidden = false
+                        }
                         let obj = arrs!.last
                         if obj?.image != nil
                         {

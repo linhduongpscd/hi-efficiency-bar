@@ -20,7 +20,7 @@ class SSLineSpinFadeLoader: SSSpinnerAnimationDelegate {
     ///   - color: color of spinner
     func setupSpinnerAnimation(layer: CALayer, frame: CGRect, color: UIColor) {
         
-        let defaultPadding: CGFloat = 4.0
+        let defaultPadding: CGFloat = 10.0
         
         let sizeValue = max(min(frame.width, frame.height) - defaultPadding, 1.0)
         let center = CGPoint(x: (sizeValue/2) + (defaultPadding / 2), y: (sizeValue/2) + (defaultPadding / 2))

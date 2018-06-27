@@ -20,7 +20,7 @@ class SSCircleStrokeSpin: SSSpinnerAnimationDelegate {
     ///   - color: color of spinner
     func setupSpinnerAnimation(layer: CALayer, frame: CGRect, color: UIColor) {
         
-        let defaultPadding: CGFloat = 1.0
+        let defaultPadding: CGFloat = 2.0
         let sizeValue = max(min(frame.width, frame.height), 1.0)
         
         let beginTime: Double = 1.0

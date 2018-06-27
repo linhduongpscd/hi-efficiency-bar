@@ -47,9 +47,24 @@ class AgeVerificationVC: BaseViewController {
         APP_DELEGATE.window?.addSubview(pickerView)
         AnimationManager.sharedInstance().doAppearView(fromBottom: pickerView)
     }
+    /*
+     
+    */
     @IBAction func actionConfirm(_ sender: SSSpinnerButton) {
         if self.convertDateBirthday() == birthday
         {
+            let calendar = Calendar.current
+            let now = Date()
+            let unitFlags = Set<Calendar.Component>([.day, .month, .year, .hour])
+            print(CommonHellper.formatStringToDateBirthday(date: birthday))
+           let ageComponents = calendar.dateComponents(unitFlags, from: CommonHellper.formatStringToDateBirthday(date: birthday), to: now)
+            let age = ageComponents.year!
+            print(age)
+            if age < 21
+            {
+                self.showAlertMessage(message: "Must be over 21 to use")
+                return
+            }
             UserDefaults.standard.set(self.userID, forKey: kID)
            UserDefaults.standard.set(self.token, forKey: kToken)
              UserDefaults.standard.set(self.token, forKey: kLoginApp)

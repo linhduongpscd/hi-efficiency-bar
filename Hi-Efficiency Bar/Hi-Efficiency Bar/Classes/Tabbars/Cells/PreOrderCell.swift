@@ -32,7 +32,7 @@ class PreOrderCell: UITableViewCell {
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
         rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
-        rotationAnimation.duration = 0.6
+        rotationAnimation.duration = kSPEED_REODER
         rotationAnimation.repeatCount = 1
         CATransaction.setCompletionBlock {
             ManagerWS.shared.reorderTab(order_id: self.productObj.id!, complete: { (success, error) in
