@@ -15,4 +15,5 @@ target 'Hi-Efficiency Bar' do
  pod 'RappleProgressHUD', '~> 2.4'
  pod 'Stripe'
  pod 'SwiftyGif'
+ 
 end

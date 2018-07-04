@@ -65,6 +65,7 @@ class SignInVC: BaseViewController {
             self.showAlertMessage(message: ERROR_PASSWORD)
             return
         }
+        self.view.endEditing(true)
         let para = ["email":email,"password":password]
         self.addLoadingView()
         sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)

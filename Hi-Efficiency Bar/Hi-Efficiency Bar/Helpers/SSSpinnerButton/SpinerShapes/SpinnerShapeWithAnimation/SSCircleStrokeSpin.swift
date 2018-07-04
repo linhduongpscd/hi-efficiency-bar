@@ -20,10 +20,10 @@ class SSCircleStrokeSpin: SSSpinnerAnimationDelegate {
     ///   - color: color of spinner
     func setupSpinnerAnimation(layer: CALayer, frame: CGRect, color: UIColor) {
         
-        let defaultPadding: CGFloat = 2.0
-        let sizeValue = max(min(frame.width, frame.height), 1.0)
+        let defaultPadding: CGFloat = 5.0
+        let sizeValue = max(min(frame.width, frame.height) - defaultPadding, 1.0)
         
-        let beginTime: Double = 1.0
+        let beginTime: Double = 0.5
         let strokeStartDuration: Double = 1.2
         let strokeEndDuration: Double = 0.7
         
@@ -33,13 +33,13 @@ class SSCircleStrokeSpin: SSSpinnerAnimationDelegate {
         
         let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
         strokeEndAnimation.duration = strokeEndDuration
-        strokeEndAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.0, 0.0, 0.0, 1.0)
+        strokeEndAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0.0, 0.2, 1.0)
         strokeEndAnimation.fromValue = 0
         strokeEndAnimation.toValue = 1
         
         let strokeStartAnimation = CABasicAnimation(keyPath: "strokeStart")
         strokeStartAnimation.duration = strokeStartDuration
-        strokeStartAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.0, 0.0, 0.0, 1.0)
+        strokeStartAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0.0, 0.2, 1.0)
         strokeStartAnimation.fromValue = 0
         strokeStartAnimation.toValue = 1
         strokeStartAnimation.beginTime = beginTime

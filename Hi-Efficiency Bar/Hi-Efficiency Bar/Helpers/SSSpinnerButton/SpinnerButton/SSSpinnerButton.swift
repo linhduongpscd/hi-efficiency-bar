@@ -1,4 +1,10 @@
-
+//
+//  SSSpinnerButton.swift
+//  SSSpinnerButton
+//
+//  Created by Bhargav Bajani on 11/05/18.
+//  Copyright © 2018 Simform Solutions. All rights reserved.
+//
 
 import Foundation
 import UIKit

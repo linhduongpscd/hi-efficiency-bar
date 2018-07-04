@@ -303,8 +303,12 @@ class CustomDetailVC: HelpController {
                         self.glassID = obj.id
                         if obj.image != nil{
                             self.imgDrink.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                                self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
-                                self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                if error == nil
+                                {
+                                    self.imgDrink.image = self.imgDrink.image!.withRenderingMode(.alwaysTemplate)
+                                    self.imgDrink.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                                }
+                                
                             })
                         }
                         if self.glassObj?.unit_view == "oz"
@@ -387,7 +391,7 @@ class CustomDetailVC: HelpController {
         CATransaction.begin()
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
-        rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
+        rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
         rotationAnimation.duration = kSPEED_REODER
         rotationAnimation.repeatCount = 1
         

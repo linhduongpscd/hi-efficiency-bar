@@ -17,6 +17,7 @@ class ListDrinkCreateView: UIView, UICollectionViewDelegate, UICollectionViewDat
     let animations = [AnimationType.from(direction: .bottom, offset: 30.0)]
     var indexPathCell: IndexPath?
     var createDrinkCollect = CreateDrinkCollect.init(frame: .zero)
+    @IBOutlet weak var topListSearch: NSLayoutConstraint!
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

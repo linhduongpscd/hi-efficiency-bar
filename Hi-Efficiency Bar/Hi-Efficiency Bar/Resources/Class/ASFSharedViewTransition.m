@@ -163,7 +163,7 @@
     
     [containerView addSubview:snapshotView];
     [containerView layoutIfNeeded];
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.35 animations:^{
         if (!reversed) {
             toVC.view.alpha = 1.0; // Fade in
               snapshotView.frame = [containerView convertRect:CGRectMake(toView.frame.origin.x,0,toView.frame.size.width, toView.frame.size.height) fromView:toView];

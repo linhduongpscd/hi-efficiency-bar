@@ -98,7 +98,11 @@ extension FlashVC : SwiftyGifDelegate {
         if let token =  UserDefaults.standard.value(forKey: kLoginApp) as? String
         {
             print(token)
-            APP_DELEGATE.initTabbarHome()
+           // APP_DELEGATE.initTabbarHome()
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            let tab1 = storyboard.instantiateViewController(withIdentifier: "AgeVerificationVC") as! AgeVerificationVC
+            tab1.isLogin = true
+            self.navigationController?.pushViewController(tab1, animated: true)
         }
         else{
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)

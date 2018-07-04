@@ -25,10 +25,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBR-Xm-HlI" customClass="UIViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
-                        <rect key="frame" x="30" y="84.5" width="260" height="60"/>
+                        <rect key="frame" x="10" y="84.5" width="300" height="60"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bar was close, cannot order." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNC-5h-t9h">
-                                <rect key="frame" x="22" y="22" width="216" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bar is closed. Please come back later." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QNC-5h-t9h">
+                                <rect key="frame" x="7.5" y="22" width="285" height="16"/>
                                 <fontDescription key="fontDescription" name="AlrightSans-Bold" family="Alright Sans" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -39,7 +39,7 @@
                             <constraint firstAttribute="height" constant="60" id="SeH-a9-ePy"/>
                             <constraint firstItem="QNC-5h-t9h" firstAttribute="centerY" secondItem="aBR-Xm-HlI" secondAttribute="centerY" id="kRL-NK-pDa"/>
                             <constraint firstItem="QNC-5h-t9h" firstAttribute="centerX" secondItem="aBR-Xm-HlI" secondAttribute="centerX" id="n7G-6O-lL3"/>
-                            <constraint firstAttribute="width" constant="260" id="tMd-HX-jVQ"/>
+                            <constraint firstAttribute="width" constant="300" id="tMd-HX-jVQ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

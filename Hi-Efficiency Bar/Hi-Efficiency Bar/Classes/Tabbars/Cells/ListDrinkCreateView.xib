@@ -66,6 +66,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="collectionView" destination="SXk-AI-NiU" id="lIF-Td-igj"/>
+                <outlet property="topListSearch" destination="ep8-55-Rla" id="JP4-O4-dQb"/>
             </connections>
         </view>
     </objects>

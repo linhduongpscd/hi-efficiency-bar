@@ -22,7 +22,7 @@ class SignUpVC: BaseViewController {
     var pickerView = PickerView.init(frame: .zero)
     var imagePicker: UIImagePickerController!
     var imageAvatar = UIImage.init()
-    @IBOutlet weak var btnSignUp: TransitionButton!
+    @IBOutlet weak var btnSignUp: SSSpinnerButton!
     @IBOutlet weak var txfLastName: UITextField!
     var stringBirthday = ""
     override func viewDidLoad() {
@@ -106,7 +106,7 @@ class SignUpVC: BaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
    
-    @IBAction func actionSignUp(_ sender: TransitionButton) {
+    @IBAction func actionSignUp(_ sender: SSSpinnerButton) {
       
         let name = CommonHellper.trimSpaceString(txtString: txfName.text!)
         let lastName = CommonHellper.trimSpaceString(txtString: txfLastName.text!)
@@ -167,31 +167,30 @@ class SignUpVC: BaseViewController {
         }
         let para = ["first_name":name,"last_name":lastName, "email":email,"password":password,"birthday":stringBirthday]
         self.addLoadingView()
-        btnSignUp.startAnimation() // 2: Then start the animation when the user tap the button
+        sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+        sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
         
-        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-        backgroundQueue.async(execute: {
-            ManagerWS.shared.register(para, self.imageAvatar, complete: { (success, error) in
-                if success!
-                {
+        ManagerWS.shared.register(para, self.imageAvatar, complete: { (success, error) in
+            if success!
+            {
+                sender.stopAnimate(complete: {
                      self.removeLoadingView()
+                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
                     self.btnSignUp.setTitle("", for: .normal)
                     self.btnSignUp.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                    self.btnSignUp.stopAnimation(animationStyle: .shake, completion: {
-                        
-                        
-                    })
                     self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
-                }
-                else{
+                })
+                
+            }
+            else{
+                sender.stopAnimate(complete: {
                     self.btnSignUp.setTitle("SIGN UP", for: .normal)
-                    self.btnSignUp.stopAnimation(animationStyle: .shake, completion: {
-                        self.removeLoadingView()
-                    })
+                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                    self.removeLoadingView()
                     self.showAlertMessage(message: (error?.msg!)!)
-                }
-            })
+                })
+                self.showAlertMessage(message: (error?.msg!)!)
+            }
         })
         
     }

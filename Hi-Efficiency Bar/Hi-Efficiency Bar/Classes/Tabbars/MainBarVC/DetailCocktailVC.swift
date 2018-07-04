@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailCocktailVC: UIViewController {
+class DetailCocktailVC: BaseViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     var genereObj = GenreObj.init(dict: NSDictionary.init())
@@ -31,7 +31,14 @@ class DetailCocktailVC: UIViewController {
         self.navigationItem.title = genereObj.name
         self.fectSubAllgenere(true)
         self.collectionView.addSubview(refreshControl)
+        //  self.configHideNaviScroll(collectionView)
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        super.viewWillAppear(animated)
     }
     @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
@@ -41,7 +48,7 @@ class DetailCocktailVC: UIViewController {
     {
         if isLoading
         {
-             CommonHellper.showBusy()
+            // CommonHellper.showBusy()
         }
         ManagerWS.shared.getSubCategoryByParentID(parentID: genereObj.id!) { (success, arrs) in
              CommonHellper.hideBusy()
@@ -77,28 +84,33 @@ extension DetailCocktailVC: UICollectionViewDelegate, UICollectionViewDataSource
             cell.lblName.text = genereObj.name
             if genereObj.image != nil
             {
-                if let imageurl = URL.init(string: genereObj.image!)
-                {
-                    let name = imageurl.lastPathComponent
-                    if name.lowercased().contains("gif")
+                
+                    if let imageurl = URL.init(string: self.genereObj.image!)
                     {
-                        
-                        let imageURL = UIImage.gifImageWithURL(genereObj.image!)
-                        cell.imgCell.image = imageURL
-
+                        let name = imageurl.lastPathComponent
+                        if name.lowercased().contains("gif")
+                        {
+                            DispatchQueue.main.async {
+                                let imageURL = UIImage.gifImageWithURL(self.genereObj.image!)
+                                cell.imgCell.image = imageURL
+                            }
+                            
+                            
+                        }
+                        else{
+                            cell.imgCell.sd_setImage(with: URL.init(string: self.genereObj.image!), completed: { (image, error, type, url) in
+                                var fram = cell.imgCell.frame
+                                fram.origin.y = fram.origin.y - 15
+                                cell.imgCell.frame =  fram
+                            })
+                        }
                     }
                     else{
-                        cell.imgCell.sd_setImage(with: URL.init(string: genereObj.image!), completed: { (image, error, type, url) in
+                        cell.imgCell.sd_setImage(with: URL.init(string: self.genereObj.image!), completed: { (image, error, type, url) in
                             
                         })
                     }
                 }
-                else{
-                    cell.imgCell.sd_setImage(with: URL.init(string: genereObj.image!), completed: { (image, error, type, url) in
-                        
-                    })
-                }
-            }
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailCockTailCollect", for: indexPath) as! DetailCockTailCollect

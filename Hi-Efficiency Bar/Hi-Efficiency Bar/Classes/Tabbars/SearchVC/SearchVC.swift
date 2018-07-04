@@ -45,6 +45,7 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var subSearchTag: UIView!
     @IBOutlet weak var collectionSearch: UICollectionView!
     @IBOutlet weak var imgMutiple: UIImageView!
+    @IBOutlet weak var topSubSearchTag: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initController()
@@ -57,6 +58,7 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
         self.fetchCallWSByTypeSearch(index: 5)
         viewDrink.isHidden = true
         subSearchTag.isHidden = true
+       
         let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         self.viewDrink.addGestureRecognizer(gestureRecognizer)
          ASFSharedViewTransition.addWith(fromViewControllerClass: SearchVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
@@ -362,6 +364,11 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
         listDrinkCreateView.tapCloseList = { [] in
             self.listDrinkCreateView.removeFromSuperview()
         }
+        if #available(iOS 11.0, *) {
+        }
+        else{
+            listDrinkCreateView.topListSearch.constant = 120
+        }
         listDrinkCreateView.tapDetailDrink = { [] in
             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
             vc.drinkObj = self.arrDrinkCreate[(self.listDrinkCreateView.indexPathCell?.row)!]
@@ -625,25 +632,31 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
             cell.lblName.text = obj.name
             if obj.image != nil
             {
-                if let imageurl = URL.init(string: obj.image!)
-                {
-                    let name = imageurl.lastPathComponent
-                    if name.lowercased().contains("gif")
+               // DispatchQueue.main.async {
+                    if let imageurl = URL.init(string: obj.image!)
                     {
-                        let imageURL = UIImage.gifImageWithURL(obj.image!)
-                        cell.imgCell.image = imageURL
+                        let name = imageurl.lastPathComponent
+                        if name.lowercased().contains("gif")
+                        {
+                             cell.imgCell.image = nil
+                            DispatchQueue.main.async {
+                                let imageURL = UIImage.gifImageWithURL(obj.image!)
+                                cell.imgCell.image = imageURL
+                            }
+                        }
+                        else{
+                            cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
+                                
+                            })
+                        }
                     }
                     else{
                         cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
                             
                         })
                     }
-                }
-                else{
-                    cell.imgCell.sd_setImage(with: URL.init(string: obj.image!), completed: { (image, error, type, url) in
-                        
-                    })
-                }
+              //  }
+                
                
             }
             if indexPath.row % 2 == 0

@@ -45,6 +45,7 @@ class CustomVC: HelpController {
        // self.collectionView.addSubview(refreshControl)
         // Do any additional setup after loading the view.
     }
+    
     @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
         ManagerWS.shared.fetchIngredientbyTypeID(id) { (success, arrs, code) in
@@ -135,7 +136,7 @@ class CustomVC: HelpController {
         CATransaction.begin()
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
-        rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
+        rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
         rotationAnimation.duration = kSPEED_REODER
         rotationAnimation.repeatCount = 1
         
@@ -187,6 +188,9 @@ class CustomVC: HelpController {
         arrSelected.removeAll()
         self.arrIngredientSelected.removeAll()
         self.collectionView.reloadData()
+        self.btnNext.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+        self.btnNext.setTitle("NEXT", for: .normal)
+        self.btnNext.setImage(UIImage.init(), for: .normal)
     }
     
     override func viewDidLayoutSubviews() {
@@ -242,9 +246,7 @@ class CustomVC: HelpController {
     }
     @objc func initComplete()
     {
-        self.btnNext.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-        self.btnNext.setTitle("Next", for: .normal)
-        self.btnNext.setImage(UIImage.init(), for: .normal)
+      
         let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
         vc.isRedirectCus = true
         vc.arrCusIngredients = self.arrIngredientSelected

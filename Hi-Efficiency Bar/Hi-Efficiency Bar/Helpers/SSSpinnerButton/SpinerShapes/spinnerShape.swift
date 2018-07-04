@@ -64,7 +64,7 @@ enum SpinnerShape {
                         clockwise: true)
             layer.fillColor = nil
             layer.strokeColor = color.cgColor
-            layer.lineWidth = 5
+            layer.lineWidth = 4
         }
         
         layer.backgroundColor = nil

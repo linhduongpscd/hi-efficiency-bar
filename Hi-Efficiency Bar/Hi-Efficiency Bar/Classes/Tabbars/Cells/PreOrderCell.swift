@@ -31,7 +31,7 @@ class PreOrderCell: UITableViewCell {
         CATransaction.begin()
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotationAnimation.fromValue = 0.0
-        rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
+        rotationAnimation.toValue = -Double.pi * 2 //Minus can be Direction
         rotationAnimation.duration = kSPEED_REODER
         rotationAnimation.repeatCount = 1
         CATransaction.setCompletionBlock {
