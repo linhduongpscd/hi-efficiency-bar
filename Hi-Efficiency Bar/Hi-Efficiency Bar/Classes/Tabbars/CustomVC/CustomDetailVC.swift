@@ -72,6 +72,7 @@ class CustomDetailVC: HelpController {
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
+         self.navigationController?.isNavigationBarHidden = false
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
         let btnRight = UIBarButtonItem.init(customView: subNaviRight)
         self.navigationItem.rightBarButtonItem = btnRight

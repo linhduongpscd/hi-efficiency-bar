@@ -57,6 +57,7 @@ enum SpinnerShape {
             layer.fillColor = color.cgColor
             
         case .stroke:
+            
             path.addArc(withCenter: CGPoint(x: size.width / 2, y: size.height / 2),
                         radius: size.width / 2,
                         startAngle: -(.pi / 2),
@@ -66,7 +67,6 @@ enum SpinnerShape {
             layer.strokeColor = color.cgColor
             layer.lineWidth = 4
         }
-        
         layer.backgroundColor = nil
         layer.path = path.cgPath
         layer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)

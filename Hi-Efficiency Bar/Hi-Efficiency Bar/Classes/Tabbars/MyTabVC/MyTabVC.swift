@@ -201,6 +201,24 @@ class MyTabVC: BaseViewController {
             })
         }
     }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print(velocity.y)
+        if(velocity.y>0) {
+            //Code will work without the animation block.I am using animation block incase if you want to set any delay to it.
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                print("Hide")
+            }, completion: nil)
+            
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                print("Unhide")
+            }, completion: nil)
+        }
+    }
+    
     @IBAction func doMakeMeADrink(_ sender: SSSpinnerButton) {
         
         if self.arrMyTabs.count == 0
@@ -264,9 +282,11 @@ extension MyTabVC: MXParallaxHeaderDelegate
         if parallaxHeader.progress > 0.0
         {
             self.navigationItem.title = "My Tab"
+            
         }
         else{
             self.navigationItem.title = ""
+            
         }
     }
 }

@@ -29,6 +29,7 @@ class CloseBar: UIView, UITableViewDataSource, UITableViewDelegate {
     }
     @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
+        
         refreshControl.endRefreshing()
         self.tapRefresh?()
     }

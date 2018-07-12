@@ -21,6 +21,7 @@ class AgeVerificationVC: BaseViewController {
         super.viewDidLoad()
         btnConfirm.spinnerColor = .white
         txfBirthday.becomeFirstResponder()
+        //txfBirthday.text = "05-21-1990"
         // Do any additional setup after loading the view.
     }
 
@@ -102,7 +103,7 @@ class AgeVerificationVC: BaseViewController {
                 UserDefaults.standard.synchronize()
                 sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
                 sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
-                self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.25)
+                self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.55)
                 
             }
             else{

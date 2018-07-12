@@ -19,37 +19,37 @@ class SSCircleStrokeSpin: SSSpinnerAnimationDelegate {
     ///   - frame: frame of parant layer
     ///   - color: color of spinner
     func setupSpinnerAnimation(layer: CALayer, frame: CGRect, color: UIColor) {
-        
+          print(frame)
         let defaultPadding: CGFloat = 5.0
         let sizeValue = max(min(frame.width, frame.height) - defaultPadding, 1.0)
         
-        let beginTime: Double = 0.5
+        let beginTime: Double = 1.2
         let strokeStartDuration: Double = 1.2
-        let strokeEndDuration: Double = 0.7
+        let strokeEndDuration: Double = 0.8
         
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-        rotationAnimation.byValue = Float.pi * 2
+        rotationAnimation.byValue = 1
         rotationAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         
         let strokeEndAnimation = CABasicAnimation(keyPath: "strokeEnd")
         strokeEndAnimation.duration = strokeEndDuration
-        strokeEndAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0.0, 0.2, 1.0)
+        strokeEndAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.0, 0.0, 0.0, 0.0)
         strokeEndAnimation.fromValue = 0
         strokeEndAnimation.toValue = 1
         
         let strokeStartAnimation = CABasicAnimation(keyPath: "strokeStart")
         strokeStartAnimation.duration = strokeStartDuration
-        strokeStartAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.4, 0.0, 0.2, 1.0)
+        strokeStartAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.0, 0.0, 0.0, 0.0)
         strokeStartAnimation.fromValue = 0
         strokeStartAnimation.toValue = 1
         strokeStartAnimation.beginTime = beginTime
         
         let groupAnimation = CAAnimationGroup()
-        groupAnimation.animations = [rotationAnimation, strokeEndAnimation, strokeStartAnimation]
+        groupAnimation.animations = [strokeEndAnimation, strokeStartAnimation]
         groupAnimation.duration = strokeStartDuration + beginTime
         groupAnimation.repeatCount = .infinity
-        groupAnimation.isRemovedOnCompletion = false
-        groupAnimation.fillMode = kCAFillModeForwards
+        groupAnimation.isRemovedOnCompletion = true
+        groupAnimation.fillMode = kCAFillModeBoth
         
         let circle = SpinnerShape.stroke.layerWith(size: CGSize(width: sizeValue, height: sizeValue), color: color)
         let frame = CGRect(

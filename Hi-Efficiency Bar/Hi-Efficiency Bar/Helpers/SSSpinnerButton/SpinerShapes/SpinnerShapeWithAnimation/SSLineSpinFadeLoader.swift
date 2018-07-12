@@ -19,7 +19,7 @@ class SSLineSpinFadeLoader: SSSpinnerAnimationDelegate {
     ///   - frame: frame of parant layer
     ///   - color: color of spinner
     func setupSpinnerAnimation(layer: CALayer, frame: CGRect, color: UIColor) {
-        
+      
         let defaultPadding: CGFloat = 1.0
         
         let sizeValue = max(min(frame.width, frame.height) - defaultPadding, 1.0)

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MXParallaxHeader
 class CustomVC: HelpController {
     var tapSelectedIng: (() ->())?
     @IBOutlet var subNavi: UIView!
@@ -23,6 +23,7 @@ class CustomVC: HelpController {
     var id =  Int()
      var closeBar = CloseBar.init(frame: .zero)
     @IBOutlet weak var btnNext: SSSpinnerButton!
+    @IBOutlet weak var heightNavi: NSLayoutConstraint!
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -33,15 +34,26 @@ class CustomVC: HelpController {
         refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
         return refreshControl
     }()
+    @IBOutlet weak var lblNavi: UILabel!
+    @IBOutlet weak var constraintBottomNavi: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Custom"
         
         self.registerCell()
-        self.customNavi()
         self.fecthingredientType()
         lblNoData.isHidden = true
+       
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 2436:
+                print("iPhone X")
+                heightNavi.constant = 84
+            default:
+                print("unknown")
+            }
+        }
        // self.collectionView.addSubview(refreshControl)
         // Do any additional setup after loading the view.
     }
@@ -115,6 +127,7 @@ class CustomVC: HelpController {
             else{
                 CommonHellper.hideBusy()
                 self.arrDatas = arrs!
+               
                 if self.arrDatas.count == 0
                 {
                     self.lblNoData.isHidden = false
@@ -126,11 +139,8 @@ class CustomVC: HelpController {
             }
         }
     }
-    func customNavi()
-    {
-        let btn = UIBarButtonItem.init(customView: subNavi)
-        self.navigationItem.rightBarButtonItem = btn
-    }
+   
+    
     @IBAction func doReset(_ sender: Any) {
 
         CATransaction.begin()
@@ -176,14 +186,12 @@ class CustomVC: HelpController {
             let obj = self.arrTypes[headerView.currentDot]
             headerView.lblName.text = obj.name
         }
+        collectionView.parallaxHeader.delegate = self
         collectionView.parallaxHeader.view = headerView
         collectionView.parallaxHeader.height = 195 + (UIScreen.main.bounds.size.width - 320)
         collectionView.parallaxHeader.mode = .fill
     }
     override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationController?.navigationBar.isTranslucent = true
         super.viewWillAppear(animated)
         arrSelected.removeAll()
         self.arrIngredientSelected.removeAll()
@@ -191,6 +199,7 @@ class CustomVC: HelpController {
         self.btnNext.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
         self.btnNext.setTitle("NEXT", for: .normal)
         self.btnNext.setImage(UIImage.init(), for: .normal)
+         self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -229,7 +238,7 @@ class CustomVC: HelpController {
             }
             sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
             sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
-            self.perform(#selector(self.initStopAnimal), with: nil, afterDelay: 0.25)
+            self.perform(#selector(self.initStopAnimal), with: nil, afterDelay: 0.55)
         }
        
     }
@@ -333,6 +342,7 @@ extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
             let commentView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TopSectionViewCell", for: indexPath) as! TopSectionViewCell
             let obj = self.arrDatas[indexPath.section]
             commentView.lblTitle.text = obj.name
+            
             return commentView
         }
         else{
@@ -353,5 +363,24 @@ extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         return CGSize(width: UIScreen.main.bounds.size.width, height: 0)
     }
     
+    
+}
+extension CustomVC: MXParallaxHeaderDelegate
+{
+    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
+       // print(parallaxHeader.progress)
+        
+        if parallaxHeader.progress > 1.0
+        {
+            parallaxHeader.view?.transform = CGAffineTransform.identity
+           // self.lblNavi.transform = CGAffineTransform.identity
+            constraintBottomNavi.constant = 15.0
+        }
+        else{
+            parallaxHeader.view?.transform = CGAffineTransform.init(scaleX: parallaxHeader.progress, y: parallaxHeader.progress)
+            //rself.lblNavi.transform = CGAffineTransform.init(scaleX: parallaxHeader.progress, y: parallaxHeader.progress)
+            self.constraintBottomNavi.constant = 100
+        }
+    }
     
 }

@@ -712,7 +712,7 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                 }
                 return CGSize(width: (collectionView.frame.size.width - 4)/2, height: 50)
             }
-            return CGSize(width:( UIScreen.main.bounds.size.width - 10)/2, height:  170)
+            return CGSize(width:( UIScreen.main.bounds.size.width - 10)/2, height:  190)
         }
         
     }

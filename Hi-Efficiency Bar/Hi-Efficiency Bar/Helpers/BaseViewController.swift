@@ -19,23 +19,26 @@ class BaseViewController: UIViewController {
     func configHideNaviScroll(_ collection: UICollectionView)
     {
          hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: collection)
+        hidingNavBarManager?.delegate = self
     }
     
     func configHideNaviTable(_ table: UITableView)
     {
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: table)
+        hidingNavBarManager?.delegate = self
     }
     
     func configHideNaviScroll(_ scroll: UIScrollView)
     {
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scroll)
+        hidingNavBarManager?.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hidingNavBarManager?.viewWillAppear(animated)
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.view.backgroundColor = .white
-        self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
+        //self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
         if APP_DELEGATE.isRedirectMyTab {
             self.tabBarController?.selectedIndex = 3
             APP_DELEGATE.isRedirectMyTab = false
@@ -93,4 +96,51 @@ class BaseViewController: UIViewController {
 
 }
 
+
+extension BaseViewController: HidingNavigationBarManagerDelegate
+{
+    func hidingNavigationBarManagerShouldUpdateScrollViewInsets(_ manager: HidingNavigationBarManager, insets: UIEdgeInsets) -> Bool {
+        
+        if #available(iOS 11.0, *) {
+            if insets.top == 0
+            {
+                self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: FONT_APP.AlrightSans_Regular, size: 24)!, NSAttributedStringKey.foregroundColor: UIColor.darkGray]
+            }
+            else{
+                print(insets.top)
+                if insets.top > 0
+                {
+                    self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: FONT_APP.AlrightSans_Regular, size: 24)!, NSAttributedStringKey.foregroundColor: UIColor.darkGray]
+                }
+                else{
+                    self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: FONT_APP.AlrightSans_Regular, size: 24 + insets.top/2)!, NSAttributedStringKey.foregroundColor: UIColor.darkGray]
+                }
+                
+            }
+        } else {
+            if insets.top > 44
+            {
+                self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: FONT_APP.AlrightSans_Regular, size: 24)!, NSAttributedStringKey.foregroundColor: UIColor.darkGray]
+            }
+            else{
+                print(24 + (44/2 - insets.top))
+                self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: FONT_APP.AlrightSans_Regular, size: 24 + (insets.top - 44))!, NSAttributedStringKey.foregroundColor: UIColor.darkGray]
+            }
+            // or use some work around
+        }
+      
+        
+        return true
+    }
+    
+    func hidingNavigationBarManagerDidUpdateScrollViewInsets(_ manager: HidingNavigationBarManager) {
+        
+    }
+    
+    func hidingNavigationBarManagerDidChangeState(_ manager: HidingNavigationBarManager, toState state: HidingNavigationBarState) {
+        
+    }
+    
+    
+}
 

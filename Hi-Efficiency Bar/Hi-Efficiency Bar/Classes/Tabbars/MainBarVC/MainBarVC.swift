@@ -25,15 +25,13 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
         return refreshControl
     }()
-    
     var arrSlices = [MainBarObj]()
     var offset = 0
     var isLoadMore = false
     var arrDrinks = [DrinkObj]()
     var drinkObj = DrinkObj.init(dict: NSDictionary.init())
     var indexPathCell: IndexPath?
-    var mainBarViewCell = MainBarViewCell.init(frame: .zero)
-    
+    var mainBarViewCell = MainBarViewCell.init(frame: .zero)    
     override func viewDidLoad() {
         ASFSharedViewTransition.addWith(fromViewControllerClass: MainBarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.4)
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
