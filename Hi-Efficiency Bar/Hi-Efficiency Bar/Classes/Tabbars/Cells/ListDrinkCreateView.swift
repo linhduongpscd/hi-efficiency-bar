@@ -18,13 +18,6 @@ class ListDrinkCreateView: UIView, UICollectionViewDelegate, UICollectionViewDat
     var indexPathCell: IndexPath?
     var createDrinkCollect = CreateDrinkCollect.init(frame: .zero)
     @IBOutlet weak var topListSearch: NSLayoutConstraint!
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     @IBAction func doClose(_ sender: Any) {
         arrDatas.removeAll()
         UIView.animate(views: collectionView!.visibleCells,
@@ -49,7 +42,10 @@ class ListDrinkCreateView: UIView, UICollectionViewDelegate, UICollectionViewDat
             })
             
         }, completion: nil)
+        
     }
+   
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }

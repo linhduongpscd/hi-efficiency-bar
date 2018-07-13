@@ -46,6 +46,7 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var collectionSearch: UICollectionView!
     @IBOutlet weak var imgMutiple: UIImageView!
     @IBOutlet weak var topSubSearchTag: NSLayoutConstraint!
+    var panGesture       = UIPanGestureRecognizer()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initController()
@@ -357,6 +358,12 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
         }
     }
     @IBAction func doDrink(_ sender: Any) {
+        self.addDrink()
+       
+    }
+    
+    func addDrink()
+    {
         listDrinkCreateView = Bundle.main.loadNibNamed("ListDrinkCreateView", owner: self, options: nil)?[0] as! ListDrinkCreateView
         listDrinkCreateView.frame = UIScreen.main.bounds
         listDrinkCreateView.arrDrinks = self.arrDrinkCreate
@@ -375,10 +382,10 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
             
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        view.addSubview(listDrinkCreateView)
+      
         
     }
-    
+
     func makeReadSearch()
     {
         for recod in arrIngredientSearch {
@@ -506,6 +513,7 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
                         
                     })
                 }
+                self.listDrinkCreateView.removeFromSuperview()
             }
             
         })
