@@ -18,6 +18,8 @@ class ListDrinkCreateView: UIView, UICollectionViewDelegate, UICollectionViewDat
     var indexPathCell: IndexPath?
     var createDrinkCollect = CreateDrinkCollect.init(frame: .zero)
     @IBOutlet weak var topListSearch: NSLayoutConstraint!
+    @IBOutlet weak var rightListSearch: NSLayoutConstraint!
+    @IBOutlet weak var subBG: UIView!
     @IBAction func doClose(_ sender: Any) {
         arrDatas.removeAll()
         UIView.animate(views: collectionView!.visibleCells,
@@ -30,6 +32,19 @@ class ListDrinkCreateView: UIView, UICollectionViewDelegate, UICollectionViewDat
         })
     }
     
+    func removeListSearch()
+    {
+        arrDatas.removeAll()
+        UIView.animate(views: collectionView!.visibleCells,
+                       animations: animations, reversed: true,
+                       initialAlpha: 1.0,
+                       finalAlpha: 0.0,
+                       completion: {
+                        self.collectionView?.reloadData()
+                        self.subBG.alpha = 0.0
+                        self.tapCloseList?()
+        })
+    }
     func registerCell()
     {
         self.collectionView.register(UINib(nibName: "CreateDrinkCollect", bundle: nil), forCellWithReuseIdentifier: "CreateDrinkCollect")
@@ -74,7 +89,7 @@ class ListDrinkCreateView: UIView, UICollectionViewDelegate, UICollectionViewDat
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        
+        print((collectionView.frame.size.width - 2)/2)
         return CGSize(width: (collectionView.frame.size.width - 2)/2, height:  (collectionView.frame.size.width - 2)/2)
     }
     

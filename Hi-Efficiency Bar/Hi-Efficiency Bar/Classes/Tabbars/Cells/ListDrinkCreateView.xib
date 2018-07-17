@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="SXk-AI-NiU">
-                    <rect key="frame" x="10" y="84" width="355" height="583"/>
+                    <rect key="frame" x="10" y="104" width="355" height="563"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="2XS-O2-hpA">
                         <size key="itemSize" width="50" height="50"/>
@@ -40,7 +40,7 @@
                     </connections>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6D-li-LBT">
-                    <rect key="frame" x="20" y="39" width="50" height="31"/>
+                    <rect key="frame" x="20" y="74" width="50" height="31"/>
                     <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="19"/>
                     <state key="normal" title="Close">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -55,18 +55,20 @@
                 <constraint firstItem="SXk-AI-NiU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="1QK-vz-gw6"/>
                 <constraint firstItem="wKE-8I-qk8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="3KI-BH-OX7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="SXk-AI-NiU" secondAttribute="bottom" id="3ZG-CK-3UB"/>
-                <constraint firstItem="SXk-AI-NiU" firstAttribute="top" secondItem="g6D-li-LBT" secondAttribute="bottom" constant="14" id="3xj-yA-i3J"/>
                 <constraint firstItem="g6D-li-LBT" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Tic-qS-dTd"/>
-                <constraint firstItem="SXk-AI-NiU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="64" id="ep8-55-Rla"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SXk-AI-NiU" secondAttribute="trailing" constant="10" id="gzU-fc-CJJ"/>
                 <constraint firstItem="wKE-8I-qk8" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="o2y-Bi-CP2"/>
+                <constraint firstItem="SXk-AI-NiU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="104" id="qoQ-L9-DfL"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="wKE-8I-qk8" secondAttribute="bottom" id="qzE-D5-Vg6"/>
+                <constraint firstItem="g6D-li-LBT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="74" id="rq2-7O-vHc"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="wKE-8I-qk8" secondAttribute="trailing" id="xdi-zQ-e0Y"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="collectionView" destination="SXk-AI-NiU" id="lIF-Td-igj"/>
-                <outlet property="topListSearch" destination="ep8-55-Rla" id="JP4-O4-dQb"/>
+                <outlet property="rightListSearch" destination="1QK-vz-gw6" id="bWr-Ra-r1E"/>
+                <outlet property="subBG" destination="wKE-8I-qk8" id="FZd-H0-DW8"/>
+                <outlet property="topListSearch" destination="qoQ-L9-DfL" id="OUU-uo-bfk"/>
             </connections>
         </view>
     </objects>

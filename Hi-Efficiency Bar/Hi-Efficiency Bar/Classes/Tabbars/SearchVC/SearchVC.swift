@@ -47,6 +47,9 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
     @IBOutlet weak var imgMutiple: UIImageView!
     @IBOutlet weak var topSubSearchTag: NSLayoutConstraint!
     var panGesture       = UIPanGestureRecognizer()
+    var arrSearchs = [DrinkObj]()
+    var arrSubViewAdd = [UIImageView]()
+    var indexAnimal = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initController()
@@ -60,8 +63,8 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
         viewDrink.isHidden = true
         subSearchTag.isHidden = true
        
-        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        self.viewDrink.addGestureRecognizer(gestureRecognizer)
+        //let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        //self.viewDrink.addGestureRecognizer(gestureRecognizer)
          ASFSharedViewTransition.addWith(fromViewControllerClass: SearchVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
     }
     @IBAction func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
@@ -374,7 +377,7 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
         if #available(iOS 11.0, *) {
         }
         else{
-            listDrinkCreateView.topListSearch.constant = 120
+            listDrinkCreateView.topListSearch.constant = 104
         }
         listDrinkCreateView.tapDetailDrink = { [] in
             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
@@ -382,7 +385,61 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
             
             self.navigationController?.pushViewController(vc, animated: true)
         }
-      
+        self.view.addSubview(listDrinkCreateView)
+//        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panningMyView))
+//        listDrinkCreateView.collectionView.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    @objc func panningMyView(_ panGesture: UIPanGestureRecognizer?) {
+        
+        let currentPoint: CGPoint = panGesture!.location(in: self.listDrinkCreateView)
+        if panGesture?.state == .changed
+        {
+            self.listDrinkCreateView.topListSearch.constant = currentPoint.y
+            self.listDrinkCreateView.rightListSearch.constant = currentPoint.x
+            
+            
+            if currentPoint.x <= 0
+            {
+                self.listDrinkCreateView.rightListSearch.constant = 10
+            }
+            if currentPoint.y <= 100
+            {
+                self.listDrinkCreateView.topListSearch.constant = 104
+            }
+            
+            if currentPoint.y > (UIScreen.main.bounds.size.height - 104) - 100
+            {
+                 self.listDrinkCreateView.removeListSearch()
+            }
+            else{
+                UIView.animate(withDuration: 0.01, animations: {
+                      self.listDrinkCreateView.collectionView.reloadItems(at: self.listDrinkCreateView.collectionView.indexPathsForVisibleItems)
+                }) { (success) in
+                    
+                }
+              
+            }
+        }
+        else{
+            if panGesture?.state == .ended
+            {
+                if currentPoint.y < (UIScreen.main.bounds.size.height - 104) - 100
+                {
+                    self.listDrinkCreateView.rightListSearch.constant = 10
+                     self.listDrinkCreateView.topListSearch.constant = 104
+                    self.listDrinkCreateView.layoutIfNeeded()
+                    UIView.animate(withDuration: 0.01, animations: {
+                         self.listDrinkCreateView.collectionView.reloadData()
+                    }) { (success) in
+                        
+                    }
+                   
+                }
+            }
+        }
+        
+        
         
     }
 
@@ -513,6 +570,7 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
                         
                     })
                 }
+              
                 self.listDrinkCreateView.removeFromSuperview()
             }
             
@@ -681,6 +739,48 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         
         
     }
+    func animateWithTransition(_ animator: AAViewAnimators, _ animationView: UIView) {
+        animationView.aa_animate(duration: 0.5, springDamping: .slight, animation: animator) { inAnimating in
+            
+            if inAnimating {
+                print("Animating ....")
+            }
+            else {
+                print("Animation Done 👍🏻")
+                self.indexAnimal = self.indexAnimal + 1
+                if self.indexAnimal == self.arrDrinkCreate.count
+                {
+                    self.indexAnimal = 0
+                }
+                else{
+                    if self.indexAnimal > self.arrDrinkCreate.count
+                    {
+                        self.indexAnimal = 0
+                        return
+                    }
+                    let obj = self.arrDrinkCreate[self.indexAnimal]
+                    if obj.image != nil
+                    {
+                        let imageView = UIImageView.init()
+                        imageView.sd_setImage(with: URL.init(string: (obj.image!)), completed: { (image, error, type, url) in
+                            let testFrame : CGRect = CGRect(x:10,y:10,width:94,height:102)
+                            var testView : UIImageView = UIImageView(frame: testFrame)
+                            testView.image = image
+                            self.viewDrink.addSubview(testView)
+                             testView.backgroundColor = UIColor.white
+                            self.arrSubViewAdd.append(testView)
+                            self.animateWithTransition(.fromRight, testView)
+                            self.animateSender(testView)
+                        })
+                    }
+                }
+            }
+        }
+    }
+    
+    func animateSender(_ sender: UIView) {
+        sender.aa_animate(duration: 0.05, animation: .vibrateX(rate: 5))
+    }
     
     func configCell(_ cell: IngreItemCollect, _ obj: IngredientSearchObj)
     {
@@ -749,9 +849,27 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                 return UIEdgeInsetsMake(0, 0, 0, 0)
             }
         }
-        
-       
     }
+    
+    func oldListDrink() -> [Int]
+    {
+        var arrs = [Int]()
+        for obj in self.arrDrinkCreate
+        {
+            arrs.append(obj.id!)
+        }
+        return arrs
+    }
+    func NewListDrink(_ lists: [DrinkObj]) -> [Int]
+    {
+        var arrs = [Int]()
+        for obj in lists
+        {
+            arrs.append(obj.id!)
+        }
+        return arrs
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if collectionView == collectionSearch
     {
@@ -787,26 +905,59 @@ extension SearchVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                 //CommonHellper.showBusy()
                 ManagerWS.shared.createDrinkByUser(self.convertToParamSearchDrinkByUser(), complete: { (success, arrs) in
                    // CommonHellper.hideBusy()
-                    self.arrDrinkCreate = arrs!
+                    
+                  
                     if arrs?.count == 0
                     {
+                        self.arrDrinkCreate = arrs!
                         self.viewDrink.isHidden = true
+                        for uiimage in self.arrSubViewAdd
+                        {
+                            UIView.animate(withDuration: 0.01, animations: {
+                                uiimage.alpha = 0
+                            }, completion: { (success) in
+                                uiimage.removeFromSuperview()
+                            })
+                        }
+                        self.arrSubViewAdd.removeAll()
                     }
                     else{
-                        self.viewDrink.isHidden = false
-                        if arrs?.count == 1
+                        if !self.oldListDrink().containsSameElements(as: self.NewListDrink(arrs!))
                         {
-                             self.imgMutiple.isHidden = true
+                            self.arrDrinkCreate = arrs!
+                            self.imgMutiple.isHidden = false
+                            self.viewDrink.isHidden = false
+                            for uiimage in self.arrSubViewAdd
+                            {
+                                UIView.animate(withDuration: 0.01, animations: {
+                                    uiimage.alpha = 0
+                                }, completion: { (success) in
+                                    uiimage.removeFromSuperview()
+                                })
+                            }
+                            
+                            self.arrSubViewAdd.removeAll()
+                            let obj = arrs![0]
+                            if obj.image != nil
+                            {
+                                self.imgDrink.image = nil
+                                //let imageView = UIImageView.init()
+                                let testFrame : CGRect = CGRect(x:10,y:10,width:94,height:102)
+                                var testView : UIImageView = UIImageView(frame: testFrame)
+                                testView.backgroundColor = UIColor.white
+                                
+                                self.viewDrink.addSubview(testView)
+                                self.arrSubViewAdd.append(testView)
+                                testView.sd_setImage(with: URL.init(string: (obj.image!)), completed: { (image, error, type, url) in
+                                    
+                                    self.animateWithTransition(.fromRight, testView)
+                                    self.animateSender(testView)
+                                    
+                                })
+                            }
                         }
                         else{
-                            self.imgMutiple.isHidden = false
-                        }
-                        let obj = arrs!.last
-                        if obj?.image != nil
-                        {
-                            self.imgDrink.sd_setImage(with: URL.init(string: (obj?.image!)!), completed: { (image, error, type, url) in
-                                
-                            })
+                            self.arrDrinkCreate = arrs!
                         }
                     }
                     
