@@ -26,10 +26,7 @@ class PreOrderVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tblOrder.register( UINib(nibName: "HeaderPreOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderPreOrderCell")
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.view.backgroundColor = .white
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
         self.configHideNaviTable(tblOrder)
         self.fectAllOrder(true)
         self.tblOrder.addSubview(refreshControl)
@@ -108,13 +105,11 @@ extension PreOrderVC: UITableViewDataSource, UITableViewDelegate
         let cell = self.tblOrder.dequeueReusableCell(withIdentifier: "HeaderPreOrderCell") as! HeaderPreOrderCell
         cell.userOrderObj = arrOrders[indexPath.row]
         cell.lblOrder.text = "Order #\(cell.userOrderObj.id!)"
-        cell.lblPrice.text = "$\(cell.userOrderObj.amount!)"
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        guard let date = dateFormatter.date(from: cell.userOrderObj.creation_date!) else {
-            fatalError("ERROR: Date conversion failed due to mismatched format.")
+        if cell.userOrderObj.amount != nil
+        {
+            cell.lblPrice.text = "$\(cell.userOrderObj.amount!)"
         }
-        cell.lblTimeAgo.text = timeAgoSince(date)
+      
         cell.tapShowMoreHeader = { [] in
             tableView.reloadData()
         }
@@ -141,6 +136,22 @@ extension PreOrderVC: UITableViewDataSource, UITableViewDelegate
         }
         cell.tapReorderProduct = {[] in
             self.tabBarController?.selectedIndex = 3
+        }
+        if cell.userOrderObj.creation_date != nil
+        {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            if  dateFormatter.date(from: cell.userOrderObj.creation_date!) != nil {
+                let date = dateFormatter.date(from: cell.userOrderObj.creation_date!)
+                cell.lblTimeAgo.text = timeAgoSince(date!)
+            } else {
+                // invalid format
+                print("ERROR")
+            }
+            
+        }
+        else{
+            cell.lblTimeAgo.text = ""
         }
         return cell
     }

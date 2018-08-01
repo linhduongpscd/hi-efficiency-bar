@@ -25,6 +25,9 @@ class SignUpVC: BaseViewController {
     @IBOutlet weak var btnSignUp: SSSpinnerButton!
     @IBOutlet weak var txfLastName: UITextField!
     var stringBirthday = ""
+    var timer: Timer?
+    var indexSecond = 0.0
+    var isSuccess = false
     override func viewDidLoad() {
         super.viewDidLoad()
         btnSignUp.spinnerColor = .white
@@ -106,6 +109,54 @@ class SignUpVC: BaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
    
+    var success: Bool?
+    var error: ErrorModel?
+    @objc func timeSecond()
+    {
+        indexSecond = indexSecond + 0.1
+        if indexSecond == MAX_SECOND
+        {
+            if isSuccess
+            {
+                print("SUCCESS")
+                timer?.invalidate()
+                timer = nil
+                if success!
+                {
+                    
+                    self.btnSignUp.stopAnimate(complete: {
+                        
+                        self.btnSignUp.alpha = 0.1
+                        UIView.animate(withDuration: 0.5, animations: {
+                            self.btnSignUp.alpha = 1.0
+                            self.removeLoadingView()
+                            self.btnSignUp.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                            self.btnSignUp.setTitle("", for: .normal)
+                            self.btnSignUp.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                        }, completion: { (success) in
+                            
+                            self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
+                        })
+                    })
+                    
+                }
+                else{
+                    timer?.invalidate()
+                    timer = nil
+                    btnSignUp.stopAnimate(complete: {
+                        self.btnSignUp.setTitle("SIGN UP", for: .normal)
+                        self.btnSignUp.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                        self.removeLoadingView()
+                        self.showAlertMessage(message: (self.error?.msg!)!)
+                    })
+                    self.showAlertMessage(message: (error?.msg!)!)
+                }
+            }
+            else{
+                indexSecond =  0.1
+            }
+        }
+    }
     @IBAction func actionSignUp(_ sender: SSSpinnerButton) {
       
         let name = CommonHellper.trimSpaceString(txtString: txfName.text!)
@@ -169,28 +220,13 @@ class SignUpVC: BaseViewController {
         self.addLoadingView()
         sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
         sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
-        
+        indexSecond = 0.1
+        self.isSuccess = false
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeSecond), userInfo: nil, repeats: true)
         ManagerWS.shared.register(para, self.imageAvatar, complete: { (success, error) in
-            if success!
-            {
-                sender.stopAnimate(complete: {
-                     self.removeLoadingView()
-                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                    self.btnSignUp.setTitle("", for: .normal)
-                    self.btnSignUp.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                    self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
-                })
-                
-            }
-            else{
-                sender.stopAnimate(complete: {
-                    self.btnSignUp.setTitle("SIGN UP", for: .normal)
-                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                    self.removeLoadingView()
-                    self.showAlertMessage(message: (error?.msg!)!)
-                })
-                self.showAlertMessage(message: (error?.msg!)!)
-            }
+            self.isSuccess = true
+            self.success = success
+            self.error = error
         })
         
     }

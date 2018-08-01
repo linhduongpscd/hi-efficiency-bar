@@ -23,6 +23,9 @@ class SignInVC: BaseViewController {
     @IBOutlet weak var imgTouch: UIImageView!
     @IBOutlet weak var lblTouch: UILabel!
     @IBOutlet weak var traingPasword: NSLayoutConstraint!
+    var timer: Timer?
+    var indexSecond = 0.0   
+    var isSuccess = false
     override func viewDidLoad() {
         super.viewDidLoad()
         btnSignIn.spinnerColor = .white
@@ -44,6 +47,65 @@ class SignInVC: BaseViewController {
         self.authenticationWithTouchID()
     }
     
+    @objc func timeSecond()
+    {
+        indexSecond = indexSecond + 0.1
+        if indexSecond == MAX_SECOND
+        {
+            if isSuccess
+            {
+                print("SUCCESS")
+                timer?.invalidate()
+                timer = nil
+                if isSuccessPai!
+                {
+                    
+                    self.btnSignIn.stopAnimate(complete: {
+                        self.removeLoadingView()
+                        self.btnSignIn.alpha = 0.1
+                        UIView.animate(withDuration: 0.5, animations: {
+                            self.btnSignIn.alpha = 1.0
+                            self.userID = self.idApi!
+                            self.token = self.tokenApi!
+                            self.birthday = self.birthdayApi!
+                            self.removeLoadingView()
+                            self.btnSignIn.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                            self.btnSignIn.setTitle("", for: .normal)
+                            self.btnSignIn.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                            
+                            UserDefaults.standard.setValue(self.txfPassword.text!, forKey: kPassword)
+                            UserDefaults.standard.synchronize()
+                        }, completion: { (success) in
+                            
+                            self.perform(#selector(self.clickAgeVertified), with: nil, afterDelay: 0.5)
+                        })
+                    })
+                    
+                }
+                else{
+                    timer?.invalidate()
+                    timer = nil
+                    btnSignIn.stopAnimate(complete: {
+                        self.btnSignIn.setTitle("SIGN IN", for: .normal)
+                        self.btnSignIn.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                        self.removeLoadingView()
+                        self.showAlertMessage(message: (self.errorApi?.msg!)!)
+                    })
+                    
+                    
+                }
+            }
+            else{
+                indexSecond =  0.1
+            }
+        }
+    }
+    
+    var isSuccessPai: Bool?
+    var errorApi: ErrorModel?
+    var tokenApi: String?
+    var idApi: Int?
+    var birthdayApi: String?
     @IBAction func doSignIn(_ sender: SSSpinnerButton) {
        
         let email = CommonHellper.trimSpaceString(txtString: txfUsername.text!)
@@ -70,71 +132,21 @@ class SignInVC: BaseViewController {
         self.addLoadingView()
         sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
         sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+        indexSecond = 0.1
+          self.isSuccess = false
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeSecond), userInfo: nil, repeats: true)
+        sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white) {
+        }
         ManagerWS.shared.loginUser(para, complete: { (success, error, token,id,birthday)  in
-            if success!
-            {
-                 sender.stopAnimate(complete: {
-                    self.userID = id!
-                    self.token = token!
-                    self.birthday = birthday!
-                    self.removeLoadingView()
-                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                    self.btnSignIn.setTitle("", for: .normal)
-                    self.btnSignIn.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                    
-                    UserDefaults.standard.setValue(password, forKey: kPassword)
-                    UserDefaults.standard.synchronize()
-                    self.perform(#selector(self.clickAgeVertified), with: nil, afterDelay: 0.5)
-                 })
-                
-            }
-            else{
-                sender.stopAnimate(complete: {
-                    self.btnSignIn.setTitle("SIGN IN", for: .normal)
-                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                    self.removeLoadingView()
-                    self.showAlertMessage(message: (error?.msg!)!)
-                })
-                
-                
-            }
+            self.isSuccess = true
+            self.isSuccessPai = success
+            self.errorApi = error
+            self.tokenApi = token
+            self.idApi = id
+            self.birthdayApi = birthday
+            
         })
         
-        
-      
-        /*
-        btnSignIn.startAnimation() // 2: Then start the animation when the user tap the button
-        
-        let qualityOfServiceClass = DispatchQoS.QoSClass.background
-        let backgroundQueue = DispatchQueue.global(qos: qualityOfServiceClass)
-        backgroundQueue.async(execute: {
-            ManagerWS.shared.loginUser(para, complete: { (success, error, token,id,birthday)  in
-                if success!
-                {
-                    self.userID = id!
-                    self.token = token!
-                    self.birthday = birthday!
-                    self.removeLoadingView()
-                    self.btnSignIn.setTitle("", for: .normal)
-                    self.btnSignIn.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                    self.btnSignIn.stopAnimation(animationStyle: .shake, completion: {
-                        
-                        
-                    })
-                    UserDefaults.standard.setValue(password, forKey: kPassword)
-                    UserDefaults.standard.synchronize()
-                    self.perform(#selector(self.clickAgeVertified), with: nil, afterDelay: 0.5)
-                }
-                else{
-                    self.btnSignIn.setTitle("SIGN IN", for: .normal)
-                    self.btnSignIn.stopAnimation(animationStyle: .shake, completion: {
-                        self.removeLoadingView()
-                         self.showAlertMessage(message: (error?.msg!)!)
-                    })
-                   
-                }
-            })
-        }) */
     }
  
     @objc func clickAgeVertified()

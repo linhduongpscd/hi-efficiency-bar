@@ -13,6 +13,9 @@ class ActiveCodeVC: BaseViewController {
     @IBOutlet weak var txfNewPassword: UITextField!
     @IBOutlet weak var btnSubmit: SSSpinnerButton!
     var email = String()
+    var timer: Timer?
+    var indexSecond = 0.0
+    var isSuccess = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -48,7 +51,51 @@ class ActiveCodeVC: BaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @objc func timeSecond()
+    {
+        indexSecond = indexSecond + 0.1
+        if indexSecond == MAX_SECOND
+        {
+            if isSuccess
+            {
+                print("SUCCESS")
+                timer?.invalidate()
+                timer = nil
+                if success!
+                {
+                    self.btnSubmit.stopAnimate(complete: {
+                        self.removeLoadingView()
+                        self.btnSubmit.alpha = 0.1
+                        UIView.animate(withDuration: 0.5, animations: {
+                            self.btnSubmit.alpha = 1.0
+                            self.btnSubmit.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                            self.btnSubmit.setTitle("", for: .normal)
+                            self.btnSubmit.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                        }, completion: { (success) in
+                            
+                            self.perform(#selector(self.successforgot), with: nil, afterDelay: 0.5)
+                        })
+                    })
+                }
+                else{
+                    
+                    btnSubmit.stopAnimate(complete: {
+                        self.removeLoadingView()
+                        self.btnSubmit.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                        self.btnSubmit.setTitle("SUBMIT", for: .normal)
+                    })
+                    self.showAlertMessage(message: self.error!)
+                }
+                
+            }
+            else{
+                indexSecond =  0.1
+            }
+        }
+    }
+    var success: Bool?
+    var error: String?
+    
     @IBAction func doSubmit(_ sender: SSSpinnerButton) {
         let code = CommonHellper.trimSpaceString(txtString: txfCode.text!)
         let passcode = txfNewPassword.text!
@@ -67,27 +114,14 @@ class ActiveCodeVC: BaseViewController {
         self.addLoadingView()
         sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
         sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+        indexSecond = 0.1
+        self.isSuccess = false
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeSecond), userInfo: nil, repeats: true)
         ManagerWS.shared.activeCodeForgot(param: pama, complete: { (success, error) in
-            if success!
-            {
-                self.removeLoadingView()
-                
-               sender.stopAnimate(complete: {
-                 sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                self.btnSubmit.setTitle("", for: .normal)
-                self.btnSubmit.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                })
-                self.perform(#selector(self.successforgot), with: nil, afterDelay: 0.5)
-            }
-            else{
-                
-                sender.stopAnimate(complete: {
-                    self.removeLoadingView()
-                    self.btnSubmit.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                    self.btnSubmit.setTitle("SUBMIT", for: .normal)
-                })
-                self.showAlertMessage(message: error)
-            }
+            self.success = success
+            self.isSuccess = true
+            self.error = error
+            
         })
       
     }

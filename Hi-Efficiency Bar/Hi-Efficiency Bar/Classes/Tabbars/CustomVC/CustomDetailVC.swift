@@ -68,7 +68,7 @@ class CustomDetailVC: HelpController {
     var indexSelected = 0
     
     @IBOutlet weak var lblTotalMl: UILabel!
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
@@ -141,7 +141,7 @@ class CustomDetailVC: HelpController {
         else{
             self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
         }
-        self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+        self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
     }
     
     func changeRationUnitPart()
@@ -205,12 +205,12 @@ class CustomDetailVC: HelpController {
                                 }
                                 if self.glassObj?.unit_view == "oz"
                                 {
-                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) Ml)"
                                 }
                                 else{
-                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_oz!) Oz)"
                                 }
-                                 self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+                                 self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
                                 break
                             }
                             i = i + 1
@@ -232,12 +232,12 @@ class CustomDetailVC: HelpController {
                         }
                         if self.glassObj?.unit_view == "oz"
                         {
-                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) Ml)"
                         }
                         else{
-                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_oz!) Oz)"
                         }
-                         self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+                         self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
                     }
                     
                     
@@ -287,13 +287,13 @@ class CustomDetailVC: HelpController {
                                 }
                                 if self.glassObj?.unit_view == "oz"
                                 {
-                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) Ml)"
                                 }
                                 else{
-                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                                    self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_oz!) Oz)"
                                 }
                                
-                                self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+                                self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
                                 break
                             }
                         }
@@ -314,12 +314,12 @@ class CustomDetailVC: HelpController {
                         }
                         if self.glassObj?.unit_view == "oz"
                         {
-                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
+                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) Ml)"
                         }
                         else{
-                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+                            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_oz!) Oz)"
                         }
-                         self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+                         self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
                     }
                     
                     
@@ -368,7 +368,7 @@ class CustomDetailVC: HelpController {
         else{
             self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
         }
-        self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+        self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
         
     }
     
@@ -664,7 +664,7 @@ class CustomDetailVC: HelpController {
             else{
                 self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
             }
-             self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+             self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
         }
         tab3.isAddCustom = true
         let nav = BaseNaviController.init(rootViewController: tab3)
@@ -705,6 +705,7 @@ class CustomDetailVC: HelpController {
         let para = ["ice": Int(valueIce), "quantity": lblQuanlity.text!, "drink": drinkID] as [String : Any]
         return para
     }
+  
     @IBAction func doAddCustom(_ sender: SSSpinnerButton) {
         if CommonHellper.trimSpaceString(txtString: txfDrinkName.text!).isEmpty
         {
@@ -730,12 +731,20 @@ class CustomDetailVC: HelpController {
                     if ok!
                     {
                       
-                        sender.stopAnimate(complete: {
-                            self.removeLoadingView()
-                            self.btnAddCustom.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                            self.btnAddCustom.setTitle("", for: .normal)
-                            self.btnAddCustom.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                            self.perform(#selector(self.returnCustom), with: nil, afterDelay: 0.5)
+                      
+                        self.btnAddCustom.stopAnimate(complete: {
+                            
+                            self.btnAddCustom.alpha = 0.1
+                            UIView.animate(withDuration: 0.5, animations: {
+                                self.removeLoadingView()
+                                self.btnAddCustom.alpha = 1.0
+                                self.btnAddCustom.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                                self.btnAddCustom.setTitle("", for: .normal)
+                                self.btnAddCustom.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                            }, completion: { (success) in
+                                
+                                self.perform(#selector(self.returnCustom), with: nil, afterDelay: 0.2)
+                            })
                         })
                         
                     }
@@ -843,7 +852,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
             else{
                 self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
             }
-             self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+             self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
         }
         cell.changeUnitView = { [] in
             let alert = UIAlertController(title: nil,
@@ -861,7 +870,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
                     else{
                         self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
                     }
-                     self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+                     self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
                 })
                 alert.addAction(delete)
             }
@@ -887,7 +896,7 @@ extension CustomDetailVC: UITableViewDelegate, UITableViewDataSource
                 else{
                     self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
                 }
-                self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+                self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
                 self.tblDetail.reloadData()
             })
              alert.addAction(delete)
@@ -984,7 +993,7 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
             self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_ml!) ml)"
         }
         else{
-            self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!)"
+           self.lblMaxSize.text = "Max: \(obj.size!) \(obj.unit_view!) (\(obj.change_to_oz!) Oz)"
         }
         self.changeRationUnitPart()
         if self.getTotolRatioUnit() > (self.glassObj?.change_to_ml!)!
@@ -994,7 +1003,7 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         else{
             self.lblMaxSize.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
         }
-         self.lblTotalMl.text =  String(format: "%0.2fml", self.getTotolRatioUnit())
+         self.lblTotalMl.text =  String(format: "%0.2fMl", self.getTotolRatioUnit())
     }
     
     func configCell(_ cell: LyTailCell, glassObj: GlassObj, index: IndexPath)
@@ -1003,43 +1012,65 @@ extension CustomDetailVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         if indexSelected == index.row
         {
             cell.lblName.textColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
-        }
-        else{
-            cell.lblName.textColor = UIColor.black
-        }
-        if glassObj.image != nil
-        {
-            let arrs = glassObj.image?.components(separatedBy: "/")
-            let lastName = arrs?.last
-            let arrLast = lastName?.components(separatedBy: ".")
-            if Int(arrLast!.count) > 0
+            if glassObj.image != nil
             {
-                cell.viewSVG.isHidden = true
-                cell.imgCell.isHidden = true
-                if arrLast![1].lowercased() == "svg"
+                let arrs = glassObj.image?.components(separatedBy: "/")
+                let lastName = arrs?.last
+                let arrLast = lastName?.components(separatedBy: ".")
+                if Int(arrLast!.count) > 0
                 {
-                    
-//                    let svgURL = URL(string: glassObj.image!)!
-//                    let hammock = UIView(SVGURL: svgURL) { (svgLayer) in
-//                        svgLayer.fillColor = UIColor.lightGray.cgColor
-//
-//                         svgLayer.resizeToFit(cell.viewSVG.bounds)
-//                        cell.viewSVG.layer.addSublayer(svgLayer)
-//                    }
-                    
-                }
-                else{
                     cell.viewSVG.isHidden = true
-                     cell.imgCell.isHidden = false
-                    cell.imgCell.sd_setImage(with: URL.init(string: glassObj.image!), completed: { (image, error, type, url) in
-                        if error == nil
-                        {
-                        }
+                    cell.imgCell.isHidden = true
+                    if arrLast![1].lowercased() == "svg"
+                    {
                         
-                    })
+                    }
+                    else{
+                        cell.viewSVG.isHidden = true
+                        cell.imgCell.isHidden = false
+                        cell.imgCell.sd_setImage(with: URL.init(string: glassObj.image!), completed: { (image, error, type, url) in
+                            if error == nil
+                            {
+                                cell.imgCell.image = cell.imgCell.image!.withRenderingMode(.alwaysTemplate)
+                                cell.imgCell.tintColor = UIColor.init(red: 6/255.0, green: 181/255.0, blue: 255/255.0, alpha: 1.0)
+                            }
+                            
+                        })
+                    }
                 }
             }
         }
+        else{
+            cell.lblName.textColor = UIColor.black
+            if glassObj.image != nil
+            {
+                let arrs = glassObj.image?.components(separatedBy: "/")
+                let lastName = arrs?.last
+                let arrLast = lastName?.components(separatedBy: ".")
+                if Int(arrLast!.count) > 0
+                {
+                    cell.viewSVG.isHidden = true
+                    cell.imgCell.isHidden = true
+                    if arrLast![1].lowercased() == "svg"
+                    {
+                        
+                    }
+                    else{
+                        cell.viewSVG.isHidden = true
+                        cell.imgCell.isHidden = false
+                        cell.imgCell.sd_setImage(with: URL.init(string: glassObj.image!), completed: { (image, error, type, url) in
+                            if error == nil
+                            {
+                                cell.imgCell.image = cell.imgCell.image!.withRenderingMode(.alwaysTemplate)
+                                cell.imgCell.tintColor = UIColor.darkGray
+                            }
+                            
+                        })
+                    }
+                }
+            }
+        }
+       
     }
 }
 

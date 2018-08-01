@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,17 +25,17 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="section" translatesAutoresizingMaskIntoConstraints="NO" id="5f6-ZD-GKY">
-                        <rect key="frame" x="89" y="52" width="142" height="150"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CDQ-OF-lat">
-                        <rect key="frame" x="100" y="62" width="120" height="130"/>
+                        <rect key="frame" x="89" y="20" width="142" height="190"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="130" id="Abu-hh-5bZ"/>
-                            <constraint firstAttribute="width" constant="120" id="yhR-5w-tRd"/>
+                            <constraint firstAttribute="height" constant="190" id="Jyc-1O-U1Y"/>
+                            <constraint firstAttribute="width" constant="142" id="t39-XH-KPw"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCI-Pk-8uU">
-                        <rect key="frame" x="160" y="216" width="0.0" height="0.0"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CDQ-OF-lat">
+                        <rect key="frame" x="99" y="30" width="122" height="170"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCI-Pk-8uU">
+                        <rect key="frame" x="10" y="224" width="300" height="0.0"/>
                         <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -44,18 +44,23 @@
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="5f6-ZD-GKY" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="7Ph-fR-a5B"/>
-                <constraint firstItem="CDQ-OF-lat" firstAttribute="centerX" secondItem="5f6-ZD-GKY" secondAttribute="centerX" id="HP5-L6-3TB"/>
+                <constraint firstItem="CDQ-OF-lat" firstAttribute="top" secondItem="5f6-ZD-GKY" secondAttribute="top" constant="10" id="9vz-MR-Q4z"/>
+                <constraint firstItem="5f6-ZD-GKY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="BAf-CL-Lc3"/>
+                <constraint firstItem="CDQ-OF-lat" firstAttribute="trailing" secondItem="5f6-ZD-GKY" secondAttribute="trailing" constant="-10" id="JXm-tR-tFF"/>
                 <constraint firstItem="oCI-Pk-8uU" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="Sj7-JC-EzM"/>
-                <constraint firstItem="CDQ-OF-lat" firstAttribute="centerY" secondItem="5f6-ZD-GKY" secondAttribute="centerY" id="W5F-7s-I29"/>
-                <constraint firstItem="oCI-Pk-8uU" firstAttribute="top" secondItem="5f6-ZD-GKY" secondAttribute="bottom" constant="14" id="qNM-PX-Dux"/>
-                <constraint firstItem="5f6-ZD-GKY" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="52" id="t15-lr-db9"/>
+                <constraint firstItem="CDQ-OF-lat" firstAttribute="bottom" secondItem="5f6-ZD-GKY" secondAttribute="bottom" constant="-10" id="YhI-Rv-Dbw"/>
+                <constraint firstItem="oCI-Pk-8uU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="b0J-T5-1Fx"/>
+                <constraint firstItem="CDQ-OF-lat" firstAttribute="leading" secondItem="5f6-ZD-GKY" secondAttribute="leading" constant="10" id="oEv-gj-w8T"/>
+                <constraint firstAttribute="trailing" secondItem="oCI-Pk-8uU" secondAttribute="trailing" constant="10" id="tSW-Ue-KeO"/>
+                <constraint firstItem="oCI-Pk-8uU" firstAttribute="top" secondItem="5f6-ZD-GKY" secondAttribute="bottom" constant="14" id="y8Z-7F-wQk"/>
+                <constraint firstItem="5f6-ZD-GKY" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="yXz-kA-gKf"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="276" height="253"/>
             <connections>
                 <outlet property="imgCell" destination="CDQ-OF-lat" id="uOA-1c-bpQ"/>
                 <outlet property="lblName" destination="oCI-Pk-8uU" id="I5K-ns-Abg"/>
+                <outlet property="widthImage" destination="t39-XH-KPw" id="WUf-vh-O0U"/>
             </connections>
             <point key="canvasLocation" x="42" y="153.5"/>
         </collectionViewCell>

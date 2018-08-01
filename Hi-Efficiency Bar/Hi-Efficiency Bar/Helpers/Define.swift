@@ -62,6 +62,7 @@ let kLoginApp  = "kLoginApp"
 let kPassword  = "kPassword"
 let kLimitPage = 20
 let kSPEED_REODER = 0.7
+let MAX_SECOND = 0.5
 let KEY_STRIPE = "pk_test_KSMESnZKrSyuNxek4u6JmQPb"
 
 let CONST_SEARCH_BASICS = 0

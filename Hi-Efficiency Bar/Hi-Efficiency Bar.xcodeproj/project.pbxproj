@@ -145,6 +145,8 @@
 		27EB26A5207E0A12009021A2 /* NoDataCollect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB26A3207E0A12009021A2 /* NoDataCollect.swift */; };
 		27EB52D22089E85C009294BA /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EB52D12089E85B009294BA /* WebSocket.swift */; };
 		27EB52D42089E9EA009294BA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 27EB52D32089E9EA009294BA /* libz.tbd */; };
+		27EBC96521018CB600F9E6F6 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EBC96421018CB600F9E6F6 /* BlurView.swift */; };
+		27EBC96721018CED00F9E6F6 /* BlurView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27EBC96621018CED00F9E6F6 /* BlurView.xib */; };
 		27EEF5FA20776AC7007ED912 /* DrinkObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EEF5F920776AC7007ED912 /* DrinkObj.swift */; };
 		27F60F74206B31A4009FDDC0 /* ShowMorePreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27F60F72206B31A4009FDDC0 /* ShowMorePreCell.xib */; };
 		27F60F75206B31A4009FDDC0 /* ShowMorePreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F60F73206B31A4009FDDC0 /* ShowMorePreCell.swift */; };
@@ -410,6 +412,8 @@
 		27EB26A3207E0A12009021A2 /* NoDataCollect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataCollect.swift; sourceTree = "<group>"; };
 		27EB52D12089E85B009294BA /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		27EB52D32089E9EA009294BA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		27EBC96421018CB600F9E6F6 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		27EBC96621018CED00F9E6F6 /* BlurView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlurView.xib; sourceTree = "<group>"; };
 		27EEF5F920776AC7007ED912 /* DrinkObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkObj.swift; sourceTree = "<group>"; };
 		27F60F72206B31A4009FDDC0 /* ShowMorePreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowMorePreCell.xib; sourceTree = "<group>"; };
 		27F60F73206B31A4009FDDC0 /* ShowMorePreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMorePreCell.swift; sourceTree = "<group>"; };
@@ -1082,6 +1086,8 @@
 				2756C6ED20C79916005C55F7 /* CloseBar.xib */,
 				2756C6EF20C79A11005C55F7 /* CloseBarCell.xib */,
 				2756C6F020C79A11005C55F7 /* CloseBarCell.swift */,
+				27EBC96421018CB600F9E6F6 /* BlurView.swift */,
+				27EBC96621018CED00F9E6F6 /* BlurView.xib */,
 			);
 			name = Cells;
 			path = Tabbars/Cells;
@@ -1326,6 +1332,7 @@
 				3B91CAFB2058C2D50073D54B /* Main.storyboard in Resources */,
 				272AD3972064AA0900164856 /* CarouselCollectionViewCell.xib in Resources */,
 				3BB0ED53206003DD00702239 /* ProfileView.xib in Resources */,
+				27EBC96721018CED00F9E6F6 /* BlurView.xib in Resources */,
 				3BFF9C9A2059204500FFA49C /* MainBarViewCell.xib in Resources */,
 				274B99412091B61100E506E2 /* PhotoCropEditorBorder@3x.png in Resources */,
 				2756C6EE20C79916005C55F7 /* CloseBar.xib in Resources */,
@@ -1439,6 +1446,7 @@
 				27FBAF102086E57E00ABF0A4 /* IngredientSearchObj.swift in Sources */,
 				275418BA2068FC0F00DEED32 /* UIViewController+BetterLayoutGuides.m in Sources */,
 				2724343020C137A500F9E832 /* EditProfileVC.swift in Sources */,
+				27EBC96521018CB600F9E6F6 /* BlurView.swift in Sources */,
 				27C692CB206A3C410057156C /* HeaderSearchReusable.swift in Sources */,
 				277A2B7420CE2AC2000712A9 /* SVGParserSupportedElements.swift in Sources */,
 				3BC4CE0D206141FB00CECB57 /* FadeTransition.swift in Sources */,

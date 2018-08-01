@@ -25,6 +25,19 @@ class Ingredient: NSObject {
         self.quanlity_of_bottle = dict["quanlity_of_bottle"] as? Int
         self.type = dict["type"] as? NSDictionary
         self.brand = dict["brand"] as? NSDictionary
-        self.bgColor =  CommonHellper.ramColorViewDetail()
+        if let color = dict["background_color_apps"] as? String
+        {
+            let arrColors = color.components(separatedBy: "-")
+            if arrColors.count >= 2
+            {
+                self.bgColor = UIColor.init(red: CGFloat(Double(arrColors[0])!/255.0), green: CGFloat(Double(arrColors[1])!/255.0), blue: CGFloat(Double(arrColors[2])!/255.0), alpha: 1.0)
+            }
+            else{
+                self.bgColor = UIColor.lightGray
+            }
+        }
+        else{
+            self.bgColor =  UIColor.lightGray
+        }
     }
 }

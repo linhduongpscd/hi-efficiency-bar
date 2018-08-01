@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailTagVC: UIViewController, ASFSharedViewTransitionDataSource {
+class DetailTagVC: BaseViewController, ASFSharedViewTransitionDataSource {
 
     @IBOutlet weak var collectionResult: UICollectionView!
     var stringTag = String()
@@ -38,11 +38,10 @@ class DetailTagVC: UIViewController, ASFSharedViewTransitionDataSource {
         self.fechingredientSearch()
         self.fecthSearchByCategory()
         self.fechDrinkSearch()
+        self.configHideNaviScroll(collectionResult)
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.view.backgroundColor = .white
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
     }

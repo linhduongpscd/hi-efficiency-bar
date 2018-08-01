@@ -36,11 +36,11 @@ class SettingVC: UITableViewController {
             if let password = UserDefaults.standard.value(forKey: kPassword) as? String
             {
                 print(password)
-                return 44
+                return 50
             }
             return 0
         }
-        return 44
+        return 50
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -97,6 +97,21 @@ class SettingVC: UITableViewController {
         else if indexPath.row == 2
         {
             self.showLogout()
+        }
+    }
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print(velocity.y)
+        if(velocity.y>0) {
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                print("Hide")
+            }, completion: nil)
+            
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                print("Unhide")
+            }, completion: nil)
         }
     }
 }

@@ -53,6 +53,10 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
         return refreshControl
     }()
+    var timer: Timer?
+    var indexSecond = 0.0
+    var isSuccess = false
+    var numberItem = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = false
@@ -127,6 +131,63 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
                 }
             }
            
+        }
+    }
+    
+    @objc func timeSecond()
+    {
+        indexSecond = indexSecond + 0.1
+        if indexSecond == MAX_SECOND
+        {
+            if isSuccess
+            {
+                print("SUCCESS")
+                timer?.invalidate()
+                timer = nil
+                if success!
+                {
+                    
+                    btnAddMyCard.stopAnimate(complete: {
+                        self.btnAddMyCard.alpha = 0.1
+                        UIView.animate(withDuration: 0.5, animations: {
+                            self.btnAddMyCard.alpha = 1.0
+                            self.removeLoadingView()
+                            self.btnAddMyCard.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                            self.btnAddMyCard.setTitle("", for: .normal)
+                            self.btnAddMyCard.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                        }, completion: { (success) in
+                            
+                            self.perform(#selector(self.addmyTabSuccess), with: nil, afterDelay: 0.5)
+                        })
+                        
+                    })
+                    
+                }
+                else{
+                    
+                    btnAddMyCard.stopAnimate(complete: {
+                        self.removeLoadingView()
+                        self.btnAddMyCard.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                        self.btnAddMyCard.setTitle("ADD TO MY TAB", for: .normal)
+                        self.btnAddMyCard.setImage(UIImage.init(), for: .normal)
+                        if self.code == SERVER_CODE.CODE_403
+                        {
+                            self.showPopUpCloseBar(true)
+                        }
+                        else{
+                            self.showAlertMessage(message: self.error!)
+                        }
+                        
+                    })
+                    
+                  
+                    
+                }
+                
+            }
+            else{
+                indexSecond =  0.1
+            }
         }
     }
     
@@ -300,51 +361,74 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
             CommonHellper.animateButton(view: lblQuanlity)
         }
     }
+    var success: Bool?
+    var error: String?
+    var code: Int?
     @IBAction func doAddMyTab(_ sender: SSSpinnerButton) {
+       // self.scrollPage.setContentOffset(.zero, animated: true)
         self.addLoadingView()
         sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
         sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+        indexSecond = 0.1
+        self.isSuccess = false
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeSecond), userInfo: nil, repeats: true)
         ManagerWS.shared.addMyTab(para: self.paramAddMyTab(), complete: { (success, error, code) in
-            if success!
-            {
-               
-                sender.stopAnimate(complete: {
-                    self.removeLoadingView()
-                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                    self.btnAddMyCard.setTitle("", for: .normal)
-                    self.btnAddMyCard.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                    
-                })
-                self.perform(#selector(self.addmyTabSuccess), with: nil, afterDelay: 0.5)
-            }
-            else{
-               
-                sender.stopAnimate(complete: {
-                    self.removeLoadingView()
-                    sender.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                     self.btnAddMyCard.setTitle("ADD TO MY TAB", for: .normal)
-                    self.btnAddMyCard.setImage(UIImage.init(), for: .normal)
-                    
-                })
-                
-                if code == SERVER_CODE.CODE_403
-                {
-                    self.showPopUpCloseBar(true)
-                }
-                else{
-                    self.showAlertMessage(message: error!)
-                }
-                
-            }
+            self.isSuccess = true
+            self.success = success
+            self.error = error
+            self.code = code
+
         })
         
     }
-    
+    func animation(tempView : UIView)  {
+        self.view.addSubview(tempView)
+        UIView.animate(withDuration: 1.0,
+                       animations: {
+                        tempView.animationZoom(scaleX: 1.5, y: 1.5)
+        }, completion: { _ in
+            
+            UIView.animate(withDuration: 1.0, animations: {
+                
+                tempView.animationZoom(scaleX: 0.2, y: 0.2)
+                tempView.animationRoted(angle: CGFloat(Double.pi))
+                let tab3 = self.tabBarController?.tabBar.frame
+                tempView.frame.origin.x = (tab3?.origin.x)! - (UIScreen.main.bounds.size.width/5) + ((UIScreen.main.bounds.size.width/5)*4)
+                tempView.frame.origin.y = (tab3?.origin.y)!
+                
+            }, completion: { _ in
+                
+                tempView.removeFromSuperview()
+                
+                UIView.animate(withDuration: 1.0, animations: {
+                    //self.numberItem = self.numberItem + 1
+                    //self.tabBarController?.tabBar.items![3].badgeValue = "\(self.numberItem)"
+                    //self.counterItem += 1
+                   // self.lableNoOfCartItem.text = "\(self.counterItem)"
+                   // self.buttonCart.animationZoom(scaleX: 1.4, y: 1.4)
+                }, completion: {_ in
+                    //self.buttonCart.animationZoom(scaleX: 1.0, y: 1.0)
+                })
+                
+            })
+            
+        })
+    }
     @objc func addmyTabSuccess()
     {
         APP_DELEGATE.isRedirectMyTab = true
-        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
+        self.btnAddMyCard.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+        self.btnAddMyCard.setTitle("ADD TO MY TAB", for: .normal)
+        self.btnAddMyCard.setImage(UIImage.init(), for: .normal)
+        let imageViewPosition : CGPoint = self.imgDetail.convert(self.imgDetail.bounds.origin, to: self.view)
         
+        
+        let imgViewTemp = UIImageView(frame: CGRect(x: imageViewPosition.x, y: imageViewPosition.y, width: self.imgDetail.frame.size.width, height: self.imgDetail.frame.size.height))
+        
+        imgViewTemp.image = self.imgDetail.image
+        
+        animation(tempView: imgViewTemp)
         
     }
     func checkValueGarnish()->Bool

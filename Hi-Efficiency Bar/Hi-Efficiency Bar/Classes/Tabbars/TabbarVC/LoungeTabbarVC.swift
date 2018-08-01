@@ -31,7 +31,7 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
         self.collectionView.register(UINib(nibName: "TopLoungeCollect", bundle: nil), forCellWithReuseIdentifier: "TopLoungeCollect")
         self.collectionView.register(UINib(nibName: "TopSectionViewCell", bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "TopSectionViewCell")
-
+        self.subNavi.backgroundColor = UIColor.clear
         self.initParalax()
         if UIDevice().userInterfaceIdiom == .phone {
             switch UIScreen.main.nativeBounds.height {
@@ -121,7 +121,7 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     func initParalax()
     {
         profileView = Bundle.main.loadNibNamed("ProfileView", owner: self, options: nil)?[0] as! ProfileView
-        profileView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 190)
+        profileView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 250)
         profileView.tapChangeAvatar = { [] in
             self.isReload = true
             let alert = UIAlertController(title: APP_NAME,
@@ -153,7 +153,7 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         }
         collectionView.parallaxHeader.delegate = self
         collectionView.parallaxHeader.view = profileView
-        collectionView.parallaxHeader.height = 190
+        collectionView.parallaxHeader.height = 250
         collectionView.parallaxHeader.mode = .fill
         
     }
@@ -240,19 +240,18 @@ extension LoungeTabbarVC: MXParallaxHeaderDelegate
 {
     func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
         print(parallaxHeader.progress)
-        print(profileView)
-        self.subNavi.alpha = 1 - parallaxHeader.progress
-        if parallaxHeader.progress > 0.0
+        
+        //self.subNavi.alpha = 1 - parallaxHeader.progress
+        if parallaxHeader.progress <= 1
         {
-            self.lblNavi.text = "My Lounge"
-            self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 20.0)
+           // self.lblNavi.text = "My Lounge"
+             self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 20.0 - (20 * (1 - parallaxHeader.progress)))
+            
         }
         else{
-            //self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "white"), for: .default)
-            // self.navigationItem.title = "Ryan Hoover"
-             self.lblNavi.text = self.profileView.lblName.text
-            //rprofileView.constrantAvatar.constant = parallaxHeader.progress
-             self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Medium, size: 20.0)
+            self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 20.0)
+             //self.lblNavi.text = self.profileView.lblName.text
+            
         }
         if isChangeAvatar {
             let value = Float(parallaxHeader.progress)

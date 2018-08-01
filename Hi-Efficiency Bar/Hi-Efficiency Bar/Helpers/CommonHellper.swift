@@ -178,8 +178,11 @@ class CommonHellper {
     {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        
-        return formatter.date(from: date)!
+        if let date = formatter.date(from: date)
+        {
+            return date
+        }
+        return Date.init()
     }
     static func formatDateBirthday(date: Date)->String
     {
@@ -340,5 +343,14 @@ extension String {
     
     func substring(range: NSRange) -> String {
         return substring(from: range.lowerBound, to: range.upperBound)
+    }
+}
+extension UIView{
+    func animationZoom(scaleX: CGFloat, y: CGFloat) {
+        self.transform = CGAffineTransform(scaleX: scaleX, y: y)
+    }
+    
+    func animationRoted(angle : CGFloat) {
+        self.transform = self.transform.rotated(by: angle)
     }
 }

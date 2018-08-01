@@ -22,14 +22,20 @@ class MyTabVC: BaseViewController {
     @IBOutlet weak var cameraView: UIView!
      let cameraManager = CameraManager()
     @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var topTable: NSLayoutConstraint!
+    var timer: Timer?
+    var indexSecond = 0.0
+    var isSuccess = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "My Tab"
         btnMakeMeDrink.spinnerColor = .white
-        self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
-        self.configHideNaviTable(tblMyTab)
+        self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)       
        self.confiCamera()
         cameraView.isHidden = true
+        if #available(iOS 10, *) {
+            topTable.constant = 64
+        } else {
+        }
     }
     
     func confiCamera()
@@ -52,9 +58,7 @@ class MyTabVC: BaseViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
+    
         if !isReload
         {
              self.fetchALlMyTab()
@@ -123,89 +127,82 @@ class MyTabVC: BaseViewController {
         }
         return price
     }
-    
-    func initParalax()
+    @objc func timeSecond()
     {
-        let profileView = UIView.init()
-        profileView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 30)
-        tblMyTab.parallaxHeader.delegate = self
-        tblMyTab.parallaxHeader.view = profileView
-        tblMyTab.parallaxHeader.height = 30
-        tblMyTab.parallaxHeader.mode = .fill
-        
+        indexSecond = indexSecond + 0.1
+        if indexSecond == MAX_SECOND
+        {
+            if isSuccess
+            {
+                print("SUCCESS")
+                timer?.invalidate()
+                timer = nil
+                if success!
+                {
+                    
+                    self.btnMakeMeDrink.stopAnimate(complete: {
+                        
+                        self.btnMakeMeDrink.alpha = 0.1
+                        UIView.animate(withDuration: 0.5, animations: {
+                            self.removeLoadingView()
+                            self.btnMakeMeDrink.alpha = 1.0
+                            self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                            self.btnMakeMeDrink.setTitle("", for: .normal)
+                            self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+                        }, completion: { (success) in
+                            
+                            self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
+                        })
+                    })
+                    
+                    
+                }
+                else{
+                    self.btnMakeMeDrink.stopAnimate(complete: {
+                        self.removeLoadingView()
+                        self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
+                        self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
+                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
+                        self.showAlertMessage(message:(self.error?.msg!)!)
+                    })
+                    
+                }
+            }
+            else{
+                indexSecond =  0.1
+            }
+        }
     }
-  
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    var success: Bool?
+    var error: ErrorModel?
     func saveCardNotImage(_ isImage: Bool, _ image: UIImage)
     {
         if !isImage
         {
             ManagerWS.shared.addMyTabCard(token: self.tokenStriper, complete: { (success, error) in
-                
-                if success!
-                {
-                    self.btnMakeMeDrink.stopAnimate(complete: {
-                        self.removeLoadingView()
-                        self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                        self.btnMakeMeDrink.setTitle("", for: .normal)
-                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
-                         self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                        self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
-                    })
-                   
-                  
-                    
-                }
-                else{
-                   self.btnMakeMeDrink.stopAnimate(complete: {
-                        self.removeLoadingView()
-                        self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
-                        self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
-                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
-                        self.showAlertMessage(message:(error?.msg!)!)
-                    })
-                    
-                }
+                self.isSuccess = true
+                self.success = success
+                self.error = error
             })
         }
         else{
             ManagerWS.shared.addMyCardImage(token: self.tokenStriper, image: image, complete: { (success, error) in
-                
-                if success!
-                {
-                    self.btnMakeMeDrink.stopAnimate(complete: {
-                        self.removeLoadingView()
-                        self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                        self.btnMakeMeDrink.setTitle("", for: .normal)
-                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
-                        self.btnMakeMeDrink.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-                        self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
-                    })
-                }
-                else{
-                    self.btnMakeMeDrink.stopAnimate(complete: {
-                        self.removeLoadingView()
-                        self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
-                        self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
-                        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
-                        self.showAlertMessage(message:(error?.msg!)!)
-                    })
-                }
+                self.isSuccess = true
+                self.success = success
+                self.error = error
             })
         }
     }
     
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         print(velocity.y)
         if(velocity.y>0) {
-            //Code will work without the animation block.I am using animation block incase if you want to set any delay to it.
             UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
                 self.navigationController?.setNavigationBarHidden(true, animated: true)
                 print("Hide")
@@ -239,8 +236,10 @@ class MyTabVC: BaseViewController {
         self.addLoadingView()
         sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
         sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
-        
-        self.cameraManager.askUserForCameraPermission({ permissionGranted in
+        indexSecond = 0.1
+        self.isSuccess = false
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeSecond), userInfo: nil, repeats: true)
+       self.cameraManager.askUserForCameraPermission({ permissionGranted in
             if permissionGranted {
                 self.cameraManager.capturePictureWithCompletion({ (image, error) -> Void in
 
@@ -258,6 +257,7 @@ class MyTabVC: BaseViewController {
                 self.saveCardNotImage(false, UIImage.init())
             }
         })
+         //self.saveCardNotImage(false, UIImage.init())
         
     }
     
@@ -275,21 +275,21 @@ class MyTabVC: BaseViewController {
 
 
 
-extension MyTabVC: MXParallaxHeaderDelegate
-{
-    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
-        print(parallaxHeader.progress)
-        if parallaxHeader.progress > 0.0
-        {
-            self.navigationItem.title = "My Tab"
-            
-        }
-        else{
-            self.navigationItem.title = ""
-            
-        }
-    }
-}
+//extension MyTabVC: MXParallaxHeaderDelegate
+//{
+//    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
+//        print(parallaxHeader.progress)
+//        if parallaxHeader.progress > 0.0
+//        {
+//            self.navigationItem.title = "My Tab"
+//
+//        }
+//        else{
+//            self.navigationItem.title = ""
+//
+//        }
+//    }
+//}
 extension MyTabVC: UITableViewDataSource, UITableViewDelegate
 {
     func numberOfSections(in tableView: UITableView) -> Int {

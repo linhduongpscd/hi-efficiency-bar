@@ -80,7 +80,8 @@ class AgeVerificationVC: BaseViewController {
             }
             sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
             sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
-            self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.25)
+           
+             self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
         }
         else{
             if self.convertDateBirthday() == birthday
@@ -115,13 +116,25 @@ class AgeVerificationVC: BaseViewController {
     }
     @objc func actionTabbar()
     {
-        self.btnConfirm.stopAnimate(complete: {
-            self.btnConfirm.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-            self.btnConfirm.setTitle("", for: .normal)
-            self.btnConfirm.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-            APP_DELEGATE.initTabbarHome()
+         self.btnConfirm.stopAnimate(complete: {
+            
+            self.btnConfirm.alpha = 0.1
+            UIView.animate(withDuration: 0.5, animations: {
+                self.btnConfirm.alpha = 1.0
+                self.btnConfirm.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                self.btnConfirm.setTitle("", for: .normal)
+                self.btnConfirm.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+            }, completion: { (success) in
+                
+                self.perform(#selector(self.actionHome), with: nil, afterDelay: 0.2)
+            })
         })
         
+    }
+    
+    @objc func actionHome()
+    {
+         APP_DELEGATE.initTabbarHome()
     }
 }
 extension AgeVerificationVC: PickerViewDelegate

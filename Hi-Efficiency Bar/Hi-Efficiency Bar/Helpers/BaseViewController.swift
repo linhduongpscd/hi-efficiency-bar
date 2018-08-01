@@ -28,7 +28,7 @@ class BaseViewController: UIViewController {
         hidingNavBarManager?.delegate = self
     }
     
-    func configHideNaviScroll(_ scroll: UIScrollView)
+    func configHideNaviScrollVIEW(_ scroll: UIScrollView)
     {
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scroll)
         hidingNavBarManager?.delegate = self
@@ -36,9 +36,9 @@ class BaseViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hidingNavBarManager?.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.view.backgroundColor = .white
-        //self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
         if APP_DELEGATE.isRedirectMyTab {
             self.tabBarController?.selectedIndex = 3
             APP_DELEGATE.isRedirectMyTab = false
@@ -100,7 +100,7 @@ class BaseViewController: UIViewController {
 extension BaseViewController: HidingNavigationBarManagerDelegate
 {
     func hidingNavigationBarManagerShouldUpdateScrollViewInsets(_ manager: HidingNavigationBarManager, insets: UIEdgeInsets) -> Bool {
-        
+        print(insets)
         if #available(iOS 11.0, *) {
             if insets.top == 0
             {

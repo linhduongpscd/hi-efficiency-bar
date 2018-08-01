@@ -31,13 +31,10 @@ class DetailCocktailVC: BaseViewController {
         self.navigationItem.title = genereObj.name
         self.fectSubAllgenere(true)
         self.collectionView.addSubview(refreshControl)
-        //  self.configHideNaviScroll(collectionView)
+        self.configHideNaviScroll(collectionView)
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
         super.viewWillAppear(animated)
     }
     @objc func handleRefresh(_ refreshControl: UIRefreshControl)
@@ -99,9 +96,9 @@ extension DetailCocktailVC: UICollectionViewDelegate, UICollectionViewDataSource
                         }
                         else{
                             cell.imgCell.sd_setImage(with: URL.init(string: self.genereObj.image!), completed: { (image, error, type, url) in
-                                var fram = cell.imgCell.frame
-                                fram.origin.y = fram.origin.y - 15
-                                cell.imgCell.frame =  fram
+//                                var fram = cell.imgCell.frame
+//                                fram.origin.y = fram.origin.y - 15
+//                                cell.imgCell.frame =  fram
                             })
                         }
                     }

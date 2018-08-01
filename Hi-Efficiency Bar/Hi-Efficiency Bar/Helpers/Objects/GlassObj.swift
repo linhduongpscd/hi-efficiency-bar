@@ -17,6 +17,7 @@ class GlassObj: NSObject {
     var size: Int?
     var unit: Int?
     var change_to_ml: Double?
+    var change_to_oz: Double?
     init(dict: NSDictionary) {
         self.id = dict["id"] as? Int
         self.unit = dict["unit"] as? Int
@@ -25,5 +26,6 @@ class GlassObj: NSObject {
         self.image = dict["image"] as? String
         self.size = dict["size"] as? Int
         self.change_to_ml = dict["change_to_ml"] as? Double
+         self.change_to_oz = dict["change_to_oz"] as? Double
     }
 }

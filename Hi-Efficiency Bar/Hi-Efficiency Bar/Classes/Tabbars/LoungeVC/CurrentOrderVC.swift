@@ -15,6 +15,7 @@ class CurrentOrderVC: UIViewController  {
     var isLoadWS = false
       var websocket = WebSocket.init()
     var userOrderObj = OrderUserObj.init(dict: NSDictionary.init())
+    var blurView = BlurView.init(frame: .zero)
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblCurrent.register(UINib(nibName: "CurrentOrderCell", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
@@ -67,6 +68,7 @@ class CurrentOrderVC: UIViewController  {
             self.tblCurrent.reloadData()
         }
         tblCurrent.parallaxHeader.view = headerView
+       // tblCurrent.parallaxHeader.delegate = self
         tblCurrent.parallaxHeader.height = 195 + (UIScreen.main.bounds.size.width - 320)
         tblCurrent.parallaxHeader.mode = .fill
     }
@@ -86,10 +88,7 @@ class CurrentOrderVC: UIViewController  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.view.backgroundColor = .white
         self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.shadowImage = UIColor.lightGray.as1ptImage()
         if userOrderObj.id != nil{
             self.open()
         }
@@ -127,11 +126,37 @@ class CurrentOrderVC: UIViewController  {
             }
         }
     }
-   
+    let visualEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+         blurEffectView.frame = UIScreen.main.bounds
+        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
+        let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
+        blurEffectView.contentView.addSubview(vibrancyView)
+        return blurEffectView
+    }()
+    
     @IBAction func doCurrentOrder(_ sender: Any) {
-        let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ScannerVC") as! ScannerVC
-        vc.userOrderObj = userOrderObj
-        self.present(vc, animated: true, completion: nil)
+
+         blurView = Bundle.main.loadNibNamed("BlurView", owner: self, options: nil)?[0] as! BlurView
+        blurView.frame = UIScreen.main.bounds
+        blurView.userOrderObj = self.userOrderObj
+        blurView.registerBlurView()
+        blurView.tapClose = { [] in
+            UIView.animate(withDuration: 0.25, animations: {
+                self.blurView.alpha = 0.0
+            }, completion: { (success) in
+                self.blurView.removeFromSuperview()
+            })
+        }
+        blurView.subContent.addSubview(self.visualEffectView)
+        APP_DELEGATE.window?.addSubview(blurView)
+        self.blurView.alpha = 0.0
+        UIView.animate(withDuration: 0.25, animations: {
+            self.blurView.alpha = 1.0
+        }, completion: { (success) in
+        })
     }
 }
 
@@ -317,5 +342,37 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
         return cell.contentView
     }
 }
-
+extension CurrentOrderVC: UIScrollViewDelegate
+{
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print(velocity.y)
+        if(velocity.y>0) {
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                print("Hide")
+            }, completion: nil)
+            
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                print("Unhide")
+            }, completion: nil)
+        }
+    }
+}
+//extension CurrentOrderVC: MXParallaxHeaderDelegate
+//{
+//    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
+//         print(parallaxHeader.progress)
+//        var font = 24*parallaxHeader.progress
+//        if font >= 24
+//        {
+//            font = 24
+//        }
+//
+//        self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: FONT_APP.AlrightSans_Regular, size: font)!, NSAttributedStringKey.foregroundColor: UIColor.darkGray]
+//
+//    }
+//
+//}
 

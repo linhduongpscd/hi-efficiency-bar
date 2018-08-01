@@ -13,9 +13,10 @@ class ChangePasswordVC: BaseViewController {
     @IBOutlet weak var txfOldPassword: UITextField!
     @IBOutlet weak var txfNewPassword: UITextField!
     @IBOutlet weak var txfConfirmPassword: UITextField!
+    @IBOutlet weak var scrollPage: UIScrollView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        scrollPage.delegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -85,9 +86,27 @@ class ChangePasswordVC: BaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
 
+extension ChangePasswordVC: UIScrollViewDelegate
+{
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print(velocity.y)
+        if(velocity.y>0) {
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(true, animated: true)
+                print("Hide")
+            }, completion: nil)
+            
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+                print("Unhide")
+            }, completion: nil)
+        }
+    }
+}
 extension ChangePasswordVC: UITextFieldDelegate
 {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

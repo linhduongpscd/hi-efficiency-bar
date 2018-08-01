@@ -246,16 +246,23 @@ class CustomVC: HelpController {
     @objc func initStopAnimal()
     {
         self.btnNext.stopAnimate(complete: {
-            self.btnNext.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-            self.btnNext.setTitle("", for: .normal)
-            self.btnNext.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
-            self.perform(#selector(self.initComplete), with: nil, afterDelay: 0.1)
+            
+            self.btnNext.alpha = 0.1
+            UIView.animate(withDuration: 0.5, animations: {
+                self.btnNext.alpha = 1.0
+                self.btnNext.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                self.btnNext.setTitle("", for: .normal)
+                self.btnNext.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
+            }, completion: { (success) in
+                
+                self.perform(#selector(self.pushScreen), with: nil, afterDelay: 0.2)
+            })
         })
-        
     }
-    @objc func initComplete()
+
+    
+    @objc func pushScreen()
     {
-      
         let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "CustomDetailVC") as! CustomDetailVC
         vc.isRedirectCus = true
         vc.arrCusIngredients = self.arrIngredientSelected

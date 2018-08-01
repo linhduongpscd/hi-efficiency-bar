@@ -8,8 +8,8 @@
 
 import UIKit
 
-class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
-    var hidingNavBarManager: HidingNavigationBarManager?
+class DetailMainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
+
     @IBOutlet weak var collectionView: UICollectionView!
     var mainBarObj = MainBarObj.init(dict: NSDictionary.init())
     var offset = 0
@@ -42,9 +42,7 @@ class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
         
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
             self.collectionView.register(UINib(nibName: "NoDataCollect", bundle: nil), forCellWithReuseIdentifier: "NoDataCollect")
-        // Do any additional setup after loading the view.
-        hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: collectionView)
-        //self.configRefresh()
+       self.configHideNaviScroll(collectionView)
         collectionView.isHidden = true
         collectionView.addSubview(refreshControl)
         
@@ -102,17 +100,14 @@ class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hidingNavBarManager?.viewWillAppear(animated)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        hidingNavBarManager?.viewDidLayoutSubviews()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        hidingNavBarManager?.viewWillDisappear(animated)
     }
     
     func fetchAllDrinkByCategory()
@@ -158,12 +153,7 @@ class DetailMainBarVC: UIViewController, ASFSharedViewTransitionDataSource {
     }
     
     // MARK: UITableViewDelegate
-    
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        hidingNavBarManager?.shouldScrollToTop()
-        
-        return true
-    }
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

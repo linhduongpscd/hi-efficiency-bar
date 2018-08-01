@@ -12,8 +12,10 @@ class DetailHeaderGenereCollect: UICollectionViewCell {
 
     @IBOutlet weak var imgCell: UIImageView!
     @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var widthImage: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.widthImage.constant = (UIScreen.main.bounds.size.width-10)/2
         // Initialization code
     }
 
