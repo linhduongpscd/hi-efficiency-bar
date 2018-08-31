@@ -381,7 +381,7 @@ extension CustomVC: MXParallaxHeaderDelegate
         {
             parallaxHeader.view?.transform = CGAffineTransform.identity
            // self.lblNavi.transform = CGAffineTransform.identity
-            constraintBottomNavi.constant = 15.0
+            constraintBottomNavi.constant = 5.0
         }
         else{
             parallaxHeader.view?.transform = CGAffineTransform.init(scaleX: parallaxHeader.progress, y: parallaxHeader.progress)

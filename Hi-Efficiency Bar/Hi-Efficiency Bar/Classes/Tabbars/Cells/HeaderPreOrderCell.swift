@@ -78,7 +78,8 @@ class HeaderPreOrderCell: UITableViewCell, UITableViewDataSource, UITableViewDel
         cell.lblName.text = obj.name
         if obj.price != nil
         {
-            cell.lblPrice.text = "$\(obj.price!)"
+            
+            cell.lblPrice.text =  String.init(format: "$%0.2f", obj.price!)
         }
         cell.productObj = obj
     }

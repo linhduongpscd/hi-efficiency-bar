@@ -17,6 +17,8 @@ class AgeVerificationVC: BaseViewController {
     var token = String()
     var birthday = String()
     var isLogin = false
+    var isFacebook = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         btnConfirm.spinnerColor = .white
@@ -84,32 +86,80 @@ class AgeVerificationVC: BaseViewController {
              self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
         }
         else{
-            if self.convertDateBirthday() == birthday
+            if self.isFacebook
             {
-                let calendar = Calendar.current
-                let now = Date()
-                let unitFlags = Set<Calendar.Component>([.day, .month, .year, .hour])
-                print(CommonHellper.formatStringToDateBirthday(date: birthday))
-                let ageComponents = calendar.dateComponents(unitFlags, from: CommonHellper.formatStringToDateBirthday(date: birthday), to: now)
-                let age = ageComponents.year!
-                print(age)
-                if age < 21
+                if self.birthday.isEmpty
                 {
-                    self.showAlertMessage(message: "Must be over 21 to use")
-                    return
+                    sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+                    sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+                    self.addLoadingView()
+                    self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.5)
+                    ManagerWS.shared.updateBirthday(token,"\(self.userID)", self.convertDateBirthday()) { (success) in
+                        self.removeLoadingView()
+                        UserDefaults.standard.set(self.userID, forKey: kID)
+                        UserDefaults.standard.set(self.token, forKey: kToken)
+                        UserDefaults.standard.set(self.token, forKey: kLoginApp)
+                        UserDefaults.standard.synchronize()
+                    }
                 }
-                UserDefaults.standard.set(self.userID, forKey: kID)
-                UserDefaults.standard.set(self.token, forKey: kToken)
-                UserDefaults.standard.set(self.token, forKey: kLoginApp)
-                UserDefaults.standard.synchronize()
-                sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
-                sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
-                self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.55)
-                
+                else{
+                    if self.convertDateBirthday() == birthday
+                    {
+                        let calendar = Calendar.current
+                        let now = Date()
+                        let unitFlags = Set<Calendar.Component>([.day, .month, .year, .hour])
+                        print(CommonHellper.formatStringToDateBirthday(date: birthday))
+                        let ageComponents = calendar.dateComponents(unitFlags, from: CommonHellper.formatStringToDateBirthday(date: birthday), to: now)
+                        let age = ageComponents.year!
+                        print(age)
+                        if age < 21
+                        {
+                            self.showAlertMessage(message: "Must be over 21 to use")
+                            return
+                        }
+                        UserDefaults.standard.set(self.userID, forKey: kID)
+                        UserDefaults.standard.set(self.token, forKey: kToken)
+                        UserDefaults.standard.set(self.token, forKey: kLoginApp)
+                        UserDefaults.standard.synchronize()
+                        sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+                        sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+                        self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.55)
+                        
+                    }
+                    else{
+                        self.showAlertMessage(message: "Wrong date of birthday")
+                    }
+                }
             }
             else{
-                self.showAlertMessage(message: "Wrong date of birthday")
+                if self.convertDateBirthday() == birthday
+                {
+                    let calendar = Calendar.current
+                    let now = Date()
+                    let unitFlags = Set<Calendar.Component>([.day, .month, .year, .hour])
+                    print(CommonHellper.formatStringToDateBirthday(date: birthday))
+                    let ageComponents = calendar.dateComponents(unitFlags, from: CommonHellper.formatStringToDateBirthday(date: birthday), to: now)
+                    let age = ageComponents.year!
+                    print(age)
+//                    if age < 21
+//                    {
+//                        self.showAlertMessage(message: "Must be over 21 to use")
+//                        return
+//                    }
+                    UserDefaults.standard.set(self.userID, forKey: kID)
+                    UserDefaults.standard.set(self.token, forKey: kToken)
+                    UserDefaults.standard.set(self.token, forKey: kLoginApp)
+                    UserDefaults.standard.synchronize()
+                    sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
+                    sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
+                    self.perform(#selector(self.actionTabbar), with: nil, afterDelay: 0.55)
+                    
+                }
+                else{
+                    self.showAlertMessage(message: "Wrong date of birthday")
+                }
             }
+            
         }
         
      

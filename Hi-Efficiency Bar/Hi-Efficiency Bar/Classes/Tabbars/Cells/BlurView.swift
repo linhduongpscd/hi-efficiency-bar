@@ -41,8 +41,8 @@ class BlurView: UIView {
             self.spaceTop.constant = 112.0
             self.spaceRight.constant = 115.0
         } else if UIScreen.main.bounds.size.height == 736.0 {
-            self.spaceTop.constant = 120.0
-            self.spaceRight.constant = 130.0
+            self.spaceTop.constant = 140.0
+            self.spaceRight.constant = 126.0
         }
         else if UIScreen.main.bounds.size.height == 667.0 {
             self.spaceTop.constant = 95.0

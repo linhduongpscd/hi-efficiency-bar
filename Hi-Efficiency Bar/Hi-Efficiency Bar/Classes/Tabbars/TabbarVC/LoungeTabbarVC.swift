@@ -25,6 +25,8 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var isReload = false
     var userID = 0
     var inforUser: NSDictionary?
+    @IBOutlet weak var subNaviTop: UIView!
+    @IBOutlet weak var constraintTopNavi: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
             ASFSharedViewTransition.addWith(fromViewControllerClass: LoungeTabbarVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
@@ -110,6 +112,7 @@ class LoungeTabbarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         else{
             isReload = false
         }
+        lblNavi.text = ""
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        self.navigationController?.navigationBar.isTranslucent = true
@@ -245,11 +248,15 @@ extension LoungeTabbarVC: MXParallaxHeaderDelegate
         if parallaxHeader.progress <= 1
         {
            // self.lblNavi.text = "My Lounge"
-             self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 20.0 - (20 * (1 - parallaxHeader.progress)))
+             profileView.lblnavi.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 24.0 - (24 * (1 - parallaxHeader.progress)))
+           //  profileView.lblName.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 24.0 - (24 * (1 - parallaxHeader.progress)))
+            profileView.constraintTop.constant = 54 - (54 * (1 - parallaxHeader.progress)) - 20
             
         }
         else{
-            self.lblNavi.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 20.0)
+            profileView.constraintTop.constant = 54
+            profileView.lblnavi.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 24.0)
+            // profileView.lblName.font = UIFont.init(name: FONT_APP.AlrightSans_Regular, size: 24.0)
              //self.lblNavi.text = self.profileView.lblName.text
             
         }

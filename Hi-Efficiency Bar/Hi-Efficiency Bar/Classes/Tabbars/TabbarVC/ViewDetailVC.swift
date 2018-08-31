@@ -139,8 +139,10 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         indexSecond = indexSecond + 0.1
         if indexSecond == MAX_SECOND
         {
+            
             if isSuccess
             {
+                 //
                 print("SUCCESS")
                 timer?.invalidate()
                 timer = nil
@@ -156,7 +158,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
                             self.btnAddMyCard.setTitle("", for: .normal)
                             self.btnAddMyCard.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
                         }, completion: { (success) in
-                            
+                            self.scrollPage.setContentOffset(.zero, animated: true)
                             self.perform(#selector(self.addmyTabSuccess), with: nil, afterDelay: 0.5)
                         })
                         
@@ -176,8 +178,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
                         }
                         else{
                             self.showAlertMessage(message: self.error!)
-                        }
-                        
+                        }   
                     })
                     
                   
@@ -365,7 +366,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     var error: String?
     var code: Int?
     @IBAction func doAddMyTab(_ sender: SSSpinnerButton) {
-       // self.scrollPage.setContentOffset(.zero, animated: true)
+       
         self.addLoadingView()
         sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
         sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
@@ -373,10 +374,31 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         self.isSuccess = false
         self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timeSecond), userInfo: nil, repeats: true)
         ManagerWS.shared.addMyTab(para: self.paramAddMyTab(), complete: { (success, error, code) in
-            self.isSuccess = true
-            self.success = success
-            self.error = error
-            self.code = code
+            if error != nil
+            {
+                self.btnAddMyCard.stopAnimate(complete: {
+                    self.removeLoadingView()
+                    self.btnAddMyCard.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                    self.btnAddMyCard.setTitle("ADD TO MY TAB", for: .normal)
+                    self.btnAddMyCard.setImage(UIImage.init(), for: .normal)
+                    if self.code == SERVER_CODE.CODE_403
+                    {
+                    }
+                    else{
+                        print(error)
+                        self.showAlertMessage(message: error!)
+                    }
+                    
+                })
+            }
+            else{
+                
+                self.isSuccess = true
+                self.success = success
+                self.error = error
+                self.code = code
+            }
+            
 
         })
         
@@ -567,7 +589,11 @@ extension ViewDetailVC: UITableViewDelegate, UITableViewDataSource
     {
         if let unit = dict.object(forKey: "unit_view") as? String
         {
-            cell.lblPart.text = "\(dict.object(forKey: "ratio") as! Int) \(unit)"
+            if let ratio = dict.object(forKey: "ratio") as? Double
+            {
+                 cell.lblPart.text = "\(ratio) \(unit)"
+            }
+           
         }
         
         if let val = dict.object(forKey: "ingredient") as? NSDictionary

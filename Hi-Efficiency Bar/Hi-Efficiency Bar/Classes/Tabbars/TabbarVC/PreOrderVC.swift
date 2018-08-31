@@ -107,7 +107,7 @@ extension PreOrderVC: UITableViewDataSource, UITableViewDelegate
         cell.lblOrder.text = "Order #\(cell.userOrderObj.id!)"
         if cell.userOrderObj.amount != nil
         {
-            cell.lblPrice.text = "$\(cell.userOrderObj.amount!)"
+            cell.lblPrice.text = String.init(format: "$%0.2f", cell.userOrderObj.amount!)
         }
       
         cell.tapShowMoreHeader = { [] in

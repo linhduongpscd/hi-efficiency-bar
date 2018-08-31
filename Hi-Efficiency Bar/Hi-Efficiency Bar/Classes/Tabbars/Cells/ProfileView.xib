@@ -14,6 +14,9 @@
         <array key="AlrightSans-Medium-v3.otf">
             <string>AlrightSans-Medium</string>
         </array>
+        <array key="AlrightSans-Regular-v3.otf">
+            <string>AlrightSans-Regular</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -49,6 +52,12 @@
                                 <action selector="doChangeAvatar:" destination="iN0-l3-epB" eventType="touchUpInside" id="dOo-rv-4wA"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Lounge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HW2-jQ-TFf">
+                            <rect key="frame" x="99.5" y="53.5" width="122" height="24"/>
+                            <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="24"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -56,11 +65,14 @@
                         <constraint firstItem="75C-Li-n6q" firstAttribute="centerX" secondItem="itR-uI-2qM" secondAttribute="centerX" id="3FK-bl-meT"/>
                         <constraint firstItem="PBK-HC-JaW" firstAttribute="centerX" secondItem="itR-uI-2qM" secondAttribute="centerX" id="4XY-UK-pPA"/>
                         <constraint firstItem="vMv-hD-drz" firstAttribute="height" secondItem="75C-Li-n6q" secondAttribute="height" id="A8e-DI-sy3"/>
-                        <constraint firstAttribute="bottom" secondItem="PBK-HC-JaW" secondAttribute="bottom" constant="10" id="AOv-7O-9Rg"/>
                         <constraint firstItem="vMv-hD-drz" firstAttribute="centerY" secondItem="75C-Li-n6q" secondAttribute="centerY" id="KrH-E1-ZAa"/>
+                        <constraint firstItem="HW2-jQ-TFf" firstAttribute="top" secondItem="itR-uI-2qM" secondAttribute="top" constant="53.5" id="OCu-le-eCK"/>
+                        <constraint firstItem="vMv-hD-drz" firstAttribute="top" secondItem="HW2-jQ-TFf" secondAttribute="bottom" constant="12" id="PyN-JZ-qcm"/>
+                        <constraint firstItem="HW2-jQ-TFf" firstAttribute="centerX" secondItem="itR-uI-2qM" secondAttribute="centerX" id="Q2Z-hn-nZP"/>
                         <constraint firstItem="iBZ-7a-EbT" firstAttribute="width" secondItem="PBK-HC-JaW" secondAttribute="width" id="U6N-c4-SAg"/>
                         <constraint firstAttribute="bottom" secondItem="75C-Li-n6q" secondAttribute="bottom" constant="57" id="VAe-XY-eSl"/>
                         <constraint firstItem="iBZ-7a-EbT" firstAttribute="centerY" secondItem="PBK-HC-JaW" secondAttribute="centerY" id="aFC-fH-c8N"/>
+                        <constraint firstItem="PBK-HC-JaW" firstAttribute="top" secondItem="75C-Li-n6q" secondAttribute="bottom" constant="17" id="iFu-kT-nqC"/>
                         <constraint firstItem="vMv-hD-drz" firstAttribute="width" secondItem="75C-Li-n6q" secondAttribute="width" id="kpn-0O-OFt"/>
                         <constraint firstItem="vMv-hD-drz" firstAttribute="centerX" secondItem="75C-Li-n6q" secondAttribute="centerX" id="nXD-Ft-6cK"/>
                         <constraint firstItem="iBZ-7a-EbT" firstAttribute="height" secondItem="PBK-HC-JaW" secondAttribute="height" id="pGN-ya-zVS"/>
@@ -79,8 +91,10 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="constaintAvatar" destination="HaF-ge-ZHF" id="MT3-jR-CfF"/>
+                <outlet property="constraintTop" destination="OCu-le-eCK" id="PUL-MF-jj5"/>
                 <outlet property="imgAvatar" destination="75C-Li-n6q" id="ZUH-Iw-Bxh"/>
                 <outlet property="lblName" destination="PBK-HC-JaW" id="6F1-Ql-m4e"/>
+                <outlet property="lblnavi" destination="HW2-jQ-TFf" id="Fbf-vg-0uN"/>
             </connections>
             <point key="canvasLocation" x="26" y="-164"/>
         </view>

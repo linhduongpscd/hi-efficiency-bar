@@ -134,6 +134,7 @@ class CurrentOrderVC: UIViewController  {
         let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
         let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
         blurEffectView.contentView.addSubview(vibrancyView)
+        
         return blurEffectView
     }()
     
@@ -150,6 +151,7 @@ class CurrentOrderVC: UIViewController  {
                 self.blurView.removeFromSuperview()
             })
         }
+        visualEffectView.alpha = 1.0
         blurView.subContent.addSubview(self.visualEffectView)
         APP_DELEGATE.window?.addSubview(blurView)
         self.blurView.alpha = 0.0
@@ -226,7 +228,20 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
         print(obj.arringredients.count)
         let item = obj.arringredients[indexPath.row]
         cell.lblName.text = item.name
-        cell.lblPart.text = "\(item.ratio!) \(item.unit!)"
+        if item.ratio != nil
+        {
+            if item.unit_view != nil
+            {
+                cell.lblPart.text = "\(item.ratio!) \(item.unit_view!)"
+            }
+            else{
+                cell.lblPart.text = "\(item.ratio!)"
+            }
+        }
+        else{
+             cell.lblPart.text = ""
+        }
+        
         if indexPath.row == 0 {
             cell.bgTranfer.isHidden = false
             cell.spaceTop.isHidden = true

@@ -23,7 +23,7 @@ class ProductObj: NSObject {
            self.idProduct = val["id"] as? Int
             self.name = val["name"] as? String
             self.image = val["image"] as? String
-            self.price = val["price"] as? Double
+            
             if let ingredients = val["ingredients"] as? NSArray
             {
                 for recod in ingredients
@@ -32,6 +32,14 @@ class ProductObj: NSObject {
                 }
                 
             }
+        }
+        if let  amount = dict["amount"] as? Double
+        {
+            self.price = amount
+        }
+        else if let  amount = dict["amount"] as? String
+        {
+            self.price = Double(amount)
         }
          self.id = dict["id"] as? Int
         if let status = dict["status"] as? Int

@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1868,30 +1867,30 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUb-cF-0pv">
-                                        <rect key="frame" x="124" y="29" width="72.5" height="20"/>
-                                        <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="20"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="116.5" y="35" width="87" height="24"/>
+                                        <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="24"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t4u-4P-bJF">
-                                        <rect key="frame" x="250" y="18" width="60" height="36"/>
+                                        <rect key="frame" x="250" y="28" width="60" height="36"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4H-xZ-ynZ">
-                                                <rect key="frame" x="0.0" y="2" width="60" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="36"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
                                                     <action selector="doReset:" destination="At0-U6-hJs" eventType="touchUpInside" id="3gP-9W-U0N"/>
                                                 </connections>
                                             </button>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_reset_1" translatesAutoresizingMaskIntoConstraints="NO" id="uVX-ic-kw1">
-                                                <rect key="frame" x="42" y="8" width="18" height="22"/>
+                                                <rect key="frame" x="42" y="7" width="18" height="22"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="18" id="83a-z7-FeZ"/>
                                                     <constraint firstAttribute="height" constant="22" id="Po2-1f-Z3P"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GaX-cO-hcy">
-                                                <rect key="frame" x="2" y="12.5" width="35" height="13"/>
+                                                <rect key="frame" x="2" y="11.5" width="35" height="13"/>
                                                 <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1917,8 +1916,8 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="Ban-Je-dxB"/>
-                                    <constraint firstAttribute="bottom" secondItem="DUb-cF-0pv" secondAttribute="bottom" constant="15" id="KyP-UF-rUq"/>
-                                    <constraint firstAttribute="bottom" secondItem="t4u-4P-bJF" secondAttribute="bottom" constant="10" id="cQF-aW-hs5"/>
+                                    <constraint firstAttribute="bottom" secondItem="DUb-cF-0pv" secondAttribute="bottom" constant="5" id="KyP-UF-rUq"/>
+                                    <constraint firstAttribute="bottom" secondItem="t4u-4P-bJF" secondAttribute="bottom" id="cQF-aW-hs5"/>
                                     <constraint firstAttribute="trailing" secondItem="t4u-4P-bJF" secondAttribute="trailing" constant="10" id="mgH-zR-Gvt"/>
                                     <constraint firstItem="DUb-cF-0pv" firstAttribute="centerX" secondItem="J1N-ri-rPr" secondAttribute="centerX" id="wVy-ig-oIN"/>
                                 </constraints>
@@ -2579,28 +2578,28 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDb-S3-aCX">
-                                        <rect key="frame" x="20" y="19" width="30" height="30"/>
+                                        <rect key="frame" x="20" y="29" width="30" height="30"/>
                                         <state key="normal" image="btn_settings"/>
                                         <connections>
                                             <segue destination="PWY-ka-2Hw" kind="push" id="ne5-kd-F3c"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Lounge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aiY-SQ-g6E">
-                                        <rect key="frame" x="137" y="29" width="101.5" height="20"/>
-                                        <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="20"/>
-                                        <nil key="textColor"/>
+                                        <rect key="frame" x="127" y="35" width="122" height="24"/>
+                                        <fontDescription key="fontDescription" name="AlrightSans-Regular" family="Alright Sans" pointSize="24"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="aiY-SQ-g6E" secondAttribute="bottom" constant="15" id="10I-x3-ffd"/>
+                                    <constraint firstAttribute="bottom" secondItem="aiY-SQ-g6E" secondAttribute="bottom" constant="5" id="10I-x3-ffd"/>
                                     <constraint firstAttribute="trailing" secondItem="3B6-0Q-B5x" secondAttribute="trailing" id="GeY-Ug-kEh"/>
                                     <constraint firstItem="aiY-SQ-g6E" firstAttribute="centerX" secondItem="4Nh-SO-izT" secondAttribute="centerX" id="JYZ-8M-hX5"/>
                                     <constraint firstItem="3B6-0Q-B5x" firstAttribute="leading" secondItem="4Nh-SO-izT" secondAttribute="leading" id="O5q-33-smK"/>
                                     <constraint firstAttribute="bottom" secondItem="3B6-0Q-B5x" secondAttribute="bottom" id="RL9-gi-pEn"/>
                                     <constraint firstItem="GDb-S3-aCX" firstAttribute="leading" secondItem="4Nh-SO-izT" secondAttribute="leading" constant="20" id="TL3-SH-gj8"/>
-                                    <constraint firstAttribute="bottom" secondItem="GDb-S3-aCX" secondAttribute="bottom" constant="15" id="iWW-00-FE6"/>
+                                    <constraint firstAttribute="bottom" secondItem="GDb-S3-aCX" secondAttribute="bottom" constant="5" id="iWW-00-FE6"/>
                                     <constraint firstAttribute="height" constant="64" id="sJg-JZ-7TV"/>
                                     <constraint firstItem="3B6-0Q-B5x" firstAttribute="top" secondItem="4Nh-SO-izT" secondAttribute="top" id="wpW-dN-s0c"/>
                                 </constraints>
@@ -2623,27 +2622,20 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="My Lounge" id="VVr-5l-Dhp">
-                        <leftBarButtonItems>
-                            <barButtonItem image="btn_settings" id="yfU-b0-Q3O">
-                                <connections>
-                                    <segue destination="PWY-ka-2Hw" kind="push" id="bI8-Ja-904"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem style="plain" id="WhM-dz-k8X">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gpS-jF-xAM">
-                                    <rect key="frame" x="65" y="7" width="83" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" title="Button"/>
-                                </button>
-                            </barButtonItem>
-                        </leftBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" image="btn_settings" id="yfU-b0-Q3O">
+                            <connections>
+                                <segue destination="PWY-ka-2Hw" kind="push" id="bI8-Ja-904"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="1OM-sq-6I6" id="qE0-U2-Jjr"/>
+                        <outlet property="constraintTopNavi" destination="mn2-58-d6e" id="Wig-hv-JDk"/>
                         <outlet property="heightNavi" destination="sJg-JZ-7TV" id="Ggg-hn-cn3"/>
                         <outlet property="lblNavi" destination="aiY-SQ-g6E" id="ylV-UW-JFR"/>
                         <outlet property="subNavi" destination="3B6-0Q-B5x" id="pPE-4w-36X"/>
+                        <outlet property="subNaviTop" destination="4Nh-SO-izT" id="6YE-od-dBE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PTg-JS-qeK" userLabel="First Responder" sceneMemberID="firstResponder"/>

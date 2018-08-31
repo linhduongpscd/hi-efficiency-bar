@@ -50,7 +50,7 @@ class CustomDetailCell: UITableViewCell, UITextFieldDelegate {
             }
             else{
                 ingredientCusObj.value = CommonHellper.convertMLDrink(unit: (ingredientCusObj.unit_view?.lowercased())!, number: ingredientCusObj.unit!)
-                ingredientCusObj.ratio = Int(CommonHellper.trimSpaceString(txtString: updatedText))
+                ingredientCusObj.ratio = Double(CommonHellper.trimSpaceString(txtString: updatedText))
             }
             self.tapChangeML?()
         }

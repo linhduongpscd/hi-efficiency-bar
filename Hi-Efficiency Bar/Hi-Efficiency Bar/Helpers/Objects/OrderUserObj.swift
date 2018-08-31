@@ -22,7 +22,14 @@ class OrderUserObj: NSObject {
         self.creation_date = dict["creation_date"] as? String
         self.qr_code = dict["qr_code"] as? String
          self.tray_number = dict["tray_number"] as? Int
-        self.amount = dict["amount"] as? Double
+        if let  amount = dict["amount"] as? Double
+        {
+            self.amount = amount
+        }
+        else if let  amount = dict["amount"] as? String
+        {
+            self.amount = Double(amount)
+        }
         if let products = dict["products"] as? NSArray
         {
             print(products)

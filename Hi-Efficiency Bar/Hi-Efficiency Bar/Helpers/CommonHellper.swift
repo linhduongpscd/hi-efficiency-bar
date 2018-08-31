@@ -61,7 +61,7 @@ class CommonHellper {
         return emailTest.evaluate(with: testStr)
     }
     
-    static func convertMLDrink(unit: String, number: Int)-> Double
+    static func convertMLDrink(unit: String, number: Double)-> Double
     {
         
         if unit == "ml"

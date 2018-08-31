@@ -163,6 +163,7 @@ class SignInVC: BaseViewController {
             if (error == nil){
                
                 let fbloginresult : FBSDKLoginManagerLoginResult = result!
+                print(fbloginresult.token.tokenString)
                 if fbloginresult.grantedPermissions != nil {
                     if(fbloginresult.grantedPermissions.contains("email")) {
                         if((FBSDKAccessToken.current()) != nil){
@@ -170,15 +171,27 @@ class SignInVC: BaseViewController {
 
                                 if (error == nil){
                                     CommonHellper.showBusy()
-                                    let para: Parameters = ["fb_token": fbloginresult.token.tokenString]
+                                    let para: Parameters = ["fb_token": fbloginresult.token.tokenString!]
                                     print(para)
-                                    ManagerWS.shared.loginFacebook(para: para, complete: { (success, error) in
+                                    ManagerWS.shared.loginFacebook(para: para, complete: { (success, error, token,id,birthday) in
                                         CommonHellper.hideBusy()
                                         if success!
                                         {
                                             UserDefaults.standard.removeObject(forKey: kPassword)
                                             UserDefaults.standard.synchronize()
-                                            APP_DELEGATE.initTabbarHome()
+                                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "AgeVerificationVC") as! AgeVerificationVC
+                                            vc.userID = id!
+                                            vc.token = token!
+                                            print(birthday)
+                                            if birthday == nil
+                                            {
+                                                vc.birthday = ""
+                                            }
+                                            else{
+                                                vc.birthday = birthday!
+                                            }
+                                            vc.isFacebook = true
+                                            self.navigationController?.pushViewController(vc, animated: true)
                                         }
                                         else{
                                             self.showAlertMessage(message: (error?.msg)!)

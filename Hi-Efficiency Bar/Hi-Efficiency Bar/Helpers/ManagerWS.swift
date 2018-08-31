@@ -501,6 +501,7 @@ struct ManagerWS {
         }
         print(para)
         let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        print(auth_headerLogin)
         manager.request(URL.init(string: "\(URL_SERVER)api/user/add/tab/")!, method: .post, parameters: para,  encoding: URLEncoding.default, headers: auth_headerLogin)
             .responseJSON { response in
                 print(response)
@@ -534,7 +535,7 @@ struct ManagerWS {
                     break
                     
                 case .failure(_):
-                     complete(true, nil, SERVER_CODE.CODE_200)
+                     complete(false, "Server error", SERVER_CODE.CODE_200)
                     break
                 }
         }
@@ -638,11 +639,11 @@ struct ManagerWS {
                 }
         }
     }
-    func loginFacebook(para: Parameters, complete:@escaping (_ success: Bool?, _ errer: ErrorModel?) ->Void)
+    func loginFacebook(para: Parameters, complete:@escaping (_ success: Bool?, _ errer: ErrorModel?,_ token: String?,_ id: Int?,_ birthday: String?) ->Void)
     {
     
         print(para)
-        manager.request(URL.init(string: "\(URL_SERVER)api/user/signup/")!, method: .post, parameters: para,  encoding: URLEncoding.default, headers: auth_headerLogin)
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/signup/")!, method: .post, parameters: para,  encoding: URLEncoding.default, headers: nil)
             .responseJSON { response in
                 print(response)
                 switch(response.result) {
@@ -657,35 +658,35 @@ struct ManagerWS {
                             {
                                 if let id = val["id"] as? Int
                                 {
-                                    UserDefaults.standard.set(id, forKey: kID)
                                     if let token = val["token"] as? String
                                     {
-                                        UserDefaults.standard.set(token, forKey: kToken)
-                                        UserDefaults.standard.synchronize()
-                                        complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"))
+                                        complete(true,ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Success"), token, id,  val["birthday"] as? String)
+
                                     }
-                                    else{
-                                          complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Token is invalid."))
-                                    }
-                                    
                                 }
                                 else{
-                                      complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "ID is invalid."))
+                                      complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "ID is invalid."), nil, nil,nil)
                                 }
                             }
                             else if code == SERVER_CODE.CODE_400
                             {
-                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "User with this email address already exists."))
+                                if let detail = val.object(forKey: "detail") as? String
+                                {
+                                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg:detail), nil, nil, nil)
+                                }
+                                else{
+                                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "Wrong birthday."), nil, nil, nil)
+                                }
                             }
                             else{
-                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(val)"))
+                                complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "\(val)"), nil, nil,nil)
                             }
                         }
                         
                     }
                     
                 case .failure(_):
-                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "User with this email address already exists."))
+                    complete(false, ErrorManager.processError(error: nil, errorCode: nil, errorMsg: "User with this email address already exists."),nil, nil,nil)
                     break
                 }
         }
@@ -1834,4 +1835,37 @@ struct ManagerWS {
         }
     }
     
+    func updateBirthday(_ token: String, _ userID: String,_ birthday: String, complete:@escaping (_ success: Bool?) ->Void)
+    {
+        let auth_header: HTTPHeaders = ["Authorization": "Token \(token)"]
+        let para = ["birthday": birthday]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/\(userID)/")!, method: .patch, parameters: para,  encoding: URLEncoding.default, headers: auth_header)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let code = response.response?.statusCode
+                    {
+                        if let val = response.value as? NSDictionary
+                        {
+                            print(val)
+                            if code == SERVER_CODE.CODE_200
+                            {
+                                complete(true)
+                                
+                            }
+                            else{
+                                complete(false)
+                            }
+                            
+                        }
+                    }
+                    break
+                    
+                case .failure(_):
+                    complete(false)
+                    break
+                }
+        }
+    }
 }

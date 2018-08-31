@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         sleep(1)
         self.initFlash()
         STPPaymentConfiguration.shared().publishableKey = KEY_STRIPE
+//        UserDefaults.standard.set("d5f75218fece60446feda935f1f7a8566897e766", forKey: kToken)
+//        UserDefaults.standard.synchronize()
         //self.initTabbarHome()
         return true
     }
