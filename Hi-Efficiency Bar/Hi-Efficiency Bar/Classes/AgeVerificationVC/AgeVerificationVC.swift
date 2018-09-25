@@ -32,7 +32,10 @@ class AgeVerificationVC: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
     /*
     // MARK: - Navigation
 
@@ -141,11 +144,11 @@ class AgeVerificationVC: BaseViewController {
                     let ageComponents = calendar.dateComponents(unitFlags, from: CommonHellper.formatStringToDateBirthday(date: birthday), to: now)
                     let age = ageComponents.year!
                     print(age)
-//                    if age < 21
-//                    {
-//                        self.showAlertMessage(message: "Must be over 21 to use")
-//                        return
-//                    }
+                    if age < 21
+                    {
+                        self.showAlertMessage(message: "Must be over 21 to use")
+                        return
+                    }
                     UserDefaults.standard.set(self.userID, forKey: kID)
                     UserDefaults.standard.set(self.token, forKey: kToken)
                     UserDefaults.standard.set(self.token, forKey: kLoginApp)

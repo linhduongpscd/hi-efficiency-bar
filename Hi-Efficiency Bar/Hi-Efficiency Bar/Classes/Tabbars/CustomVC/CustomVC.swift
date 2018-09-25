@@ -8,7 +8,7 @@
 
 import UIKit
 import MXParallaxHeader
-class CustomVC: HelpController {
+class CustomVC: BaseViewController {
     var tapSelectedIng: (() ->())?
     @IBOutlet var subNavi: UIView!
     @IBOutlet weak var imgReset: UIImageView!
@@ -40,11 +40,12 @@ class CustomVC: HelpController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Custom"
-        
+        let baritem = UIBarButtonItem.init(customView: subNavi)
+        self.navigationItem.rightBarButtonItem = baritem
         self.registerCell()
         self.fecthingredientType()
         lblNoData.isHidden = true
-       
+        self.configHideNaviScroll(collectionView)
         if UIDevice().userInterfaceIdiom == .phone {
             switch UIScreen.main.nativeBounds.height {
             case 2436:
@@ -54,7 +55,8 @@ class CustomVC: HelpController {
                 print("unknown")
             }
         }
-       // self.collectionView.addSubview(refreshControl)
+        self.collectionView.alwaysBounceVertical = true
+        self.collectionView.addSubview(refreshControl)
         // Do any additional setup after loading the view.
     }
     
@@ -103,7 +105,7 @@ class CustomVC: HelpController {
     {
         ManagerWS.shared.fetchIngredientType { (success, arrs) in
             self.arrTypes = arrs!
-            self.initpalalax()
+            //self.initpalalax()
             if self.arrTypes.count > 0
             {
                 let obj = self.arrTypes[0]
@@ -153,44 +155,11 @@ class CustomVC: HelpController {
         CATransaction.setCompletionBlock {
             self.arrSelected.removeAll()
             self.collectionView.reloadData()
-//            CATransaction.begin()
-//            let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation")
-//            rotationAnimation.fromValue = 0.0
-//            rotationAnimation.toValue = Double.pi * 2 //Minus can be Direction
-//            rotationAnimation.duration = 0.4
-//            rotationAnimation.repeatCount = 1
-//
-//            CATransaction.setCompletionBlock {
-//                self.arrSelected.removeAll()
-//                self.collectionView.reloadData()
-//            }
-//            self.imgReset.layer.add(rotationAnimation, forKey: nil)
-//            CATransaction.commit()
         }
         self.imgReset.layer.add(rotationAnimation, forKey: nil)
         CATransaction.commit()
     }
-    func initpalalax()
-    {
-        let headerView = Bundle.main.loadNibNamed("HeaderCustom", owner: self, options: nil)?[0] as! HeaderCustom
-        headerView.frame = CGRect(x:0,y:0, width: UIScreen.main.bounds.size.width, height: 195 + (UIScreen.main.bounds.size.width - 320))
-        headerView.registerCell()
-        headerView.arrSlices = arrTypes
-        headerView.collectionView.reloadData()
-        headerView.tapClick = { [] in
-            let obj = self.arrTypes[headerView.currentDot]
-            self.fechByTypeID(id: obj.id!)
-        }
-        if self.arrTypes.count > 0
-        {
-            let obj = self.arrTypes[headerView.currentDot]
-            headerView.lblName.text = obj.name
-        }
-        collectionView.parallaxHeader.delegate = self
-        collectionView.parallaxHeader.view = headerView
-        collectionView.parallaxHeader.height = 195 + (UIScreen.main.bounds.size.width - 320)
-        collectionView.parallaxHeader.mode = .fill
-    }
+  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         arrSelected.removeAll()
@@ -199,7 +168,6 @@ class CustomVC: HelpController {
         self.btnNext.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
         self.btnNext.setTitle("NEXT", for: .normal)
         self.btnNext.setImage(UIImage.init(), for: .normal)
-         self.navigationController?.isNavigationBarHidden = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -272,18 +240,41 @@ class CustomVC: HelpController {
 
 extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.arrDatas.count
+        return self.arrDatas.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       let mainObj = arrDatas[section]
+        if section == 0
+        {
+            return 1
+        }
+       let mainObj = arrDatas[section - 1]
 
         return mainObj.arrIngredients.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let mainObj = arrDatas[indexPath.section]
+        if indexPath.section == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HeaderViewCell", for: indexPath) as! HeaderViewCell
+          cell.isCustomDrink = true
+           cell.items = self.arrTypes
+            cell.collectionView.reloadData()
+            if self.arrTypes.count > 0
+            {
+                let obj = self.arrTypes[cell.currentPage]
+                cell.lblName.text = obj.name
+                cell.bgItem.image = UIImage.init()
+            }
+            cell.tapHeaderMainBar = { [weak self] in
+                let obj = self?.arrTypes[cell.currentPage]
+                self?.fechByTypeID(id: (obj?.id!)!)
+            }
+            return cell
+        }
+        
+        let mainObj = arrDatas[indexPath.section - 1]
         let item = mainObj.arrIngredients[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IngreItemCollect", for: indexPath) as! IngreItemCollect
        
@@ -316,13 +307,20 @@ extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-      
+        if indexPath.section == 0 {
+            return CGSize(width: collectionView.frame.size.width, height: 260)
+        }
+        
         return CGSize(width: (collectionView.frame.size.width - 4)/2, height: 50)
     }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let mainObj = arrDatas[indexPath.section]
+        if indexPath.section == 0
+        {
+            return
+        }
+        let mainObj = arrDatas[indexPath.section - 1]
         let item = mainObj.arrIngredients[indexPath.row]
         let arrSelectSearch = self.arrSelected
         if arrSelected.contains(item.id!)
@@ -344,10 +342,24 @@ extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     }
    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if indexPath.section == 0
+        {
+            if kind == UICollectionElementKindSectionHeader
+            {
+                let commentView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TopSectionViewCell", for: indexPath) as! TopSectionViewCell
+                
+                return commentView
+            }
+            else{
+                
+                let commentView = UICollectionReusableView.init()
+                return commentView
+            }
+        }
         if kind == UICollectionElementKindSectionHeader
         {
             let commentView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "TopSectionViewCell", for: indexPath) as! TopSectionViewCell
-            let obj = self.arrDatas[indexPath.section]
+            let obj = self.arrDatas[indexPath.section - 1]
             commentView.lblTitle.text = obj.name
             
             return commentView
@@ -361,7 +373,10 @@ extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-      
+        if section == 0
+        {
+            return CGSize(width: UIScreen.main.bounds.size.width, height: 0)
+        }
         return CGSize(width: UIScreen.main.bounds.size.width, height: 60)
     }
     
@@ -372,22 +387,4 @@ extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     
     
 }
-extension CustomVC: MXParallaxHeaderDelegate
-{
-    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
-       // print(parallaxHeader.progress)
-        
-        if parallaxHeader.progress > 1.0
-        {
-            parallaxHeader.view?.transform = CGAffineTransform.identity
-           // self.lblNavi.transform = CGAffineTransform.identity
-            constraintBottomNavi.constant = 5.0
-        }
-        else{
-            parallaxHeader.view?.transform = CGAffineTransform.init(scaleX: parallaxHeader.progress, y: parallaxHeader.progress)
-            //rself.lblNavi.transform = CGAffineTransform.init(scaleX: parallaxHeader.progress, y: parallaxHeader.progress)
-            self.constraintBottomNavi.constant = 100
-        }
-    }
-    
-}
+

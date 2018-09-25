@@ -26,6 +26,7 @@ class SignInVC: BaseViewController {
     var timer: Timer?
     var indexSecond = 0.0   
     var isSuccess = false
+    @IBOutlet weak var lblTitleSignIn: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         btnSignIn.spinnerColor = .white
@@ -33,6 +34,10 @@ class SignInVC: BaseViewController {
         imgTouch.isHidden = true
         lblTouch.isHidden = true
         self.deviceSupportsTouchId()
+        if UIScreen.main.bounds.size.height == 480
+        {
+            self.lblTitleSignIn.isHidden = true
+        }
         // Do any additional setup after loading the view.
     }
 

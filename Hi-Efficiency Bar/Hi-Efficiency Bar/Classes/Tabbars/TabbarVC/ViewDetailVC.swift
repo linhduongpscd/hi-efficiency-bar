@@ -43,6 +43,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     var idProduct = 0
     @IBOutlet weak var scrollPage: UIScrollView!
      var closeBar = CloseBar.init(frame: .zero)
+    var cartSuccess = AddCartSuccess.init(frame: .zero)
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action:
@@ -75,8 +76,24 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
             self.getDrinkByID()
         }
          self.scrollPage.addSubview(self.refreshControl)
-        
+        addCartSuccess()
+      
     }
+    
+    func addCartSuccess()
+    {
+         cartSuccess = Bundle.main.loadNibNamed("AddCartSuccess", owner: self, options: nil)?[0] as! AddCartSuccess
+        cartSuccess.frame = CGRect(x:0, y:self.view.frame.size.height - 70 - (self.tabBarController?.tabBar.frame.size.height)!, width: self.view.frame.size.width, height: 70)
+        cartSuccess.constraintRightImage.constant = (UIScreen.main.bounds.size.width/5) + 10
+         cartSuccess.imgDetail.image = imgDetail.image
+        cartSuccess.imgDetail.layer.cornerRadius = 30.0
+        cartSuccess.imgDetail.layer.borderWidth = 1.0
+        cartSuccess.imgDetail.layer.borderColor = UIColor.lightGray.cgColor
+        cartSuccess.imgDetail.layer.masksToBounds = true
+        cartSuccess.imgDetail.backgroundColor = UIColor.white
+      
+    }
+    
     func showPopUpCloseBar(_ isAdd: Bool)
     {
         self.closeBar.removeFromSuperview()
@@ -158,8 +175,25 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
                             self.btnAddMyCard.setTitle("", for: .normal)
                             self.btnAddMyCard.setImage(#imageLiteral(resourceName: "tick"), for: .normal)
                         }, completion: { (success) in
-                            self.scrollPage.setContentOffset(.zero, animated: true)
-                            self.perform(#selector(self.addmyTabSuccess), with: nil, afterDelay: 0.5)
+                            self.view.addSubview(self.cartSuccess)
+                            self.cartSuccess.imgDetail.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+                            self.cartSuccess.spaceBottom.constant = 0
+                            APP_DELEGATE.callWSgetBadge()
+                            UIView.animate(withDuration: 1.0,
+                                           delay: 0,
+                                           usingSpringWithDamping: CGFloat(0.4),
+                                           initialSpringVelocity: CGFloat(0.45),
+                                           options: UIViewAnimationOptions.allowUserInteraction,
+                                           animations: {
+                                            self.cartSuccess.imgDetail.transform = CGAffineTransform.identity
+                            },
+                                           completion: { Void in()
+                                            self.cartSuccess.removeFromSuperview()
+                                            self.btnAddMyCard.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
+                                            self.btnAddMyCard.setTitle("ADD TO MY TAB", for: .normal)
+                                            self.btnAddMyCard.setImage(UIImage.init(), for: .normal)
+                            }
+                            )
                         })
                         
                     })
@@ -401,58 +435,8 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
             
 
         })
-        
     }
-    func animation(tempView : UIView)  {
-        self.view.addSubview(tempView)
-        UIView.animate(withDuration: 1.0,
-                       animations: {
-                        tempView.animationZoom(scaleX: 1.5, y: 1.5)
-        }, completion: { _ in
-            
-            UIView.animate(withDuration: 1.0, animations: {
-                
-                tempView.animationZoom(scaleX: 0.2, y: 0.2)
-                tempView.animationRoted(angle: CGFloat(Double.pi))
-                let tab3 = self.tabBarController?.tabBar.frame
-                tempView.frame.origin.x = (tab3?.origin.x)! - (UIScreen.main.bounds.size.width/5) + ((UIScreen.main.bounds.size.width/5)*4)
-                tempView.frame.origin.y = (tab3?.origin.y)!
-                
-            }, completion: { _ in
-                
-                tempView.removeFromSuperview()
-                
-                UIView.animate(withDuration: 1.0, animations: {
-                    //self.numberItem = self.numberItem + 1
-                    //self.tabBarController?.tabBar.items![3].badgeValue = "\(self.numberItem)"
-                    //self.counterItem += 1
-                   // self.lableNoOfCartItem.text = "\(self.counterItem)"
-                   // self.buttonCart.animationZoom(scaleX: 1.4, y: 1.4)
-                }, completion: {_ in
-                    //self.buttonCart.animationZoom(scaleX: 1.0, y: 1.0)
-                })
-                
-            })
-            
-        })
-    }
-    @objc func addmyTabSuccess()
-    {
-        APP_DELEGATE.isRedirectMyTab = true
-        //self.navigationController?.popViewController(animated: true)
-        self.btnAddMyCard.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
-        self.btnAddMyCard.setTitle("ADD TO MY TAB", for: .normal)
-        self.btnAddMyCard.setImage(UIImage.init(), for: .normal)
-        let imageViewPosition : CGPoint = self.imgDetail.convert(self.imgDetail.bounds.origin, to: self.view)
-        
-        
-        let imgViewTemp = UIImageView(frame: CGRect(x: imageViewPosition.x, y: imageViewPosition.y, width: self.imgDetail.frame.size.width, height: self.imgDetail.frame.size.height))
-        
-        imgViewTemp.image = self.imgDetail.image
-        
-        animation(tempView: imgViewTemp)
-        
-    }
+  
     func checkValueGarnish()->Bool
     {
         var isCheck = false

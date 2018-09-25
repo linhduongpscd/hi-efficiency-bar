@@ -157,7 +157,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         window?.rootViewController = navTabbar
         window?.makeKeyAndVisible()
     }
-    
+    func callWSgetBadge()
+    {
+        ManagerWS.shared.getBadgeCustom { (badge) in
+            if badge == 0
+            {
+                 self.tabbarController.tabBar.items?[3].badgeValue = nil
+                
+            }
+            else{
+               self.tabbarController.tabBar.items?[3].badgeValue = "\(badge!)"
+                
+            }
+            
+        }
+    }
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
        
     }

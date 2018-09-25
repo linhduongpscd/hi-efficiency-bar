@@ -32,6 +32,7 @@ class DetailCocktailVC: BaseViewController {
         self.fectSubAllgenere(true)
         self.collectionView.addSubview(refreshControl)
         self.configHideNaviScroll(collectionView)
+        self.collectionView.alwaysBounceVertical = true
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -96,9 +97,6 @@ extension DetailCocktailVC: UICollectionViewDelegate, UICollectionViewDataSource
                         }
                         else{
                             cell.imgCell.sd_setImage(with: URL.init(string: self.genereObj.image!), completed: { (image, error, type, url) in
-//                                var fram = cell.imgCell.frame
-//                                fram.origin.y = fram.origin.y - 15
-//                                cell.imgCell.frame =  fram
                             })
                         }
                     }
@@ -135,6 +133,7 @@ extension DetailCocktailVC: UICollectionViewDelegate, UICollectionViewDataSource
             let obj = MainBarObj.init(dict: NSDictionary.init())
             obj.id = genereObj.id
             obj.name = genereObj.name
+            obj.image = genereObj.image
             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "DetailMainBarVC") as! DetailMainBarVC
             vc.mainBarObj = obj
             self.navigationController?.pushViewController(vc, animated: true)

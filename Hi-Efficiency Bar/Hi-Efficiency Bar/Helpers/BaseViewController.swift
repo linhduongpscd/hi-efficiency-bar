@@ -43,7 +43,11 @@ class BaseViewController: UIViewController {
             self.tabBarController?.selectedIndex = 3
             APP_DELEGATE.isRedirectMyTab = false
         }
+        
     }
+    
+    
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

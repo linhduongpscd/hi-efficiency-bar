@@ -999,8 +999,11 @@ struct ManagerWS {
         guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
             return
         }
+       
         let param = ["quantity":quantity]
         let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+         print(auth_headerLogin)
+        print("\(URL_SERVER)api/user/me/tab/\(tabID)/")
         manager.request(URL.init(string: "\(URL_SERVER)api/user/me/tab/\(tabID)/")!, method: .patch, parameters: param,  encoding: URLEncoding.default, headers: auth_headerLogin)
             .responseJSON { response in
                 print(response)
@@ -1868,4 +1871,39 @@ struct ManagerWS {
                 }
         }
     }
+    
+    func getBadgeCustom(_ complete:@escaping (_ success: Int?) ->Void)
+    {
+        guard let token = UserDefaults.standard.value(forKey: kToken) as? String else {
+            return
+        }
+        print(token)
+        let auth_headerLogin: HTTPHeaders = ["Authorization": "Token \(token)"]
+        manager.request(URL.init(string: "\(URL_SERVER)api/user/me/tab/?sum_quantity=true")!, method: .get, parameters: nil,  encoding: URLEncoding(destination: .methodDependent), headers: auth_headerLogin)
+            .responseJSON { response in
+                print(response)
+                switch(response.result) {
+                case .success(_):
+                    if let result = response.value as? NSDictionary
+                    {
+                        if let badge = result.object(forKey: "badge") as? Int
+                        {
+                             complete(badge)
+                        }
+                        else{
+                            complete(0)
+                        }
+                    }
+                    else{
+                        complete(0)
+                    }
+                   break
+                    
+                case .failure(_):
+                    complete(0)
+                    break
+                }
+        }
+    }
+    
 }

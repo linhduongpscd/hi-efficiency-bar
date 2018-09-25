@@ -39,13 +39,13 @@ class DetailMainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         else{
             self.navigationItem.title = mainBarObj.name
         }
-        
+        self.collectionView.register(UINib(nibName: "DetailHeaderGenereCollect", bundle: nil), forCellWithReuseIdentifier: "DetailHeaderGenereCollect")
         self.collectionView.register(UINib(nibName: "MainBarViewCell", bundle: nil), forCellWithReuseIdentifier: "MainBarViewCell")
             self.collectionView.register(UINib(nibName: "NoDataCollect", bundle: nil), forCellWithReuseIdentifier: "NoDataCollect")
        self.configHideNaviScroll(collectionView)
         collectionView.isHidden = true
         collectionView.addSubview(refreshControl)
-        
+        collectionView.alwaysBounceVertical = true
         self.fetchAllDrinkByCategory()
     }
     
@@ -116,6 +116,10 @@ class DetailMainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         {
              ManagerWS.shared.getListDrinkByingredient(ingredientID: ingredientObj.id!, offset: offset) { (success, arrs) in
                 self.refreshControl.endRefreshing()
+                if self.offset == 0
+                {
+                    self.arrDrinks.removeAll()
+                }
                 if arrs!.count > 0
                 {
                     self.isLoadMore = true
@@ -134,6 +138,10 @@ class DetailMainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         else{
             ManagerWS.shared.getListDrinkByCategory(categoryID: mainBarObj.id!, offset: offset) { (success, arrs) in
                 self.refreshControl.endRefreshing()
+                if self.offset == 0
+                {
+                    self.arrDrinks.removeAll()
+                }
                 if arrs!.count > 0
                 {
                     self.isLoadMore = true
@@ -194,17 +202,87 @@ extension DetailMainBarVC: UICollectionViewDelegate, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if arrDrinks.count == 0
         {
-            return 1
+            return 2
         }
-        return arrDrinks.count
+        return arrDrinks.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if arrDrinks.count == 0
         {
+            if indexPath.row == 0
+            {
+                if indexPath.row == 0 {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailHeaderGenereCollect", for: indexPath) as! DetailHeaderGenereCollect
+                    cell.lblName.text = mainBarObj.name
+                    if mainBarObj.image != nil
+                    {
+                        
+                        if let imageurl = URL.init(string: self.mainBarObj.image!)
+                        {
+                            let name = imageurl.lastPathComponent
+                            if name.lowercased().contains("gif")
+                            {
+                                DispatchQueue.main.async {
+                                    let imageURL = UIImage.gifImageWithURL(self.mainBarObj.image!)
+                                    cell.imgCell.image = imageURL
+                                }
+                                
+                                
+                            }
+                            else{
+                                cell.imgCell.sd_setImage(with: URL.init(string: self.mainBarObj.image!), completed: { (image, error, type, url) in
+                                })
+                            }
+                        }
+                        else{
+                            cell.imgCell.sd_setImage(with: URL.init(string: self.mainBarObj.image!), completed: { (image, error, type, url) in
+                                
+                            })
+                        }
+                    }
+                    return cell
+                }
+            }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoDataCollect", for: indexPath) as! NoDataCollect
             return cell
         }
+        
+        if indexPath.row == 0
+        {
+            if indexPath.row == 0 {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailHeaderGenereCollect", for: indexPath) as! DetailHeaderGenereCollect
+                cell.lblName.text = mainBarObj.name
+                if mainBarObj.image != nil
+                {
+                    
+                    if let imageurl = URL.init(string: self.mainBarObj.image!)
+                    {
+                        let name = imageurl.lastPathComponent
+                        if name.lowercased().contains("gif")
+                        {
+                            DispatchQueue.main.async {
+                                let imageURL = UIImage.gifImageWithURL(self.mainBarObj.image!)
+                                cell.imgCell.image = imageURL
+                            }
+                            
+                            
+                        }
+                        else{
+                            cell.imgCell.sd_setImage(with: URL.init(string: self.mainBarObj.image!), completed: { (image, error, type, url) in
+                            })
+                        }
+                    }
+                    else{
+                        cell.imgCell.sd_setImage(with: URL.init(string: self.mainBarObj.image!), completed: { (image, error, type, url) in
+                            
+                        })
+                    }
+                }
+                return cell
+            }
+        }
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainBarViewCell", for: indexPath) as! MainBarViewCell
         if indexPath.row % 2 == 0 {
             cell.leaningSubX.constant = 0.0
@@ -212,7 +290,7 @@ extension DetailMainBarVC: UICollectionViewDelegate, UICollectionViewDataSource,
         else{
             cell.leaningSubX.constant = 5.0
         }
-        cell.configCell(drinkObj: self.arrDrinks[indexPath.row])
+        cell.configCell(drinkObj: self.arrDrinks[indexPath.row - 1])
         return cell
         
     }
@@ -222,13 +300,25 @@ extension DetailMainBarVC: UICollectionViewDelegate, UICollectionViewDataSource,
     {
        if arrDrinks.count == 0
        {
+            if indexPath.row == 0
+            {
+                return CGSize(width: collectionView.frame.size.width, height:  253)
+            }
             return CGSize(width: collectionView.frame.size.width, height:  100)
+        }
+        if indexPath.row == 0
+        {
+            return CGSize(width: collectionView.frame.size.width, height:  253)
         }
         return CGSize(width: (collectionView.frame.size.width - 2)/2, height:  (collectionView.frame.size.width - 2)/2 + 50)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if arrDrinks.count > 0
         {
+            if indexPath.row == 0
+            {
+                return
+            }
             mainBarViewCell = self.collectionView.cellForItem(at: indexPath) as! MainBarViewCell
             UIView.animate(withDuration: 0.2,
                            animations: {
@@ -244,7 +334,7 @@ extension DetailMainBarVC: UICollectionViewDelegate, UICollectionViewDataSource,
                                            completion: { _ in
                                             self.mainBarViewCell.removedropShadow()
                                             let vc = UIStoryboard.init(name: "Tabbar", bundle: nil).instantiateViewController(withIdentifier: "ViewDetailVC") as! ViewDetailVC
-                                            vc.drinkObj = self.arrDrinks[indexPath.row]
+                                            vc.drinkObj = self.arrDrinks[indexPath.row - 1]
                                             
                                             self.navigationController?.pushViewController(vc, animated: true)
                             })

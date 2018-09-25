@@ -66,11 +66,11 @@ class MyTabVC: BaseViewController {
         else{
             isReload = false
         }
+        APP_DELEGATE.callWSgetBadge()
         cameraManager.resumeCaptureSession()
         self.btnMakeMeDrink.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
         self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
         self.btnMakeMeDrink.setTitle("MAKE ME A DRINK!", for: .normal)
-        self.btnMakeMeDrink.setImage(UIImage.init(), for: .normal)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -379,6 +379,7 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
                     self.arrMyTabs.remove(at: indexPath.row - 1)
                     self.doublePrice = self.getPriceTotal()
                     self.tblMyTab.reloadData()
+                    APP_DELEGATE.callWSgetBadge()
                 })
                 
                 
@@ -432,6 +433,7 @@ extension MyTabVC: UITableViewDataSource, UITableViewDelegate
                     self.arrMyTabs.remove(at: indexPath.row - 1)
                    self.doublePrice = self.getPriceTotal()
                     self.tblMyTab.reloadData()
+                    APP_DELEGATE.callWSgetBadge()
                 })
                 
                 

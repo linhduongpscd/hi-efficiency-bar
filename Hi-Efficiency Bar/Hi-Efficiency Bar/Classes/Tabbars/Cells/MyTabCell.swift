@@ -50,6 +50,7 @@ class MyTabCell: UITableViewCell {
             self.btnAm.isEnabled = true
             self.myTabObj?.quantity = (self.myTabObj?.quantity)! + 1
              self.changePrice?()
+            APP_DELEGATE.callWSgetBadge()
         })
     }
     @IBAction func doGiam(_ sender: Any) {
@@ -78,6 +79,7 @@ class MyTabCell: UITableViewCell {
                 self.myTabObj?.quantity = (self.myTabObj?.quantity)! - 1
                 self.changePrice?()
                 self.btnAm.isEnabled = true
+                APP_DELEGATE.callWSgetBadge()
             })
             
         }

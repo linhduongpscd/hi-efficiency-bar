@@ -50,6 +50,16 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
     var arrSearchs = [DrinkObj]()
     var arrSubViewAdd = [UIImageView]()
     var indexAnimal = 0
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(SearchVC.handleRefresh(_:)),
+                                 for: UIControlEvents.valueChanged)
+        // refreshControl.tintColor = UIColor.red
+        let attributes = [NSAttributedStringKey.foregroundColor: UIColor.black]
+        refreshControl.attributedTitle = NSAttributedString(string: "Refreshing please wait...", attributes: attributes)
+        return refreshControl
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initController()
@@ -66,6 +76,8 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
         //let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
         //self.viewDrink.addGestureRecognizer(gestureRecognizer)
          ASFSharedViewTransition.addWith(fromViewControllerClass: SearchVC.self, toViewControllerClass: ViewDetailVC.self, with: self.navigationController, withDuration: 0.3)
+        collectionView.alwaysBounceVertical = true
+        collectionView.addSubview(self.refreshControl)
     }
     @IBAction func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
@@ -75,6 +87,11 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
             gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x + translation.x, y: gestureRecognizer.view!.center.y + translation.y)
             gestureRecognizer.setTranslation(CGPoint.zero, in: self.view)
         }
+    }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl)
+    {
+        self.fectGenereSearch()
     }
     func initController()
     {
@@ -92,6 +109,7 @@ class SearchVC: BaseViewController, ASFSharedViewTransitionDataSource {
     func fectGenereSearch()
     {
         ManagerWS.shared.getSearchGenere { (success, arrs) in
+            self.refreshControl.endRefreshing()
             self.arrGeneres = arrs!
             self.collectionView.reloadData()
         }

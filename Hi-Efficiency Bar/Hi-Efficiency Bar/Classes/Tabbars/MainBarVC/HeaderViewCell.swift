@@ -12,6 +12,7 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var collectionView: UICollectionView!
      var items = [MainBarObj]()
     var isCustom = false
+    var isCustomDrink = false
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var bgItem: UIImageView!
     var subBG = CommonHellper.CreateaddBlurView(_einView: UIView.init())
@@ -20,12 +21,18 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
             if self.items.count > 0 {
                 let mainBarObj = self.items[self.currentPage]
                 lblName.text = mainBarObj.name
-                self.bgItem.sd_setImage(with: URL.init(string: mainBarObj.image!), completed: { (image, error, type, url) in
-                    self.subBG.removeFromSuperview()
-                    self.subBG = CommonHellper.CreateaddBlurView(_einView: self.bgItem)
-                    self.bgItem.addSubview(self.subBG)
-                   //CommonHellper.addBlurView(self.bgItem)
-                })
+                if mainBarObj.image != nil
+                {
+                    self.bgItem.sd_setImage(with: URL.init(string: mainBarObj.image!), completed: { (image, error, type, url) in
+                        self.subBG.removeFromSuperview()
+                        self.subBG = CommonHellper.CreateaddBlurView(_einView: self.bgItem)
+                        self.bgItem.addSubview(self.subBG)
+                        //CommonHellper.addBlurView(self.bgItem)
+                    })
+                }
+                else{
+                    bgItem.image = UIImage.init()
+                }
                 if isCustom
                 {
                     self.tapHeaderMainBar?()
@@ -77,7 +84,7 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
             })
         }
         else{
-            cell.image.backgroundColor = UIColor.groupTableViewBackground
+            cell.image.backgroundColor = UIColor.clear
         }
         return cell
     }
@@ -94,6 +101,10 @@ class HeaderViewCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
         let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
         let offset = (layout.scrollDirection == .horizontal) ? scrollView.contentOffset.x : scrollView.contentOffset.y
         currentPage = Int(floor((offset - pageSide / 2) / pageSide) + 1)
+        if isCustomDrink
+        {
+            self.tapHeaderMainBar?()
+        }
     }
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

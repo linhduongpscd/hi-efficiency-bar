@@ -41,6 +41,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
         APP_DELEGATE.mainBarVC = self
        self.getSliceHeader()
         self.callSetting()
+        self.collectionView.alwaysBounceVertical = true
         self.collectionView.addSubview(self.refreshControl)
         
     }
@@ -81,6 +82,7 @@ class MainBarVC: BaseViewController, ASFSharedViewTransitionDataSource {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        APP_DELEGATE.callWSgetBadge()
        // self.getSliceHeaderAgain()
     }
     
