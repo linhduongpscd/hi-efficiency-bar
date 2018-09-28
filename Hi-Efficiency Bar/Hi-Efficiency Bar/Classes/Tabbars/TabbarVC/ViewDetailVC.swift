@@ -86,10 +86,6 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
         cartSuccess.frame = CGRect(x:0, y:self.view.frame.size.height - 70 - (self.tabBarController?.tabBar.frame.size.height)!, width: self.view.frame.size.width, height: 70)
         cartSuccess.constraintRightImage.constant = (UIScreen.main.bounds.size.width/5) + 10
          cartSuccess.imgDetail.image = imgDetail.image
-        cartSuccess.imgDetail.layer.cornerRadius = 30.0
-        cartSuccess.imgDetail.layer.borderWidth = 1.0
-        cartSuccess.imgDetail.layer.borderColor = UIColor.lightGray.cgColor
-        cartSuccess.imgDetail.layer.masksToBounds = true
         cartSuccess.imgDetail.backgroundColor = UIColor.white
       
     }
@@ -177,15 +173,17 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
                         }, completion: { (success) in
                             self.view.addSubview(self.cartSuccess)
                             self.cartSuccess.imgDetail.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+                            self.cartSuccess.imgPin.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
                             self.cartSuccess.spaceBottom.constant = 0
                             APP_DELEGATE.callWSgetBadge()
                             UIView.animate(withDuration: 1.0,
                                            delay: 0,
-                                           usingSpringWithDamping: CGFloat(0.4),
-                                           initialSpringVelocity: CGFloat(0.45),
+                                           usingSpringWithDamping: CGFloat(0.3),
+                                           initialSpringVelocity: CGFloat(0.35),
                                            options: UIViewAnimationOptions.allowUserInteraction,
                                            animations: {
                                             self.cartSuccess.imgDetail.transform = CGAffineTransform.identity
+                                            self.cartSuccess.imgPin.transform = CGAffineTransform.identity
                             },
                                            completion: { Void in()
                                             self.cartSuccess.removeFromSuperview()
@@ -400,7 +398,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     var error: String?
     var code: Int?
     @IBAction func doAddMyTab(_ sender: SSSpinnerButton) {
-       
+     
         self.addLoadingView()
         sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
         sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)

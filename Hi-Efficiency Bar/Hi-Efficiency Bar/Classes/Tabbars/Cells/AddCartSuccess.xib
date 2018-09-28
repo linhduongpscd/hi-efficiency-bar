@@ -16,27 +16,46 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zfq-Vi-J4n">
-                    <rect key="frame" x="295" y="70" width="60" height="60"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_pin" translatesAutoresizingMaskIntoConstraints="NO" id="Zfq-Vi-J4n">
+                    <rect key="frame" x="295" y="10" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="M3z-Xz-abW"/>
                         <constraint firstAttribute="height" constant="60" id="q23-2Q-tbb"/>
                     </constraints>
                 </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ka-1X-yUP" customClass="UIImageViewX" customModule="Hi_Efficiency_Bar" customModuleProvider="target">
+                    <rect key="frame" x="305" y="13" width="40" height="40"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="58A-Ew-kwL"/>
+                        <constraint firstAttribute="height" constant="40" id="GEu-NK-HDM"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="Zfq-Vi-J4n" secondAttribute="bottom" constant="-60" id="UVE-Cb-U6g"/>
+                <constraint firstItem="5ka-1X-yUP" firstAttribute="centerX" secondItem="Zfq-Vi-J4n" secondAttribute="centerX" id="3Xw-G5-tJz"/>
+                <constraint firstAttribute="bottom" secondItem="Zfq-Vi-J4n" secondAttribute="bottom" id="UVE-Cb-U6g"/>
+                <constraint firstItem="5ka-1X-yUP" firstAttribute="top" secondItem="Zfq-Vi-J4n" secondAttribute="top" constant="3" id="fer-tf-c3o"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Zfq-Vi-J4n" secondAttribute="trailing" constant="20" id="x0x-0O-nLg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="constraintRightImage" destination="x0x-0O-nLg" id="OxY-YB-Xk0"/>
-                <outlet property="imgDetail" destination="Zfq-Vi-J4n" id="VvK-uw-xHV"/>
+                <outlet property="imgDetail" destination="5ka-1X-yUP" id="sKR-eb-QXc"/>
+                <outlet property="imgPin" destination="Zfq-Vi-J4n" id="Rdq-c5-VmZ"/>
                 <outlet property="spaceBottom" destination="UVE-Cb-U6g" id="G38-pJ-gK5"/>
             </connections>
             <point key="canvasLocation" x="24.5" y="52"/>
         </view>
     </objects>
+    <resources>
+        <image name="ic_pin" width="256" height="256"/>
+    </resources>
 </document>

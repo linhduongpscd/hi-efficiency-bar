@@ -13,6 +13,7 @@ class AddCartSuccess: UIView {
     @IBOutlet weak var imgDetail: UIImageView!
     @IBOutlet weak var constraintRightImage: NSLayoutConstraint!
     @IBOutlet weak var spaceBottom: NSLayoutConstraint!
+    @IBOutlet weak var imgPin: UIImageView!
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

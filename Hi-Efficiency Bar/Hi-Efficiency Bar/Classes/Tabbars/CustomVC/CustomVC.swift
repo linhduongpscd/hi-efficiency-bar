@@ -46,15 +46,7 @@ class CustomVC: BaseViewController {
         self.fecthingredientType()
         lblNoData.isHidden = true
         self.configHideNaviScroll(collectionView)
-        if UIDevice().userInterfaceIdiom == .phone {
-            switch UIScreen.main.nativeBounds.height {
-            case 2436:
-                print("iPhone X")
-                heightNavi.constant = 84
-            default:
-                print("unknown")
-            }
-        }
+        
         self.collectionView.alwaysBounceVertical = true
         self.collectionView.addSubview(refreshControl)
         // Do any additional setup after loading the view.
@@ -387,4 +379,5 @@ extension CustomVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     
     
 }
+
 

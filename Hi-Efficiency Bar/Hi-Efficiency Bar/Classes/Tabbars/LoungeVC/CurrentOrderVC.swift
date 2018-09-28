@@ -8,7 +8,7 @@
 
 import UIKit
 import FBSDKShareKit
-class CurrentOrderVC: UIViewController  {
+class CurrentOrderVC: BaseViewController  {
 
     @IBOutlet weak var tblCurrent: UITableView!
     var currentPage = 0
@@ -21,8 +21,10 @@ class CurrentOrderVC: UIViewController  {
         self.tblCurrent.register(UINib(nibName: "CurrentOrderCell", bundle: nil), forCellReuseIdentifier: "CurrentOrderCell")
          self.tblCurrent.register(UINib(nibName: "FooterCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "FooterCurrentOrderCell")
         self.tblCurrent.register(UINib(nibName: "HeaderCurrentOrderCell", bundle: nil), forCellReuseIdentifier: "HeaderCurrentOrderCell")
-        self.initpalalax()
+         self.tblCurrent.register(UINib(nibName: "CurrentOrderSliceCell", bundle: nil), forCellReuseIdentifier: "CurrentOrderSliceCell")
+        //self.initpalalax()
         self.fetchCurrentOrder()
+        self.configHideNaviTable(tblCurrent)
         // Do any additional setup after loading the view.
     }
     
@@ -40,7 +42,7 @@ class CurrentOrderVC: UIViewController  {
                 self.userOrderObj = arrs![0]
                 self.open()
             }
-            self.initpalalax()
+            //self.initpalalax()
             self.tblCurrent.reloadData()
         }
     }
@@ -68,6 +70,7 @@ class CurrentOrderVC: UIViewController  {
             self.tblCurrent.reloadData()
         }
         tblCurrent.parallaxHeader.view = headerView
+        
        // tblCurrent.parallaxHeader.delegate = self
         tblCurrent.parallaxHeader.height = 195 + (UIScreen.main.bounds.size.width - 320)
         tblCurrent.parallaxHeader.mode = .fill
@@ -201,7 +204,7 @@ extension CurrentOrderVC: WebSocketDelegate
 extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
 {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -209,6 +212,10 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
         if !isLoadWS
         {
             return 0
+        }
+        if section == 0
+        {
+            return 1
         }
         if userOrderObj.arrProducts.count == 0
         {
@@ -219,10 +226,32 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 195 + (UIScreen.main.bounds.size.width - 320)
+        }
         return 55
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.section == 0
+        {
+             let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "CurrentOrderSliceCell") as! CurrentOrderSliceCell
+            cell.registerCell()
+            cell.arrProducts = self.userOrderObj.arrProducts
+            cell.collectionView.reloadData()
+            if self.userOrderObj.arrProducts.count > 0
+            {
+                let obj = self.userOrderObj.arrProducts[0]
+                cell.lblName.text = obj.name
+            }
+            cell.tapHeaderMainBar = { [] in
+                self.currentPage = cell.currentDot
+                self.tblCurrent.reloadData()
+            }
+            return cell
+        }
+        
+        
         let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "CurrentOrderCell") as! CurrentOrderCell
         let obj = userOrderObj.arrProducts[currentPage]
         print(obj.arringredients.count)
@@ -308,22 +337,21 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
         {
             return 0
         }
+        if  section == 0 {
+            return 0
+        }
         return 100
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0
+        {
+            return UIView.init(frame: .zero)
+        }
          let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "FooterCurrentOrderCell") as! FooterCurrentOrderCell
         cell.doShareFacebook = { [] in
             
             let obj = self.userOrderObj.arrProducts[self.currentPage]
-            /*FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-            content.contentURL = [NSURL URLWithString:@"https://developers.facebook.com"];
-            
-            FBSDKShareDialog *dialog = [[FBSDKShareDialog alloc] init];
-            dialog.fromViewController = self;
-            dialog.content = content;
-            dialog.mode = FBSDKShareDialogModeShareSheet;
-            [dialog show];*/
             let content = FBSDKShareLinkContent.init()
             if obj.image != nil
             {
@@ -339,10 +367,18 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0
+        {
+            return 0
+        }
         return 50
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0
+        {
+            return UIView.init(frame: .zero)
+        }
         let cell = self.tblCurrent.dequeueReusableCell(withIdentifier: "HeaderCurrentOrderCell") as! HeaderCurrentOrderCell
         if userOrderObj.user != nil
         {
@@ -357,37 +393,5 @@ extension CurrentOrderVC: UITableViewDelegate, UITableViewDataSource
         return cell.contentView
     }
 }
-extension CurrentOrderVC: UIScrollViewDelegate
-{
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print(velocity.y)
-        if(velocity.y>0) {
-            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-                print("Hide")
-            }, completion: nil)
-            
-        } else {
-            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
-                print("Unhide")
-            }, completion: nil)
-        }
-    }
-}
-//extension CurrentOrderVC: MXParallaxHeaderDelegate
-//{
-//    func parallaxHeaderDidScroll(_ parallaxHeader: MXParallaxHeader) {
-//         print(parallaxHeader.progress)
-//        var font = 24*parallaxHeader.progress
-//        if font >= 24
-//        {
-//            font = 24
-//        }
-//
-//        self.navigationController?.navigationBar.titleTextAttributes = [ NSAttributedStringKey.font: UIFont(name: FONT_APP.AlrightSans_Regular, size: font)!, NSAttributedStringKey.foregroundColor: UIColor.darkGray]
-//
-//    }
-//
-//}
+
 

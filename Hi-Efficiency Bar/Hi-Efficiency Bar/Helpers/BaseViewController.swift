@@ -38,6 +38,7 @@ class BaseViewController: UIViewController {
         hidingNavBarManager?.viewWillAppear(animated)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        //self.navigationController?.navigationBar.barTintColor = UIColor.red
         self.navigationController?.navigationBar.isTranslucent = true
         if APP_DELEGATE.isRedirectMyTab {
             self.tabBarController?.selectedIndex = 3
@@ -132,8 +133,6 @@ extension BaseViewController: HidingNavigationBarManagerDelegate
             }
             // or use some work around
         }
-      
-        
         return true
     }
     

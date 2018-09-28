@@ -33,9 +33,10 @@ class MyTabVC: BaseViewController {
        self.confiCamera()
         cameraView.isHidden = true
         if #available(iOS 10, *) {
-            topTable.constant = 64
+            topTable.constant = 0
         } else {
         }
+        self.configHideNaviTable(tblMyTab)
     }
     
     func confiCamera()
@@ -200,21 +201,21 @@ class MyTabVC: BaseViewController {
     }
     
     
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print(velocity.y)
-        if(velocity.y>0) {
-            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
-                self.navigationController?.setNavigationBarHidden(true, animated: true)
-                print("Hide")
-            }, completion: nil)
-            
-        } else {
-            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
-                self.navigationController?.setNavigationBarHidden(false, animated: true)
-                print("Unhide")
-            }, completion: nil)
-        }
-    }
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        print(velocity.y)
+//        if(velocity.y>0) {
+//            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+//                self.navigationController?.setNavigationBarHidden(true, animated: true)
+//                print("Hide")
+//            }, completion: nil)
+//
+//        } else {
+//            UIView.animate(withDuration: 0.5, delay: 0, options: UIViewAnimationOptions(), animations: {
+//                self.navigationController?.setNavigationBarHidden(false, animated: true)
+//                print("Unhide")
+//            }, completion: nil)
+//        }
+//    }
     
     @IBAction func doMakeMeADrink(_ sender: SSSpinnerButton) {
         

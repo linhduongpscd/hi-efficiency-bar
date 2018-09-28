@@ -29,6 +29,8 @@
 		272AD57F20A941D40096E2F3 /* IngreItemCollectCus.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272AD57E20A941D40096E2F3 /* IngreItemCollectCus.xib */; };
 		272B388720B5168B00CB43BF /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 272B388620B5168B00CB43BF /* LocalAuthentication.framework */; };
 		272B388A20B51C7500CB43BF /* TouchHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 272B388920B51C7500CB43BF /* TouchHelper.m */; };
+		272ECF72215DECEE00DE0F94 /* CurrentOrderSliceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272ECF70215DECEE00DE0F94 /* CurrentOrderSliceCell.xib */; };
+		272ECF73215DECEE00DE0F94 /* CurrentOrderSliceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272ECF71215DECEE00DE0F94 /* CurrentOrderSliceCell.swift */; };
 		27330F0D20805A4800F5033A /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F0C20805A4800F5033A /* iOSDevCenters+GIF.swift */; };
 		27330F0F20805F5E00F5033A /* MyTabObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F0E20805F5E00F5033A /* MyTabObj.swift */; };
 		27330F112080AAC600F5033A /* visacell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27330F102080AAC600F5033A /* visacell.swift */; };
@@ -283,6 +285,8 @@
 		272B388620B5168B00CB43BF /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		272B388820B51C7500CB43BF /* TouchHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TouchHelper.h; sourceTree = "<group>"; };
 		272B388920B51C7500CB43BF /* TouchHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TouchHelper.m; sourceTree = "<group>"; };
+		272ECF70215DECEE00DE0F94 /* CurrentOrderSliceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrentOrderSliceCell.xib; sourceTree = "<group>"; };
+		272ECF71215DECEE00DE0F94 /* CurrentOrderSliceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentOrderSliceCell.swift; sourceTree = "<group>"; };
 		27330F0C20805A4800F5033A /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		27330F0E20805F5E00F5033A /* MyTabObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabObj.swift; sourceTree = "<group>"; };
 		27330F102080AAC600F5033A /* visacell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = visacell.swift; sourceTree = "<group>"; };
@@ -1094,6 +1098,8 @@
 				27EBC96621018CED00F9E6F6 /* BlurView.xib */,
 				275C2B952154E28400682943 /* AddCartSuccess.swift */,
 				275C2B972154E29500682943 /* AddCartSuccess.xib */,
+				272ECF70215DECEE00DE0F94 /* CurrentOrderSliceCell.xib */,
+				272ECF71215DECEE00DE0F94 /* CurrentOrderSliceCell.swift */,
 			);
 			name = Cells;
 			path = Tabbars/Cells;
@@ -1334,6 +1340,7 @@
 				27EB26A4207E0A12009021A2 /* NoDataCollect.xib in Resources */,
 				2724F879208879EC003305F9 /* .gitkeep in Resources */,
 				3BD02E5E205AC5890042F890 /* FooterMainBarCollect.xib in Resources */,
+				272ECF72215DECEE00DE0F94 /* CurrentOrderSliceCell.xib in Resources */,
 				3B91CB0D2058C3160073D54B /* AlrightSans-Bold-v3.otf in Resources */,
 				275C2B982154E29500682943 /* AddCartSuccess.xib in Resources */,
 				3B91CAFB2058C2D50073D54B /* Main.storyboard in Resources */,
@@ -1469,6 +1476,7 @@
 				277A2B8D20CE2AC2000712A9 /* Dictionary+Add.swift in Sources */,
 				3B91CB1A2058C4A20073D54B /* SignUpVC.swift in Sources */,
 				275418B82068FC0F00DEED32 /* TLYShyNavBarManager.m in Sources */,
+				272ECF73215DECEE00DE0F94 /* CurrentOrderSliceCell.swift in Sources */,
 				3BDBE411205FB1F200CDA28E /* DetailCockTailCollect.swift in Sources */,
 				2754877D20DB8858006CD1DE /* SSLineSpinFadeLoader.swift in Sources */,
 				277A2B7020CE2AC2000712A9 /* CoordinateLexer.swift in Sources */,
