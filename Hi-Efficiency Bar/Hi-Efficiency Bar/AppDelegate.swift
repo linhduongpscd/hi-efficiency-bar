@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var isRedirectMyTab = false
     var settingObj =  SettingObj.init(dict: NSDictionary.init())
     var mainBarVC: MainBarVC?
-    
+    var secondItemImageView: UIImageView!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -173,7 +173,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         }
     }
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-       
+        let secondItemView = self.tabbarController.tabBar.subviews[self.tabbarController.selectedIndex + 1]
+        self.secondItemImageView = secondItemView.subviews.first as! UIImageView
+        self.secondItemImageView.contentMode = .center
+        
+        var frame1 = secondItemView.frame
+        let frame = secondItemView.frame
+        print(frame1.origin.y)
+        UIView.animate(withDuration: 0.75, animations: {
+            frame1.origin.y = -10
+            secondItemView.frame = frame1
+        }) { (success) in
+            secondItemView.frame = frame
+            frame1 = frame
+            UIView.animate(withDuration: 0.75, animations: {
+                frame1.origin.y = -10
+                secondItemView.frame = frame1
+            }) { (success) in
+                secondItemView.frame = frame
+                frame1 = frame
+                UIView.animate(withDuration: 0.75, animations: {
+                    frame1.origin.y = -10
+                    secondItemView.frame = frame1
+                }) { (success) in
+                    secondItemView.frame = frame
+                }
+            }
+        }
     }
     
 }

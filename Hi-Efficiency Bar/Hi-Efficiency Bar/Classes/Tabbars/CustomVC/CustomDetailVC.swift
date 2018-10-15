@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-class CustomDetailVC: HelpController {
+class CustomDetailVC: BaseViewController {
 
     @IBOutlet weak var tblDetail: UITableView!
     @IBOutlet weak var btnAddCustom: SSSpinnerButton!
@@ -40,7 +40,6 @@ class CustomDetailVC: HelpController {
     @IBOutlet weak var lblNormal: UILabel!
     @IBOutlet weak var lblQuanlity: UILabel!
     var numberQuanlity = 1
-    var hidingNavBarManager: HidingNavigationBarManager?
     @IBOutlet weak var scrollPage: UIScrollView!
     @IBOutlet var subNaviRight: UIView!
     @IBOutlet weak var btnActionRight: UIButton!
@@ -73,7 +72,6 @@ class CustomDetailVC: HelpController {
         super.viewDidLoad()
         btnAddCustom.spinnerColor = .white
          self.navigationController?.isNavigationBarHidden = false
-        hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: scrollPage)
         let btnRight = UIBarButtonItem.init(customView: subNaviRight)
         self.navigationItem.rightBarButtonItem = btnRight
         txfDrinkName.isEnabled = false
@@ -81,6 +79,7 @@ class CustomDetailVC: HelpController {
         {
              glassObj = GlassObj.init(dict: drinkObj.glass!)
         }
+        self.configHideNaviScrollVIEW(scrollPage)
        self.fectAllGlass()
     }
     
@@ -155,7 +154,6 @@ class CustomDetailVC: HelpController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        hidingNavBarManager?.viewWillAppear(animated)
         self.btnAddCustom.setBackgroundImage(#imageLiteral(resourceName: "btn"), for: .normal)
         self.btnAddCustom.setImage(UIImage.init(), for: .normal)
         self.btnAddCustom.setTitle("ADD TO MY TAB", for: .normal)
@@ -163,12 +161,10 @@ class CustomDetailVC: HelpController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        hidingNavBarManager?.viewDidLayoutSubviews()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        hidingNavBarManager?.viewWillDisappear(animated)
     }
     
     // MARK: UITableViewDelegate
@@ -415,11 +411,7 @@ class CustomDetailVC: HelpController {
         self.imgRorate.layer.add(rotationAnimation, forKey: nil)
         CATransaction.commit()
     }
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        hidingNavBarManager?.shouldScrollToTop()
-        
-        return true
-    }
+   
     func setColorTextNormalOrSelect(lable: UILabel, isSelect: Bool)
     {
         if isSelect {

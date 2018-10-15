@@ -84,7 +84,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     {
          cartSuccess = Bundle.main.loadNibNamed("AddCartSuccess", owner: self, options: nil)?[0] as! AddCartSuccess
         cartSuccess.frame = CGRect(x:0, y:self.view.frame.size.height - 70 - (self.tabBarController?.tabBar.frame.size.height)!, width: self.view.frame.size.width, height: 70)
-        cartSuccess.constraintRightImage.constant = (UIScreen.main.bounds.size.width/5) + 10
+        cartSuccess.constraintRightImage.constant = (UIScreen.main.bounds.size.width/5) + 5
          cartSuccess.imgDetail.image = imgDetail.image
         cartSuccess.imgDetail.backgroundColor = UIColor.white
       
@@ -397,8 +397,8 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
     var success: Bool?
     var error: String?
     var code: Int?
+    
     @IBAction func doAddMyTab(_ sender: SSSpinnerButton) {
-     
         self.addLoadingView()
         sender.setBackgroundImage(#imageLiteral(resourceName: "color_tim"), for: .normal)
         sender.startAnimate(spinnerType: .circleStrokeSpin, spinnercolor: .white, complete: nil)
@@ -433,6 +433,7 @@ class ViewDetailVC: HelpController,ASFSharedViewTransitionDataSource {
             
 
         })
+        
     }
   
     func checkValueGarnish()->Bool
